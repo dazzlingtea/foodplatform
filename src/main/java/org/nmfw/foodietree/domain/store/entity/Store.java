@@ -1,6 +1,8 @@
 package org.nmfw.foodietree.domain.store.entity;
 
 import lombok.*;
+import org.nmfw.foodietree.domain.store.entity.value.StoreApproveStatus;
+import org.nmfw.foodietree.domain.store.entity.value.StoreCategory;
 
 @Getter @ToString
 @NoArgsConstructor
@@ -8,11 +10,13 @@ import lombok.*;
 @Builder
 public class Store {
     private String storeId;
+    @Setter
     private String password;
-    private String category;
+    private StoreCategory category;
     private String address;
-    private String approve;
+    private StoreApproveStatus approve;
     private int warningCount;
     private int price;
     private String businessNumber;
+    private String storeImage;
 }

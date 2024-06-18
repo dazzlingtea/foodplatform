@@ -1,6 +1,7 @@
 package org.nmfw.foodietree.domain.store.dto.request;
 
 import lombok.*;
+import org.nmfw.foodietree.domain.store.entity.Store;
 import org.nmfw.foodietree.domain.store.entity.value.StoreApproveStatus;
 import org.nmfw.foodietree.domain.store.entity.value.StoreCategory;
 
@@ -31,15 +32,10 @@ public class StoreSignUpDto {
     @Pattern(regexp = "^[a-zA-Z]{8,}$", message = "비밀번호는 영문, 8글자 이상이어야합니다.")
     private String password;
 
-    private StoreCategory category;
-
-    private String address;
-
-    private StoreApproveStatus approve;
-
-    private int warningCount;
-
-    private int price;
-
-    private String businessNumber;
+    public Store toEntity(){
+        return Store.builder()
+                .storeId(this.account)
+                .password(this.password)
+                .build();
+    }
 }
