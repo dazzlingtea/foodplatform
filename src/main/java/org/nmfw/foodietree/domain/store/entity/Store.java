@@ -9,6 +9,7 @@ import org.nmfw.foodietree.domain.store.entity.value.StoreCategory;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Setter
 public class Store {
 
     private String storeId;
