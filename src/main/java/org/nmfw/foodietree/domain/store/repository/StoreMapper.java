@@ -6,6 +6,6 @@ import org.nmfw.foodietree.domain.store.entity.Store;
 @Mapper
 public interface StoreMapper {
     boolean save(Store store);
-
+    
     boolean storeSave(Store store);
 }
