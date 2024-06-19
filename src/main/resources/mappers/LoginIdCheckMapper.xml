@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.nmfw.foodietree.domain.store.repository.LoginIdCheckMapper">
+    <select id="existsById" resultType="boolean">
+        SELECT COUNT(*)
+        FROM tbl_store
+        <if test="type == 'account'">
+            WHERE store_id = #{keyword}
+        </if>
+    </select>
+
+</mapper>

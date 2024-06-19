@@ -12,6 +12,7 @@
   </typeAliases>
   <mappers>
     <mapper resource="mappers/StoreMapper.xml" />
+      <mapper resource="mappers/LoginIdCheckMapper.xml"/>
   </mappers>
 
 </configuration>
