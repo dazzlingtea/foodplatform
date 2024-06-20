@@ -1,4 +1,4 @@
-package org.nmfw.foodietree.domain.store.repository;
+package org.nmfw.foodietree.domain.store.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.nmfw.foodietree.domain.store.entity.Store;

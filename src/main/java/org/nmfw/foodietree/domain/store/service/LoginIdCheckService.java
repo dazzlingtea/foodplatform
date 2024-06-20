@@ -2,7 +2,7 @@ package org.nmfw.foodietree.domain.store.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.nmfw.foodietree.domain.store.repository.LoginIdCheckMapper;
+import org.nmfw.foodietree.domain.store.mapper.LoginIdCheckMapper;
 import org.springframework.stereotype.Service;
 
 @Service

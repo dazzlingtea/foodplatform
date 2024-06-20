@@ -6,15 +6,14 @@ import org.nmfw.foodietree.domain.store.service.LoginIdCheckService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/SignUp")
+@RequestMapping("/store")
 @Slf4j
 @RequiredArgsConstructor
-public class LoginIdCheckController {
+public class StoreSignInIdCheckController {
 
     private final LoginIdCheckService loginIdCheckService;
 

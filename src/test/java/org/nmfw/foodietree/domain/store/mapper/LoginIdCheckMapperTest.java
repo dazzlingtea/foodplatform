@@ -1,4 +1,4 @@
-package org.nmfw.foodietree.domain.store.repository;
+package org.nmfw.foodietree.domain.store.mapper;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

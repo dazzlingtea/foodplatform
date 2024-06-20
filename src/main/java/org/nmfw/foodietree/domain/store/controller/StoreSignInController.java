@@ -8,6 +8,7 @@ import org.nmfw.foodietree.domain.store.service.StoreService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -17,25 +18,24 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
-//@RequestMapping
+@RequestMapping("/store")
 @Slf4j
 @RequiredArgsConstructor
-public class StoreLoginController {
+public class StoreSignInController {
 
     private final StoreService storeService;
 
     //로그인 양식 열기
-    @GetMapping("/login")
+    @GetMapping("/sign-in")
     public String login(HttpSession session
             , @RequestParam(required = false) String redirect) {
 
         session.setAttribute("redirect", redirect);
-        return "/login";
+        return "login";
     }
 
-
-    @PostMapping("/login")
-    public String login(StoreLoginDto dto,
+    @PostMapping("/sign-in")
+    public String login(@RequestBody StoreLoginDto dto,
                         RedirectAttributes ra,
                         HttpServletRequest request,
                         HttpServletResponse response) {
@@ -56,8 +56,6 @@ public class StoreLoginController {
             return "redirect:/"; // 로그인 성공시
         }
         System.out.println("sdsds");
-        return "redirect:/login";
-
-
+        return "redirect:/store/sign-in";
     }
 }
