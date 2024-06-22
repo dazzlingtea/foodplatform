@@ -6,6 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FoodieTree</title>
+  <link rel="stylesheet" href="/assets/css/common.css">
   <link rel="stylesheet" href="/assets/css/index.css">
 </head>
 <body>
@@ -55,5 +56,11 @@
     <p>&copy; 2024 FoodieTree. All rights reserved.</p>
   </div>
 </footer>
+  <script>
+  const $storeSignup = document.querySelector('.store-signup');
+    $storeSignup.addEventListener('click', () => {
+        location.href = '/store/sign-up';
+    });
+</script>
 </body>
 </html>
