@@ -17,4 +17,5 @@ public class CustomerMyPageDto {
     private String customerPhoneNumber;
     private List<String> preferredArea;
     private List<PreferredFoodCategory> preferredFood;
+    private List<CustomerFavStoreDto> favStore;
 }

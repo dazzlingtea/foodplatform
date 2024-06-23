@@ -2,6 +2,8 @@ package org.nmfw.foodietree.domain.customer.entity;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @ToString
@@ -13,12 +15,12 @@ public class ReservationDetail {
     //tbl_reservation
     private String customerId;
     private String productId;
-    private String reservationTime;
-    private String cancelReservationAt;
-    private String pickedUpAt;
+    private LocalDateTime reservationTime;
+    private LocalDateTime cancelReservationAt;
+    private LocalDateTime pickedUpAt;
     // tbl_product
     private String storeId;
-    private String pickupTime;
+    private LocalDateTime pickupTime;
     // tbl_store
     private String storeName;
     private String category;

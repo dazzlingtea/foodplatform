@@ -91,5 +91,35 @@
             r.customer_id = #{customerId};
     </select>
 
+    <select id="findIssues" resultType="CustomerIssues">
+        SELECT
+            i.customer_id,
+            i.reservation_id,
+            i.issue_category,
+            i.issue_complete_at,
+            i.issue_text,
+            i.cancel_issue_at,
+            s.store_name,
+            c.nickname
+        FROM tbl_issue i
+        JOIN tbl_reservation r ON i.reservation_id = r.reservation_id
+        JOIN tbl_product p ON r.product_id = p.product_id
+        JOIN tbl_store s ON p.store_id = s.store_id
+        JOIN tbl_customer c ON i.customer_id = c.customer_id
+        WHERE i.customer_id = #{customerId}
+    </select>
+
+    <select id="findFavStore" resultType="CustomerFavStoreDto">
+        SELECT
+            fs.customer_id,
+            fs.store_id,
+            s.store_name,
+            s.store_img
+        FROM
+            tbl_fav_store fs
+        JOIN tbl_store s ON fs.store_id = s.store_id
+        WHERE
+            customer_id = #{customerId}
+    </select>
 
 </mapper>

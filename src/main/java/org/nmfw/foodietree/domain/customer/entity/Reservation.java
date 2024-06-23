@@ -2,6 +2,8 @@ package org.nmfw.foodietree.domain.customer.entity;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter @Setter
 @ToString
 @EqualsAndHashCode
@@ -12,6 +14,6 @@ public class Reservation {
     private String reservationId;
     private String customerId;
     private String productId;
-    private String reservationTime;
-    private String cancelReservationAt;
+    private LocalDateTime reservationTime;
+    private LocalDateTime cancelReservationAt;
 }

@@ -2,7 +2,9 @@ package org.nmfw.foodietree.domain.customer.mapper;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.nmfw.foodietree.domain.customer.dto.resp.CustomerFavStoreDto;
 import org.nmfw.foodietree.domain.customer.dto.resp.CustomerMyPageDto;
+import org.nmfw.foodietree.domain.customer.entity.CustomerIssues;
 import org.nmfw.foodietree.domain.customer.entity.ReservationDetail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,5 +82,27 @@ class CustomerMyPageMapperTest {
         List<ReservationDetail> reservations = customerMyPageMapper.findReservations(customerId);
         //then
         System.out.println("reservations = " + reservations);
+    }
+
+    @Test
+    @DisplayName("회원이 등록한 이슈 내역들을 조회함")
+    void findIssuesTest() {
+        //given
+        String customerId = "test@gmail.com";
+        //when
+        List<CustomerIssues> issues = customerMyPageMapper.findIssues(customerId);
+        //then
+        System.out.println("issues = " + issues);
+    }
+    
+    @Test
+    @DisplayName("최애 가게 조회")
+    void findFavStoreTest() {
+        //given
+        String customerId = "test@gmail.com";
+        //when
+        List<CustomerFavStoreDto> favStore = customerMyPageMapper.findFavStore(customerId);
+        //then
+        System.out.println("favStore = " + favStore);
     }
 }
