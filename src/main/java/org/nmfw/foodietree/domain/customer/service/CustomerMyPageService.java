@@ -3,6 +3,9 @@ package org.nmfw.foodietree.domain.customer.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.nmfw.foodietree.domain.customer.dto.resp.CustomerMyPageDto;
+import org.nmfw.foodietree.domain.customer.dto.resp.MyPageReservationDetailDto;
+import org.nmfw.foodietree.domain.customer.entity.ReservationDetail;
+import org.nmfw.foodietree.domain.customer.entity.value.PickUpStatus;
 import org.nmfw.foodietree.domain.customer.entity.value.PreferredFoodCategory;
 import org.nmfw.foodietree.domain.customer.mapper.CustomerMyPageMapper;
 import org.springframework.stereotype.Service;
@@ -38,5 +41,38 @@ public class CustomerMyPageService {
                 .preferredFood(preferredFoodCategories)
                 .preferredArea(preferenceAreas)
                 .build();
+    }
+
+    /**
+     *
+     * @param customerId: 회원아이디를 전달받아
+     * @return MyPageReservationDetailDto List
+     */
+    public List<MyPageReservationDetailDto> reservationInfo(String customerId) {
+
+        List<ReservationDetail> reservations = customerMyPageMapper.findReservations(customerId);
+
+        return reservations.stream().map(reservation -> MyPageReservationDetailDto.builder()
+                .customerId(reservation.getCustomerId())
+                .nickname(reservation.getNickname())
+                .reservationTime(reservation.getReservationTime())
+                .cancelReservationAt(reservation.getCancelReservationAt())
+                .pickedUpAt(reservation.getPickedUpAt())
+                .status(determinePickUpStatus(reservation))
+                .pickUpTime(reservation.getPickupTime())
+                .storeName(reservation.getStoreName())
+                .storeImg(reservation.getStoreImg())
+                .build()
+        ).collect(Collectors.toList());
+    }
+
+    private PickUpStatus determinePickUpStatus(ReservationDetail reservation) {
+        if (reservation.getCancelReservationAt() != null) {
+            return PickUpStatus.CANCELED;
+        }else if(reservation.getPickedUpAt() != null) {
+            return PickUpStatus.PICKEDUP;
+        }else{
+            return PickUpStatus.RESERVED;
+        }
     }
 }

@@ -9,6 +9,8 @@
   </settings>
   <typeAliases>
     <typeAlias type="org.nmfw.foodietree.domain.customer.dto.resp.CustomerMyPageDto" alias="CustomerMyPageDto"/>
+    <typeAlias type="org.nmfw.foodietree.domain.customer.dto.resp.MyPageReservationDetailDto" alias="MyPageReservationDetailDto"/>
+    <typeAlias type="org.nmfw.foodietree.domain.customer.entity.ReservationDetail" alias="ReservationDetail"/>
     <typeAlias type="org.nmfw.foodietree.domain.store.entity.Store" alias="store"/>
   </typeAliases>
   <mappers>

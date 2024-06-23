@@ -67,9 +67,10 @@
             <div class="reservation-list">
                 <c:forEach var="reservation" items="${reservations}">
                     <div class="reservation-item">
+                        <img src="${reservation.storeImg}" alt="Store Image"/>
                         <span>${reservation.storeName}</span>
                         <span>${reservation.status}</span>
-                        <span>${reservation.pickupTime}</span>
+                        <span>${reservation.pickUpTime}</span>
                     </div>
                 </c:forEach>
             </div>

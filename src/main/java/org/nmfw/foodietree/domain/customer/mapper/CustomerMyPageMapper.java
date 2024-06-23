@@ -3,7 +3,7 @@ package org.nmfw.foodietree.domain.customer.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.nmfw.foodietree.domain.customer.dto.resp.CustomerMyPageDto;
-import org.nmfw.foodietree.domain.customer.dto.resp.ReservationDetailDto;
+import org.nmfw.foodietree.domain.customer.entity.ReservationDetail;
 
 import java.util.List;
 
@@ -20,7 +20,9 @@ public interface CustomerMyPageMapper {
     List<String> findPreferenceFoods(@Param("customerId") String customerId);
 
     // 회원 예약 내역 조회
-    List<String> findReservations(@Param("customerId") String customerId);
+    // ReservationDetail로 반환받음
+    // Service에서 화면에 전송할 MyPageReservationDetailDto로 변환 후 jsp로 전송
+    List<ReservationDetail> findReservations(@Param("customerId") String customerId);
 
     /**
      * 회원정보 업데이트
@@ -50,6 +52,4 @@ public interface CustomerMyPageMapper {
 
     // 픽업 확인
     void confirmPickUp(String customerId);
-
-
 }

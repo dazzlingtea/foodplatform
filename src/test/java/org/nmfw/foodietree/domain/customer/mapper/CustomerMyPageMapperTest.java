@@ -3,6 +3,7 @@ package org.nmfw.foodietree.domain.customer.mapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.nmfw.foodietree.domain.customer.dto.resp.CustomerMyPageDto;
+import org.nmfw.foodietree.domain.customer.entity.ReservationDetail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,5 +69,16 @@ class CustomerMyPageMapperTest {
         CustomerMyPageDto customer = customerMyPageMapper.findOne(customerId);
         //then
         assertEquals(value, customer.getNickname());
+    }
+
+    @Test
+    @DisplayName("회원의 예약내역을 불러옴")
+    void findReservationTest() {
+        //given
+        String customerId = "test@gmail.com";
+        //when
+        List<ReservationDetail> reservations = customerMyPageMapper.findReservations(customerId);
+        //then
+        System.out.println("reservations = " + reservations);
     }
 }

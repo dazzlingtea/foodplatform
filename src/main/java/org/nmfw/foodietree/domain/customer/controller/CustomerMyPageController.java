@@ -3,6 +3,7 @@ package org.nmfw.foodietree.domain.customer.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.nmfw.foodietree.domain.customer.dto.resp.CustomerMyPageDto;
+import org.nmfw.foodietree.domain.customer.dto.resp.MyPageReservationDetailDto;
 import org.nmfw.foodietree.domain.customer.service.CustomerMyPageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -32,8 +34,11 @@ public class CustomerMyPageController {
         String customerId = "test@gmail.com";
         // 2. 데이터베이스에서 해당 회원 데이터 조회하기
         CustomerMyPageDto customerMyPageDto = customerMyPageService.customerInfo(customerId, request, response);
+
+        List<MyPageReservationDetailDto> myPageReservationDetailDto = customerMyPageService.reservationInfo(customerId);
         // 3. JSP파일에 조회한 데이터 보내기
         model.addAttribute("customerMyPageDto", customerMyPageDto);
+        model.addAttribute("reservations", myPageReservationDetailDto);
         return "customer-mypage-test";
     }
 }
