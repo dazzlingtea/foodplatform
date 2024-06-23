@@ -51,7 +51,6 @@ public class StoreSignUpDetailDto {
 
     public Store toEntity(){
         return Store.builder()
-                .storeId(this.account)
                 .password(this.password)
                 .category(this.category)
                 .address(this.address)

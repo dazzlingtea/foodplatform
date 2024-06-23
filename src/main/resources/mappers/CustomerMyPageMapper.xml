@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.nmfw.foodietree.domain.customer.mapper.CustomerMyPageMapper">
+
+    <resultMap id="CustomerMyPageResultMap" type="org.nmfw.foodietree.domain.customer.dto.resp.CustomerMyPageDto">
+        <id property="customerId" column="customer_id" />
+        <result property="nickname" column="nickname" />
+        <result property="profileImage" column="profile_img" />
+        <result property="customerPhoneNumber" column="customer_phone_number" />
+    </resultMap>
+
+    <!-- Customer 정보 가져오기 -->
+    <select id="findOne" resultType="CustomerMyPageDto">
+        SELECT
+            customer_id,
+            customer_phone_number,
+            nickname,
+            profile_image
+        FROM
+            tbl_customer
+        WHERE
+            customer_id = #{customerId}
+    </select>
+
+    <!-- 선호하는 지역 가져오기 -->
+    <select id="findPreferenceAreas" resultType="String">
+        SELECT
+            preferred_area
+        FROM
+            tbl_fav_area
+        WHERE
+            customer_id = #{customerId}
+    </select>
+
+    <!-- 선호하는 음식 가져오기 -->
+    <select id="findPreferenceFoods" resultType="String">
+        SELECT
+            preferred_food
+        FROM
+            tbl_fav_food
+        WHERE
+            customer_id = #{customerId}
+    </select>
+
+    <update id="updateCustomerInfo">
+        UPDATE tbl_customer
+        <set>
+            <choose>
+                <when test="type == 'nickname'">
+                    nickname = #{value}
+                </when>
+                <when test="type == 'customer_phone_number'">
+                    customer_phone_number = #{value}
+                </when>
+                <when test="type == 'profile_image'">
+                    profile_image = #{value}
+                </when>
+                <when test="type == 'customer_password'">
+                    customer_password = #{value}
+                </when>
+            </choose>
+        </set>
+        WHERE customer_id = #{customerId}
+    </update>
+
+
+
+</mapper>
