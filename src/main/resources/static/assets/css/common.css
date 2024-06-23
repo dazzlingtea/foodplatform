@@ -28,3 +28,20 @@ body {
 * {
     box-sizing: border-box;
 }
+
+header {
+    background-color: var(--white-color);
+    color: var(--header-font-color);
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}

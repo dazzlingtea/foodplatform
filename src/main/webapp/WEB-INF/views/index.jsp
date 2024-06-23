@@ -18,7 +18,7 @@
     </div>
     <div class="wrapper">
       <div class="signin"><a href="/sign-in">로그인</a></div>
-      <div class="signup"><a href="/sign-up">회원가입</a></div>
+      <div class="signup"><a href="/customer/sign-up">회원가입</a></div>
     </div>
   </div>
 </header>
