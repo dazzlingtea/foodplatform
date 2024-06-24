@@ -36,7 +36,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     // 계정 중복검사 비동기 요청 보내기
     async function idCheck(idValue){
 
-      const res = await fetch(`http://localhost:8083/SignUp/check?type=account&keyword=\${idValue}`);
+      const res = await fetch(`http://localhost:8083/store/check?type=account&keyword=\${idValue}`);
 
       const flag = await res.json();
       console.log(flag);

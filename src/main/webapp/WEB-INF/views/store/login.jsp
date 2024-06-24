@@ -8,7 +8,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     <title>Insert title here</title>
   </head>
   <body>
-    <form action="/login" name="sign-in" method="post" id="signInForm">
+    <form action="/store/sign-in" name="sign-in" method="post" id="signInForm">
       <table class="table">
           <tr>
               <td class="text-left">
@@ -59,14 +59,14 @@ uri="http://java.sun.com/jsp/jstl/core" %>
           </tr>
           <tr>
               <td class="text-center" colspan="2">
-                  <a id="sign-up-btn" class="btn form-control tooltipstered" href="/members/sign-up">
+                  <a id="sign-up-btn" class="btn form-control tooltipstered" href="/store/sing-up">
                       회원가입
                   </a>
               </td>
           </tr>
           <tr>
               <td class="text-center" colspan="2">
-                  <a id="custom-login-btn" href="/kakao/login">
+                  <a id="custom-login-btn" href="#">
                       <img src="//mud-kage.kakao.com/14/dn/btqbjxsO6vP/KPiGpdnsubSq3a0PHEGUK1/o.jpg"
                            width="300"/>
                   </a>

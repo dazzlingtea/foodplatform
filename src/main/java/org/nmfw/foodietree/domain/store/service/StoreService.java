@@ -4,14 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.nmfw.foodietree.domain.store.dto.request.LoginDto;
 import org.nmfw.foodietree.domain.store.dto.request.StoreLoginDto;
-import org.nmfw.foodietree.domain.store.dto.request.StoreSignUpDto;
-import org.nmfw.foodietree.domain.store.dto.resp.StoreDto;
 import org.nmfw.foodietree.domain.store.entity.Store;
-import org.nmfw.foodietree.domain.store.repository.StoreMapper;
+import org.nmfw.foodietree.domain.store.mapper.StoreMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 

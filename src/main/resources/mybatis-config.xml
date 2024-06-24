@@ -8,6 +8,11 @@
     <setting name="mapUnderscoreToCamelCase" value="true"/>
   </settings>
   <typeAliases>
+    <typeAlias type="org.nmfw.foodietree.domain.customer.dto.resp.CustomerMyPageDto" alias="CustomerMyPageDto"/>
+    <typeAlias type="org.nmfw.foodietree.domain.customer.dto.resp.MyPageReservationDetailDto" alias="MyPageReservationDetailDto"/>
+    <typeAlias type="org.nmfw.foodietree.domain.customer.entity.ReservationDetail" alias="ReservationDetail"/>
+    <typeAlias type="org.nmfw.foodietree.domain.customer.entity.CustomerIssues" alias="CustomerIssues"/>
+    <typeAlias type="org.nmfw.foodietree.domain.customer.dto.resp.CustomerFavStoreDto" alias="CustomerFavStoreDto"/>
     <typeAlias type="org.nmfw.foodietree.domain.store.entity.Store" alias="store"/>
     <typeAlias type="org.nmfw.foodietree.domain.product.entity.Product" alias="product"/>
   </typeAliases>
@@ -15,6 +20,6 @@
     <mapper resource="mappers/StoreMapper.xml" />
       <mapper resource="mappers/LoginIdCheckMapper.xml"/>
       <mapper resource="mappers/ProductMapper.xml"/>
+      <mapper resource="mappers/CustomerMyPageMapper.xml"/>
   </mappers>
-
 </configuration>

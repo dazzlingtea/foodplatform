@@ -39,6 +39,3 @@ out/
 ## foodieTree project
 .idea/
 env.properties
-gradle/
-gradlew
-gradlew.bat
