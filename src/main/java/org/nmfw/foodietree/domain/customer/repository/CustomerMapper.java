@@ -11,11 +11,11 @@ public interface CustomerMapper {
     boolean save(Customer customer);
 
     // 회원 정보 개별 조회
-    Customer findOne(String id);
+    // 아이디 중복확인이 아니라 계정여부를 비교하는 객체가 필요하지 않을까?
+    Customer findOne(String customer);
 
     /**
-     * @param type - 어떤걸 중복검사할지 (ex: account Or emaul)
-     * @param keyword - 중복검사할 실제값
+     * @param customerId - 이메일
      * @return - 중복이면 true, 아니면 false
      */
     // 중복 확인

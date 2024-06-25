@@ -13,7 +13,6 @@ public class CustomerLoginDto {
 
     private String customerId;
     private String customerPassword;
-    private boolean autoLogin; //자동로그인 체크 여부
+    //private boolean autoLogin; //자동로그인 체크 여부
 
 }
-

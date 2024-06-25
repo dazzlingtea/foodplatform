@@ -2,6 +2,7 @@ package org.nmfw.foodietree.domain.customer.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.nmfw.foodietree.domain.customer.dto.request.SignUpDto;
 import org.nmfw.foodietree.domain.customer.dto.request.CustomerLoginDto;
 import org.nmfw.foodietree.domain.customer.service.CustomerService;
 import org.nmfw.foodietree.domain.customer.service.LoginResult;
@@ -20,15 +21,38 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class CustomerController {
 
+
     private final CustomerService customerService;
+
+
+    //회원가입 양식 열기
+    @GetMapping("/sign-up")
+    public void signUp() {
+        log.info("customer/sign-up GET : forwarding to sign-up.jsp");
+        //return "customer/sign-up";
+    }
+
+    //회원가입 요청 처리
+    @PostMapping("/sign-up")
+    public String signUp(SignUpDto dto) {
+        log.info("/customer/sing-up POST ");
+        log.debug("parameter: {}", dto);
+
+        boolean flag = customerService.join(dto);
+
+        return flag ? "redirect:" : "redirect:/customers/sign-up";
+        //회원가입 성공시 가게 주소 입력하는 소비자 메인창으로 이동
+        //
+    }
+
+
 
     //로그인 양식 열기(조회)
     @GetMapping("/sign-in")
-    public void signIn() {
-        System.out.println("sign-in open test");
+    public String signIn() {
         log.info("customer/sign-in GET : forwarding to sign-in.jsp");
+		return "customer/sign-in";
     }
-
 
     //로그인 요청 처리
     @PostMapping("/sign-in")
@@ -60,4 +84,3 @@ public class CustomerController {
         return "redirect:/customer/sign-in";
     }
 }
-

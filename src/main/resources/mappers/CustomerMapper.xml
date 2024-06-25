@@ -9,20 +9,20 @@
     <!-- 새로운 고객 정보 저장-->
     <insert id="save">
         INSERT INTO tbl_customer
-        (customer_id, customer_password, nickName, customer_phone_number)
+            (customer_id, customer_password, nickName, customer_phone_number)
         VALUES
-        (#{customerId}, #{customerPassword}, #{nickName}, #{customerPhoneNumber})
+            (#{customerId}, #{customerPassword}, #{nickName}, #{customerPhoneNumber})
     </insert>
 
     <!--  고객 1명의 정보를 조회 -->
     <select id="findOne" resultType="customer">
         SELECT
         customer_id
-        , customer_password
-        , nickName
-        , customer_phone_number
-        , profile_image
-        , session_id
+            , customer_password
+            , nickName
+            , customer_phone_number
+            , profile_image
+            , session_id
         FROM tbl_customer
         WHERE customer_id = #{customerId}
     </select>
