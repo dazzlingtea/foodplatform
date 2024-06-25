@@ -43,6 +43,6 @@ public class CustomerMyPageController {
         model.addAttribute("customerMyPageDto", customerMyPageDto);
         model.addAttribute("reservations", myPageReservationDetailDto);
         model.addAttribute("issues", customerIssueDetailDto);
-        return "customer-mypage-test";
+        return "customer/mypage";
     }
 }
