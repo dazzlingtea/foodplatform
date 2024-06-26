@@ -2,10 +2,7 @@ package org.nmfw.foodietree.domain.customer.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.nmfw.foodietree.domain.customer.dto.resp.CustomerFavStoreDto;
-import org.nmfw.foodietree.domain.customer.dto.resp.CustomerIssueDetailDto;
-import org.nmfw.foodietree.domain.customer.dto.resp.CustomerMyPageDto;
-import org.nmfw.foodietree.domain.customer.dto.resp.MyPageReservationDetailDto;
+import org.nmfw.foodietree.domain.customer.dto.resp.*;
 import org.nmfw.foodietree.domain.customer.entity.CustomerIssues;
 import org.nmfw.foodietree.domain.customer.entity.ReservationDetail;
 import org.nmfw.foodietree.domain.customer.entity.value.IssueCategory;
@@ -18,7 +15,9 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.nmfw.foodietree.domain.customer.entity.value.IssueCategory.fromString;
@@ -35,20 +34,15 @@ public class CustomerMyPageService {
 
         CustomerMyPageDto customer = customerMyPageMapper.findOne(customerId);
         List<String> preferenceAreas = customerMyPageMapper.findPreferenceAreas(customerId);
-        List<String> preferenceFoods = customerMyPageMapper.findPreferenceFoods(customerId);
+        List<PreferredFoodDto> preferenceFoods = customerMyPageMapper.findPreferenceFoods(customerId);
         List<CustomerFavStoreDto> favStore = customerMyPageMapper.findFavStore(customerId);
-
-        // preferenceFoods String 반환 된 값들 enum(PreferredFoodCategory)으로 변경
-        List<PreferredFoodCategory> preferredFoodCategories = preferenceFoods.stream()
-                .map(PreferredFoodCategory::fromKoreanName)
-                .collect(Collectors.toList());
 
         return CustomerMyPageDto.builder()
                 .customerId(customer.getCustomerId())
                 .nickname(customer.getNickname())
                 .profileImage(customer.getProfileImage())
                 .customerPhoneNumber(customer.getCustomerPhoneNumber())
-                .preferredFood(preferredFoodCategories)
+                .preferredFood(preferenceFoods)
                 .preferredArea(preferenceAreas)
                 .favStore(favStore)
                 .build();
@@ -116,5 +110,57 @@ public class CustomerMyPageService {
         }else{
             return SOLVED;
         }
+    }
+
+    public boolean checkNicknameDuplicate(String nickname) {
+        return customerMyPageMapper.isNicknameDuplicate(nickname);
+    }
+
+    public boolean updateCustomerInfo(String customerId, List<UpdateDto> updates) {
+        for (UpdateDto update : updates) {
+            String type = update.getType();
+            String value = update.getValue();
+            log.info("update type: {}, value: {}", type, value);
+            if ("preferredFood".equals(type)) {
+                customerMyPageMapper.addPreferenceFood(customerId, value);
+                return true;
+            }
+            else if("preferredArea".equals(type)) {
+                customerMyPageMapper.addPreferenceArea(customerId, value);
+                return true;
+            }
+            else if("favStore".equals(type)) {
+                customerMyPageMapper.addFavStore(customerId, value);
+                return true;
+            }
+            else{
+                customerMyPageMapper.updateCustomerInfo(customerId, type, value);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean deleteCustomerInfo(String customerId, List<UpdateDto> dtos) {
+        for (UpdateDto delete : dtos) {
+            String type = delete.getType();
+            String target = delete.getValue();
+
+            log.info("delete type: {}, target: {}", type, target);
+
+            if("preferredFood".equals(type)) {
+                customerMyPageMapper.deletePreferenceFood(customerId, target);
+                return true;
+            }
+            if("preferredArea".equals(type)) {
+                customerMyPageMapper.deletePreferenceArea(customerId, target);
+                return true;
+            }
+            if("favStore".equals(type)) {
+                customerMyPageMapper.deleteFavStore(customerId, target);
+                return true;
+            }
+        }
+        return false;
     }
 }

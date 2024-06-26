@@ -105,4 +105,15 @@ class CustomerMyPageMapperTest {
         //then
         System.out.println("favStore = " + favStore);
     }
+    
+    @Test
+    @DisplayName("닉네임 중복 검사")
+    void checkNicknameTest() {
+        //given
+        String nickname = "나는야김테스트";
+        //when
+        boolean nicknameDuplicate = customerMyPageMapper.isNicknameDuplicate(nickname);
+        //then
+        System.out.println("nicknameDuplicate = " + nicknameDuplicate);
+    }
 }

@@ -60,7 +60,9 @@
             <h3>${customerMyPageDto.nickname}</h3>
             <p>${customerMyPageDto.customerId}</p>
             <h4>마이페이지</h4>
-            <p>개인정보수정</p>
+            <a href="customer-mypage-edit-test.jsp">
+                <p>개인정보수정</p>
+            </a>
         </div>
         <div class="info">
             <h3>예약 내역</h3>
@@ -83,7 +85,8 @@
             <h4>선호 음식</h4>
             <ul>
                 <c:forEach var="food" items="${customerMyPageDto.preferredFood}">
-                    <li>${food}</li>
+                    <img src="${food.foodImage}" alt="선호음식이미지">
+                    <li>${food.foodKoreanName}</li>
                 </c:forEach>
             </ul>
             <h4>최애 가게</h4>

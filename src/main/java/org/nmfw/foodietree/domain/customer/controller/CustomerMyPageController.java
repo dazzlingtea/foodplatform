@@ -2,14 +2,17 @@ package org.nmfw.foodietree.domain.customer.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Update;
 import org.nmfw.foodietree.domain.customer.dto.resp.CustomerIssueDetailDto;
 import org.nmfw.foodietree.domain.customer.dto.resp.CustomerMyPageDto;
 import org.nmfw.foodietree.domain.customer.dto.resp.MyPageReservationDetailDto;
+import org.nmfw.foodietree.domain.customer.dto.resp.UpdateDto;
 import org.nmfw.foodietree.domain.customer.service.CustomerMyPageService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,6 +46,20 @@ public class CustomerMyPageController {
         model.addAttribute("customerMyPageDto", customerMyPageDto);
         model.addAttribute("reservations", myPageReservationDetailDto);
         model.addAttribute("issues", customerIssueDetailDto);
-        return "customer/mypage";
+        return "customer/customer-mypage-edit-test";
+    }
+
+
+    @PatchMapping("/{customerId}/update")
+    public ResponseEntity<?> updateCustomerInfo(@PathVariable String customerId, @RequestBody List<UpdateDto> updates) {
+
+        boolean flag = customerMyPageService.updateCustomerInfo(customerId, updates);
+        return flag? ResponseEntity.ok("Update successful"): ResponseEntity.status(400).body("Update fail");
+    }
+
+    @PatchMapping("/{customerId}/delete")
+    public ResponseEntity<?> deleteCustomerInfo(@PathVariable String customerId, @RequestBody List<UpdateDto> dtos) {
+        boolean flag = customerMyPageService.deleteCustomerInfo(customerId, dtos);
+        return flag? ResponseEntity.ok("Delete successful"): ResponseEntity.status(400).body("Delete fail");
     }
 }
