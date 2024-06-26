@@ -14,7 +14,6 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @Builder
 public class StoreSignUpDetailDto {
-    private String account;
 
     @NotBlank
     private String account;
@@ -54,7 +53,7 @@ public class StoreSignUpDetailDto {
     public Store toEntity(){
         return Store.builder()
                 .password(this.password)
-                .category(this.category)
+                .category(this.category.getFoodType())
                 .address(this.address)
                 .approve(this.approve)
                 .warningCount(this.warningCount)

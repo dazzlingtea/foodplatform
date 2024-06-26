@@ -20,6 +20,7 @@
   <mappers>
     <mapper resource="mappers/CustomerMapper.xml" />
     <mapper resource="mappers/StoreMapper.xml" />
+    <mapper resource="mappers/StoreApprovalMapper.xml" />
     <mapper resource="mappers/LoginIdCheckMapper.xml"/>
     <mapper resource="mappers/ProductMapper.xml"/>
     <mapper resource="mappers/CustomerMyPageMapper.xml"/>
