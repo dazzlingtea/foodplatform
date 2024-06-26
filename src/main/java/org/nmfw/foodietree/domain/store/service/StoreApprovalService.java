@@ -3,7 +3,6 @@ package org.nmfw.foodietree.domain.store.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.nmfw.foodietree.domain.store.dto.resp.StoreApprovalDto;
-import org.nmfw.foodietree.domain.store.entity.Store;
 import org.nmfw.foodietree.domain.store.mapper.StoreApprovalMapper;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +14,11 @@ public class StoreApprovalService {
     private final StoreApprovalMapper storeApprovalMapper;
 
     public void registerStoreInfo(StoreApprovalDto storeApprovalDto) {
-        Store store = storeApprovalMapper.selectStoreById(storeApprovalDto.getStoreId());
+        StoreApprovalDto store = storeApprovalMapper.selectStoreById(storeApprovalDto.getStoreId());
         if (store != null) {
             store.setStoreName(storeApprovalDto.getStoreName());
             store.setAddress(storeApprovalDto.getAddress());
-            store.setCategory(storeApprovalDto.getCategory().getFoodType());
+            store.setCategory(storeApprovalDto.getCategory());
             store.setBusinessNumber(storeApprovalDto.getBusinessNumber());
             store.setStoreLicenseNumber(storeApprovalDto.getStoreLicenseNumber());
             storeApprovalMapper.updateStoreInfo(store);
