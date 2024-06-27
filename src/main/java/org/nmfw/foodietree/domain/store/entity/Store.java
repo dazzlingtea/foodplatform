@@ -5,6 +5,7 @@ import org.nmfw.foodietree.domain.store.entity.value.StoreApproveStatus;
 import org.nmfw.foodietree.domain.store.entity.value.StoreCategory;
 
 @Getter @ToString
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

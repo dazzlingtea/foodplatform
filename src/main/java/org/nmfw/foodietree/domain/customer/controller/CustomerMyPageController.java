@@ -24,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/customer")
 public class CustomerMyPageController {
-
+    String customerId = "sji4205@naver.com";
     private final CustomerMyPageService customerMyPageService;
 
     @GetMapping("/mypage")
@@ -32,11 +32,30 @@ public class CustomerMyPageController {
                             , Model model
                             , HttpServletRequest request
                             , HttpServletResponse response){
-        log.info("/customer/mypage-main POST");
+        log.info("/customer/mypage GET");
 
         // 1. 로그인 되어있는 회원 아이디 가져오기
-        String customerId = "test@gmail.com";
+//        String customerId = "sji4205@naver.com";
         // 2. 데이터베이스에서 해당 회원 데이터 조회하기
+        CustomerMyPageDto customerMyPageDto = customerMyPageService.getCustomerInfo(customerId, request, response);
+
+        List<MyPageReservationDetailDto> myPageReservationDetailDto = customerMyPageService.getReservationInfo(customerId);
+
+        List<CustomerIssueDetailDto> customerIssueDetailDto = customerMyPageService.getCustomerIssues(customerId);
+        // 3. JSP파일에 조회한 데이터 보내기
+        model.addAttribute("customerMyPageDto", customerMyPageDto);
+        model.addAttribute("reservations", myPageReservationDetailDto);
+        model.addAttribute("issues", customerIssueDetailDto);
+        return "customer/customer-mypage-test";
+    }
+
+    @GetMapping("/customer-mypage-edit")
+    public String editCustomerInfo(HttpSession session,
+                                   Model model,
+                                   HttpServletRequest request,
+                                   HttpServletResponse response) {
+        log.info("/customer/customer-mypage-edit-test GET");
+
         CustomerMyPageDto customerMyPageDto = customerMyPageService.getCustomerInfo(customerId, request, response);
 
         List<MyPageReservationDetailDto> myPageReservationDetailDto = customerMyPageService.getReservationInfo(customerId);
