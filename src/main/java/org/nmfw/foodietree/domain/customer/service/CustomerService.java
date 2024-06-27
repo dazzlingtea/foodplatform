@@ -8,14 +8,11 @@ import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.nmfw.foodietree.domain.customer.dto.request.CustomerLoginDto;
-import org.nmfw.foodietree.domain.customer.dto.request.CustomerLoginDto;
 import org.nmfw.foodietree.domain.customer.dto.request.SignUpDto;
 import org.nmfw.foodietree.domain.customer.entity.Customer;
-import org.nmfw.foodietree.domain.customer.repository.CustomerMapper;
+import org.nmfw.foodietree.domain.customer.mapper.CustomerMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import javax.servlet.http.HttpSession;
-import static org.nmfw.foodietree.domain.customer.service.LoginResult.*;
 
 @Service
 @RequiredArgsConstructor

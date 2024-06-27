@@ -24,19 +24,6 @@ public class CommonController {
         return "sign-in";
     }
 
-    @GetMapping("/customer/sign-up")
-    public String signUp(Model model) {
-        model.addAttribute("kakaoApiKey", kakaoApiKey);
-        return "customer/sign-up";
-    }
-
-    @PostMapping("/customer/sign-up")
-    @CrossOrigin
-    public String signUp(SignUpDto signUpDto) {
-        log.info("signUpDto: {}", signUpDto);
-        return "redirect:/sign-in";
-    }
-
     @Data
     static class SignUpDto {
         private String account;

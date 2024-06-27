@@ -1,9 +1,9 @@
 package org.nmfw.foodietree.domain.customer.repository;
 
-import org.apache.ibatis.annotations.Param;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.nmfw.foodietree.domain.customer.entity.Customer;
+import org.nmfw.foodietree.domain.customer.mapper.CustomerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;

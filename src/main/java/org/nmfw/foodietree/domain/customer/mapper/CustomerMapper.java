@@ -1,4 +1,4 @@
-package org.nmfw.foodietree.domain.customer.repository;
+package org.nmfw.foodietree.domain.customer.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
