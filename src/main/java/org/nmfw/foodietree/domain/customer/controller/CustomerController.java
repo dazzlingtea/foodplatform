@@ -25,16 +25,16 @@ public class CustomerController {
     private final CustomerService customerService;
 
 
-    //회원가입 양식 열기
-    @GetMapping("/sign-up")
-    public void signUp() {
-        log.info("customer/sign-up GET : forwarding to sign-up.jsp");
-        //return "customer/sign-up";
-    }
+	//회원가입 양식 열기
+	@GetMapping("/sign-up")
+	public void signUp() {
+		log.info("customer/sign-up GET : forwarding to sign-up.jsp");
+		//return "customer/sign-up";
+	}
 
-    //회원가입 요청 처리
-    @PostMapping("/sign-up")
-    public String signUp(SignUpDto dto) {
+	//회원가입 요청 처리
+	@PostMapping("/sign-up")
+	public String signUp(SignUpDto dto) {
         log.info("/customer/sing-up POST ");
         log.debug("parameter: {}", dto);
 
