@@ -81,4 +81,10 @@ public class CustomerMyPageController {
         boolean flag = customerMyPageService.deleteCustomerInfo(customerId, dtos);
         return flag? ResponseEntity.ok("Delete successful"): ResponseEntity.status(400).body("Delete fail");
     }
+
+    @PatchMapping("/{customerId}/update/password")
+    public ResponseEntity<?> updateCustomerPw(@PathVariable String customerId, @RequestBody String newPassword) {
+        boolean flag = customerMyPageService.updateCustomerPw(customerId, newPassword);
+        return flag? ResponseEntity.ok("password reset successful"): ResponseEntity.status(400).body("reset fail");
+    }
 }
