@@ -23,8 +23,8 @@ class CustomerServiceTest {
         SignUpDto dto = SignUpDto.builder()
                 .customerId("dog@naver.com")
                 .customerPassword("dog123!")
-                .nickName("오레오")
-                .customerPhoneNumber("010-9876-5432")
+//                .nickName("오레오")
+//                .customerPhoneNumber("010-9876-5432")
                 .build();
         //when
         boolean flag = customerService.join(dto);
@@ -69,7 +69,7 @@ class CustomerServiceTest {
     void successTest() {
         //given
         CustomerLoginDto dto = CustomerLoginDto.builder()
-                .customerId("dog@naver.com")
+                .customerId("pet@naver.com")
                 .customerPassword("dog123!")
                 .build();
         //when
