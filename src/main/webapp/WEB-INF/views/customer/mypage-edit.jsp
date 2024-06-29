@@ -115,7 +115,7 @@
                             <c:forEach var="store" items="${customerMyPageDto.favStore}" varStatus="status">
                                 <li id="store-${status.index}">
                                     <div class="img-box">
-                                        <img src="${store}" alt="선호음식이미지">
+                                        <img src="${store}" alt="최애가게이미지">
                                     </div>
                                     <span>${store.storeName}</span>
                                     <i class="fa-solid fa-heart on"></i>

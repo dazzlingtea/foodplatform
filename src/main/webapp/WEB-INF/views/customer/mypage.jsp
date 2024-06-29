@@ -6,9 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FoodieTree</title>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link rel="stylesheet" href="/assets/css/common.css">
     <link rel="stylesheet" href="/assets/css/customer/customer-mypage.css">
-
 </head>
 <body>
 <header>
@@ -34,57 +37,108 @@
             </ul>
         </div>
         <div class="info">
-            <h3>예약 내역</h3>
-            <div class="reservation-list">
-                <c:forEach var="reservation" items="${reservations}">
-                    <div class="reservation-item">
-                        <img src="${reservation.storeImg}" alt="Store Image"/>
-                        <span>${reservation.storeName}</span>
-                        <span>${reservation.status}</span>
-                        <span>${reservation.pickUpTime}</span>
-                    </div>
-                </c:forEach>
+            <div class="info-box">
+                <div class="title">
+                    <h3 class="title-text">예약 내역</h3>
+                </div>
+
+                <div class="info-wrapper reservation">
+                    <ul class="reservation-list">
+                        <c:forEach var="reservation" items="${reservations}" varStatus="status">
+                            <li id="reservation-${status.index}" class="reservation-item">
+                                <div class="item">
+                                    <div class="img-wrapper">
+                                        <div class="img-box">
+                                            <img src="${reservation.storeImg != null ? reservation.storeImg : "/assets/img/western.jpg"}"
+                                                 alt="Store Image"/>
+                                        </div>
+                                        <c:if test="${reservation.status == 'CANCELED'}">
+                                            <i class="fa-solid fa-circle-xmark canceled"></i>
+                                        </c:if>
+                                        <c:if test="${reservation.status == 'RESERVED'}">
+                                            <i class="fa-solid fa-spinner loading"></i>
+                                        </c:if>
+                                        <c:if test="${reservation.status == 'PICKEDUP'}">
+                                            <i class="fa-solid fa-circle-check done"></i>
+                                        </c:if>
+                                    </div>
+                                    <span>${reservation.storeName}</span>
+                                </div>
+                                <div class="item">
+                                    <span>${reservation.status}</span>
+                                </div>
+                                <div class="item">
+                                    <span>${reservation.pickUpTime}</span>
+                                </div>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
             </div>
-            <h4>선호 지역</h4>
-            <ul>
-                <c:forEach var="area" items="${customerMyPageDto.preferredArea}">
-                    <li>${area}</li>
-                </c:forEach>
-            </ul>
-            <h4>선호 음식</h4>
-            <ul>
-                <c:forEach var="food" items="${customerMyPageDto.preferredFood}">
-                    <li>
-                        <div class="img-wrapper">
-                            <img src="${food.foodImage}" alt="선호음식이미지" />
-                        </div>
-                        <span>${food.preferredFood}</span>
-                    </li>
-                </c:forEach>
-            </ul>
-            <h4>최애 가게</h4>
-            <ul>
-                <c:forEach var="area" items="${customerMyPageDto.favStore}">
-                    <li>
-                        <div class="img-wrapper">
-                            <img src="${area.storeImg}" alt="최애가게이미지">
-                        </div>
-                        <span>${area.storeName}</span>
-                    </li>
-                </c:forEach>
-            </ul>
-            <h3>이슈 내역</h3>
-            <div class="issue-list">
-                <c:forEach var="issue" items="${issues}">
-                    <div class="issue-item">
-                        <span>${issue.issueCategory.issueName}</span>
-                        <span>${issue.issueText}</span>
-                        <span>${issue.issueStatus}</span>
-                        <span>${issue.cancelIssueAt}</span>
-                        <span>${issue.storeName}</span>
-                        <span>${issue.nickname}</span>
-                    </div>
-                </c:forEach>
+            <div class="info-box">
+                <div class="title">
+                    <h3 class="title-text">선호 지역</h3>
+                </div>
+                <div class="info-wrapper">
+                    <ul class="info-list area">
+                        <c:forEach var="area" items="${customerMyPageDto.preferredArea}">
+                            <li>${area}</li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </div>
+            <div class="info-box">
+                <div class="title">
+                    <h3 class="title-text">선호 음식</h3>
+                </div>
+                <div class="info-wrapper">
+                    <ul class="info-list food">
+                        <c:forEach var="food" items="${customerMyPageDto.preferredFood}">
+                            <li>
+                                <div class="img-box">
+                                    <img src="${food.foodImage}" alt="선호음식이미지"/>
+                                </div>
+                                <span>${food.preferredFood}</span>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </div>
+            <div class="info-box">
+                <div class="title">
+                    <h3 class="title-text">최애 가게</h3>
+                </div>
+                <div class="info-wrapper">
+                    <ul class="info-list store">
+                        <c:forEach var="store" items="${customerMyPageDto.favStore}">
+                            <li id="${store.storeId}">
+                                <div class="img-box">
+                                    <img src="${store.storeImg ? store.storeImg : "/assets/img/japanese.jpg"}" alt="최애가게이미지">
+                                </div>
+                                <span>${store.storeName}</span>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </div>
+            <div class="info-box">
+                <div class="title">
+                    <h3 class="title-text">이슈 내역</h3>
+                </div>
+                <div class="info-wrapper">
+                    <ul class="issue-list">
+                        <c:forEach var="issue" items="${issues}">
+                            <li class="issue-item">
+                                <span>${issue.issueCategory.issueName}</span>
+                                <span>${issue.issueText}</span>
+                                <span>${issue.issueStatus}</span>
+                                <span>${issue.cancelIssueAt}</span>
+                                <span>${issue.storeName}</span>
+                                <span>${issue.nickname}</span>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
             </div>
             <div class="stats">
                 <div>10kg의 음쓰를 줄였습니다</div>
