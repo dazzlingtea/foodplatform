@@ -1,16 +1,16 @@
-package org.nmfw.foodietree.domain.product.entity;
+package org.nmfw.foodietree.domain.product.dto.response;
 
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-@Getter @ToString
+@Getter
+@ToString
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Product {
+public class CategoryByAreaDto {
     private String storeId;
     private String productId;
     private LocalDateTime pickupTime;
@@ -20,9 +20,4 @@ public class Product {
     private String category;
     private String address;
     private int price;
-    private int productCnt;
-    private String proImage;
-    private List<String> preferredArea;
-    private List<String> preferredFood;
-
 }

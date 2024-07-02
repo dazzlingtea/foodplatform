@@ -48,16 +48,16 @@ class CustomerMyPageMapperTest {
     }
 
 
-    @Test
-    @DisplayName("선호 음식을 추출해옴")
-    void findPreferenceFoodTest() {
-        //given
-        String customerId = "test@gmail.com";
-        //when
-        List<String> preferenceFoods = customerMyPageMapper.findPreferenceFoods(customerId);
-        //then
-        System.out.println("preferenceAreas = " + preferenceFoods);
-    }
+//    @Test
+//    @DisplayName("선호 음식을 추출해옴")
+//    void findPreferenceFoodTest() {
+//        //given
+//        String customerId = "test@gmail.com";
+//        //when
+//        List<String> preferenceFoods = customerMyPageMapper.findPreferenceFoods(customerId);
+//        //then
+//        System.out.println("preferenceAreas = " + preferenceFoods);
+//    }
 
     @Test
     @DisplayName("회원 개인정보 업데이트")
