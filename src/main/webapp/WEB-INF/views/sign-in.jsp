@@ -24,16 +24,24 @@
     </div>
     <div class="form-wrapper">
         <div class="sign-in">
-            <form action="/customer/sign-in" method="post">
+            <form action="#" method="post">
                 <div class="container">
                     <div class="input-wrapper">
-                        <input type="text" name="account" placeholder="아이디">
-                        <input type="password" name="password" placeholder="비밀번호">
+                        <input type="text" name="customerId" placeholder="아이디">
+                        <input type="password" name="customerPassword" placeholder="비밀번호">
                     </div>
                     <button type="submit" id="sign-in-btn">로그인</button>
                 </div>
             </form>
         </div>
+        <tr>
+            <td>
+                <label class="auto-label" for="auto-login">
+                    <span><i class="fas fa-sign-in-alt"></i>자동 로그인</span>
+                    <input type="checkbox" id="auto-login" name="autoLogin">
+                </label>
+            </td>
+        </tr>
     </div>
     <div class="sub-wrapper">
         <a id="find-pw-a" href="#">비밀번호 찾기</a>
@@ -67,7 +75,7 @@
         if ($btnWrapper.querySelector('.checked').id === 'store-btn') {
             location.href = '/store/find-pw';
         } else if ($btnWrapper.querySelector('.checked').id === 'customer-btn') {
-            location.href = '/find-pw';
+            location.href = '/customer/find-pw';
         }
     });
 
@@ -76,7 +84,7 @@
         if ($btnWrapper.querySelector('.checked').id === 'store-btn') {
             location.href = '/store/sign-up';
         } else if ($btnWrapper.querySelector('.checked').id === 'customer-btn') {
-            location.href = '/sign-up';
+            location.href = '/customer/sign-up';
         }
     });
 
