@@ -2,6 +2,12 @@ package org.nmfw.foodietree.domain.customer.util;
 
 
 import org.nmfw.foodietree.domain.customer.dto.resp.LoginUserInfoDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.util.WebUtils;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class LoginUtil {
@@ -9,6 +15,7 @@ public class LoginUtil {
     public static final String LOGIN = "login";
 
     public static final String AUTO_LOGIN_COOKIE = "auto";
+    private static final Logger log = LoggerFactory.getLogger(LoginUtil.class);
 
     // 로그인 여부 확인
     public static boolean isLoggedIn(HttpSession session) {
@@ -16,22 +23,18 @@ public class LoginUtil {
     }
 
     // 로그인한 회원의 계정명 얻기
-    public static String getLoggedInUserAccount(HttpSession session) {
-        LoginUserInfoDto loggedInUser = getLoggedInUser(session);
-        return loggedInUser != null ? loggedInUser.getCustomerId() : null;
-    }
-    public static LoginUserInfoDto getLoggedInUser(HttpSession session) {
-        return (LoginUserInfoDto) session.getAttribute(LOGIN);
-    }
-//    public static boolean isAdmin(HttpSession session) {
+//    public static String getLoggedInUserAccount(HttpSession session) {
 //        LoginUserInfoDto loggedInUser = getLoggedInUser(session);
-//        Auth auth = null;
-//        if (isLoggedIn(session)) {
-//            auth = Auth.valueOf(loggedInUser.getAuth());
-//        }
-//        return auth == Auth.ADMIN;
+//        return loggedInUser != null ? loggedInUser.getCustomerId() : null;
 //    }
-    public static boolean isMine(String boardAccount, String loggedInUserAccount) {
-        return boardAccount.equals(loggedInUserAccount);
+
+    public static String getLoggedInUser(HttpSession session) {
+        LoginUserInfoDto obj = (LoginUserInfoDto)session.getAttribute(LOGIN);
+        return obj.getCustomerId();
+    }
+
+    public static boolean isAutoLogin(HttpServletRequest request) {
+        Cookie autoLoginCookie = WebUtils.getCookie(request, AUTO_LOGIN_COOKIE);
+        return autoLoginCookie != null;
     }
 }
