@@ -1,5 +1,4 @@
 // =========== 전역 변수 ==============
-const customerId = "test@gmail.com";
 const BASE_URL = "http://localhost:8083";
 
 const $reservationList = document.querySelector('.reservation-list');
