@@ -7,11 +7,12 @@
     <title>FoodieTree</title>
         <link rel="stylesheet" href="/assets/css/common.css">
         <link rel="stylesheet" href="/assets/css/sign-in.css">
+        
 </head>
 <body>
     <header>
         <div class="container">
-            <div class="logo">FoodieTree ${login.customerId}</div>
+            <div class="logo">FoodieTree </div>
             <div class="logo-img">
                 <img src="/assets/img/img_2.png" alt="">
             </div>
@@ -89,5 +90,7 @@
     });
 
 </script>
+    <!-- 공통푸터 -->
+    <%@ include file="include/footer.jsp" %> 
 </body>
 </html>
