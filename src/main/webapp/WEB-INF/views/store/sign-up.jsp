@@ -8,19 +8,18 @@
     <title>FoodieTree</title>
     <link rel="stylesheet" href="/assets/css/common.css">
     <link rel="stylesheet" href="/assets/css/store/sign-up.css">
-    <script defer src="/assets/js/utils/lodash.js"></script>
-    <script defer type="module" src="/assets/js/store/sign-up-event.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Francois+One&family=Margarine&family=Nanum+Gothic&display=swap" rel="stylesheet">
+
 </head>
 <body>
-<%@ include file="../include/spinner.jsp" %>
-<header>
-    <div class="container">
-        <div class="logo margarine-regula">FoodieTree</div>
-        <div class="logo-img">
-            <img src="/assets/img/img_2.png" alt="Logo">
-        </div>
-    </div>
-</header>
+  <header>
+      <div class="container">
+          <div a href="/" class="logo margarine-regular">FoodieTree</div></a>
+          <div class="logo-img">
+              <img src="/assets/img/img_2.png" alt="Logo">
+          </div>
+      </div>
+  </header>
 <section class="input-area">
     <form action="/store/sign-up" method="post">
         <div class="container">
