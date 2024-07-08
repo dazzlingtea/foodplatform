@@ -58,6 +58,24 @@
     .info-wrapper{
         padding: 0 10px 10px;
     }
+
+    #modal-product-count-details{
+        padding: 40px;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+    #modal-product-count-details .product-add-item div{
+        margin-bottomr: 10px;
+    }
+
+    .my-page-area .container .info .info-wrapper.reservation{
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+
 </style>
 <header>
     <div class="container">
@@ -102,7 +120,7 @@
                     <div class="info-wrapper reservation">
                         <ul class="reservation-list">
                             <c:forEach var="reservation" items="${reservations}" varStatus="status">
-                                <li id="reservation-${status.index}" class="reservation-item"
+                                <li id="reservation-${status.index}" class="reservation-item ${reservation.status}"
                                     data-reservation-id="${reservation.reservationId}"
                                     data-reservation-status="${reservation.status}">
                                     <div class="item">
@@ -240,9 +258,10 @@
 <!-- 수량 추가 모달 창 -->
 <div id="product-add-modal" class="modal">
     <div class="modal-content">
-        <span class="close">&times<i class="fas fa-times"></i></span>
+        <span class="close"><i class="fas fa-times"></i></span>
+
         <div id="product-count-status">
-            <h2>수량 변경 오늘 등록된 수량, 남은 수량 보여주고 몇개로 업데이트할건지 물어보고 받음</h2>
+<%--            <h2>수량 변경 오늘 등록된 수량, 남은 수량 보여주고 몇개로 업데이트할건지 물어보고 받음</h2>--%>
             <div id="modal-product-count-details"></div>
         </div>
     </div>

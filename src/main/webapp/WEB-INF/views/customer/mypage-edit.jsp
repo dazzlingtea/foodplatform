@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/assets/css/common.css">
     <link rel="stylesheet" href="/assets/css/customer/customer-mypage-edit.css">
     <script type="module" src="/assets/js/customer/mypage-edit-event.js" defer></script>
+
     <style>
         .modal {
             display: none; /* 모달을 기본적으로 숨깁니다. */
@@ -45,6 +46,20 @@
             color: black;
             text-decoration: none;
             cursor: pointer;
+        }
+
+        .modal-content .close{
+            top: 304px;
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            right: 769px;
+        }
+
+        .modal-content h2 {
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -99,7 +114,7 @@
                         <a href="#" id="avatar" class="before">
                             <i class="fa-solid fa-pen-to-square"></i>
                             <img
-                                    src="${customerMyPageDto.profileImage ? customerMyPageDto.profileImage : '/assets/img/western.jpg'}"
+                                    src="${customerMyPageDto.profileImage !=null? customerMyPageDto.profileImage : '/assets/img/western.jpg'}"
                                     alt="Customer profile image">
                         </a>
                         <button id="profile_btn" class="btn calendar-button" type="submit" value="프로필 변경"
@@ -170,7 +185,7 @@
         <h2>비밀번호 재설정</h2>
         <div id="step-email">
             <p>인증번호를 받으세요.</p>
-            <button id="send-verification-code-btn">인증번호 받기</button>
+            <button id="send-verification-code-btn" class="yellow-click">인증번호 받기</button>
         </div>
         <div id="step-code" class="hidden">
             <p>인증번호를 입력하세요.</p>
@@ -201,6 +216,7 @@
 </div>
 
 <script>
+    const BASE_URL = "http://localhost:8083";
     const customerId = "${sessionScope.login.customerId}";
     const avatar = document.getElementById('avatar');
     const profileImage = document.getElementById('profileImage');
@@ -222,9 +238,9 @@
 
     const requestProfileImg = async () => {
         const formData = new FormData();
-        formData.append('profileImage', profileImage.files[0]);
+        formData.append('storeImg', profileImage.files[0]);
         //   비동기 요청
-        const response = await fetch('/customer/mypage-edit', {
+        const response = await fetch(`\${BASE_URL}/customer/update/img`, {
             method: 'POST',
             body: formData
         });

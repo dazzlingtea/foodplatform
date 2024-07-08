@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/assets/css/customer/customer-mypage.css">
 <%--    <link rel="stylesheet" href="/assets/css/customer/customer-mypage-edit.css">--%>
     <link rel="stylesheet" href="/assets/css/reservation/reservation-detail-modal.css">
+    <link rel="stylesheet" href="/assets/css/email-modal.css">
     <script defer src="/assets/js/reservation.js"></script>
     <style>
         @font-face {
@@ -34,6 +35,9 @@
             font-family: 'NIXGONM-Vb', 'Nanum Gothic', sans-serif;
             /*font-size: 25px;*/
         }
+        section.my-page-area{
+            font-family: 'NIXGONM-Vb', 'Nanum Gothic', sans-serif;
+        }
         .my-page-area .container .profile ul li.nav-item a.nav-link.mypage-link{
             position: relative;
             top: 50px;
@@ -43,14 +47,22 @@
             bottom: -90px;
         }
 
-        .title{
-            padding: 15px 15px 0;
-            margin: 20px 20px 0;
+        .info .info-box .title {
+            padding: 0;
+            margin: 0;
         }
 
-        .my-page-area .container .info .info-wrapper{
-            width: 1016px;
-            margin-left: 36px;
+        .title .title-text {
+            margin-bottom: 0;
+        }
+
+        .my-page-area .container .info ul li {
+            padding: 0;
+            margin: 0;
+        }
+
+        .my-page-area .container .info .info-wrapper {
+
             border-radius: 0 0 15px 15px;
         }
 
@@ -73,7 +85,8 @@
         }
 
         .modal .modal-content #modal-details{
-            padding: 30px;
+            padding-bottom: 30px;
+
             text-align: center;
             font-size: 20px;
             line-height: 2;
@@ -105,10 +118,32 @@
             font-size: 19px;
         }
 
+        .modal-content{
+            width: 500px;
+            padding: 0;
+        }
+
+        #reservation-modal #modal-details img{
+            width: 100%;
+            border-radius: 15px 15px 0 0;
+            height: 384px;
+        }
+
+        .modal-content .close{
+            top: 313px;
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            right: 762px;
+        }
+
     </style>
 </head>
 <body>
-<%@ include file="../include/header.jsp" %>
+ <%@ include file="../include/header.jsp" %>
+
 <section class="my-page-area">
     <div class="container">
         <div class="profile">
@@ -146,7 +181,8 @@
                 <div class="info-wrapper reservation">
                     <ul class="reservation-list">
                         <c:forEach var="reservation" items="${reservations}" varStatus="status">
-                            <li id="reservation-${status.index}" class="reservation-item" data-reservation-id="${reservation.reservationId}">
+                            <li id="reservation-${status.index}" class="reservation-item ${reservation.status}" data-reservation-id="${reservation.reservationId}">
+
                                 <div class="item">
                                     <div class="img-wrapper">
                                         <div class="img-box">
@@ -176,8 +212,9 @@
                                     </c:if>
                                     <c:if test="${reservation.status == 'RESERVED'}">
                                         <span>픽업하러 가는 중이에요!</span>
-                                        <span>${reservation.pickupTimeF}</span>
-                                        <button class="reservation-cancel-btn calendar-button">예약 취소하기</button>
+                                        <span>${reservation.pickupTimeF}까지</span>
+                                        <button class="reservation-cancel-btn calendar-button cancel-res">예약 취소하기</button>
+
                                     </c:if>
                                     <c:if test="${reservation.status == 'PICKEDUP'}">
                                         <span>픽업을 완료했어요</span>
