@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.nmfw.foodietree.domain.store.repository.StoreMapper">
+<mapper namespace="org.nmfw.foodietree.domain.store.mapper.StoreMapper">
 
   <insert id="save">
     INSERT INTO tbl_store
@@ -11,4 +11,23 @@
     VALUES (#{storeId}, #{password}, #{category}, #{address}, #{approve}, #{warningCount}, #{price}, #{businessNumber})
   </insert>
 
+  <select id="findOne" resultType="store">
+    SELECT
+      store_id,
+      password
+    FROM tbl_store
+    WHERE store_id = #{storeId}
+  </select>
+
+  <insert id="storeSave">
+    INSERT INTO tbl_store
+      (store_id, password)
+    VALUES (#{storeId}, #{password})
+  </insert>
+
+  <update id="updateAutoLogin">
+    UPDATE tbl_store
+    SET session_id = #{sessionId}, limit_time = #{limitTime}
+    WHERE store_id = #{id}
+  </update>
 </mapper>
