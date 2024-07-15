@@ -1,13 +1,12 @@
 import React from 'react';
-import { RouterProvider } from 'react-router-dom';
+import { RouterProvider } from "react-router-dom";
+import { router } from "./config/router-config";
 
 
 const App = () => {
   
   return (
-      <>
-        hello foodietree
-      </>
+    <RouterProvider router={router} />
   );
 };
 
