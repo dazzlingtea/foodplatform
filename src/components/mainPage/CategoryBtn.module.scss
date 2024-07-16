@@ -1,0 +1,22 @@
+.category-btn {
+  background-color: #fff;
+  outline: solid 1px #7CAF74;
+  width: 70px;
+  height: 40px;
+  padding: 10px;
+  font-size: 15px;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: background-color 0.3s;
+}
+
+.category-btn:hover {
+  background-color: #7CAF74;
+  color:#fff;
+}
