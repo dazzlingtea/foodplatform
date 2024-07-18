@@ -1,0 +1,111 @@
+a:link, a:visited {
+  text-decoration: none;
+}
+
+.profileSection {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  padding: 10px;
+  background: #fff;
+  border-radius: 15px 0 0 15px;
+
+  .profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .imgBox {
+      display: block;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: white 0 0 0 2px;
+      transform: translateZ(0);
+      margin-top: 50px;
+      img {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+        transition: transform 0.5s;
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    p {
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    .nav {
+      font-size: 18px;
+      margin-top: 20px;
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .navItem {
+        width: 100%;
+
+        .navLink {
+          color: #111;
+          padding: 10px 0;
+          display: block;
+          width: 100%;
+          border-radius: .75rem;
+          font-weight: 600;
+
+          &:hover {
+            color: rgba(8, 10, 8, 1);
+            background: linear-gradient(135deg, #e0eee0, #dff3d8);
+          }
+        }
+      }
+    }
+  }
+
+  .stats {
+    font-size: 18px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    flex-direction: column;
+
+    .statsBox {
+      background: #fff;
+      margin: 20px 0;
+      padding: 20px;
+      width: 100%;
+      margin-bottom: 10px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border-radius: 15px;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 13px rgba(0, 0, 0, 0.2);
+        font-size: 19px;
+      }
+
+      div {
+        font-size: 16px;
+        background: linear-gradient(135deg, #fdfcfc, #f1f8ee);
+        margin: 10px 0;
+        padding: 20px;
+        border-radius: 15px;
+      }
+    }
+  }
+}

@@ -1,8 +1,9 @@
 import {createBrowserRouter} from "react-router-dom";
-
 import RootLayout from '../layout/RootLayout';
 import ErrorPage from "../pages/ErrorPage";
 import Home from "../pages/Home";
+import StoreMyPage from "../pages/store/StoreMyPage";
+import CustomerMyPage from "../pages/customer/CustomerMyPage";
 
 const homeRouter = [
   {
@@ -12,6 +13,17 @@ const homeRouter = [
   {
     path: '/sign-in',
     element: <div>sign-in page</div>
+  }
+];
+
+const customerMyPageRouter = [
+  {
+    path: 'mypage',
+    element: <CustomerMyPage />
+  },
+  {
+    path: 'mypage-edit',
+    element: <div>Customer MyPage Edit Page</div>
   }
 ];
 
@@ -28,11 +40,11 @@ export const router = createBrowserRouter([
       },
       {
         path: '/store',
-        element: <div>store page</div>
+        element: <StoreMyPage />,
       },
       {
-        path: '/customer',
-        element: <div>customer page</div>
+        path: '/customer/*',
+        children: customerMyPageRouter,
       }
     ]
   },

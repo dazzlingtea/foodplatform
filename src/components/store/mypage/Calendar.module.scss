@@ -1,0 +1,142 @@
+.calendarContainer {
+  width: 100%;
+  margin: 30px 0;
+  padding: 15px;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.titleText {
+  height: 65px;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 20px;
+  color: #1d1d1d;
+  background: linear-gradient(135deg, #f6f9f4, #e4f3da);
+  border-radius: 15px 15px 0 0;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+
+  span {
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: 700;
+  }
+}
+
+.calendarSection {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 0 0 15px 15px;
+  border: solid 1px #e3e9ed;
+  box-shadow: 1px 1px 10px 0 rgba(72, 75, 108, .08);
+}
+
+.calendarMonth {
+  font-size: 19px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 0 40px 0;
+
+  .calendarButton {
+    color: #090909;
+    padding: 0.5em 1.3em;
+    font-size: 14px;
+    border-radius: 0.5em;
+    background: rgba(230, 234, 220, 0.84);
+    cursor: pointer;
+    border: 1px solid #e8e8e8;
+    transition: all 0.3s;
+    box-shadow: 3px 3px 7px #c5c5c5, -3px -3px 7px #ffffff;
+
+    &:active {
+      color: #666;
+      box-shadow: inset 4px 4px 3px #c5c5c5, inset -4px -4px 3px #ffffff;
+    }
+  }
+}
+
+.currentMonth {
+  font-size: 19px;
+  font-weight: bold;
+  margin: 0 10px;
+}
+
+.dayDescription {
+  position: absolute;
+  top: 30px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+
+  .holidayDescription,
+  .todayDescription {
+    font-size: 16px;
+    padding: 10px;
+    color: white;
+    border-radius: 13px;
+    margin-bottom: 10px;
+
+    &.holidayDescription {
+      background-color: rgba(234, 97, 42, 0.5);
+    }
+
+    &.todayDescription {
+      background-color: rgba(55, 112, 49, 0.58);
+    }
+  }
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  max-width: 600px;
+}
+
+.calendarDayHeader,
+.calendarDay,
+.calendarDayEmpty {
+  padding: 20px;
+  background-color: #e6eadc;
+  text-align: center;
+  cursor: pointer;
+  font-size: 17px;
+  border-radius: 15px;
+}
+
+.calendarDay:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.sunday {
+  color: #E43414;
+}
+
+.holiday {
+  background-color: rgba(234, 97, 42, 0.5);
+  color: #fdfaf6;
+}
+
+.today {
+  background-color: rgba(55, 112, 49, 0.58);
+  color: white;
+}
+
+.calendarDayEmpty {
+  opacity: 0.4;
+}

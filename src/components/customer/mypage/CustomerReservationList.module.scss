@@ -1,0 +1,151 @@
+.reservationListForm {
+  width: 100%;
+  padding: 45px 15px 15px 15px;
+  margin: 20px auto;
+  position: relative;
+  display: block;
+
+  .title {
+    height: 65px;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 20px;
+    color: #1d1d1d;
+    background: linear-gradient(135deg, #f6f9f4, #e4f3da);
+    border-radius: 15px 15px 0 0;
+    padding: 10px 15px;
+    display: flex;
+
+    .titleText {
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+  }
+
+  .infoWrapper {
+    padding: 10px;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 1px 1px 10px 0 rgba(72, 75, 108, .08);
+    border: solid 1px #e3e9ed;
+    background-color: #fff;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+  .reservation {
+    border-radius: 0 0 15px 15px;
+  }
+
+}
+
+.reservationList {
+  border-radius: 15px;
+  flex-wrap: wrap;
+  margin: 0 7px 10px 7px;
+}
+
+.reservationItem {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+  padding: 10px;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.item {
+  display: flex;
+  align-items: center;
+}
+
+.item span {
+  margin-left: 10px;
+}
+
+.imgWrapper {
+  position: relative;
+}
+
+.imgBox {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: white 0 0 0 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imgBox img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+
+.canceled {
+  color: red;
+}
+
+.done {
+  color: green;
+}
+
+.loading {
+  color: blue;
+  animation: spin 3s linear infinite;
+}
+
+.reservationStatus {
+  display: flex;
+  justify-content: space-between;
+  width: 62%;
+  margin-left: 20px;
+}
+
+.reservationCancelBtn {
+  color: #090909;
+  padding: 0.5em 1.3em;
+  font-size: 14px;
+  border-radius: 0.5em;
+  background: rgba(230, 234, 220, 0.84);
+  cursor: pointer;
+  border: 1px solid #e8e8e8;
+  transition: all 0.3s;
+  box-shadow: 3px 3px 7px #c5c5c5, -3px -3px 7px #ffffff;
+
+  &:active {
+    color: #666;
+    box-shadow: inset 4px 4px 3px #c5c5c5, inset -4px -4px 3px #ffffff;
+  }
+}
+
+.calendarButton {
+  background-color: rgba(234, 97, 42, 0.7);
+  color: #fff;
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+.cancelRes {
+  background-color: rgba(55, 112, 49, 0.5);
+}
+
+.pickedUpBtn {
+  background-color: rgba(55, 112, 49, 0.5);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
