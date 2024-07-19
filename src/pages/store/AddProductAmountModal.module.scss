@@ -1,0 +1,37 @@
+
+.productAddItem {
+  line-height: 2;
+
+  .warning {
+    color: red;
+  }
+
+  .button {
+    /* 원하는 버튼 스타일 설정 */
+  }
+
+  .img {
+    /* 이미지 스타일 설정 */
+  }
+
+  .productAmtAdjustBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .adjustBtn{
+      margin: 30px 24px;
+      padding: 8px;
+    }
+
+    .initialCnt{
+      font-size: 23px;
+      font-weight: 700;
+    }
+  }
+
+  .confirmBtn{
+    padding: 12px;
+    margin-top: 28px;
+  }
+}

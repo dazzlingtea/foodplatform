@@ -1,9 +1,10 @@
 import React from 'react';
 import {Outlet} from "react-router-dom";
+import ModalProvider from "../pages/common/ModalProvider";
 
 const RootLayout = () => {
   return (
-      <>
+      <ModalProvider>
         <header>
           header
         </header>
@@ -13,7 +14,7 @@ const RootLayout = () => {
         <footer>
           footer
         </footer>
-      </>
+      </ModalProvider>
   );
 };
 
