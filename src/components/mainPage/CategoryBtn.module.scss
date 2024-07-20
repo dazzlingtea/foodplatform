@@ -1,22 +1,23 @@
 .category-btn {
-  background-color: #fff;
-  outline: solid 1px #7CAF74;
-  width: 70px;
-  height: 40px;
-  padding: 10px;
-  font-size: 15px;
-  border: none;
-  text-align: center;
-  text-decoration: none;
   display: inline-block;
-  font-size: 16px;
-  margin: 10px;
   cursor: pointer;
-  border-radius: 30px;
   transition: background-color 0.3s;
+  text-align: center;
 }
 
-.category-btn:hover {
-  background-color: #7CAF74;
-  color:#fff;
+.btnImg {
+  width: 60px; 
+  height: 50px; 
+}
+
+.btnImg img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.btnText {
+  margin-top: 15px;
+  font-size: 16px;
+  font-weight: 600;
+  // color: #7CAF74;
 }

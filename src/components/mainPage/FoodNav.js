@@ -1,36 +1,33 @@
+import React, { useState } from "react";
+import CategoryBtn from "./CategoryBtn";
+import styles from "./FoodNav.module.scss";
+import bannerImg from "../../assets/images/userMain/header.jpg";
 
-import React, {useState} from 'react';
-import CategoryBtn from './CategoryBtn';
-import styles from './FoodNav.module.scss';
-import bannerImg from '../../assets/images/userMain/header.jpg';
+import { useRef, useEffect } from "react";
+import { register } from "swiper/element/bundle";
 
-const FoodNav = ({ categories, stores }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+register();
 
-  const handleCategoryClick = (category) => {
-    console.log(`Selected category: ${category}`);
-  };
+const FoodNav = ({categories, stores}) => {
+  const swiperElRef = useRef(null);
 
+  useEffect(() => {
+    swiperElRef.current.addEventListener("swiperprogress", (e) => {
+      const [swiper, progress] = e.detail;
+      console.log(progress);
+    });
 
-const handleNextClick = () => {
-  if(currentIndex<stores.length-4){
-    setCurrentIndex(currentIndex+4);
-  }
-};
-const handlePrevClick = () => {
-  if(currentIndex>0){
-    setCurrentIndex(currentIndex-4);
-  }
-};
+    swiperElRef.current.addEventListener("swiperslidechange", (e) => {
+      console.log("slide changed");
+    });
+  }, []);
+
 
   return (
     <>
-      <header className={styles['App-header']}>
+      <header className={styles["App-header"]}>
         <div className={styles.banner}>
-          <img
-            src={bannerImg}
-            alt="banner Image 나중에 바꿀 예정"
-          />
+          <img src={bannerImg} alt="banner Image 나중에 바꿀 예정🚩" />
         </div>
         <div className={styles.title}>
           <h1>환경을 생각하는 착한 소비</h1>
@@ -39,35 +36,95 @@ const handlePrevClick = () => {
       </header>
 
       <div className={styles.nav}>
-        <div className={styles['food-nav']}>
-          {categories.map(category => (
-            <CategoryBtn key={category} label={category} onClick={() => handleCategoryClick(category)} />
-          ))}
+        <div className={styles["food-nav"]}>
+          
+            <CategoryBtn />
+          
         </div>
       </div>
 
-
-    {/* ✅ 내가 찜한 가게 리스트 */}
-    <div className={styles.list1}>
-    <h2 className={styles.title1}>❤️ 내가 찜한 가게</h2>
-      <div className={styles['favorite-store-list']}>
-        <button className={`${styles['nav-button']} ${styles.left}`} onClick={handlePrevClick}>&lt;</button>
-        <div className={styles['storeList']}>
-          {stores.map((store, index) => (
-            <div key={index} className={styles['store-item']}>
-              <img src={store.image} alt={store.name} />
-              <p className={styles['store-name']}>{store.name}</p>
-              <p className={styles['store-price']}>{store.price}</p>
-            </div>
-          ))}
+      {/* 내가 찜한 가게 리스트 */}
+      <div className={styles.list1}>
+        <h2 className={styles.title1}>내가 찜한 가게</h2>
+        <div className={styles["favorite-store-list"]}>
+     
         </div>
+        <swiper-container
+            ref={swiperElRef}
+            slides-per-view="4"
+            navigation="true"
+            pagination="true"
+          >
+              {stores.map((store, index) => (
+                <swiper-slide>
+                  <div key={index} className={styles.storeItem}>
+                    <img src={store.image} alt={store.name} />
+                    <p className={styles.storeName}>{store.name}</p>
+                    <span className={styles.storePrice}>{store.price}</span>
+                  </div>
+                </swiper-slide>
+              ))}
+          </swiper-container>
 
-        <button className={`${styles['nav-button']} ${styles.right}`} onClick={handleNextClick}>&gt;</button>
       </div>
-    </div>
 
+
+      {/* 주변 가게 리스트 */}
+      <div className={styles.list1}>
+        <h2 className={styles.title1}>주변 가게</h2>
+        <div className={styles["favorite-store-list"]}>
+     
+        </div>
+        <swiper-container
+            ref={swiperElRef}
+            slides-per-view="5"
+            navigation="true"
+            pagination="true"
+          >
+              {stores.map((store, index) => (
+                <swiper-slide>
+                  <div key={index} className={styles.storeItem}>
+                    <img src={store.image} alt={store.name} />
+                    <p className={styles.storeName}>{store.name}</p>
+                    {/* <span className={styles.discount}>{store.discount}</span> */}
+                    <span className={styles.storePrice}>{store.price}</span>
+                  </div>
+                </swiper-slide>
+              ))}
+          </swiper-container>
+
+      </div>
+
+
+
+
+      {/* 추천 가게 리스트 */}
+      <div className={styles.list1}>
+        <h2 className={styles.title1}>추천 가게</h2>
+        <div className={styles["favorite-store-list"]}>
+     
+        </div>
+        <swiper-container
+            ref={swiperElRef}
+            slides-per-view="5"
+            navigation="true"
+            pagination="true"
+          >
+              {stores.map((store, index) => (
+                <swiper-slide>
+                  <div key={index} className={styles.storeItem}>
+                    <img src={store.image} alt={store.name} />
+                    <p className={styles.storeName}>{store.name}</p>
+                    {/* <span className={styles.discount}>{store.discount}</span> */}
+                    <span className={styles.storePrice}>{store.price}</span>
+                  </div>
+                </swiper-slide>
+              ))}
+          </swiper-container>
+
+      </div>
     </>
   );
-}
+};
 
 export default FoodNav;

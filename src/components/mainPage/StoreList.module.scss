@@ -1,0 +1,80 @@
+// .list1{
+//     margin: 0 auto;
+//     position: relative;
+//     background-color: beige;
+//     inline-size: 80%;
+//     border-radius: 20px;
+//   }
+//   .list1 .title1{
+//     padding: 20px 20px 0 20px;
+//     font-size: 22px;
+//     font-weight: 600;
+//     text-align: left;
+//   }
+  
+//   .favorite-store-list {
+//     position: relative;
+//     overflow: hidden;
+//     max-width: 100%;
+//     margin: 0 auto;
+//     display: flex;
+//     align-items: center;
+//     padding: 0 10px;
+//     // background-color: skyblue;
+//   }
+  
+//   .storeList {
+//     display: flex;
+//     transition: transform 0.3s ease;
+//     width: 400%;
+//     height: 300px;
+//     // background-color: purple;
+//   }
+  
+//   .storeItem {
+//     flex: 0 0 25%; 
+//     box-sizing: border-box;
+//     padding: 10px 10px 0 10px;
+//     text-align: center;
+//   }
+  
+//   .storeItem img {
+//     width: 100%;
+//     height: 70%;
+//     object-fit: cover;
+//     overflow: hidden;
+//     display: block;
+//   }
+  
+//   .storeItem p{
+//     height: 15%;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//   }
+//   .storeItem .storeName{
+//     font-size: 20px;
+//     font-weight: 600;
+//   }
+//   .storeItem .storePrice{
+//     font-size: 20px;
+//     color: #7CAF74;
+//     font-weight: 600;
+//   }
+  
+  
+//   // // swiper는 전역스타일로 적용되기 때문에 App.css에 적용함
+//   // .swiper-button-prev,
+//   // .swiper-button-next {
+//   //   background-color: #fff !important;
+//   //   opacity: 0.5;
+//   //   padding: 15px 5px;
+//   //   border-radius: 20px;
+//   //   color: black !important;
+//   // }
+  
+//   // .swiper-button-prev:after,
+//   // .swiper-button-next:after {
+//   //   font-size: 1.1rem !important;
+//   //   font-weight: 600 !important;
+//   // }

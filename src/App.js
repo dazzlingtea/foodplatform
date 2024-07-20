@@ -10,6 +10,7 @@ const App = () => {
       <>
         <Reset />
         <RouterProvider router={router} />
+        
       </>
   );
 };
