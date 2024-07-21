@@ -1,10 +1,13 @@
 package org.nmfw.foodietree.domain.store.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
-import org.nmfw.foodietree.domain.store.entity.value.StoreApproveStatus;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.nmfw.foodietree.domain.store.entity.value.ApproveStatus;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter @Setter
 @ToString(exclude = "store")
@@ -38,7 +41,14 @@ public class StoreApproval {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "store_approval_status")
     @Builder.Default
-    private StoreApproveStatus status = StoreApproveStatus.PENDING;
+    private ApproveStatus status = ApproveStatus.PENDING;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")

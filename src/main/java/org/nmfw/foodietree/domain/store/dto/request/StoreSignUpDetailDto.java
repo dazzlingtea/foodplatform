@@ -2,7 +2,7 @@ package org.nmfw.foodietree.domain.store.dto.request;
 
 import lombok.*;
 import org.nmfw.foodietree.domain.store.entity.Store;
-import org.nmfw.foodietree.domain.store.entity.value.StoreApproveStatus;
+import org.nmfw.foodietree.domain.store.entity.value.ApproveStatus;
 import org.nmfw.foodietree.domain.store.entity.value.StoreCategory;
 
 import javax.validation.constraints.NotBlank;
@@ -31,7 +31,7 @@ public class StoreSignUpDetailDto {
 
     @Setter
     @NotBlank
-    private StoreApproveStatus approve;
+    private ApproveStatus approve;
 
     @Setter
     @NotBlank
