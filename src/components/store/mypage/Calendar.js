@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Calendar.module.scss';
 
-const Calendar = () => {
+const Calendar = ({ openModal }) => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [daysInMonth, setDaysInMonth] = useState([]);
     const [holidays, setHolidays] = useState([]);
@@ -66,6 +66,12 @@ const Calendar = () => {
         return holidays.includes(dateString);
     };
 
+    const handleDayClick = (day) => {
+        if (!day) return;
+        const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+        openModal('scheduleDetail', { date: selectedDate });
+    };
+
     return (
         <div className={styles.calendarContainer}>
             <div className={styles.calend}>
@@ -78,8 +84,8 @@ const Calendar = () => {
                             이전 달
                         </button>
                         <span className={styles.currentMonth}>
-              {currentDate.toLocaleDateString('default', { year: 'numeric', month: 'long' })}
-            </span>
+                            {currentDate.toLocaleDateString('default', { year: 'numeric', month: 'long' })}
+                        </span>
                         <button className={styles.calendarButton} onClick={handleNextMonth}>
                             다음 달
                         </button>
@@ -96,6 +102,7 @@ const Calendar = () => {
                             <div
                                 key={index}
                                 className={`${styles.calendarDay} ${day ? (isHoliday(day) ? styles.holiday : '') : styles.calendarDayEmpty} ${day === new Date().getDate() ? styles.today : ''}`}
+                                onClick={() => handleDayClick(day)}
                             >
                                 {day}
                             </div>

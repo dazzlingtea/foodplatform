@@ -1,37 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './ProductCount.module.scss';
 
-const ProductCount = () => {
+const ProductCount = ({ openModal }) => {
     const [productData, setProductData] = useState({
-        todayProductCnt: 0,
-        todayPickedUpCnt: 0,
-        readyToPickUpCnt: 0,
-        remainCnt: 0,
+        todayProductCnt: 10,
+        todayPickedUpCnt: 5,
+        readyToPickUpCnt: 2,
+        remainCnt: 3,
     });
 
-    // useEffect(() => {
-    //     const updateProductCount = async () => {
-    //         try {
-    //             const response = await fetch(`${window.location.origin}/store/mypage/main/getProductCount`);
-    //             if (!response.ok) {
-    //                 throw new Error('Failed to fetch product count');
-    //             }
-    //             const data = await response.json();
-    //             setProductData(data);
-    //         } catch (error) {
-    //             console.error('Error updating product count:', error);
-    //         }
-    //     };
-    //
-    //     updateProductCount();
-    // }, []);
+    const handleProductUpdate = () => {
+        openModal('addProductAmount', {});
+    };
 
     return (
         <div id="product-count" className={styles.productCount}>
             <div className={styles.title}>
                 <h3 className={styles.titleText}>
                     <span id="randombox-stock">오늘의 랜덤박스 현황</span>
-                    <button id="product-update-btn" className={styles.productUpdateBtn}>랜덤박스 추가</button>
+                    <button id="product-update-btn" className={styles.productUpdateBtn} onClick={handleProductUpdate}>랜덤박스 추가</button>
                 </h3>
                 <div className={styles.productCountWrapper}>
                     <section id="product-count-status-with-img" className={styles.productCountStatusWithImg}>

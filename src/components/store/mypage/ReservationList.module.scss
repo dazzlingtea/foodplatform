@@ -1,151 +1,173 @@
-.info {
+.reservationListForm {
   width: 100%;
+  height: 50vh;
+  padding: 45px 15px 15px 15px;
+  margin: 20px auto;
+  position: relative;
+  display: block;
 
-  .infoBox {
-    padding: 30px 0;
+  .title {
+    height: 65px;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 20px;
+    color: #1d1d1d;
+    background: linear-gradient(135deg, #f6f9f4, #e4f3da);
+    border-radius: 15px 15px 0 0;
+    padding: 10px 15px;
+    display: flex;
 
-    .title {
+    .titleText {
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+  }
+
+  .infoWrapper {
+    padding: 10px;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 1px 1px 10px 0 rgba(72, 75, 108, .08);
+    border: solid 1px #e3e9ed;
+    background-color: #fff;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    overflow: auto;
+    height: calc(100% - 75px);
+  }
+
+  .reservation {
+    border-radius: 0 0 15px 15px;
+  }
+
+  /* 스크롤 바 스타일링 */
+  .infoWrapper::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  .infoWrapper::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+
+  .infoWrapper::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+    border: 3px solid #f1f1f1;
+  }
+
+  .infoWrapper::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
+
+.reservationList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 15px;
+  margin: 0 7px 10px 7px;
+  overflow: auto;
+}
+
+.reservationItem {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+  align-items: center;
+  margin: 5px 0;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 2px solid transparent;
+
+  &.canceled {
+    border: solid 2px #E68a8c;
+    border-radius: 15px;
+  }
+
+  &.reserved {
+    border: solid 2px #89b449;
+    border-radius: 15px;
+  }
+
+  &.pickedup {
+    border: solid 2px #407f3e;
+    border-radius: 15px;
+  }
+
+  &.noshow {
+    border: solid 2px gray;
+    border-radius: 15px;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+
+    .imgWrapper {
       position: relative;
-      display: block;
-      margin: 20px 0;
-      padding: 15px;
-      border-radius: 15px;
 
-      .titleText {
-        height: 65px;
-        font-size: 19px;
-        font-weight: 700;
-        line-height: 20px;
-        color: #1d1d1d;
-        background: linear-gradient(135deg, #f6f9f4, #e4f3da);
-        border-radius: 15px 15px 0 0;
-        padding: 10px 15px;
-        display: flex;
-        //align-items: center;
+      .imgBox {
+        width: 50px;
+        height: 50px;
+        position: relative;
 
-        span {
-          margin-top: 10px;
-          font-size: 20px;
-          font-weight: 700;
+        img {
+          width: 100%;
+          height: 100%;
+          border-radius: 5px;
+          object-fit: cover;
+          transition: transform 0.5s;
+        }
+
+        .canceled {
+          color: red;
+          position: absolute;
+          right: 0;
+          bottom: 0;
+        }
+
+        .done {
+          color: green;
+          position: absolute;
+          right: 0;
+          bottom: 0;
+        }
+
+        .loading {
+          color: blue;
+          animation: spin 3s linear infinite;
+          position: absolute;
+          right: 0;
+          bottom: 0;
         }
       }
     }
 
-    .infoWrapper {
-      padding: 10px;
-      border-radius: 12px;
-      box-shadow: 1px 1px 10px 0 rgba(72, 75, 108, .08);
-      border: solid 1px #e3e9ed;
-      background-color: #fff;
-      margin-bottom: 10px;
-      border-radius: 0 0 15px 15px;
-      height: 260px;
+    span {
+      margin-left: 10px;
+    }
+  }
 
-      .reservationList {
-        border-radius: 15px;
-        flex-wrap: wrap;
-        height: 72px;
-        margin: 0 7px 10px 7px;
+  .reservationStatus {
+    margin-left: 20px;
+    width: 62%;
+    display: flex;
+    justify-content: space-between;
+  }
 
-        > li:last-child {
-          margin-bottom: 15px;
-        }
-
-        .reservationItem {
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin: 5px 0;
-          padding: 10px;
-          cursor: pointer;
-
-          &:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-          }
-
-          &.canceled {
-            border: solid 2px #E68a8c;
-            border-radius: 15px;
-          }
-
-          &.reserved {
-            border: solid 2px #89b449;
-            border-radius: 15px;
-          }
-
-          &.pickedup {
-            border: solid 2px #407f3e;
-            border-radius: 15px;
-          }
-
-          &.noshow {
-            border: solid 2px gray;
-            border-radius: 15px;
-          }
-
-          .item {
-            display: flex;
-            align-items: center;
-
-            .imgWrapper {
-              position: relative;
-
-              .imgBox {
-                width: 50px;
-                height: 50px;
-
-                img {
-                  width: 100%;
-                  height: 100%;
-                  border-radius: 5px;
-                  object-fit: cover;
-                  transition: transform 0.5s;
-                }
-              }
-
-              i {
-                position: absolute;
-                right: -5px;
-                bottom: 0;
-
-                &.canceled {
-                  color: red;
-                }
-
-                &.done {
-                  color: green;
-                }
-
-                &.loading {
-                  color: blue;
-                  animation: spin 3s linear infinite;
-                }
-              }
-            }
-
-            span {
-              margin-left: 10px;
-            }
-          }
-
-          .reservationStatus {
-            margin-left: 20px;
-            width: 62%;
-            display: flex;
-            justify-content: space-between;
-          }
-
-          .reservationNickname {
-            span {
-              font-size: 13px;
-              position: relative;
-              left: -7px;
-            }
-          }
-        }
-      }
+  .reservationNickname {
+    span {
+      font-size: 13px;
+      position: relative;
+      left: -7px;
     }
   }
 }
