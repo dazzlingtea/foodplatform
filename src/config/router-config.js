@@ -12,7 +12,9 @@ import EmailVerificationPage from "../pages/auth/EmailVerificationPage";
 import StoreMyPage from "../pages/store/StoreMyPage";
 import CustomerMyPage from "../pages/customer/CustomerMyPage";
 import CustomerMyPageEdit from "../pages/customer/CustomerMyPageEdit";
-
+import StoreRegisterPage from "../pages/store/StoreRegisterPage";
+import {storeRegisterAction} from "../components/StoreRegister/StoreRegisterForm";
+import ProductRegisterForm, {productRegisterAction} from "../components/StoreRegister/ProductRegisterForm";
 
 const homeRouter = [
     {
@@ -56,6 +58,16 @@ const storeRouter = [
     {
         path: 'edit',
         element: <StoreMyPageEdit/>
+    },
+    {
+      path: 'approval',
+      element: <StoreRegisterPage />,
+      action: storeRegisterAction
+    },
+    {
+      path: 'product/approval',
+      element: <ProductRegisterForm />,
+      action: productRegisterAction
     }
 ]
 
