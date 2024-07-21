@@ -1,5 +1,6 @@
 .reservationListForm {
   width: 100%;
+  height: 50vh;
   padding: 45px 15px 15px 15px;
   margin: 20px auto;
   position: relative;
@@ -31,30 +32,79 @@
     background-color: #fff;
     box-sizing: border-box;
     margin-bottom: 10px;
+    overflow: auto;
+    height: calc(100% - 75px);
+
+    /* 스크롤바 스타일 */
+    &::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #888;
+      border-radius: 10px;
+      border: 3px solid #f1f1f1;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
   }
+
   .reservation {
     border-radius: 0 0 15px 15px;
   }
-
 }
 
 .reservationList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   border-radius: 15px;
-  flex-wrap: wrap;
   margin: 0 7px 10px 7px;
+  overflow: auto;
 }
 
 .reservationItem {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  gap: 50px;
+  align-items: center;
   margin: 5px 0;
   padding: 10px;
   cursor: pointer;
+  border-radius: 10px;
+  border: 2px solid transparent;
 
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  &.CANCELED {
+    border: solid 2px #E68a8c;
+    border-radius: 15px;
+  }
+
+  &.RESERVED {
+    border: solid 2px #89b449;
+    border-radius: 15px;
+  }
+
+  &.PICKEDUP {
+    border: solid 2px #407f3e;
+    border-radius: 15px;
+  }
+
+  &.NOSHOW {
+    border: solid 2px gray;
+    border-radius: 15px;
   }
 }
 
@@ -69,6 +119,8 @@
 
 .imgWrapper {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .imgBox {
@@ -80,65 +132,60 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
+  position: relative;
 
-.imgBox img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s;
-}
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+  }
 
-.canceled {
-  color: red;
-}
+  .canceled {
+    color: red;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+  }
 
-.done {
-  color: green;
-}
+  .done {
+    color: green;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+  }
 
-.loading {
-  color: blue;
-  animation: spin 3s linear infinite;
+  .loading {
+    color: blue;
+    animation: spin 3s linear infinite;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
 }
 
 .reservationStatus {
   display: flex;
   justify-content: space-between;
-  width: 62%;
-  margin-left: 20px;
+  align-items: center;
+  width: 60%;
 }
 
 .reservationCancelBtn {
+  background: #EAEDE2;
   color: #090909;
-  padding: 0.5em 1.3em;
-  font-size: 14px;
+  padding: 0.3em 1em;
+  font-size: 16px;
   border-radius: 0.5em;
-  background: rgba(230, 234, 220, 0.84);
   cursor: pointer;
   border: 1px solid #e8e8e8;
   transition: all 0.3s;
-  box-shadow: 3px 3px 7px #c5c5c5, -3px -3px 7px #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 
   &:active {
     color: #666;
     box-shadow: inset 4px 4px 3px #c5c5c5, inset -4px -4px 3px #ffffff;
   }
-}
-
-.calendarButton {
-  background-color: rgba(234, 97, 42, 0.7);
-  color: #fff;
-  font-size: 20px;
-  margin-top: 20px;
-}
-
-.cancelRes {
-  background-color: rgba(55, 112, 49, 0.5);
-}
-
-.pickedUpBtn {
-  background-color: rgba(55, 112, 49, 0.5);
 }
 
 @keyframes spin {

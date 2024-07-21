@@ -5,6 +5,7 @@ import CustomerReservationList from "../../components/customer/mypage/CustomerRe
 import PreferredArea from "../../components/customer/mypage/PreferredArea";
 import PreferredFood from "../../components/customer/mypage/PreferredFood";
 import FavoriteStore from "../../components/customer/mypage/FavoriteStore";
+import { useModal } from "../common/ModalProvider";
 
 const customerMyPageDto = {
     profileImage: '/assets/img/defaultImage.jpg',
@@ -43,17 +44,26 @@ const reservations = [
     }
 ];
 
-const CustomerMyPage = () => {
+// customerId 어디서 가져와야함?!
+const CustomerMyPage = ({ customerId }) => {
+    const { openModal } = useModal();
+
     return (
         <>
             <div className={styles.myPageArea}>
                 <div className={styles.container}>
-                    <Profile customerMyPageDto={customerMyPageDto} stats={stats} />
+                    <Profile
+                        customerMyPageDto={customerMyPageDto}
+                        stats={stats}
+                    />
                     <div className={styles.content}>
-                        <CustomerReservationList reservations={reservations} />
-                        <PreferredArea preferredAreas={customerMyPageDto.preferredArea} />
-                        <PreferredFood preferredFoods={customerMyPageDto.preferredFood} />
-                        <FavoriteStore favStores={customerMyPageDto.favStore} />
+                        <CustomerReservationList
+                            customerId={customerId}
+                            openModal={openModal} // 모달을 여는 함수 전달
+                        />
+                        <PreferredArea preferredAreas={customerMyPageDto.preferredArea}/>
+                        <PreferredFood preferredFoods={customerMyPageDto.preferredFood}/>
+                        <FavoriteStore favStores={customerMyPageDto.favStore}/>
                     </div>
                 </div>
             </div>

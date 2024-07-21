@@ -28,7 +28,7 @@ const CancelReservationDetailModal = ({cancelInfo, isCancelAllowed, onConfirmCan
                         정말 취소하시겠습니까?
                     </p>
                     <p style={{ fontFamily: 'jua', fontSize: '23px' }}>
-                        취소수수료 : {cancelInfo.cancellationFee}
+                        취소수수료 : 0
                     </p>
                     <p>취소 수수료는 결제 금액에서 자동 차감됩니다.</p>
                 </div>
