@@ -26,7 +26,7 @@ public class ProductApproval {
     @GenericGenerator(strategy = "uuid2", name = "uuid-generator")
     @GeneratedValue(generator = "uuid-generator")
     @Column(name = "product_approval_id")
-    private int id; // 상품 등록 요청 랜덤문자 PK
+    private String id; // 상품 등록 요청 랜덤문자 PK
 
     @Column(name = "product_approval_image", nullable = false)
     @Setter
@@ -47,7 +47,7 @@ public class ProductApproval {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "product_approval_status")
     @Builder.Default
-    private ApproveStatus status = ApproveStatus.PENDING;
+    private ApproveStatus status = ApproveStatus.PENDING; // 상품 요청시 PENDING
 
     // 상품 등록 시 가게 정보 필요 (category 등 정보를 갖고 있음)
     // 가게당 상품은 하나지만 요청은 여러 번 가능

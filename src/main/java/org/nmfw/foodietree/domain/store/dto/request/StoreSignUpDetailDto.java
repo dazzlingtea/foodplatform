@@ -18,31 +18,31 @@ public class StoreSignUpDetailDto {
     @NotBlank
     private String storeId;
 
-    @NotBlank
+//    @NotBlank
     private String password;
 
     @Setter
-    @NotBlank
+//    @NotBlank
     private StoreCategory category;
 
     @Setter
-    @NotBlank
+//    @NotBlank
     private String address;
 
     @Setter
-    @NotBlank
+//    @NotBlank
     private ApproveStatus approve;
 
     @Setter
-    @NotBlank
+//    @NotBlank
     private int warningCount;
 
     @Setter
-    @NotBlank
+//    @NotBlank
     private int price;
 
     @Setter
-    @NotBlank
+//    @NotBlank
     private String businessNumber;
 
     // 가게 프로필 이미지 주소 변수 추가
@@ -52,12 +52,12 @@ public class StoreSignUpDetailDto {
 
     public Store toEntity(){
         return Store.builder()
-                .password(this.password)
+//                .password(this.password)
                 .category(this.category.getFoodType())
                 .address(this.address)
                 .approve(this.approve)
                 .warningCount(this.warningCount)
-                .price(this.price)
+//                .price(this.price)
                 .businessNumber(this.businessNumber)
                 .storeImage(this.storeImage)
                 .build();

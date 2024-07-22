@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 
 @Controller
-@RequestMapping("/store")
+@RequestMapping("/store/product")
 @Slf4j
 @RequiredArgsConstructor
 public class ProductApprovalController {
@@ -37,15 +37,16 @@ public class ProductApprovalController {
     }
 
     @PostMapping("/product")
-    public String approveProduct(ProductApprovalDto productDto, Model model, HttpSession session) {
+    public String approveProduct(
+            ProductApprovalDto productDto,
+            HttpSession session
+    ) {
         log.info("{}", productDto);
-        // 세션에서 로그인된 사용자 ID 가져오기
+        // 세션에서 ID 가져오기----필터로 바꾸기
         String storeId = LoginUtil.getLoggedInUser(session);
 
         // storeId를 DTO에 설정
         productDto.setStoreId(storeId);
-
-        model.addAttribute("productDto", productDto);
 
         // 프로필 사진 추출
         MultipartFile proImage = productDto.getProImage();

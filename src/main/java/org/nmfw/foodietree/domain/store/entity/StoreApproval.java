@@ -5,6 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.nmfw.foodietree.domain.store.entity.value.ApproveStatus;
+import org.nmfw.foodietree.domain.store.entity.value.StoreCategory;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -21,25 +22,28 @@ import java.time.LocalDateTime;
 public class StoreApproval {
 
     @Id
-    @GenericGenerator(strategy = "uuid2", name = "uuid-generator")
-    @GeneratedValue(generator = "uuid-generator")
-    @Column(name="store_approval_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "store_approval_id", updatable = false)
     private String id; // 가게 등록 요청 랜덤문자 PK
 
-    @Column(name="store_approval_license")
+    @Column(name="store_approval_license", nullable = false)
     private String license; // 가게 사업자등록번호
 
-    @Column(name="store_approval_name")
+    @Column(name="store_approval_name", nullable = false)
     private String name; // 가게 상호명
 
-    @Column(name="store_approval_address")
+    @Column(name="store_approval_address", nullable = false)
     private String address; // 가게 주소
 
-    @Column(name = "store_approval_contact")
+    @Column(name = "store_approval_contact", nullable = false)
     private String contact; // 가게 연락처
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, name = "store_approval_status")
+    @Column(name = "store_approval_category", nullable = false)
+    private StoreCategory category;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "store_approval_status", nullable = false)
     @Builder.Default
     private ApproveStatus status = ApproveStatus.PENDING;
 

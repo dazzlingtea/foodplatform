@@ -21,18 +21,17 @@ import java.util.List;
 public class Store {
 
     @Id
-    @GenericGenerator(strategy = "uuid2", name = "uuid-generator")
-    @GeneratedValue(generator = "uuid-generator")
-    @Column(name = "store_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "store_id", updatable = false)
     private String storeId;
-    @Setter
-    private String password;
+//    @Setter
+//    private String password;
     private String category;
     private String address;
     private ApproveStatus approve;
     private int warningCount;
-    private int price;
-    private int productCnt;
+//    private int price;
+//    private int productCnt;
     private String businessNumber;
     private String storeName;
     private String storeImage;
