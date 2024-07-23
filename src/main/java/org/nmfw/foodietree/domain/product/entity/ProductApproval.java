@@ -30,10 +30,10 @@ public class ProductApproval {
 
     @Column(name = "product_approval_image", nullable = false)
     @Setter
-    private String proImage; // 상품 이미지
+    private String proImage; // 상품 이미지 경로
 
     @Column(name = "product_approval_amount", nullable = false)
-    private int amount;  // 상품 수량
+    private int productCnt;  // 상품 수량
     @Column(name = "product_approval_price", nullable = false)
     private int price;  // 상품 가격
 
@@ -54,5 +54,6 @@ public class ProductApproval {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="store_id")
     private Store store;
+
 
 }

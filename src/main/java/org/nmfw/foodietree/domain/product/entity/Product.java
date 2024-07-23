@@ -1,6 +1,7 @@
 package org.nmfw.foodietree.domain.product.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.nmfw.foodietree.domain.store.entity.Store;
 
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-@ToString
+@ToString(exclude = "store")
 @EqualsAndHashCode(of = "productId")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,27 +20,22 @@ import java.util.List;
 @Table(name="tbl_product")
 public class Product {
 
-    @Id
+    @Id // auto increment
     @GenericGenerator(strategy = "uuid2", name = "uuid-generator")
     @GeneratedValue(generator = "uuid-generator")
     private String productId;
 
-    private LocalDateTime pickupTime;
-    private LocalDateTime productUploadDate; // 요청 처리된 시간인지, 요청 시간인지?
+    private LocalDateTime pickupTime; // 마감시간
 
-    private int price;
-    private int productCnt;
+    @CreationTimestamp
+    private LocalDateTime productUploadDate; // 상품 등록 시간
     private String proImage;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    private LocalDateTime canceledByStoreAt; // 가게에서 취소한 시간
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private Store store;
 
-//    private String storeImg;
-//    private String storeName;
-//    private String category;
-//    private String address;
-//    private List<String> preferredArea;
-//    private List<String> preferredFood;
 
 }
