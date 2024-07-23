@@ -2,69 +2,67 @@ package org.nmfw.foodietree.domain.product.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.nmfw.foodietree.domain.customer.util.LoginUtil;
+import org.nmfw.foodietree.domain.product.dto.request.ProductApprovalReqDto;
 import org.nmfw.foodietree.domain.product.service.ProductApprovalService;
-import org.nmfw.foodietree.domain.product.Util.FileUtil;
-import org.nmfw.foodietree.domain.product.dto.response.ProductApprovalDto;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpSession;
-import java.io.File;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-@Controller
-@RequestMapping("/store/product")
+@RestController
+@RequestMapping("/store/approval")
 @Slf4j
 @RequiredArgsConstructor
 public class ProductApprovalController {
 
-    @Value("${file.upload.root-path}")
-    private String rootPath;
-
     private final ProductApprovalService productApprovalService;
 
-    @GetMapping("/product")
-    public String newProductApproval(HttpSession session) {
+    @PostMapping("/p")
+    public ResponseEntity<?> approveProduct(
+            @Validated @RequestPart("price") int price
+          , @Validated @RequestPart("productCnt") int productCnt
+          , @Validated @RequestPart("productImage")MultipartFile file
+//        , @AuthenticationPrincipal TokenUserInfo userInfo
+            , BindingResult bindingResult
+    ) {
+        if(bindingResult.hasErrors()) {
+            Map<String, String> errors = makeValidationMessageMap(bindingResult);
+            return ResponseEntity.badRequest().body(errors);
+        }
 
-        // 세션에서 로그인된 사용자 ID 가져오기
-//        String storeId = (String) session.getAttribute("storeId");
+        ProductApprovalReqDto dto = ProductApprovalReqDto.builder()
+                .price(price)
+                .productCnt(productCnt)
+                .productImage(file)
+                .build();
 
-        return "product/product-form";
+        // tbl_product_approval 저장
+        boolean flag = productApprovalService
+                .askProductApproval(
+                        dto
+//                        , userInfo
+                );
+
+        if (!flag) { // DB 저장 실패
+            return ResponseEntity.internalServerError().body("");
+        }
+        // DB 저장 성공
+        return ResponseEntity.ok().body("");
     }
 
-    @PostMapping("/product")
-    public String approveProduct(
-            ProductApprovalDto productDto,
-            HttpSession session
-    ) {
-        log.info("{}", productDto);
-        // 세션에서 ID 가져오기----필터로 바꾸기
-        String storeId = LoginUtil.getLoggedInUser(session);
-
-        // storeId를 DTO에 설정
-        productDto.setStoreId(storeId);
-
-        // 프로필 사진 추출
-        MultipartFile proImage = productDto.getProImage();
-
-        String profilePath = null;
-        if (!proImage.isEmpty()) {
-            // 서버에 업로드 후 업로드 경로 반환
-            File dir = new File(rootPath);
-            if (!dir.exists()) {
-                dir.mkdirs();
-            }
-            profilePath = FileUtil.uploadFile(rootPath, proImage);
+    // BindingResult 에러와 에러 메세지를 Map에 담기
+    private Map<String, String> makeValidationMessageMap(BindingResult bindingResult) {
+        Map<String, String> errors = new HashMap<>();
+        List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+        for (FieldError error: fieldErrors) {
+            errors.put(error.getField(), error.getDefaultMessage());
         }
-        boolean flag2 = productApprovalService.storeColumnApproval(productDto);
-
-        if (flag2) {
-            return "redirect:/store/mypage/main";
-        }
-        return "redirect:/store/product";
+        return errors;
     }
 }
