@@ -1,9 +1,10 @@
-import React, {lazy, Suspense} from 'react';
+import React, {lazy, Suspense, useEffect, useState} from 'react';
 import styles from './Modal.module.scss';
 import {useModal} from "./ModalProvider";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMinus, faTimes} from "@fortawesome/free-solid-svg-icons";
 import ReactDOM from "react-dom";
+import BottomPlaceOrder from "../product/BottomPlaceOrder";
 
 // 동적 import => 필요한 시점에만 로드 가능 (성능 개선)
 const EmailVerificationModal = lazy(() => import("./EmailVerificationModal"));
@@ -19,9 +20,45 @@ const Modal = () => {
 
     const { modalState, closeModal } = useModal();
     const { isOpen, type, props } = modalState;
+    const [customStyle, setCustomStyle] = useState({width: '100%'});
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 400); // 추가
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (type === 'productDetail') {
+                if (window.innerWidth <= 390) {
+                    setCustomStyle({ width: '100%'});
+                } else {
+                    setCustomStyle({ width: '80%', height: '80%', margin: '140px auto' });
+                }
+            } else {
+                setCustomStyle({});
+            }
+            setIsMobile(window.innerWidth <= 390); // 추가
+        };
+
+        handleResize();
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, [type]);
+
+    //백드롭 스크롤 방지
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen]);
 
     if (!isOpen)return null;
-
 
     let ModalComponent;
 
@@ -61,18 +98,25 @@ const Modal = () => {
     };
 
     return ReactDOM.createPortal (
-            <div className={styles.modal} onClick={handleClose}>
-                <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-                    <span className={styles.close} onClick={closeModal}><FontAwesomeIcon icon={faTimes}/></span>
-                    <div className={styles.modalInnerContent}>
-                        {ModalComponent && (
-                            <Suspense fallback={<div>Loading...</div>}>
-                                <ModalComponent {...props}/>
-                            </Suspense>
-                        )}
+        <div className={styles.modal} onClick={handleClose}>
+            <div className={styles.modalContent} style={type === 'productDetail' ? customStyle : {}} onClick={(e) => e.stopPropagation()}>
+                <div className={styles.close} onClick={closeModal}>
+                    <span><FontAwesomeIcon icon={faTimes}/></span>
+                </div>
+                <div className={styles.modalInnerContent}>
+                    {ModalComponent && (
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <ModalComponent {...props}/>
+                        </Suspense>
+                    )}
+                </div>
+                <div className={styles.modalFooter}>
+                    <div className={styles.bottomPlaceOrder}>
+                        {type === 'productDetail' && isMobile && <BottomPlaceOrder/>}
                     </div>
                 </div>
             </div>
+        </div>
         ,
         document.getElementById('modal-root')
     );
