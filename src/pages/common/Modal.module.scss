@@ -26,8 +26,7 @@
 
     .close {
       color: #aaa;
-      font-size: 35px;
-      font-weight: bold;
+      font-size: 30px;
       position: sticky;
       top: 0;
       background: #fff;
@@ -37,31 +36,42 @@
       display: flex;
       justify-content: flex-end;
 
-      &:hover,
-      &:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-      }
       span{
         padding-right: 13px;
+
+        .closeBtn{
+          background-color: #fff;
+          border-radius: 25px;
+          padding: 5px;
+          height: 35px;
+          width: 35px;
+
+          &:hover,
+          &:focus {
+            color: rgba(45, 45, 45, 0.48);
+            text-decoration: none;
+            cursor: pointer;
+            background-color: rgba(206, 206, 206, 0.61);
+            transition: 0.3s;
+          }
+        }
       }
     }
 
     .modalInnerContent {
-      padding: 0 20px;
+      padding: 0 20px 30px;
       overflow-y: auto; // 세로 스크롤 활성화
       max-height: calc(70vh - 40px); // 닫기 버튼 높이 제외한 최대 높이 설정
       text-align: center;
     }
 
     .modalFooter{
-
+      padding-top: 10px;
     }
   }
 }
 
-@media (max-width: 390px) {
+@media (max-width: 400px) {
   .modal {
     font-size: 18px;
     display: block; // 모달 숨기기

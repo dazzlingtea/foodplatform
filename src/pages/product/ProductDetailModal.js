@@ -16,7 +16,7 @@ const ProductDetailModal = ({ productDetail }) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 400);
 
     const handleResize = () => {
-        setIsMobile(window.innerWidth <= 390);
+        setIsMobile(window.innerWidth <= 400);
     };
 
     useEffect(() => {

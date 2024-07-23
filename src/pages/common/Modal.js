@@ -26,7 +26,7 @@ const Modal = () => {
     useEffect(() => {
         const handleResize = () => {
             if (type === 'productDetail') {
-                if (window.innerWidth <= 390) {
+                if (window.innerWidth <= 400) {
                     setCustomStyle({ width: '100%'});
                 } else {
                     setCustomStyle({ width: '80%', height: '80%', margin: '140px auto' });
@@ -34,7 +34,7 @@ const Modal = () => {
             } else {
                 setCustomStyle({});
             }
-            setIsMobile(window.innerWidth <= 390); // 추가
+            setIsMobile(window.innerWidth <= 400); // 추가
         };
 
         handleResize();
@@ -100,8 +100,8 @@ const Modal = () => {
     return ReactDOM.createPortal (
         <div className={styles.modal} onClick={handleClose}>
             <div className={styles.modalContent} style={type === 'productDetail' ? customStyle : {}} onClick={(e) => e.stopPropagation()}>
-                <div className={styles.close} onClick={closeModal}>
-                    <span><FontAwesomeIcon icon={faTimes}/></span>
+                <div className={styles.close}>
+                    <span><FontAwesomeIcon className={styles.closeBtn} onClick={closeModal} icon={faTimes}/></span>
                 </div>
                 <div className={styles.modalInnerContent}>
                     {ModalComponent && (
@@ -111,9 +111,7 @@ const Modal = () => {
                     )}
                 </div>
                 <div className={styles.modalFooter}>
-                    <div className={styles.bottomPlaceOrder}>
                         {type === 'productDetail' && isMobile && <BottomPlaceOrder/>}
-                    </div>
                 </div>
             </div>
         </div>
