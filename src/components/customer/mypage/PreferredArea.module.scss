@@ -32,21 +32,37 @@
     box-sizing: border-box;
     margin-bottom: 10px;
 
-
-      .infoList {
-        display: flex;
-        flex-direction: row;
-        gap: 20px;
-        align-items: center;
-        justify-content: center;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-      .area li {
-        padding: 5px 0;
-      }
+    .area {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .area li {
+      padding: 5px 0;
+    }
   }
 }
 
+@media (max-width: 400px) {
+  .preferredAreaForm {
+    padding: 0;
 
+    .infoWrapper {
+      overflow-x: auto;
+      white-space: nowrap;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .area {
+        padding: 0 200px;
+      }
+    }
+  }
+}

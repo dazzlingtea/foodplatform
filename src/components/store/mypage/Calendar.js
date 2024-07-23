@@ -80,18 +80,20 @@ const Calendar = ({ openModal }) => {
                 </h3>
                 <div className={styles.calendarSection}>
                     <div className={styles.calendarMonth}>
-                        <button className={styles.calendarButton} onClick={handlePrevMonth}>
-                            이전 달
-                        </button>
-                        <span className={styles.currentMonth}>
-                            {currentDate.toLocaleDateString('default', { year: 'numeric', month: 'long' })}
-                        </span>
-                        <button className={styles.calendarButton} onClick={handleNextMonth}>
-                            다음 달
-                        </button>
                         <div className={styles.dayDescription}>
                             <span className={styles.todayDescription}>오늘</span>
                             <span className={styles.holidayDescription}>가게 쉬는 날</span>
+                        </div>
+                        <div className={styles.monthBtnContainer}>
+                            <button className={styles.calendarButton} onClick={handlePrevMonth}>
+                                이전 달
+                            </button>
+                            <span className={styles.currentMonth}>
+                            {currentDate.toLocaleDateString('default', {year: 'numeric', month: 'long'})}
+                        </span>
+                            <button className={styles.calendarButton} onClick={handleNextMonth}>
+                                다음 달
+                            </button>
                         </div>
                     </div>
                     <div className={styles.calendar}>

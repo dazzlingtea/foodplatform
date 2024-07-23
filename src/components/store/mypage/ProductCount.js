@@ -18,7 +18,7 @@ const ProductCount = ({ openModal }) => {
             <div className={styles.title}>
                 <h3 className={styles.titleText}>
                     <span id="randombox-stock">오늘의 랜덤박스 현황</span>
-                    <button id="product-update-btn" className={styles.productUpdateBtn} onClick={handleProductUpdate}>랜덤박스 추가</button>
+                    <button id="product-update-btn" className={styles.productUpdateBtn} onClick={handleProductUpdate}>추가</button>
                 </h3>
                 <div className={styles.productCountWrapper}>
                     <section id="product-count-status-with-img" className={styles.productCountStatusWithImg}>

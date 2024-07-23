@@ -26,7 +26,7 @@ const homeRouter = [
         element: <SignUpPage/>
     },
     {
-        path: '/login',
+        path: '/sign-in',
         element: <LoginPage/>
     },
     {

@@ -140,3 +140,73 @@
 .calendarDayEmpty {
   opacity: 0.4;
 }
+
+@media (max-width: 400px) {
+  .calendarContainer {
+    width: 100%;
+    padding: 0;
+  }
+
+  .calendarMonth {
+    font-size: 16px;
+    padding: 0 0 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .dayDescription {
+      display: flex;
+      flex-direction: row;
+      gap: 5px;
+      align-items: center;
+      position: static;
+      top: auto;
+      right: auto;
+      padding: 5px 10px;
+      margin: 0;
+
+      .holidayDescription,
+      .todayDescription {
+        font-size: 12px;
+        padding: 5px;
+        width: 100px;
+        height: 25px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+      }
+    }
+
+    .monthBtnContainer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .calendarButton {
+        font-size: 12px;
+        padding: 0.3em 0.8em;
+      }
+
+      .currentMonth {
+        font-size: 16px;
+        margin: 0 10px;
+      }
+    }
+  }
+
+  .calendarSection {
+    padding: 10px;
+  }
+
+  .calendar {
+    gap: 5px;
+  }
+
+  .calendarDayHeader,
+  .calendarDay,
+  .calendarDayEmpty {
+    padding: 10px;
+    font-size: 12px;
+  }
+}

@@ -1,9 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styles from './Profile.module.scss';
+import {Link} from "react-router-dom";
 
-const Profile = ({ customerMyPageDto, stats }) => {
+const Profile = ({ customerMyPageDto, stats, isShow }) => {
+
+    useEffect(() => {
+        if (isShow) document.body.style.overflow = 'hidden';
+        return () => {
+            document.body.style.overflow = 'unset';
+        }
+    }, [isShow]);
+
     return (
-        <div className={styles.profileSection}>
+        <div className={`${styles.profileSection} ${isShow ? styles.on : undefined}`}>
             <div className={styles.profile}>
                 <a className={styles.imgBox} href="#">
                     <img src={customerMyPageDto.profileImage || '/assets/img/defaultImage.jpg'} alt="Customer profile image"/>
@@ -11,8 +20,8 @@ const Profile = ({ customerMyPageDto, stats }) => {
                 <h2>{customerMyPageDto.nickname}</h2>
                 <p>{customerMyPageDto.customerId}</p>
                 <ul className={styles.nav}>
-                    <li className={styles.navItem}><a className={styles.navLink} href="/customer/mypage">마이페이지</a></li>
-                    <li className={styles.navItem}><a className={styles.navLink} href="/customer/mypage-edit">개인정보수정</a></li>
+                    <Link to={'/customer'} className={styles.navItem} >마이페이지</Link>
+                    <Link to={'/customer/edit'} className={styles.navItem} >개인정보수정</Link>
                 </ul>
                 <div className={styles.stats}>
                     <div id="carbon" className={styles.statsBox}>

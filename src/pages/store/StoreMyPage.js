@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Profile from '../../components/store/mypage/Profile';
 import styles from './StoreMyPage.module.scss';
 import ReservationList from "../../components/store/mypage/ReservationList";
 import ProductCount from "../../components/store/mypage/ProductCount";
 import Calendar from "../../components/store/mypage/Calendar";
 import { useModal } from '../common/ModalProvider';
+import SideBarBtn from "../../components/store/mypage-edit/SideBarBtn";
 
 // 더미 데이터
 const storeInfo = {
@@ -104,17 +105,39 @@ const reservations = [
 const StoreMyPage = () => {
     const { openModal } = useModal();
 
+    const [width, setWidth] = useState(window.innerWidth);
+    const [show, setShow] = useState(false);
+    const setInnerWidth = () => {
+        setWidth(window.innerWidth);
+    }
+    useEffect(() => {
+        window.addEventListener("resize", setInnerWidth);
+        return () => {
+            window.removeEventListener("resize", setInnerWidth);
+        }
+    }, );
+    const showHandler = () => {
+        setShow(prev => !prev);
+    }
+
     return (
-        <div className={styles.myPageArea}>
-            <div className={styles.container}>
-                <Profile storeInfo={storeInfo} stats={stats} />
-                <div className={styles.content}>
-                    <ReservationList reservations={reservations} openModal={openModal} />
-                    <ProductCount openModal={openModal}/>
-                    <Calendar openModal={openModal}/>
+        <>
+            {width <= 400 && <SideBarBtn onShow={showHandler}/>}
+            <div className={styles.myPageArea}>
+                <div className={styles.container}>
+                    <Profile
+                        storeInfo={storeInfo}
+                        stats={stats}
+                        isShow={show}
+                    />
+                    <div className={styles.content}>
+                        <ReservationList reservations={reservations} openModal={openModal} />
+                        <ProductCount openModal={openModal}/>
+                        <Calendar openModal={openModal}/>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 

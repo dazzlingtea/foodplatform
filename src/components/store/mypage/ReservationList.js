@@ -1,9 +1,14 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './ReservationList.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faCircleCheck, faSpinner } from "@fortawesome/free-solid-svg-icons";
 
+// const BASE_URL = window.location.origin;
+
 const ReservationList = ({ reservations, openModal }) => {
+    // const [reservations, setReservations] = useState([]);
+    // const [isFetching, setIsFetching] = useState(false);
+
     useEffect(() => {
         const reservationItems = document.querySelectorAll(`.${styles.reservationItem}`);
 
@@ -20,6 +25,22 @@ const ReservationList = ({ reservations, openModal }) => {
             }
         });
     }, []);
+
+    // 예약 목록을 가져오는 함수 (더미 데이터를 사용하므로 주석 처리)
+    // const fetchReservations = async () => {
+    //     if (isFetching) return;
+    //     setIsFetching(true);
+    //
+    //     try {
+    //         const res = await fetch(`${BASE_URL}/reservation/${customerId}`);
+    //         const data = await res.json();
+    //         setReservations(data); // 예약 목록 상태 업데이트
+    //     } catch (error) {
+    //         console.error('Error fetching reservations:', error);
+    //     } finally {
+    //         setIsFetching(false);
+    //     }
+    // };
 
     const handleReservationClick = (reservation) => {
         openModal('storeReservationDetail', { reservationInfo: reservation });
@@ -39,14 +60,14 @@ const ReservationList = ({ reservations, openModal }) => {
                             <div className={styles.item}>
                                 <div className={styles.imgWrapper}>
                                     <div className={styles.imgBox}>
+                                        {reservation.status === 'CANCELED' && <FontAwesomeIcon icon={faCircleXmark} className={styles.canceled} />}
+                                        {reservation.status === 'NOSHOW' && <FontAwesomeIcon icon={faCircleXmark} className={styles.noshow} />}
+                                        {reservation.status === 'RESERVED' && <FontAwesomeIcon icon={faSpinner} className={styles.loading} />}
+                                        {reservation.status === 'PICKEDUP' && <FontAwesomeIcon icon={faCircleCheck} className={styles.done} />}
                                         <img src={reservation.profileImage || "/assets/img/defaultImage.jpg"} alt="profile Image" />
-                                        {reservation.status === 'CANCELED' && <FontAwesomeIcon icon={faCircleXmark} className={`${styles.canceled} ${styles.icon}`} />}
-                                        {reservation.status === 'NOSHOW' && <FontAwesomeIcon icon={faCircleXmark} className={`${styles.canceled} ${styles.icon}`} />}
-                                        {reservation.status === 'RESERVED' && <FontAwesomeIcon icon={faSpinner} className={`${styles.loading} ${styles.icon}`} />}
-                                        {reservation.status === 'PICKEDUP' && <FontAwesomeIcon icon={faCircleCheck} className={`${styles.done} ${styles.icon}`} />}
                                     </div>
                                 </div>
-                                <span className={styles.reservationNickname} style={{ fontSize: '18px' }}>
+                                <span className={styles.reservationNickname}>
                                     {reservation.nickname}님께서
                                 </span>
                             </div>

@@ -31,7 +31,6 @@
     border: solid 1px #e3e9ed;
     background-color: #fff;
     box-sizing: border-box;
-    margin-bottom: 10px;
     overflow: auto;
     height: calc(100% - 75px);
 
@@ -39,18 +38,15 @@
     &::-webkit-scrollbar {
       width: 12px;
     }
-
     &::-webkit-scrollbar-track {
       background: #f1f1f1;
       border-radius: 10px;
     }
-
     &::-webkit-scrollbar-thumb {
       background-color: #888;
       border-radius: 10px;
       border: 3px solid #f1f1f1;
     }
-
     &::-webkit-scrollbar-thumb:hover {
       background: #555;
     }
@@ -124,7 +120,7 @@
 }
 
 .imgBox {
-  width: 50px;
+  //width: 50px;
   height: 50px;
   border-radius: 5px;
   overflow: hidden;
@@ -133,34 +129,47 @@
   justify-content: center;
   align-items: center;
   position: relative;
+  gap: 10px;
 
   img {
-    width: 100%;
-    height: 100%;
+    width: 50px;
+    height: 50px;
     object-fit: cover;
     transition: transform 0.5s;
   }
 
-  .canceled {
-    color: red;
-    position: absolute;
-    right: 0px;
-    bottom: 0px;
+  svg {
+    width: 40px;
+    height: 40px;
   }
 
-  .done {
-    color: green;
-    position: absolute;
-    right: 0px;
-    bottom: 0px;
+  .canceled {
+    color: #E68a8c;
+    //position: absolute;
+    //right: 0px;
+    //bottom: 0px;
+  }
+
+  .noshow {
+    color: gray;
+    //position: absolute;
+    //right: 0px;
+    //bottom: 0px;
   }
 
   .loading {
-    color: blue;
+    color: #89b449;
     animation: spin 3s linear infinite;
-    position: absolute;
-    right: 0;
-    bottom: 0;
+    //position: absolute;
+    //right: 0;
+    //bottom: 0;
+  }
+
+  .done {
+    color: #407f3e;
+    //position: absolute;
+    //right: 0px;
+    //bottom: 0px;
   }
 }
 
@@ -194,5 +203,59 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 400px) {
+  .reservationListForm {
+    padding: 0;
+    .title {
+      height: 50px;
+      font-size: 16px;
+      padding: 5px 10px;
+
+      .titleText {
+        font-size: 18px;
+      }
+    }
+
+    .infoWrapper {
+      padding: 5px;
+      height: calc(100% - 60px);
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+
+
+  .reservationItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    .item {
+      width: 100%;
+      justify-content: space-between;
+
+      span {
+        margin-left: 0;
+        margin-bottom: 5px;
+      }
+    }
+
+    .reservationStatus {
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+
+      .reservationCancelBtn {
+        position: absolute;
+        right: 0;
+        top: 0;
+        white-space: pre-line;
+      }
+    }
   }
 }

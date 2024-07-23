@@ -139,7 +139,7 @@ const CustomerReservationList = ({ customerId, openModal }) => {
     //     setIsFetching(true);
 
     //     try {
-    //         const res = await fetch(`${BASE_URL}/reservation/${customerId}`);
+    //         const res= await fetch(`${BASE_URL}/reservation/${customerId}`);
     //         const data = await res.json();
     //         setReservations(data); // 예약 목록 상태 업데이트
     //     } catch (error) {
@@ -183,6 +183,20 @@ const CustomerReservationList = ({ customerId, openModal }) => {
         }
     };
 
+    const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 400);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobileView(window.innerWidth <= 400);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     return (
         <div className={styles.reservationListForm}>
             <div className={styles.title}>
@@ -190,7 +204,7 @@ const CustomerReservationList = ({ customerId, openModal }) => {
                     <span>예약 내역</span>
                 </h3>
             </div>
-            <div className={`${styles.infoWrapper} ${styles.reservation}`}>
+            <div className={styles.infoWrapper}>
                 <ul className={styles.reservationList}>
                     {reservations.length > 0 ? (
                         reservations.map((reservation, index) => (
@@ -203,11 +217,11 @@ const CustomerReservationList = ({ customerId, openModal }) => {
                                 <div className={styles.item}>
                                     <div className={styles.imgWrapper}>
                                         <div className={styles.imgBox}>
-                                            <img src={reservation.storeImg || '/assets/img/defaultImage.jpg'} alt="Store Image" />
                                             {reservation.status === 'CANCELED' && <FontAwesomeIcon icon={faCircleXmark} className={styles.canceled} />}
-                                            {reservation.status === 'NOSHOW' && <FontAwesomeIcon icon={faCircleXmark} className={styles.canceled} />}
-                                            {reservation.status === 'RESERVED' && <FontAwesomeIcon icon={faSpinner} className={styles.loading}/>}
-                                            {reservation.status === 'PICKEDUP' && <FontAwesomeIcon icon={faCircleCheck} className={styles.done}/>}
+                                            {reservation.status === 'NOSHOW' && <FontAwesomeIcon icon={faCircleXmark} className={styles.noshow} />}
+                                            {reservation.status === 'RESERVED' && <FontAwesomeIcon icon={faSpinner} className={styles.loading} />}
+                                            {reservation.status === 'PICKEDUP' && <FontAwesomeIcon icon={faCircleCheck} className={styles.done} />}
+                                            <img src={reservation.storeImg || '/assets/img/defaultImage.jpg'} alt="Store Image" />
                                         </div>
                                         <span>{reservation.storeName}</span>
                                     </div>
@@ -236,7 +250,7 @@ const CustomerReservationList = ({ customerId, openModal }) => {
                                                     handleCancelReservationClick(reservation.reservationId); // 예약 취소 클릭 핸들러 호출
                                                 }}
                                             >
-                                                예약 취소하기
+                                                {isMobileView ? '예약 취소' : '예약 취소하기'}
                                             </button>
                                         </>
                                     )}

@@ -110,3 +110,34 @@
     background-position: right bottom;
   }
 }
+
+@media (max-width: 400px) {
+  .productCount {
+    .title {
+      padding: 0;
+    }
+  }
+  .productCountWrapper {
+    overflow-x: auto;
+  }
+
+  .productCountWrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .productCountStatusWithImg {
+    display: flex;
+    width: max-content;
+
+    .statusImg {
+      width: 150px;
+      height: auto;
+      font-size: 14px;
+      padding: 10px 0;
+
+      img {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

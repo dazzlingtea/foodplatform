@@ -10,10 +10,12 @@ const PreferredArea = ({ preferredAreas = [] }) => {
                 </h3>
             </div>
             <div className={styles.infoWrapper}>
-                <ul className={`${styles.infoList} ${styles.area}`}>
+                <ul className={styles.area}>
                     {preferredAreas.length > 0 ? (
                         preferredAreas.map((area, index) => (
-                            <li key={index}>{area}</li>
+                            <li key={index}>
+                                <div >{area}</div>
+                            </li>
                         ))
                     ) : (
                         <li>선호 지역이 없습니다.</li>

@@ -75,3 +75,26 @@
     }
   }
 }
+
+@media (max-width: 400px) {
+  .preferredFoodForm {
+    padding: 0;
+  }
+  .infoWrapper {
+    overflow-x: auto;
+    white-space: nowrap;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .food {
+      display: inline-flex;
+      gap: 20px;
+    }
+
+    li {
+      display: inline-block;
+    }
+  }
+}

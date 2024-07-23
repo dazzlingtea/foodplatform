@@ -74,3 +74,27 @@
     }
   }
 }
+
+@media (max-width: 400px) {
+  .favoriteStoreForm {
+    padding: 0;
+  }
+
+  .infoWrapper {
+    overflow-x: auto;
+    white-space: nowrap;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .store {
+      display: inline-flex;
+      gap: 20px;
+    }
+
+    li {
+      display: inline-block;
+    }
+  }
+}
