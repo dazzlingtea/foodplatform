@@ -23,18 +23,16 @@ public class ProductApprovalController {
 
     private final ProductApprovalService productApprovalService;
 
+    // 상품 등록 요청
     @PostMapping("/p")
     public ResponseEntity<?> approveProduct(
             @Validated @RequestPart("price") int price
           , @Validated @RequestPart("productCnt") int productCnt
           , @Validated @RequestPart("productImage")MultipartFile file
 //        , @AuthenticationPrincipal TokenUserInfo userInfo
-            , BindingResult bindingResult
     ) {
-        if(bindingResult.hasErrors()) {
-            Map<String, String> errors = makeValidationMessageMap(bindingResult);
-            return ResponseEntity.badRequest().body(errors);
-        }
+        // Validation 예외처리는 ExceptionAdvisor.java
+        // userInfo는 service에서 처리
 
         ProductApprovalReqDto dto = ProductApprovalReqDto.builder()
                 .price(price)
@@ -42,27 +40,19 @@ public class ProductApprovalController {
                 .productImage(file)
                 .build();
 
-        // tbl_product_approval 저장
-        boolean flag = productApprovalService
-                .askProductApproval(
-                        dto
-//                        , userInfo
-                );
-
-        if (!flag) { // DB 저장 실패
-            return ResponseEntity.internalServerError().body("");
+        // 상품 등록 요청 처리 (tbl_product_approval)
+        try {
+            productApprovalService.askProductApproval(
+                    dto
+//                    , userInfo
+            );
+        } catch (Exception e) { // 등록 요청 실패
+//            throw new RuntimeException(e);
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
-        // DB 저장 성공
+
+        // 등록 요청 성공
         return ResponseEntity.ok().body("");
     }
 
-    // BindingResult 에러와 에러 메세지를 Map에 담기
-    private Map<String, String> makeValidationMessageMap(BindingResult bindingResult) {
-        Map<String, String> errors = new HashMap<>();
-        List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-        for (FieldError error: fieldErrors) {
-            errors.put(error.getField(), error.getDefaultMessage());
-        }
-        return errors;
-    }
 }
