@@ -1,6 +1,7 @@
 
 import { createBrowserRouter} from "react-router-dom";
 import CategoriesPage from "../pages/userMain/CategoriesPage";
+
 import RootLayout from '../layout/RootLayout';
 import ErrorPage from "../pages/ErrorPage";
 import Home from "../pages/Home";
@@ -17,6 +18,7 @@ import CustomerMyPageEdit from "../pages/customer/CustomerMyPageEdit";
 import StoreRegisterPage from "../pages/store/StoreRegisterPage";
 import {storeRegisterAction} from "../components/StoreRegister/StoreRegisterForm";
 import ProductRegisterForm, {productRegisterAction} from "../components/StoreRegister/ProductRegisterForm";
+import VerifyToken from "../components/auth/VerifyToken";
 
 const homeRouter = [
   {
@@ -96,6 +98,22 @@ export const router = createBrowserRouter([
             {
                 path: '/customer',
                 children: customerMyPageRouter
+            },
+            {
+                path: '/sign-up',
+                element: <SignUpPage />
+            },
+            {
+                path: '/login',
+                element: <LoginPage />
+            },
+            {
+                path: '/email-verification',
+                element: <EmailVerificationPage />
+            },
+            {
+                path: '/verifyEmail',
+                element: <VerifyToken />
             },
         ]
     },
