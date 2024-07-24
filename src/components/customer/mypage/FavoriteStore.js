@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './FavoriteStore.module.scss';
 
 const FavoriteStore = ({ favStores = [] }) => {
@@ -12,10 +13,12 @@ const FavoriteStore = ({ favStores = [] }) => {
                     {favStores.length > 0 ? (
                         favStores.map((store) => (
                             <li key={store.storeId}>
-                                <div className={styles.imgBox}>
-                                    <img src={store.storeImg || "/assets/img/japanese.jpg"} alt="최애가게이미지" />
-                                </div>
-                                <span>{store.storeName}</span>
+                                <Link to="#" className={styles.storeLink}>
+                                    <div className={styles.imgBox}>
+                                        <img src={store.storeImg || "/assets/img/japanese.jpg"} alt="최애가게이미지" />
+                                    </div>
+                                    <span>{store.storeName}</span>
+                                </Link>
                             </li>
                         ))
                     ) : (

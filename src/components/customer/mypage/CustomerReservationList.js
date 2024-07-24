@@ -12,10 +12,6 @@ const CustomerReservationList = ({ customerId, openModal }) => {
     useEffect(() => {
         // fetchReservations(); // 실제 API 호출
         setDummyReservations(); // 더미 데이터 설정
-        window.addEventListener('scroll', setupInfiniteScroll);
-        return () => {
-            window.removeEventListener('scroll', setupInfiniteScroll);
-        };
     }, []);
 
     // 더미 데이터를 설정하는 함수
@@ -48,135 +44,48 @@ const CustomerReservationList = ({ customerId, openModal }) => {
                 cancelReservationAtF: null,
                 pickedUpAtF: '2024-07-17 14:00',
             },
-            {
-                reservationId: 1,
-                storeImg: '/assets/img/defaultImage.jpg',
-                storeName: 'Dummy Store 1',
-                status: 'RESERVED',
-                pickupTimeF: '2024-07-19 10:00',
-                cancelReservationAtF: null,
-                pickedUpAtF: null,
-            },
-            {
-                reservationId: 2,
-                storeImg: '/assets/img/defaultImage.jpg',
-                storeName: 'Dummy Store 2',
-                status: 'CANCELED',
-                pickupTimeF: null,
-                cancelReservationAtF: '2024-07-18 12:00',
-                pickedUpAtF: null,
-            },
-            {
-                reservationId: 3,
-                storeImg: '/assets/img/defaultImage.jpg',
-                storeName: 'Dummy Store 3',
-                status: 'PICKEDUP',
-                pickupTimeF: null,
-                cancelReservationAtF: null,
-                pickedUpAtF: '2024-07-17 14:00',
-            },
-            {
-                reservationId: 1,
-                storeImg: '/assets/img/defaultImage.jpg',
-                storeName: 'Dummy Store 1',
-                status: 'RESERVED',
-                pickupTimeF: '2024-07-19 10:00',
-                cancelReservationAtF: null,
-                pickedUpAtF: null,
-            },
-            {
-                reservationId: 2,
-                storeImg: '/assets/img/defaultImage.jpg',
-                storeName: 'Dummy Store 2',
-                status: 'CANCELED',
-                pickupTimeF: null,
-                cancelReservationAtF: '2024-07-18 12:00',
-                pickedUpAtF: null,
-            },
-            {
-                reservationId: 3,
-                storeImg: '/assets/img/defaultImage.jpg',
-                storeName: 'Dummy Store 3',
-                status: 'PICKEDUP',
-                pickupTimeF: null,
-                cancelReservationAtF: null,
-                pickedUpAtF: '2024-07-17 14:00',
-            },
-            {
-                reservationId: 1,
-                storeImg: '/assets/img/defaultImage.jpg',
-                storeName: 'Dummy Store 1',
-                status: 'RESERVED',
-                pickupTimeF: '2024-07-19 10:00',
-                cancelReservationAtF: null,
-                pickedUpAtF: null,
-            },
-            {
-                reservationId: 2,
-                storeImg: '/assets/img/defaultImage.jpg',
-                storeName: 'Dummy Store 2',
-                status: 'CANCELED',
-                pickupTimeF: null,
-                cancelReservationAtF: '2024-07-18 12:00',
-                pickedUpAtF: null,
-            },
-            {
-                reservationId: 3,
-                storeImg: '/assets/img/defaultImage.jpg',
-                storeName: 'Dummy Store 3',
-                status: 'PICKEDUP',
-                pickupTimeF: null,
-                cancelReservationAtF: null,
-                pickedUpAtF: '2024-07-17 14:00',
-            }
+            // 추가 더미 데이터 ...
         ];
         setReservations(dummyData);
     };
 
-    // 예약 목록을 가져오는 함수 (더미 데이터를 사용하므로 주석 처리)
-    // const fetchReservations = async () => {
-    //     if (isFetching) return;
-    //     setIsFetching(true);
-
+    // 예약 상세내역을 가져오는 함수 (더미 데이터를 사용하므로 주석 처리)
+    // const fetchReservationDetail = async (reservationId) => {
     //     try {
-    //         const res= await fetch(`${BASE_URL}/reservation/${customerId}`);
-    //         const data = await res.json();
-    //         setReservations(data); // 예약 목록 상태 업데이트
+    //         const res = await fetch(`${BASE_URL}/reservation/detail/${reservationId}`);
+    //         if (res.ok) {
+    //             const data = await res.json();
+    //             return data;
+    //         } else {
+    //             console.error('Failed to fetch reservation details');
+    //             return null;
+    //         }
     //     } catch (error) {
-    //         console.error('Error fetching reservations:', error);
-    //     } finally {
-    //         setIsFetching(false);
+    //         console.error('Error fetching reservation detail:', error);
+    //         return null;
     //     }
     // };
-
-    // 무한 스크롤을 설정하는 함수
-    const setupInfiniteScroll = () => {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50 && !isFetching) {
-            setDummyReservations(); // 실제 API 호출 대신 더미 데이터 설정
-            // fetchReservations();
-        }
-    };
 
     // 예약 상세보기 모달을 여는 함수
     const handleReservationClick = async (reservationId) => {
         try {
-            // 더미 데이터용 로직 (실제 API 호출은 주석 처리)
-            const reservationDetail = reservations.find(r => r.reservationId === reservationId);
-            openModal('customerReservationDetail', { reservationDetail });
+            // const reservationDetail = await fetchReservationDetail(reservationId); // 실제 API 호출 주석 처리
+            const reservationDetail = reservations.find(r => r.reservationId === reservationId); // 더미 데이터용 로직
+            if (reservationDetail) {
+                openModal('customerReservationDetail', { reservationDetail });
+            } else {
+                alert('Failed to fetch reservation details');
+            }
         } catch (error) {
             console.error('Error fetching reservation detail:', error);
         }
     };
 
     // 예약 취소 모달을 여는 함수
-    const handleCancelReservationClick = async (reservationId) => {
+    const handleCancelReservationClick = async (reservationId, event) => {
+        event.stopPropagation(); // 이벤트 버블링 방지
         try {
-            // 더미 데이터용 로직 (실제 API 호출은 주석 처리)
-            const isCancelAllowed = true; // 더미 데이터에서는 항상 true
-            if (!isCancelAllowed) {
-                alert('예약 취소가 불가능합니다.');
-                return;
-            }
+            // const isCancelAllowed = true; // 더미 데이터에서는 항상 true, 실제 로직에서는 조건 확인 필요
             openModal('cancelReservationDetail', { reservationId });
         } catch (error) {
             console.error('Error fetching cancel reservation detail:', error);
@@ -245,10 +154,7 @@ const CustomerReservationList = ({ customerId, openModal }) => {
                                             <span>{reservation.pickupTimeF}까지</span>
                                             <button
                                                 className={`${styles.reservationCancelBtn} ${styles.calendarButton} ${styles.cancelRes}`}
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    handleCancelReservationClick(reservation.reservationId); // 예약 취소 클릭 핸들러 호출
-                                                }}
+                                                onClick={(event) => handleCancelReservationClick(reservation.reservationId, event)}
                                             >
                                                 {isMobileView ? '예약 취소' : '예약 취소하기'}
                                             </button>

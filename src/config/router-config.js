@@ -49,7 +49,7 @@ const homeRouter = [
 ];
 const customerMyPageRouter = [
     {
-        path: 'mypage',
+        index: true,
         element: <CustomerMyPage/>
     },
     {

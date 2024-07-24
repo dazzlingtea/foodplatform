@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './PreferredFood.module.scss';
 
 const PreferredFood = ({ preferredFoods = [] }) => {
@@ -14,10 +15,12 @@ const PreferredFood = ({ preferredFoods = [] }) => {
                     {preferredFoods.length > 0 ? (
                         preferredFoods.map((food, index) => (
                             <li key={index}>
-                                <div className={styles.imgBox}>
-                                    <img src={food.foodImage} alt="선호음식이미지" className={styles.foodImage}/>
-                                </div>
-                                <span>{food.preferredFood}</span>
+                                <Link to="#" className={styles.foodLink}>
+                                    <div className={styles.imgBox}>
+                                        <img src={food.foodImage} alt="선호음식이미지" className={styles.foodImage}/>
+                                    </div>
+                                    <span>{food.preferredFood}</span>
+                                </Link>
                             </li>
                         ))
                     ) : (

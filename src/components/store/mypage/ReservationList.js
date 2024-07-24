@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect } from 'react';
 import styles from './ReservationList.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faCircleCheck, faSpinner } from "@fortawesome/free-solid-svg-icons";
@@ -26,24 +26,36 @@ const ReservationList = ({ reservations, openModal }) => {
         });
     }, []);
 
-    // 예약 목록을 가져오는 함수 (더미 데이터를 사용하므로 주석 처리)
-    // const fetchReservations = async () => {
-    //     if (isFetching) return;
-    //     setIsFetching(true);
-    //
+    // 예약 상세 내역을 가져오는 함수 (더미 데이터를 사용하므로 주석 처리)
+    // const fetchReservationDetail = async (reservationId) => {
     //     try {
-    //         const res = await fetch(`${BASE_URL}/reservation/${customerId}`);
-    //         const data = await res.json();
-    //         setReservations(data); // 예약 목록 상태 업데이트
+    //         const response = await fetch(`${BASE_URL}/reservation/${reservationId}`);
+    //         if (!response.ok) {
+    //             throw new Error('Failed to fetch reservation details');
+    //         }
+    //         const data = await response.json();
+    //         return data;
     //     } catch (error) {
-    //         console.error('Error fetching reservations:', error);
-    //     } finally {
-    //         setIsFetching(false);
+    //         console.error('Error fetching reservation detail:', error);
+    //         return null;
     //     }
     // };
 
-    const handleReservationClick = (reservation) => {
-        openModal('storeReservationDetail', { reservationInfo: reservation });
+    const handleReservationClick = async (reservation) => {
+        try {
+            // 실제 API 호출 부분 (주석 처리)
+            // const reservationDetail = await fetchReservationDetail(reservation.reservationId);
+            // if (reservationDetail) {
+            //     openModal('storeReservationDetail', { reservationInfo: reservationDetail });
+            // } else {
+            //     alert('Failed to fetch reservation details');
+            // }
+
+            // 더미 데이터용 로직
+            openModal('storeReservationDetail', { reservationInfo: reservation });
+        } catch (error) {
+            console.error('Error fetching reservation detail:', error);
+        }
     };
 
     return (
