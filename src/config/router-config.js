@@ -1,13 +1,6 @@
 
-import { createBrowserRouter } from "react-router-dom";
-import RootLayout from '../layout/RootLayout';
-import ErrorPage from "../pages/ErrorPage";
-import Home from "../pages/Home";
-import MainPage from "../pages/userMain/MainPage";
+import { createBrowserRouter} from "react-router-dom";
 import CategoriesPage from "../pages/userMain/CategoriesPage";
-
-import {createBrowserRouter, Outlet} from "react-router-dom";
-
 import RootLayout from '../layout/RootLayout';
 import ErrorPage from "../pages/ErrorPage";
 import Home from "../pages/Home";
@@ -31,12 +24,20 @@ const homeRouter = [
     element: <div>hi</div>,
   },
   {
+    path: '/sign-up',
+    element: <SignUpPage/>
+  },
+  {
     path: '/sign-in',
-    element: <div>sign-in page</div>,
+    element: <LoginPage/>
+  },
+  {
+    path: 'email-verification',
+    element: <EmailVerificationPage/>
   },
   {
     path: '/main',
-    element: <MainPage />,
+    element: <MainPage />
   },
   {
     path: '/:categoryName',
@@ -44,38 +45,6 @@ const homeRouter = [
   },
   
 ];
-
-const customerMyPageRouter = [
-  {
-    path: 'mypage',
-    element: <CustomerMyPage />,
-  },
-  {
-    path: 'mypage-edit',
-    element: <div>Customer MyPage Edit Page</div>,
-  },
-    {
-        index: true,
-        element: <div>hi</div>,
-    },
-    {
-        path: '/sign-up',
-        element: <SignUpPage/>
-    },
-    {
-        path: '/sign-in',
-        element: <LoginPage/>
-    },
-    {
-        path: 'email-verification',
-        element: <EmailVerificationPage/>
-    },
-    {
-        path: '/main',
-        element: <MainPage />
-    }
-];
-
 const customerMyPageRouter = [
     {
         path: 'mypage',
@@ -92,14 +61,6 @@ const storeRouter = [
         index: true,
         element: <StoreMyPage />,
       },
-      {
-        path: '/customer/*',
-        children: customerMyPageRouter,
-      },
-    ],
-  },
-]);
-    },
     {
         path: 'edit',
         element: <StoreMyPageEdit/>
