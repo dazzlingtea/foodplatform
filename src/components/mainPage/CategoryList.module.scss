@@ -1,0 +1,41 @@
+.categoryContainer {
+  // 4개씩 정렬 그 이후, width에 맞게 크기 정렬
+    margin: 30px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    max-width: 70%;
+    gap: 20px;
+  }
+  
+  .categoryItem {
+    flex: 1 1 22%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .categoryImage {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    border-radius: 10px;
+  }
+  
+  .categoryName {
+    margin-top: 10px;
+    font-size: 18px;
+  }
+  
+  .storePrice {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .discount {
+    margin-top: 5px;
+    font-size: 14px;
+    color: red;
+  }
+  

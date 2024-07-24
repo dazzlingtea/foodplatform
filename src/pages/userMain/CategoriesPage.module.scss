@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'HS-Regular';
+    src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/HS-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.header{
+    position: relative;
+    margin: 0 auto;
+    margin-bottom: 40px;
+    inline-size: 70%;
+    height: 150px;
+    // border-bottom: solid 2px greenyellow;
+    // background-color: bisque;
+}
+.header h1{
+    position: absolute;
+    top:30px;
+    padding: 20px;
+    font-family: "HS-Regular";
+    font-size: 60px;
+}
+.header h2{
+    position: absolute;
+    
+}
+.header .btnImg{
+    position: absolute;
+    top:25px;
+    right: -130px;
+}
+.header .btnImg img{
+    width:25%;
+}

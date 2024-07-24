@@ -1,3 +1,16 @@
+.nav{
+  width: 80%;
+  // background-color: red;
+  margin: 0 auto;
+}
+.food-nav{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
 .category-btn {
   display: inline-block;
   cursor: pointer;
@@ -11,13 +24,19 @@
 }
 
 .btnImg img {
-  width: 100%;
+  width: 80%;
   object-fit: cover;
+  transform-origin: top center;
+  transition: transform 0.3s ease;
+}
+.btnImg img:hover{
+  width: 85%;
+  transform: scale(1.1);
 }
 
 .btnText {
-  margin-top: 15px;
+  margin-top: 8px;
   font-size: 16px;
   font-weight: 600;
-  // color: #7CAF74;
+  color: #0d0d0d;
 }
