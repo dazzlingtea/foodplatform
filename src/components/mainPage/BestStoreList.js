@@ -38,8 +38,8 @@ const BestStoreList = ({ categories = [], stores = [] }) => {
             stores.map((store, index) => (
               <SwiperSlide key={index}>
                 <div className={styles.storeItem}>
-                  <img src={store.image} alt={store.name} />
-                  <p className={styles.storeName}>{store.name}</p>
+                  <img src={store.image} alt={store.storeName} />
+                  <p className={styles.storeName}>{store.storeName}</p>
                   {/* <span className={styles.discount}>{store.discount}</span> */}
                   <span className={styles.storePrice}>{store.price}</span>
                 </div>
