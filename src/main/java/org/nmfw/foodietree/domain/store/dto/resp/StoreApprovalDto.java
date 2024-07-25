@@ -15,7 +15,7 @@ public class StoreApprovalDto {
     private String storeName;
     private String address;
     private StoreCategory category;
-    private String businessNumber;
+    private String storeContact;
     private String storeLicenseNumber;
 
 }

@@ -2,6 +2,7 @@ package org.nmfw.foodietree.domain.product.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.javassist.NotFoundException;
 import org.nmfw.foodietree.domain.product.dto.request.ProductApprovalReqDto;
 import org.nmfw.foodietree.domain.product.service.ProductApprovalService;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +29,10 @@ public class ProductApprovalController {
     public ResponseEntity<?> approveProduct(
             @Validated @RequestPart("price") int price
           , @Validated @RequestPart("productCnt") int productCnt
-          , @Validated @RequestPart("productImage")MultipartFile file
+          , @Validated @RequestPart("productImage") MultipartFile file
 //        , @AuthenticationPrincipal TokenUserInfo userInfo
     ) {
-        // Validation 예외처리는 ExceptionAdvisor.java
+        // 컨트롤러의 Validation 예외처리는 ExceptionAdvisor.java
         // userInfo는 service에서 처리
 
         ProductApprovalReqDto dto = ProductApprovalReqDto.builder()
@@ -46,7 +47,8 @@ public class ProductApprovalController {
                     dto
 //                    , userInfo
             );
-        } catch (Exception e) { // 등록 요청 실패
+        } catch (Exception e) { // 등록 요청 실패, 예외처리 보완 필요
+            e.printStackTrace();
 //            throw new RuntimeException(e);
             return ResponseEntity.internalServerError().body(e.getMessage());
         }

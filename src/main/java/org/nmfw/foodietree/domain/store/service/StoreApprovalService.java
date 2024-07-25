@@ -9,6 +9,8 @@ import org.nmfw.foodietree.domain.store.repository.StoreApprovalRepository;
 import org.nmfw.foodietree.domain.store.repository.StoreRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -25,7 +27,14 @@ public class StoreApprovalService {
     ) {
         // userInfo storeId로 Store
 //        Store foundStore = storeRepository
-//                .findById(userInfo.getUserId()).orElseThrow();
+//                .findById(userInfo.getUserId())
+//                .orElseThrow(throw new NoSuchElementException());
+
+        // 테스트용으로 storeId = 'test@test.com'
+        String storeId = "test@test.com";
+         Store foundStore = storeRepository
+                .findByStoreId(storeId)
+                .orElseThrow(() -> new NoSuchElementException("가입한 계정이 아닙니다."));
 
         StoreApproval storeApproval = dto.toEntity();
 //        storeApproval.setStore(foundStore);
@@ -37,8 +46,7 @@ public class StoreApprovalService {
     public void sendStoreInfo(
             StoreApproval sa
     ) {
-        Store store = sa.getStore();
-        Store updatedStore = sa.updatedByStoreApporval();
+        Store updatedStore = sa.updateFromStoreApproval();
         Store saved = storeRepository.save(updatedStore);
         log.info("saved store: {}", saved);
 

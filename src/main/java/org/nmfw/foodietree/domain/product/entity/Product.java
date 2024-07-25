@@ -22,11 +22,10 @@ public class Product {
 
     @Id // auto increment
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String productId; // 상품 id
+    private Long productId; // 상품 id
 
     private String productImage; // 상품 이미지
 
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime pickupTime; // 마감시간
 
     @CreationTimestamp
@@ -34,9 +33,10 @@ public class Product {
 
     private LocalDateTime canceledByStoreAt; // 가게에서 취소한 시간
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id")
-    private Store store;
+    @JoinColumn(name = "idx_store_id")
+    private Store store;                 // 가게
 
 
 }

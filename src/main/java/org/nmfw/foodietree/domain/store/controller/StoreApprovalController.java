@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/store/approval")
@@ -26,7 +27,7 @@ public class StoreApprovalController {
 //        , @AuthenticationPrincipal TokenUserInfo userInfo
     ) {
         // Validation 예외처리는 ExceptionAdvisor.java
-        // userInfo는 service에서 처리
+        log.debug("Request to approveStore : {}", dto.toString());
 
         // 가게 등록 요청 처리 (tbl_store_approval)
         try {
@@ -34,9 +35,9 @@ public class StoreApprovalController {
                     dto
     //                , userInfo
             );
-        } catch (Exception e) { // 등록 요청 실패
+        } catch (NoSuchElementException e) { // 등록 요청 실패
 //            throw new RuntimeException(e);
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
 
         // 등록 요청 성공

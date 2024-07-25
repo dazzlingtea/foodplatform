@@ -1,12 +1,15 @@
 package org.nmfw.foodietree.global.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+
+@Configuration
 @EnableWebSecurity //시큐리티 설정 파일(애노테이션)
 public class SecurityConfig {
 
@@ -16,10 +19,17 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-                .csrf().disable()// csrf 토큰공격방지 기능 off
-                //모든 요청에 대해 인증하지 않겠다.
+//                //모든 요청에 대해 인증하지 않겠다.
+//                .authorizeRequests()
+//                .anyRequest().authenticated()
+//                .antMatchers("/**").permitAll();
+//                .and
+//                .csrf().disable()// csrf 토큰공격방지 기능 off
                 .authorizeRequests()
-                .antMatchers("/**").permitAll();
+                .antMatchers("/store/approval/**").permitAll() // 해당 URL에 대한 접근 허용
+                .anyRequest().authenticated()
+                .and()
+                .csrf().disable(); // CSRF 보호 비활성화 (테스트용)
 
         return  http.build();
     }

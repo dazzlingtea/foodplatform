@@ -2,10 +2,13 @@ package org.nmfw.foodietree.domain.product.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.javassist.NotFoundException;
 import org.nmfw.foodietree.domain.product.Util.FileUtil;
 import org.nmfw.foodietree.domain.product.dto.request.ProductApprovalReqDto;
+import org.nmfw.foodietree.domain.product.entity.Product;
 import org.nmfw.foodietree.domain.product.entity.ProductApproval;
 import org.nmfw.foodietree.domain.product.repository.ProductApprovalRepository;
+import org.nmfw.foodietree.domain.product.repository.ProductRepository;
 import org.nmfw.foodietree.domain.store.entity.Store;
 import org.nmfw.foodietree.domain.store.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Transactional
 public class ProductApprovalService {
 
+    private final ProductRepository productRepository;
     @Value("${file.upload.root-path}")
     private String rootPath;
 
@@ -34,8 +38,8 @@ public class ProductApprovalService {
         // userInfo에서 storeId로 Store 찾기
         // controller에서 try catch 필요
 //        Store LoggedStore = storeRepository
-//          .findById(userInfo.getUserId())
-//          .orElseThrow(() -> new NotFoundException(""))
+//          .findByStoreId(userInfo.getUserId())
+//          .orElseThrow(() -> new NotFoundException("가입하지 않은 계정입니다."))
 
         // 이미지 파일 저장 및 경로 문자열로 반환
         MultipartFile file = dto.getProductImage();
@@ -43,7 +47,7 @@ public class ProductApprovalService {
         if (!file.isEmpty()) {
             productImage = FileUtil.uploadFile(rootPath, file);
         }
-        //
+        // DTO를 엔터티로 변환
         ProductApproval entity = ProductApproval.builder()
                 .price(dto.getPrice())
                 .proImage(productImage)
@@ -56,21 +60,27 @@ public class ProductApprovalService {
         log.info("saved prodcutApproval: {}", saved);
     }
 
-    // 요청 진행상황에 따라 status 처리
+    // 요청 진행상황에 따라 status 처리 ex) PENDING -> APPROVED
 
     // 요청 승인되면 각 테이블에 저장 (tbl_store, tbl_product)
     public void sendProductInfo(
             ProductApproval productApproval
-    ) {
-        // product 테이블에 image 저장
-
+    ) throws NotFoundException {
 
         // store 테이블로 가격, 수량 저장 (Exception 처리)
         Store store = productApproval.getStore();
+        if(store == null || store.getStoreId() == null) {
+            throw new NotFoundException("가입하지 않은 계정입니다.");
+        }
         Store saved = storeRepository.save(store);
 
         // store 저장 성공하면
-        // tbl_product 테이블로 proImage, store 저장
+        // product 테이블에 proImage 저장, store 저장
+        productRepository.save(
+                Product.builder()
+                        .productImage(productApproval.getProImage())
+                        .store(saved)
+                        .build());
 
     }
 

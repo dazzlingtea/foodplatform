@@ -43,7 +43,7 @@ public class StoreSignUpDetailDto {
 
     @Setter
 //    @NotBlank
-    private String businessNumber;
+    private String storeContact;
 
     // 가게 프로필 이미지 주소 변수 추가
     // 가게에서 가게 대표이미지 설정 안해둘 수 있으므로 null 체크 안함
@@ -53,12 +53,12 @@ public class StoreSignUpDetailDto {
     public Store toEntity(){
         return Store.builder()
 //                .password(this.password)
-                .category(this.category.getFoodType())
+                .category(this.category)
                 .address(this.address)
                 .approve(this.approve)
                 .warningCount(this.warningCount)
 //                .price(this.price)
-                .businessNumber(this.businessNumber)
+                .storeContact(this.storeContact)
                 .storeImage(this.storeImage)
                 .build();
     }

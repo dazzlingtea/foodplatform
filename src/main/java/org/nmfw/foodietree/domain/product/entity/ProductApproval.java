@@ -25,7 +25,7 @@ public class ProductApproval {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_approval_id")
-    private long id; // 상품 등록 요청 PK
+    private Long id; // 상품 등록 요청 PK
 
     @Setter
     @Column(name = "product_approval_image", nullable = false)
@@ -34,7 +34,7 @@ public class ProductApproval {
     @Column(name = "product_approval_amount", nullable = false)
     private int productCnt;  // 상품 수량
     @Column(name = "product_approval_price", nullable = false)
-    private int price;  // 상품 가격
+    private Integer price;  // 상품 가격
 
     @CreationTimestamp
     @Column(updatable = false)
@@ -51,7 +51,7 @@ public class ProductApproval {
     // 상품 등록 시 가게 정보 필요 (category 등 정보를 갖고 있음)
     // 가게당 상품은 하나지만 요청은 여러 번 가능
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="store_id")
+    @JoinColumn(name="idx_store_id")
     private Store store;
 
 

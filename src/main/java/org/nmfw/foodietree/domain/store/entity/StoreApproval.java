@@ -22,7 +22,8 @@ public class StoreApproval {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id; // 가게 등록 요청 PK
+    @Column(name = "store_approval_id")
+    private Long id; // 가게 등록 요청 PK
 
     @Column(name="store_approval_license", nullable = false)
     private String license; // 가게 사업자등록번호
@@ -54,7 +55,7 @@ public class StoreApproval {
 
     @Setter
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id")
+    @JoinColumn(name = "idx_store_id")
     private Store store;
 
     // 양방향 수정
@@ -63,14 +64,14 @@ public class StoreApproval {
         store.getStoreApprovals().add(this);
     }
 
-    // StoreApproval 정보를 Store에 업데이트
-    public Store updatedByStoreApporval() {
+    // StoreApproval 정보를 업데이트한 Store
+    public Store updateFromStoreApproval() {
         return Store.builder()
                 .storeId(store.getStoreId())
-                .category(category.toString())
+                .category(category)
                 .address(address)
                 .approve(status)
-                .businessNumber(contact)
+                .storeContact(contact)
                 .storeName(name)
                 .storeLicenseNumber(license)
                 .build();

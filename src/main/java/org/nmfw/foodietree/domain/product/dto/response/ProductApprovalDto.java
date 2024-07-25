@@ -28,10 +28,10 @@ public class ProductApprovalDto {
     public ProductApproval toEntity(){
 
         return ProductApproval.builder()
-                .id(this.storeId)
+//                .id(this.storeId)
 //                .category(this.category)
                 .price(Integer.parseInt(this.price))
-                .amount(this.productCnt)
+//                .amount(this.productCnt)
                 .build();
     }
 

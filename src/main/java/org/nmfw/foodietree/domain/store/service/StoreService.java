@@ -36,7 +36,7 @@ public class StoreService {
     public boolean signUp(StoreSignUpDto dto, HttpSession session) {
         Store store = dto.toEntity();
         String encodedPassword = encoder.encode(dto.getPassword());
-        store.setPassword(encodedPassword);
+//        store.setPassword(encodedPassword);
         boolean flag = storeMapper.storeSave(store);
         if (!flag) {
             return false;
@@ -54,11 +54,11 @@ public class StoreService {
         }
 
         String inputPassword = dto.getPassword();
-        String originPassword = foundStore.getPassword();
-        if (!encoder.matches(inputPassword, originPassword)) {
-            log.info("비밀번호가 일치하지 않습니다");
-            return NO_PW;
-        }
+//        String originPassword = foundStore.getPassword();
+//        if (!encoder.matches(inputPassword, originPassword)) {
+//            log.info("비밀번호가 일치하지 않습니다");
+//            return NO_PW;
+//        }
 
         if (dto.isAutoLogin()) {
             String sessionId = session.getId();

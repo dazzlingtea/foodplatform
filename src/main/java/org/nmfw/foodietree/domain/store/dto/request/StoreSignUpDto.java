@@ -34,7 +34,7 @@ public class StoreSignUpDto {
     public Store toEntity(){
         return Store.builder()
                 .storeId(this.account)
-                .password(this.password)
+//                .password(this.password)
                 .build();
     }
 }
