@@ -1,6 +1,5 @@
-
 // 가게 리스트 ===================================
-.list1{
+.list1 {
   margin: 0 auto;
   position: relative;
   // background-color: beige;
@@ -10,7 +9,7 @@
   border-top: solid 1px #e7e7e7;
 }
 
-.list1 .title1{
+.list1 .title1 {
   padding: 20px 20px 0 20px;
   font-size: 22px;
   font-weight: 600;
@@ -43,6 +42,23 @@
   position: relative;
   height: 250px;
   // background-color: aquamarine;
+
+  .category {
+    position: absolute; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    top: 20px;
+    left: 10px; 
+    background-color: #7CAF74; 
+    padding: 5px 13px 5px 10px; 
+    border-radius: 0 20px 20px 0;
+    font-size: 12px; 
+    color: #fff; 
+    font-weight: bold;
+    z-index: 10; 
+  }
 }
 
 .storeItem img {
@@ -53,7 +69,7 @@
   border-radius: 10px;
 }
 
-.storeItem p{
+.storeItem p {
   height: 15%;
   display: flex;
   align-items: center;
@@ -61,23 +77,25 @@
   position: absolute;
 }
 
-.storeItem span{
+.storeItem span {
   // padding: 10px 10px 0 0;
   position: absolute;
   bottom: 10px;
 }
 
-.storeItem .storeName{
+.storeItem .storeName {
   font-size: 20px;
   font-weight: 600;
 }
-.storeItem .discount{
+
+.storeItem .discount {
   font-size: 15px;
   font-weight: 600;
   color: #e84d4d;
   left:10px;
 }
-.storeItem .storePrice{
+
+.storeItem .storePrice {
   font-size: 15px;
   left:20px;
 }
