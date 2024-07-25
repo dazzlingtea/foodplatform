@@ -21,15 +21,16 @@ import java.util.List;
 public class Product {
 
     @Id // auto increment
-    @GenericGenerator(strategy = "uuid2", name = "uuid-generator")
-    @GeneratedValue(generator = "uuid-generator")
-    private String productId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private String productId; // 상품 id
 
+    private String productImage; // 상품 이미지
+
+    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime pickupTime; // 마감시간
 
     @CreationTimestamp
     private LocalDateTime productUploadDate; // 상품 등록 시간
-    private String proImage;
 
     private LocalDateTime canceledByStoreAt; // 가게에서 취소한 시간
 

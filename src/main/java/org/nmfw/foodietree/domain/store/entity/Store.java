@@ -6,11 +6,12 @@ import org.nmfw.foodietree.domain.product.entity.Product;
 import org.nmfw.foodietree.domain.store.entity.value.ApproveStatus;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter
-@ToString(exclude = "storeApprovals")
+@ToString(exclude = {"storeApprovals", "products"})
 @EqualsAndHashCode(of = "storeId")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,7 +23,10 @@ public class Store {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "store_id", updatable = false)
+    private long idxStoreId;
+
+    // 유니크
+    @Column(name = "store_id", unique = true)
     private String storeId;
 //    @Setter
 //    private String password;
@@ -30,16 +34,25 @@ public class Store {
     private String address;
     private ApproveStatus approve;
     private int warningCount;
-//    private int price;
-//    private int productCnt;
+    private int price;
+    private int productCnt;
     private String businessNumber;
     private String storeName;
     private String storeImage;
     private String storeLicenseNumber;
 
-//    @OneToOne
-//    @Column()
-//    private Product product = new Product();
+    @Temporal(TemporalType.TIME)
+    private LocalDateTime openAt; // 가게 영업시작 시간
+    @Temporal(TemporalType.TIME)
+    private LocalDateTime closedAt; // 가게 영업종료 시간
+    private LocalDateTime limitTime; // 자동로그인 유효시간
+
+    @OneToMany(mappedBy = "store",
+            fetch = FetchType.LAZY,
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}
+    )
+    private List<Product> products = new ArrayList<>();
 
     @OneToMany(mappedBy = "store",
             fetch = FetchType.LAZY,
@@ -58,4 +71,6 @@ public class Store {
         this.storeApprovals.add(storeApproval);
         storeApproval.setStore(this);
     }
+
+
 }

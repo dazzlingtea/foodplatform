@@ -2,7 +2,6 @@ package org.nmfw.foodietree.domain.store.entity;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.nmfw.foodietree.domain.store.entity.value.ApproveStatus;
 import org.nmfw.foodietree.domain.store.entity.value.StoreCategory;
@@ -23,8 +22,7 @@ public class StoreApproval {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "store_approval_id", updatable = false)
-    private String id; // 가게 등록 요청 랜덤문자 PK
+    private long id; // 가게 등록 요청 PK
 
     @Column(name="store_approval_license", nullable = false)
     private String license; // 가게 사업자등록번호
@@ -40,20 +38,21 @@ public class StoreApproval {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "store_approval_category", nullable = false)
-    private StoreCategory category;
+    private StoreCategory category; // 업종
 
     @Enumerated(EnumType.STRING)
     @Column(name = "store_approval_status", nullable = false)
-    @Builder.Default
+    @Builder.Default       // 등록 요청 상태
     private ApproveStatus status = ApproveStatus.PENDING;
 
     @CreationTimestamp
     @Column(updatable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt; // 생성시간
 
     @UpdateTimestamp
-    private LocalDateTime updatedAt;
+    private LocalDateTime updatedAt; // 수정시간
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id")
     private Store store;
@@ -64,5 +63,17 @@ public class StoreApproval {
         store.getStoreApprovals().add(this);
     }
 
+    // StoreApproval 정보를 Store에 업데이트
+    public Store updatedByStoreApporval() {
+        return Store.builder()
+                .storeId(store.getStoreId())
+                .category(category.toString())
+                .address(address)
+                .approve(status)
+                .businessNumber(contact)
+                .storeName(name)
+                .storeLicenseNumber(license)
+                .build();
+    }
 
 }

@@ -23,13 +23,12 @@ import java.time.LocalDateTime;
 public class ProductApproval {
 
     @Id
-    @GenericGenerator(strategy = "uuid2", name = "uuid-generator")
-    @GeneratedValue(generator = "uuid-generator")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_approval_id")
-    private String id; // 상품 등록 요청 랜덤문자 PK
+    private long id; // 상품 등록 요청 PK
 
-    @Column(name = "product_approval_image", nullable = false)
     @Setter
+    @Column(name = "product_approval_image", nullable = false)
     private String proImage; // 상품 이미지 경로
 
     @Column(name = "product_approval_amount", nullable = false)

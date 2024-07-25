@@ -7,7 +7,8 @@ import org.nmfw.foodietree.domain.product.entity.ProductApproval;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 @Getter @ToString
 @EqualsAndHashCode
@@ -21,32 +22,16 @@ public class ProductApprovalReqDto {
     @Value("${file.upload.root-path}")
     private String rootPath;
 
-    @NotNull
+    @NotBlank
+    @Pattern(regexp = "3900|5900|7900")
     private int price;
 
-    @NotNull
+    @NotBlank
     @Range(min=1, max=50)
     private int productCnt;
 
-    @NotNull
+    @NotBlank
     private MultipartFile productImage;
-
-    @Setter
-    private String storeId;
-
-    public ProductApproval toEntity() {
-        // entity 이미지 파일 경로 저장
-        String profilePath = null;
-        if (!productImage.isEmpty()) {
-            profilePath = FileUtil.uploadFile(rootPath, productImage);
-        }
-
-        return ProductApproval.builder()
-                .proImage(profilePath)
-                .price(price)
-                .productCnt(productCnt)
-                .build();
-    }
 
 
 }
