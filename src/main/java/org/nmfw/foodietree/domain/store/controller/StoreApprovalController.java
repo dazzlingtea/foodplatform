@@ -13,21 +13,21 @@ import javax.validation.Valid;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/store/approval")
-@Slf4j
+@RequestMapping("/store")
 @RequiredArgsConstructor
+@Slf4j
 public class StoreApprovalController {
 
     private final StoreApprovalService storeApprovalService;
 
     // 가게 등록 요청
-    @PostMapping("/")
+    @PostMapping("/approval")
     public ResponseEntity<?> approveStore(
             @Valid @RequestBody StoreApprovalReqDto dto
 //        , @AuthenticationPrincipal TokenUserInfo userInfo
     ) {
         // Validation 예외처리는 ExceptionAdvisor.java
-        log.debug("Request to approveStore : {}", dto.toString());
+        log.info("Request to approveStore : {}", dto.toString());
 
         // 가게 등록 요청 처리 (tbl_store_approval)
         try {

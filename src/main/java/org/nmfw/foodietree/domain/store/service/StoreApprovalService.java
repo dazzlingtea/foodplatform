@@ -35,11 +35,12 @@ public class StoreApprovalService {
          Store foundStore = storeRepository
                 .findByStoreId(storeId)
                 .orElseThrow(() -> new NoSuchElementException("가입한 계정이 아닙니다."));
+        log.debug("등록요청: 가게 foundStore: {}", foundStore);
 
         StoreApproval storeApproval = dto.toEntity();
-//        storeApproval.setStore(foundStore);
+        storeApproval.setStore(foundStore);
         StoreApproval saved = storeApprovalRepository.save(storeApproval);
-        log.info("saved storeApproval: {}", saved);
+        log.debug("saved storeApproval: {}", saved);
     }
 
     // 가게 등록 요청이 승인되면 tbl_store에 저장

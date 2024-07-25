@@ -34,9 +34,6 @@ public class StoreApprovalReqDto {
     @NotBlank
     private String category;
 
-    @Setter
-    private long storeId;
-
 
     public StoreApproval toEntity() {
 
