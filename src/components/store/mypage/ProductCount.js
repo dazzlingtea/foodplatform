@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
 import styles from './ProductCount.module.scss';
+import { useModal } from "../../../pages/common/ModalProvider"
 
 const BASE_URL = window.location.origin;
 
-const ProductCount = ({ openModal }) => {
+const ProductCount = () => {
     const [productData, setProductData] = useState({
         todayProductCnt: 10,
         todayPickedUpCnt: 5,
         readyToPickUpCnt: 2,
         remainCnt: 3,
     });
+    const { openModal } = useModal();
 
     const handleProductUpdate = () => {
         openModal('addProductAmount', {
-            addProductAmount: handleAddProductAmount
+            addProductAmount: handleAddProductAmount,
+            remainCnt: productData.remainCnt
         });
     };
 

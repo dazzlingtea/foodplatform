@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import styles from './CustomerReservationList.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faCircleCheck, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { useModal } from "../../../pages/common/ModalProvider"
 
 const BASE_URL = window.location.origin;
 
-const CustomerReservationList = ({ customerId, openModal }) => {
+const CustomerReservationList = () => {
     const [reservations, setReservations] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
+    const { openModal } = useModal();
 
     useEffect(() => {
         // fetchReservations(); // 실제 API 호출
@@ -22,9 +24,10 @@ const CustomerReservationList = ({ customerId, openModal }) => {
                 storeImg: '/assets/img/defaultImage.jpg',
                 storeName: 'Dummy Store 1',
                 status: 'RESERVED',
-                pickupTimeF: '2024-07-19 10:00',
+                pickupTimeF: '7월 19일 10시 00분',
                 cancelReservationAtF: null,
                 pickedUpAtF: null,
+                price: 10000
             },
             {
                 reservationId: 2,
@@ -32,8 +35,9 @@ const CustomerReservationList = ({ customerId, openModal }) => {
                 storeName: 'Dummy Store 2',
                 status: 'CANCELED',
                 pickupTimeF: null,
-                cancelReservationAtF: '2024-07-18 12:00',
+                cancelReservationAtF: '7월 18일 12시 00분',
                 pickedUpAtF: null,
+                price: 20000
             },
             {
                 reservationId: 3,
@@ -42,9 +46,79 @@ const CustomerReservationList = ({ customerId, openModal }) => {
                 status: 'NOSHOW',
                 pickupTimeF: null,
                 cancelReservationAtF: null,
-                pickedUpAtF: '2024-07-17 14:00',
+                pickedUpAtF: '7월 17일 14시 00분',
+                price: 30000
             },
-            // 추가 더미 데이터 ...
+            {
+                reservationId: 4,
+                storeImg: '/assets/img/defaultImage.jpg',
+                storeName: 'Dummy Store 4',
+                status: 'RESERVED',
+                pickupTimeF: '7월 20일 15시 30분',
+                cancelReservationAtF: null,
+                pickedUpAtF: null,
+                price: 40000
+            },
+            {
+                reservationId: 5,
+                storeImg: '/assets/img/defaultImage.jpg',
+                storeName: 'Dummy Store 5',
+                status: 'PICKEDUP',
+                pickupTimeF: null,
+                cancelReservationAtF: null,
+                pickedUpAtF: '7월 19일 09시 00분',
+                price: 50000
+            },
+            {
+                reservationId: 6,
+                storeImg: '/assets/img/defaultImage.jpg',
+                storeName: 'Dummy Store 6',
+                status: 'CANCELED',
+                pickupTimeF: null,
+                cancelReservationAtF: '7월 17일 13시 15분',
+                pickedUpAtF: null,
+                price: 60000
+            },
+            {
+                reservationId: 7,
+                storeImg: '/assets/img/defaultImage.jpg',
+                storeName: 'Dummy Store 7',
+                status: 'NOSHOW',
+                pickupTimeF: null,
+                cancelReservationAtF: null,
+                pickedUpAtF: '7월 16일 11시 45분',
+                price: 70000
+            },
+            {
+                reservationId: 8,
+                storeImg: '/assets/img/defaultImage.jpg',
+                storeName: 'Dummy Store 8',
+                status: 'RESERVED',
+                pickupTimeF: '7월 21일 14시 00분',
+                cancelReservationAtF: null,
+                pickedUpAtF: null,
+                price: 80000
+            },
+            {
+                reservationId: 9,
+                storeImg: '/assets/img/defaultImage.jpg',
+                storeName: 'Dummy Store 9',
+                status: 'PICKEDUP',
+                pickupTimeF: null,
+                cancelReservationAtF: null,
+                pickedUpAtF: '7월 18일 10시 30분',
+                price: 90000
+            },
+            {
+                reservationId: 10,
+                storeImg: '/assets/img/defaultImage.jpg',
+                storeName: 'Dummy Store 10',
+                status: 'CANCELED',
+                pickupTimeF: null,
+                cancelReservationAtF: '7월 15일 16시 20분',
+                pickedUpAtF: null,
+                price: 100000
+            },
         ];
         setReservations(dummyData);
     };
@@ -81,12 +155,40 @@ const CustomerReservationList = ({ customerId, openModal }) => {
         }
     };
 
+    // 예약 취소 fetch 함수
+    const cancelReservation = async (reservationId) => {
+        try {
+            const response = await fetch(`${BASE_URL}/reservation/cancel/${reservationId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('취소에 실패했습니다.');
+            }
+
+            // 예약 취소 성공 시 예약 목록 갱신
+            const updatedReservations = reservations.map(reservation =>
+                reservation.reservationId === reservationId ? { ...reservation, status: 'CANCELED', cancelReservationAtF: new Date().toISOString() } : reservation
+            );
+            setReservations(updatedReservations);
+            return true;
+        } catch (error) {
+            console.error('Error canceling reservation:', error);
+            return false;
+        }
+    };
+
     // 예약 취소 모달을 여는 함수
     const handleCancelReservationClick = async (reservationId, event) => {
         event.stopPropagation(); // 이벤트 버블링 방지
         try {
             // const isCancelAllowed = true; // 더미 데이터에서는 항상 true, 실제 로직에서는 조건 확인 필요
-            openModal('cancelReservationDetail', { reservationId });
+            const reservationDetail = reservations.find(r => r.reservationId === reservationId); // 더미 데이터용 로직
+
+            openModal('cancelReservationDetail', { reservationDetail, cancelReservation });
         } catch (error) {
             console.error('Error fetching cancel reservation detail:', error);
         }
@@ -105,6 +207,15 @@ const CustomerReservationList = ({ customerId, openModal }) => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
+
+    const handleScroll = (e) => {
+        const { scrollTop, scrollHeight, clientHeight } = e.target;
+        if (scrollTop === 0) {
+            e.preventDefault();
+        } else if (scrollTop + clientHeight === scrollHeight) {
+            e.preventDefault();
+        }
+    };
 
     return (
         <div className={styles.reservationListForm}>

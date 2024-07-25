@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Calendar.module.scss';
+import { useModal } from "../../../pages/common/ModalProvider"
 
-const Calendar = ({ openModal }) => {
+const Calendar = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [daysInMonth, setDaysInMonth] = useState([]);
     const [holidays, setHolidays] = useState([]);
+    const { openModal } = useModal();
 
     useEffect(() => {
         updateCalendar(currentDate.getFullYear(), currentDate.getMonth());
@@ -83,7 +85,7 @@ const Calendar = ({ openModal }) => {
             // handleUndoHoliday: isHoliday(day) ? () => handleUndoHoliday(selectedDate) : null
         };
 
-        openModal('scheduleDetail', scheduleDetail);
+        openModal('scheduleDetail', { scheduleDetail });
     };
 
     // // 휴무일을 설정하는 함수 (더미 데이터를 사용하므로 주석 처리)

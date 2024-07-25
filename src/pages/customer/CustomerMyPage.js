@@ -35,7 +35,6 @@ const stats = {
 };
 // 여기까지 더미데이터
 
-// customerId 어디서 가져와야함?!
 const CustomerMyPage = ({ customerId }) => {
     const { openModal } = useModal();
 
@@ -67,7 +66,6 @@ const CustomerMyPage = ({ customerId }) => {
                     <div className={styles.content}>
                         <CustomerReservationList
                             customerId={customerId}
-                            openModal={openModal}
                         />
                         <PreferredArea preferredAreas={customerMyPageDto.preferredArea}/>
                         <PreferredFood preferredFoods={customerMyPageDto.preferredFood}/>

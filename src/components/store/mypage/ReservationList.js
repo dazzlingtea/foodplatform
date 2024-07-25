@@ -2,12 +2,14 @@ import React, { useEffect } from 'react';
 import styles from './ReservationList.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faCircleCheck, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { useModal } from "../../../pages/common/ModalProvider"
 
 // const BASE_URL = window.location.origin;
 
-const ReservationList = ({ reservations, openModal }) => {
+const ReservationList = ({ reservations }) => {
     // const [reservations, setReservations] = useState([]);
     // const [isFetching, setIsFetching] = useState(false);
+    const { openModal } = useModal();
 
     useEffect(() => {
         const reservationItems = document.querySelectorAll(`.${styles.reservationItem}`);

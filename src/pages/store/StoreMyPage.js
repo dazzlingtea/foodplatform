@@ -131,9 +131,9 @@ const StoreMyPage = () => {
                         isShow={show}
                     />
                     <div className={styles.content}>
-                        <ReservationList reservations={reservations} openModal={openModal} />
-                        <ProductCount openModal={openModal}/>
-                        <Calendar openModal={openModal}/>
+                        <ReservationList reservations={reservations} />
+                        <ProductCount />
+                        <Calendar />
                     </div>
                 </div>
             </div>
