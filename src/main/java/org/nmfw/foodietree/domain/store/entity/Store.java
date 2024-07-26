@@ -8,11 +8,12 @@ import org.nmfw.foodietree.domain.store.entity.value.StoreCategory;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter
-@ToString(exclude = {"storeApprovals", "products"})
+@ToString(exclude = {"products"})
 @EqualsAndHashCode(of = "storeId")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,39 +22,59 @@ import java.util.List;
 @Entity
 @Table(name="tbl_store")
 public class Store {
-
+  
     @Id // auto increment
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idx_store_id", nullable = false)
     private Long idxStoreId;
 
-    // 유니크
+    // 가게 계정 == 이메일, (유니크)
     @Column(name = "store_id", unique = true)
     private String storeId;
 
 //    @Setter
+//    @Column(name = "password", nullable = false)
 //    private String password;
 
     @Enumerated(EnumType.STRING)
-    private StoreCategory category;
+    private StoreCategory category; // 업종 카테고리
 
     @Enumerated(EnumType.STRING)
-    private ApproveStatus approve;
+    private ApproveStatus approve; // 승인여부
 
-    private String address;
+    @Column(name = "address")
+    private String address; // 가게 주소
 
-    private Integer warningCount;
-    private Integer price;
-    private Integer productCnt;
-    private String storeContact;
-    private String storeName;
-    private String storeImage;
-    private String storeLicenseNumber;
+    @Column(name = "warning_count")
+    private int warningCount; // 경고 누적 횟수
 
-    private LocalDateTime openAt; // 가게 영업시작 시간
-    private LocalDateTime closedAt; // 가게 영업종료 시간
-    private LocalDateTime limitTime; // 자동로그인 유효시간
+    @Column(name = "price")
+    private int price; // 가격
 
+    @Column(name = "product_cnt")
+    private int productCnt; // 상품갯수
+    
+    @Column(name = "store_contact")
+    private String storeContact;  // 가게 연락처
+
+    @Column(name = "store_name")
+    private String storeName; // 가게 이름
+
+    @Column(name = "store_img")
+    private String storeImg; // 가게 사진
+
+    @Column(name = "store_license_number")
+    private String storeLicenseNumber; // 사업자번호
+
+    @Column(name = "open_at")
+    private LocalTime openAt; // 오픈시간
+
+    @Column(name = "closed_at")
+    private LocalTime closedAt; // 마감시간
+
+    @Column(name = "limit_time")
+    private LocalDateTime limitTime; // 제한시간
+  
     @OneToMany(mappedBy = "store",
             fetch = FetchType.LAZY,
             orphanRemoval = true,
@@ -73,5 +94,6 @@ public class Store {
         product.setStore(null);
     }
 
-
+  
 }
+

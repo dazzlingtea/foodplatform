@@ -55,11 +55,13 @@ public class StoreSignUpDetailDto {
 //                .password(this.password)
                 .category(this.category)
                 .address(this.address)
-                .approve(this.approve)
+                .approve(String.valueOf(this.approve))
                 .warningCount(this.warningCount)
-//                .price(this.price)
                 .storeContact(this.storeContact)
                 .storeImage(this.storeImage)
+                .price(this.price)
+                .businessNumber(this.businessNumber)
+                .storeImg(this.storeImage)
                 .build();
     }
 }
