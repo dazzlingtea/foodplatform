@@ -137,6 +137,11 @@
         max-height: calc(70vh - 70px); // 닫기 버튼 높이 제외한 최대 높이 설정
         text-align: center;
       }
+
+      .modalFooter{
+        padding-top: 20px;
+      }
     }
+
   }
 }

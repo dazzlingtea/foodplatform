@@ -6,11 +6,8 @@ const StoreReservationDetailModal = ({ reservationInfo }) => {
         return null; // 예약 정보가 없을 경우 null 반환 (로딩 처리 등)
     }
 
-    // 테스트용
-    let reservationStatus = 'PICKEDUP'; // 예약 상태: 'CANCELED', 'RESERVED', 'PICKEDUP', 'NOSHOW'
-
     let tag = '';
-    switch (reservationStatus) {
+    switch (reservationInfo.status) {
         case 'CANCELED':
             tag = (
                 <div className={styles.reservationDetailItem} data-reservation-id={reservationInfo.id}>

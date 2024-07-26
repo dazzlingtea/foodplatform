@@ -19,19 +19,34 @@
     justify-content: center;
     align-items: center;
 
-    .adjustBtn{
+    .adjustBtn {
       margin: 30px 24px;
       padding: 8px;
+      border-radius: 11px;
     }
 
-    .initialCnt{
+    .initialCnt {
       font-size: 23px;
       font-weight: 700;
     }
   }
 
-  .confirmBtn{
-    padding: 12px;
+  .confirmBtn {
+    color: #fff;
+    font-weight: 700;
     margin-top: 28px;
+    border-radius: 11px;
+    font-size: 18px;
+    padding: 11px 36px;
+    background: linear-gradient(to bottom, rgba(246, 160, 129, 0.73), rgba(243, 101, 33, 0.73));
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    &:hover,
+    &:focus {
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+      background: linear-gradient(to bottom, #b4da95, #7ab96d);
+      transition: 0.5s;
+    }
   }
 }

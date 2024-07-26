@@ -3,7 +3,7 @@ import styles from "./BottomPlaceOrder.module.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMinus, faPlus} from "@fortawesome/free-solid-svg-icons";
 
-const BottomPlaceOrder = () => {
+const BottomPlaceOrder = ({makeReservation}) => {
     const [initialCount, setInitialCount] = useState(1);
 
     const handleIncrease = () => {
@@ -15,6 +15,11 @@ const BottomPlaceOrder = () => {
             setInitialCount(prevCount => prevCount - 1);
         }
     };
+
+    const handleMakeReservation = () => {
+        console.log(initialCount);
+        makeReservation(initialCount);
+    }
     return (
         <div className={styles.bottomPlaceOrder}>
             <div className={styles.productAmtAdjustBtn}>
@@ -26,8 +31,8 @@ const BottomPlaceOrder = () => {
                     <FontAwesomeIcon icon={faPlus}/>
                 </button>
             </div>
-            <div className={styles.placeOrderBtn}>
-                <p>Place Order</p>
+            <div className={styles.placeOrderBtn} onClick={handleMakeReservation}>
+                <p>구매하기</p>
             </div>
         </div>
     );

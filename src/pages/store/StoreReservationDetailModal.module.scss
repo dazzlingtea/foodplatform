@@ -1,6 +1,10 @@
-.modalWrapper{
+@media (max-width: 400px) {
+  .modalWrapper {
 
-  .reservationDetailItem{
+
+    .reservationDetailItem {
+      padding-bottom: 50px;
+    }
 
   }
 }
