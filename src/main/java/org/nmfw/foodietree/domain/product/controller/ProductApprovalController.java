@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 @RestController
-@RequestMapping("/store/approval")
+@RequestMapping("/store")
 @RequiredArgsConstructor
 @Slf4j
 public class ProductApprovalController {
@@ -19,7 +19,7 @@ public class ProductApprovalController {
     private final ProductApprovalService productApprovalService;
 
     // 상품 등록 요청
-    @PostMapping("/p")
+    @PostMapping("/product/approval")
     @ResponseBody
 //    @PostMapping(value = "/p", consumes = "multipart/form-data")
     public ResponseEntity<?> approveProduct(

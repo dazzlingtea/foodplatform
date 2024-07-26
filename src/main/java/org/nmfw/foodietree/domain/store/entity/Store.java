@@ -61,25 +61,6 @@ public class Store {
     )
     private List<Product> products = new ArrayList<>();  // products 연관관계
 
-    @OneToMany(mappedBy = "store",
-            fetch = FetchType.LAZY,
-            orphanRemoval = true,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH}
-    )
-    private List<StoreApproval> storeApprovals = new ArrayList<>(); //
-
-
-
-    // storeApproval 양방향 삭제
-    public void removeStoreApproval(StoreApproval storeApproval) {
-        this.storeApprovals.remove(storeApproval);
-        storeApproval.setStore(null);
-    }
-    // storeApproval 양방향 삽입
-    public void addStoreApproval(StoreApproval storeApproval) {
-        this.storeApprovals.add(storeApproval);
-        storeApproval.setStore(this);
-    }
     // 연관된 product 추가 메서드
     public void addProduct(Product product) {
         products.add(product);

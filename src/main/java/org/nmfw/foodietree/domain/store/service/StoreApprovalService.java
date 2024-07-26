@@ -38,7 +38,7 @@ public class StoreApprovalService {
         log.debug("등록요청: 가게 foundStore: {}", foundStore);
 
         StoreApproval storeApproval = dto.toEntity();
-        storeApproval.setStore(foundStore);
+        storeApproval.setStoreId(storeId);
         StoreApproval saved = storeApprovalRepository.save(storeApproval);
         log.debug("saved storeApproval: {}", saved);
     }

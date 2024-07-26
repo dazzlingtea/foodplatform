@@ -57,7 +57,7 @@ public class ProductApprovalService {
                 .price(dto.getPrice())
                 .proImage(productImage) // 이미지 저장된 경로
                 .productCnt(dto.getProductCnt())
-                .store(loggedStore)
+                .storeId(loggedStore.getStoreId())
                 .build();
 
         // repository DB 저장
@@ -73,18 +73,19 @@ public class ProductApprovalService {
     ) throws NotFoundException {
 
         // store 테이블로 가격, 수량 저장 (Exception 처리)
-        Store store = productApproval.getStore();
-        if(store == null || store.getStoreId() == null) {
+        String storeId = productApproval.getStoreId();
+        if(storeId == null) {
             throw new NotFoundException("가입하지 않은 계정입니다.");
         }
-        Store saved = storeRepository.save(store);
+//        Store saved = storeRepository.save(store);
+        Store store = storeRepository.findByStoreId(storeId).orElseThrow();
 
         // store 저장 성공하면
         // product 테이블에 proImage 저장, store 저장
         productRepository.save(
                 Product.builder()
                         .productImage(productApproval.getProImage())
-                        .store(saved)
+                        .store(store)
                         .build());
 
     }

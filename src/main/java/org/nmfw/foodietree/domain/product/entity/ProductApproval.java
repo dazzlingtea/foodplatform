@@ -48,11 +48,15 @@ public class ProductApproval {
     @Builder.Default
     private ApproveStatus status = ApproveStatus.PENDING; // 상품 요청시 PENDING
 
+    @Column(name = "product_approval_email", nullable = false)
+    private String storeId; // 상품 요청 가게 회원의 이메일
+
+
     // 상품 등록 시 가게 정보 필요 (category 등 정보를 갖고 있음)
     // 가게당 상품은 하나지만 요청은 여러 번 가능
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="idx_store_id")
-    private Store store;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name="idx_store_id")
+//    private Store store;
 
 
 }

@@ -53,21 +53,13 @@ public class StoreApproval {
     @UpdateTimestamp
     private LocalDateTime updatedAt; // 수정시간
 
-    @Setter
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idx_store_id")
-    private Store store;
-
-    // 양방향 수정
-    public void changeStore(Store store) {
-        this.store = store;
-        store.getStoreApprovals().add(this);
-    }
+    @Column(name = "store_approval_email", nullable = false)
+    private String storeId; // 가게 회원의 이메일
 
     // StoreApproval 정보를 업데이트한 Store
     public Store updateFromStoreApproval() {
         return Store.builder()
-                .storeId(store.getStoreId())
+                .storeId(storeId)
                 .category(category)
                 .address(address)
                 .approve(status)
