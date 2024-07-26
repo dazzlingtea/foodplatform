@@ -11,7 +11,6 @@
   margin: 0 auto;
   padding: 20px 50px;
   border-radius: 10px;
-  //border: 1px solid lawngreen;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
   display: flex;
@@ -40,11 +39,15 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    font-weight: 700;
+    font-weight: 500;
+    color: var(--color-gray-500);
 
     .error {
-      color: #ff0000;
       font-size: 0.9rem;
+
+      .warning {
+        color: #fd6f6f;
+      }
     }
   }
   input, select {
@@ -84,8 +87,8 @@
     border: 0;
     border-radius:6px;
     background: $color-main;
-    //color:#ffffff;
-    color:var(--color-gray-800);
+    //color:var(--color-gray-800);
+    color: #FFFFFF;
     font-family: $font-pretendard;
     font-size: 1rem;
     font-weight:bold;
@@ -98,18 +101,18 @@
     }
   }
   .disabled {
-    background: var(--color-gray-300);
+    background: var(--color-gray-200);
     color: var(--color-gray-400);
 
     &:hover {
-      background: var(--color-gray-300);
+      background: var(--color-gray-200);
     }
   }
 }
 
  @media (max-width: 400px) {
    .registration {
-     width: calc($form-w - 360px);
+     width: 100%;
      padding: 15px;
 
      h2 {
@@ -121,14 +124,14 @@
        font-size: 1rem;
      }
      label {
-       width: 100%;
+       width: 96%;
 
        .error {
          font-size: 0.8rem
        }
      }
      input, select {
-       width: 100%;
+       width: 96%;
        margin: 0 auto 30px;
        padding: 8px;
        font-size: 16px;

@@ -14,9 +14,9 @@ $color-light: #e3ffef;
   max-width: $upload-w;
   margin: 0 auto 30px;
   padding: 10px;
-  border: 1px solid var(--color-gray-300);
+  border: 1px solid var(--color-gray-200);
   border-radius: 10px;
-  background: #f4f8f7;
+  background: #f6fafa;
   color: #aaa;
   text-align: center;
   font-size: 1.2em;
@@ -28,7 +28,7 @@ $color-light: #e3ffef;
   label {
     cursor: pointer;
     color: #bbb;
-    width: 80%;
+    width: 100%;
     height: $upload-h;
     display: flex;
     align-items: center;
@@ -44,9 +44,10 @@ $color-light: #e3ffef;
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  height: 250px;
+  height: calc($upload-h - 5px);
   justify-content: center;
-  background: var(--color-gray-300);
+  align-content: center;
+  //background: var(--color-gray-300);
 
   img {
     width: calc($upload-w - 4px);
@@ -61,14 +62,11 @@ $color-light: #e3ffef;
     position: absolute;
     top: 0;
     left: 0;
-    width: $upload-w;
+    width: 100%;
     height: $upload-h;
     opacity: 0;
     cursor: pointer;
     z-index: 1;
-    //opacity: 0;
-    //position: relative;
-    //z-index: 1;
   }
 }
 
@@ -91,6 +89,7 @@ $color-light: #e3ffef;
     padding: 10px 20px;
     border-radius: 20px;
     text-align: center;
+    transition: 300ms;
 
     &:hover {
       color: #ffffff;
@@ -114,6 +113,7 @@ $color-light: #e3ffef;
     overflow: hidden;
     margin: 0;
     padding: 0;
+    opacity: 0;
   }
 
 }
@@ -124,17 +124,24 @@ $color-light: #e3ffef;
   .image-upload {
     width: 100%;
     height: 250px;
-    padding: 10px;
+    padding: 5px;
+
+    label {
+      font-size: 1rem;
+    }
 
     .image-preview {
+      width: 100%;
+      height: 100%;
+
       label{
         width: 100%;
         height: 100%;
-        font-size: 0.8rem;
+        line-height: 20px;
       }
       img {
         width: 100%;
-        height: 95%;
+        height: 100%;
         margin: auto auto;
       }
     }
@@ -142,16 +149,22 @@ $color-light: #e3ffef;
   }
 
   .chips {
-    width: 100%;
+    width: 96%;
     margin: 0 5px 20px;
     flex-direction: row;
+    justify-content: space-between;
     gap: 20px;
 
     label.chip {
+      width: calc(80vw / 3);
       height: 40px;
       //margin: 0 auto;
       //padding: 10px;
+      font-size: 0.9rem;
       text-align: center;
+    }
+    .radioInput {
+
     }
   }
 

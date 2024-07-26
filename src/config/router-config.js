@@ -1,5 +1,4 @@
-
-import { createBrowserRouter} from "react-router-dom";
+import {createBrowserRouter} from "react-router-dom";
 import CategoriesPage from "../pages/userMain/CategoriesPage";
 
 import RootLayout from '../layout/RootLayout';
@@ -16,36 +15,41 @@ import StoreMyPage from "../pages/store/StoreMyPage";
 import CustomerMyPage from "../pages/customer/CustomerMyPage";
 import CustomerMyPageEdit from "../pages/customer/CustomerMyPageEdit";
 import StoreRegisterPage from "../pages/store/StoreRegisterPage";
-import {storeRegisterAction} from "../components/StoreRegister/StoreRegisterForm";
-import ProductRegisterForm, {productRegisterAction} from "../components/StoreRegister/ProductRegisterForm";
+import {storeRegisterAction} from "../components/storeRegister/StoreRegisterForm";
+import ProductRegisterForm, {productRegisterAction} from "../components/storeRegister/ProductRegisterForm";
 import VerifyToken from "../components/auth/VerifyToken";
 
 const homeRouter = [
-  {
-    index: true,
-    element: <div>hi</div>,
-  },
-  {
-    path: '/sign-up',
-    element: <SignUpPage/>
-  },
-  {
-    path: '/sign-in',
-    element: <LoginPage/>
-  },
-  {
-    path: 'email-verification',
-    element: <EmailVerificationPage/>
-  },
-  {
-    path: '/main',
-    element: <MainPage />
-  },
-  {
-    path: '/:categoryName',
-    element: <CategoriesPage />,
-  },
-  
+    {
+        index: true,
+        element: <div>hi</div>,
+    },
+    {
+        path: '/sign-up',
+        element: <SignUpPage/>
+    },
+    {
+        path: '/sign-in',
+        element: <LoginPage/>
+    },
+    {
+        path: 'email-verification',
+        element: <EmailVerificationPage/>
+    },
+    {
+        path: '/verifyEmail',
+        element: <VerifyToken/>
+    },
+    {
+        path: '/main',
+        element: <MainPage/>
+    },
+    {
+        path: '/:categoryName',
+        element: <CategoriesPage/>,
+    },
+
+
 ];
 const customerMyPageRouter = [
     {
@@ -61,21 +65,21 @@ const customerMyPageRouter = [
 const storeRouter = [
     {
         index: true,
-        element: <StoreMyPage />,
-      },
+        element: <StoreMyPage/>,
+    },
     {
         path: 'edit',
         element: <StoreMyPageEdit/>
     },
     {
-      path: 'approval',
-      element: <StoreRegisterPage />,
-      action: storeRegisterAction
+        path: 'approval',
+        element: <StoreRegisterPage/>,
+        action: storeRegisterAction
     },
     {
-      path: 'product/approval',
-      element: <ProductRegisterForm />,
-      action: productRegisterAction
+        path: 'product/approval',
+        element: <ProductRegisterForm/>,
+        action: productRegisterAction
     }
 ]
 
@@ -98,22 +102,6 @@ export const router = createBrowserRouter([
             {
                 path: '/customer',
                 children: customerMyPageRouter
-            },
-            {
-                path: '/sign-up',
-                element: <SignUpPage />
-            },
-            {
-                path: '/login',
-                element: <LoginPage />
-            },
-            {
-                path: '/email-verification',
-                element: <EmailVerificationPage />
-            },
-            {
-                path: '/verifyEmail',
-                element: <VerifyToken />
             },
         ]
     },

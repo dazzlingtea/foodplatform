@@ -5,6 +5,7 @@ import SelectBox from "./SelectBox";
 import {STORE_URL} from "../../config/host-config";
 import {debounce} from "lodash";
 import useFormValidation from "./useFormValidation";
+import ErrorSpan from "./ErrorSpan";
 
 // select option 배열
 const OPTIONS = [
@@ -46,7 +47,7 @@ const initialValues = {
       case 'bizLicenseNum':
         console.log(value)
         return /^\d{10}$/.test(value) && checkLicense(value)
-            ? null : '유효한 사업자등록번호 숫자만 입력해주세요.';
+            ? null : '유효한 번호를 입력해주세요.';
       case 'bizName':
       case 'bizAddress':
         return value.trim() !== '' ? null : '필수 입력 값입니다.';
@@ -76,7 +77,7 @@ const StoreRegisterForm = () => {
       <h2>가게 등록</h2>
       <h3>푸디트리와 지구를 위한 한걸음 함께 해보아요!</h3>
       <label htmlFor='bizLicenseNum'>사업자등록번호
-        {errors.bizLicenseNum && <span className={styles.error}>{errors.bizLicenseNum}</span>}
+        {errors.bizLicenseNum && <ErrorSpan message={errors.bizLicenseNum} />}
       </label>
       <input
         id='bizLicenseNum'
@@ -85,11 +86,11 @@ const StoreRegisterForm = () => {
         onChange={changeHandler}
         type="text"
         maxLength={10}
-        placeholder="사업자등록번호는 필수 입력 값입니다. 숫자만 입력해주세요."
+        placeholder="숫자만 입력해주세요."
       />
 
       <label htmlFor='bizName'>상호명
-        {errors.bizName && <span className={styles.error}>{errors.bizName}</span>}
+        {errors.bizName && <ErrorSpan message={errors.bizName} />}
       </label>
       <input
         id='bizName'
@@ -102,7 +103,7 @@ const StoreRegisterForm = () => {
         required
       />
       <label htmlFor='bizAddress'>가게 주소
-        {errors.bizAddress && <span className={styles.error}>{errors.bizAddress}</span>}
+        {errors.bizAddress && <ErrorSpan message={errors.bizAddress} />}
       </label>
       <input
         id='bizAddress'
@@ -114,7 +115,7 @@ const StoreRegisterForm = () => {
         required
       />
       <label htmlFor='bizPhoneNum'>가게 연락처
-        {errors.bizPhoneNum && <span className={styles.error}>{errors.bizPhoneNum}</span>}
+        {errors.bizPhoneNum && <ErrorSpan message={errors.bizPhoneNum} />}
       </label>
       <input
         id='bizPhoneNum'
@@ -126,7 +127,7 @@ const StoreRegisterForm = () => {
         required
       />
       <label htmlFor='bizCategory'>업종
-        {errors.bizCategory && <span className={styles.error}>{errors.bizCategory}</span>}
+        {errors.bizCategory && <ErrorSpan message={errors.bizCategory} />}
       </label>
       <SelectBox
         name='bizCategory'

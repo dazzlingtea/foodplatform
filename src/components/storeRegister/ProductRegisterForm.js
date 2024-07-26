@@ -5,6 +5,7 @@ import formStyle from './StoreRegisterForm.module.scss';
 import PriceRadioBox from "./PriceRadioBox";
 import {STORE_URL} from "../../config/host-config";
 import useFormValidation from "./useFormValidation";
+import ErrorSpan from "./ErrorSpan";
 
 
 const PRICE_OPTIONS = [
@@ -38,7 +39,6 @@ const ProductRegisterForm = () => {
 
   const { values, errors, isFormValid, changeHandler, setValues }
       = useFormValidation(initialValues, validate);
-    console.log('상품 폼 실행 isFormValid: ', isFormValid)
 
   // 업로드된 파일 props drilling
   const onAdd = (file) => {
@@ -56,7 +56,6 @@ const ProductRegisterForm = () => {
   };
 
   useEffect(() => {
-    console.log('상품 등록: ', values);
   }, [values]);
 
   return (
@@ -66,9 +65,9 @@ const ProductRegisterForm = () => {
         <h3>푸디트리를 통해 새로운 로컬 고객을 만나보세요!</h3>
 
         <UploadInput onAdd={onAdd}/>
-          {errors.productImage && <span className={formStyle.error}>{errors.productImage}</span>}
+          {errors.productImage && <ErrorSpan message={errors.productImage} />}
         <label htmlFor="productCnt">스페셜팩 수량
-          {errors.productCnt && <span className={formStyle.error}>{errors.productCnt}</span>}
+          {errors.productCnt && <ErrorSpan message={errors.productCnt} />}
         </label>
         <input
             type="number"
@@ -83,7 +82,7 @@ const ProductRegisterForm = () => {
         />
 
         <label htmlFor="price">스페셜팩 가격
-          {errors.price && <span className={formStyle.error}>{errors.price}</span>}
+          {errors.price && <ErrorSpan message={errors.price} />}
         </label>
         <PriceRadioBox
             name={'price'}
@@ -95,7 +94,6 @@ const ProductRegisterForm = () => {
 
         <button
             type="submit"
-            // className={formStyle["btn-approval"]}
             className={`${formStyle['btn-approval']} ${!isFormValid && formStyle.disabled}`}
             disabled={!isFormValid}
         >스페셜팩 등록하기</button>
