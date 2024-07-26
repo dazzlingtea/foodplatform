@@ -19,20 +19,23 @@ public class ProductApprovalController {
     private final ProductApprovalService productApprovalService;
 
     // 상품 등록 요청
-    @PostMapping("/product/approval")
     @ResponseBody
+    @PostMapping(value="/product/approval")
 //    @PostMapping(value = "/p", consumes = "multipart/form-data")
     public ResponseEntity<?> approveProduct(
-            @Validated @RequestPart("price") int price
-          , @Validated @RequestPart("productCnt") int productCnt
-          , @Validated @RequestPart("productImage") MultipartFile productImage
+//            @Validated @RequestPart("price") int price
+//          , @Validated @RequestPart("productCnt") int productCnt
+            @Validated @RequestPart(value = "productInfo") ProductApprovalReqDto dto
+          , @Validated @RequestPart(value = "productImage") MultipartFile productImage
 //        , @AuthenticationPrincipal TokenUserInfo userInfo
     ) {
         // 컨트롤러의 Validation 예외처리는 ExceptionAdvisor.java
         // userInfo는 service에서 처리
 
-        System.out.println("Product Count: " + productCnt);
-        System.out.println("Price: " + price);
+//        System.out.println("Product Count: " + productCnt);
+        System.out.println("Product Count: " + dto.getProductCnt());
+//        System.out.println("Price: " + price);
+        System.out.println("Price: " + dto.getPrice());
         System.out.println("Product Image: " + productImage.getOriginalFilename());
 
 //        ProductApprovalReqDto dto = ProductApprovalReqDto.builder()

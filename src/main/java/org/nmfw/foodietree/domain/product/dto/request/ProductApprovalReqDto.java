@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 @Getter @ToString
@@ -22,15 +23,14 @@ public class ProductApprovalReqDto {
     @Value("${file.upload.root-path}")
     private String rootPath;
 
-    @NotBlank
-    @Pattern(regexp = "3900|5900|7900")
+    @NotNull
     private int price;
 
-    @NotBlank
+    @NotNull
     @Range(min=1, max=50)
     private int productCnt;
 
-    @NotBlank
+//    @NotNull
     private MultipartFile productImage;
 
 
