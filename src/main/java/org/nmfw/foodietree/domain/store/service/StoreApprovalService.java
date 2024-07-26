@@ -16,7 +16,7 @@ import java.util.NoSuchElementException;
 @Slf4j
 public class StoreApprovalService {
 
-//    private final StoreApprovalMapper storeApprovalMapper;
+    //    private final StoreApprovalMapper storeApprovalMapper;
     private final StoreApprovalRepository storeApprovalRepository;
     private final StoreRepository storeRepository;
 
@@ -32,7 +32,7 @@ public class StoreApprovalService {
 
         // 테스트용으로 storeId = 'test@test.com'
         String storeId = "test@test.com";
-         Store foundStore = storeRepository
+        Store foundStore = storeRepository
                 .findByStoreId(storeId)
                 .orElseThrow(() -> new NoSuchElementException("가입한 계정이 아닙니다."));
         log.debug("등록요청: 가게 foundStore: {}", foundStore);

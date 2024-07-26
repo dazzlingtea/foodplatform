@@ -30,7 +30,7 @@ public class ProductApprovalReqDto {
     @Range(min=1, max=50)
     private int productCnt;
 
-//    @NotNull
+    @Setter
     private MultipartFile productImage;
 
 

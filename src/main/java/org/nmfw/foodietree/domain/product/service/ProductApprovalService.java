@@ -78,7 +78,9 @@ public class ProductApprovalService {
             throw new NotFoundException("가입하지 않은 계정입니다.");
         }
 //        Store saved = storeRepository.save(store);
-        Store store = storeRepository.findByStoreId(storeId).orElseThrow();
+        Store store = storeRepository
+            .findByStoreId(storeId)
+            .orElseThrow(() -> new NoSuchElementException("가입하지 않은 계정입니다."));
 
         // store 저장 성공하면
         // product 테이블에 proImage 저장, store 저장

@@ -19,20 +19,18 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-//                //모든 요청에 대해 인증하지 않겠다.
-//                .authorizeRequests()
-//                .anyRequest().authenticated()
-//                .antMatchers("/**").permitAll();
-//                .and
-//                .csrf().disable()// csrf 토큰공격방지 기능 off
-                .cors()
-                .and()
-                .csrf().disable() //필터 설정 off
-                .httpBasic().disable() // 베이직 인증 off
-                .formLogin().disable() // 로그인창 off
-                .authorizeRequests() // 요청별로 인가 설정
-                .antMatchers("/**").permitAll() // 인가 설정 off
-            ;
+                //모든 요청에 대해 인증하지 않겠다.
+                .authorizeRequests()
+                .anyRequest().authenticated()
+                .antMatchers("/**").permitAll();
+//                .cors()
+//                .and()
+//                .csrf().disable() //필터 설정 off
+//                .httpBasic().disable() // 베이직 인증 off
+//                .formLogin().disable() // 로그인창 off
+//                .authorizeRequests() // 요청별로 인가 설정
+//                .antMatchers("/**").permitAll() // 인가 설정 off
+//            ;
         return  http.build();
     }
 

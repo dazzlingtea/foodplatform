@@ -20,11 +20,8 @@ public class ProductApprovalController {
 
     // 상품 등록 요청
     @ResponseBody
-    @PostMapping(value="/product/approval")
-//    @PostMapping(value = "/p", consumes = "multipart/form-data")
+    @PostMapping(value="/approval/p")
     public ResponseEntity<?> approveProduct(
-//            @Validated @RequestPart("price") int price
-//          , @Validated @RequestPart("productCnt") int productCnt
             @Validated @RequestPart(value = "productInfo") ProductApprovalReqDto dto
           , @Validated @RequestPart(value = "productImage") MultipartFile productImage
 //        , @AuthenticationPrincipal TokenUserInfo userInfo
@@ -32,29 +29,19 @@ public class ProductApprovalController {
         // 컨트롤러의 Validation 예외처리는 ExceptionAdvisor.java
         // userInfo는 service에서 처리
 
-//        System.out.println("Product Count: " + productCnt);
-        System.out.println("Product Count: " + dto.getProductCnt());
-//        System.out.println("Price: " + price);
-        System.out.println("Price: " + dto.getPrice());
-        System.out.println("Product Image: " + productImage.getOriginalFilename());
+        dto.setProductImage(productImage);
 
-//        ProductApprovalReqDto dto = ProductApprovalReqDto.builder()
-//                .price(price)
-//                .productCnt(productCnt)
-//                .productImage(productImage)
-//                .build();
-//
-//        // 상품 등록 요청 처리 (tbl_product_approval)
-//        try {
-//            productApprovalService.askProductApproval(
-//                    dto
-////                    , userInfo
-//            );
-//        } catch (Exception e) { // 등록 요청 실패, 예외처리 보완 필요
-//            e.printStackTrace();
-////            throw new RuntimeException(e);
-//            return ResponseEntity.internalServerError().body(e.getMessage());
-//        }
+        // 상품 등록 요청 처리 (tbl_product_approval)
+        try {
+            productApprovalService.askProductApproval(
+                    dto
+//                    , userInfo
+            );
+        } catch (Exception e) { // 등록 요청 실패, 예외처리 보완 필요
+            e.printStackTrace();
+//            throw new RuntimeException(e);
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
 
         // 등록 요청 성공
         return ResponseEntity.ok().body("");
