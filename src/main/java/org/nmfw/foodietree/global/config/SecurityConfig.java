@@ -25,12 +25,14 @@ public class SecurityConfig {
 //                .antMatchers("/**").permitAll();
 //                .and
 //                .csrf().disable()// csrf 토큰공격방지 기능 off
-                .authorizeRequests()
-                .antMatchers("/store/approval/**").permitAll() // 해당 URL에 대한 접근 허용
-                .anyRequest().authenticated()
+                .cors()
                 .and()
-                .csrf().disable(); // CSRF 보호 비활성화 (테스트용)
-
+                .csrf().disable() //필터 설정 off
+                .httpBasic().disable() // 베이직 인증 off
+                .formLogin().disable() // 로그인창 off
+                .authorizeRequests() // 요청별로 인가 설정
+                .antMatchers("/**").permitAll() // 인가 설정 off
+            ;
         return  http.build();
     }
 

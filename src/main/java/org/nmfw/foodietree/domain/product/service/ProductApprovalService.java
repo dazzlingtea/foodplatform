@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.NoSuchElementException;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -36,10 +38,13 @@ public class ProductApprovalService {
 //            , TokenUserInfo userInfo
     ) {
         // userInfo에서 storeId로 Store 찾기
-        // controller에서 try catch 필요
-//        Store LoggedStore = storeRepository
-//          .findByStoreId(userInfo.getUserId())
-//          .orElseThrow(() -> new NotFoundException("가입하지 않은 계정입니다."))
+
+        // 테스트용 storeId
+        String storeId = "test@test.com";
+        Store loggedStore = storeRepository
+          .findByStoreId(storeId)
+          .orElseThrow(() -> new NoSuchElementException("가입하지 않은 계정입니다."));
+
 
         // 이미지 파일 저장 및 경로 문자열로 반환
         MultipartFile file = dto.getProductImage();
@@ -50,9 +55,9 @@ public class ProductApprovalService {
         // DTO를 엔터티로 변환
         ProductApproval entity = ProductApproval.builder()
                 .price(dto.getPrice())
-                .proImage(productImage)
+                .proImage(productImage) // 이미지 저장된 경로
                 .productCnt(dto.getProductCnt())
-//                .store(loggedStore)
+                .store(loggedStore)
                 .build();
 
         // repository DB 저장
