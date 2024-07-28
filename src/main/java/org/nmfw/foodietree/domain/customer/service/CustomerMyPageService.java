@@ -1,16 +1,14 @@
 package org.nmfw.foodietree.domain.customer.service;
 
-import java.io.File;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.nmfw.foodietree.domain.customer.dto.resp.*;
 import org.nmfw.foodietree.domain.customer.entity.CustomerIssues;
-import org.nmfw.foodietree.domain.customer.entity.ReservationDetail;
 import org.nmfw.foodietree.domain.customer.entity.value.IssueStatus;
-import org.nmfw.foodietree.domain.customer.entity.value.PickUpStatus;
 import org.nmfw.foodietree.domain.customer.mapper.CustomerMyPageMapper;
-import org.nmfw.foodietree.domain.product.Util.FileUtil;
-import org.springframework.beans.factory.annotation.Value;
+import org.nmfw.foodietree.domain.reservation.dto.resp.ReservationDetailDto;
+import org.nmfw.foodietree.domain.reservation.mapper.ReservationMapper;
+import org.nmfw.foodietree.domain.reservation.service.ReservationService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,10 +28,10 @@ import static org.nmfw.foodietree.domain.customer.entity.value.IssueStatus.*;
 @Slf4j
 public class CustomerMyPageService {
 
-	private final CustomerMyPageMapper customerMyPageMapper;
-	private final PasswordEncoder encoder;
-	@Value("${env.upload.path}")
-	private String uploadDir;
+    private final CustomerMyPageMapper customerMyPageMapper;
+    private final ReservationMapper reservationMapper;
+    private final PasswordEncoder encoder;
+    private final ReservationService reservationService;
 
     /**
      * 고객 정보를 가져오는 메서드
@@ -64,13 +62,13 @@ public class CustomerMyPageService {
      * @param customerId 고객 ID
      * @return 고객 예약 목록 DTO 리스트
      */
-    public List<MyPageReservationDetailDto> getReservationList(String customerId) {
-        List<ReservationDetail> reservations = customerMyPageMapper.findReservations(customerId);
+    public List<ReservationDetailDto> getReservationList(String customerId) {
+        List<ReservationDetailDto> reservations = reservationMapper.findReservationsByCustomerId(customerId);
 
-        List<MyPageReservationDetailDto> reservationList = reservations.stream()
-                .map(reservation -> MyPageReservationDetailDto.builder()
+        List<ReservationDetailDto> reservationList = reservations.stream()
+                .map(reservation -> ReservationDetailDto.builder()
                         .reservationId(reservation.getReservationId())
-                        .status(determinePickUpStatus(reservation))
+                        .status(reservationService.determinePickUpStatus(reservation))
                         .storeImg(reservation.getStoreImg())
                         .storeName(reservation.getStoreName())
                         .reservationTime(reservation.getReservationTime())
@@ -83,7 +81,7 @@ public class CustomerMyPageService {
                         .build())
                 .collect(Collectors.toList());
 
-        for (MyPageReservationDetailDto reservation : reservationList) {
+        for (ReservationDetailDto reservation : reservationList) {
             log.info(reservation.toString());
             if (reservation.getReservationTime() != null) {
                 reservation.setReservationTimeF(reservation.getReservationTime().format(formatter));
@@ -100,19 +98,6 @@ public class CustomerMyPageService {
         }
         return reservationList;
     }
-
-    public PickUpStatus determinePickUpStatus(ReservationDetail reservation) {
-        if (reservation.getPickedUpAt() != null) {
-            return PickUpStatus.PICKEDUP;
-        } else if (reservation.getCancelReservationAt() != null) {
-            return PickUpStatus.CANCELED;
-        } else if (reservation.getPickupTime().isBefore(LocalDateTime.now())) {
-            return PickUpStatus.NOSHOW;
-        } else {
-            return PickUpStatus.RESERVED;
-        }
-    }
-
 
     public List<CustomerIssueDetailDto> getCustomerIssues(String customerId) {
         List<CustomerIssues> issues = customerMyPageMapper.findIssues(customerId);
@@ -199,10 +184,10 @@ public class CustomerMyPageService {
     }
 
     public StatsDto getStats(String customerId){
-        List<ReservationDetail> reservations = customerMyPageMapper.findReservations(customerId);
+        List<ReservationDetailDto> reservations = customerMyPageMapper.findReservations(customerId);
 
         // 예약 내역 중 pickedUpAt이 null이 아닌 것들의 리스트
-        List<ReservationDetail> pickedUpReservations = reservations.stream()
+        List<ReservationDetailDto> pickedUpReservations = reservations.stream()
                 .filter(reservation -> reservation.getPickedUpAt() != null)
                 .collect(Collectors.toList());
 
@@ -214,7 +199,7 @@ public class CustomerMyPageService {
 
         // totalPrice 계산
         int totalPrice = pickedUpReservations.stream()
-                .mapToInt(ReservationDetail::getPrice)
+                .mapToInt(ReservationDetailDto::getPrice)
                 .sum();
 
         // money 계산
