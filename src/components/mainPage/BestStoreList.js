@@ -22,8 +22,8 @@ const BestStoreList = ({ categories = [], stores = [] }) => {
   return (
     <>
       {/* 추천 가게 리스트 */}
-      <div className={styles.list1}>
-        <h2 className={styles.title1}>추천 가게</h2>
+      <div className={styles.list}>
+        <h2 className={styles.title}>추천 가게</h2>
         <Swiper
           slidesPerView={5}
           spaceBetween={10}
@@ -38,14 +38,15 @@ const BestStoreList = ({ categories = [], stores = [] }) => {
             stores.map((store, index) => (
               <SwiperSlide key={index}>
                 <div className={styles.storeItem}>
-                  <img src={store.image} alt={store.storeName} />
+                  <img src={store.storeImg} alt={store.storeName} />
                   <p className={styles.storeName}>{store.storeName}</p>
-                  {/* <span className={styles.discount}>{store.discount}</span> */}
                   <span className={styles.storePrice}>{store.price}</span>
+                  <span className={styles.productCnt}></span>
+                  <span className={styles.productCnt}>남은 갯수 : {store.productCnt}</span>
                 </div>
               </SwiperSlide>
             ))
-          )}
+          )} 
         </Swiper>
       </div>
     </>

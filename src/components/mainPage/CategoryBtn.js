@@ -36,7 +36,7 @@ const CategoryBtn = ({ categories }) => {
       <div className={styles["food-nav"]}>
         {categories.map((category) => {
           const categoryInfo = categoriesInfo[category];
-          if (!categoryInfo) return null; // Invalid category handling
+          if (!categoryInfo) return null; 
           return (
             <div key={category} className={styles['category-btn']} onClick={() => handleCategoryClick(category)}>
               <div className={styles.btnImg}>
@@ -44,7 +44,7 @@ const CategoryBtn = ({ categories }) => {
               </div>
               <div className={styles.btnText}>{category}</div>
             </div>
-          );
+          ); 
         })}
       </div>
     </div>

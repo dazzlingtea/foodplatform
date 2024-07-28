@@ -1,50 +1,85 @@
-.categoryContainer {
-  // 4개씩 정렬 그 이후, width에 맞게 크기 정렬
-    margin: 30px auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    max-width: 70%;
-    gap: 20px;
-  }
-
-.storeList{
+.list {
   margin: 0 auto;
+  position: relative;
   inline-size: 70%;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-top: solid 1px #e7e7e7;
+}
+
+.storeList {
   padding: 20px 20px 0 20px;
   font-size: 22px;
   font-weight: 600;
   text-align: left;
 }
-  
+
+.categoryContainer {
+  margin: 30px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  max-width: 100%;
+  gap: 20px;
+}
+
+.categoryItem {
+  flex: 1 1 calc(25% - 20px);
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  text-align: center;
+  position: relative;
+  height: 250px;
+}
+
+.categoryImage {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  border-radius: 10px;
+  border: 1px solid #cecece;
+}
+
+.categoryItem p {
+  height: 15%;
+  display: flex;
+  align-items: center;
+  padding: 10px 0 10px 10px;
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+}
+
+.storePrice { 
+  font-size: 15px;
+  position: absolute;
+  bottom: 20px;
+  left: 10px;
+}
+
+.productCnt {
+  font-size: 15px;
+  position: absolute;
+  bottom: 20px;
+  right: 10px;
+}
+
+@media (max-width: 1200px) {
   .categoryItem {
-    flex: 1 1 22%;
-    box-sizing: border-box;
-    margin-bottom: 20px;
-    text-align: center;
+    flex: 1 1 calc(33.333% - 20px);
   }
-  
-  .categoryImage {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    display: block;
-    border-radius: 10px;
+}
+
+@media (max-width: 800px) {
+  .categoryItem {
+    flex: 1 1 calc(50% - 20px);
   }
-  
-  .categoryName {
-    margin-top: 10px;
-    font-size: 18px;
+}
+
+@media (max-width: 500px) {
+  .categoryItem {
+    flex: 1 1 100%;
   }
-  
-  .storePrice {
-    padding: 10px;
-    font-size: 16px;
-  }
-  
-  .discount {
-    margin-top: 5px;
-    font-size: 14px;
-    color: red;
-  }
-  
+}
