@@ -51,9 +51,12 @@ const PaymentBox = ({makeReservation, productDetail}) => {
                 </div>
             </div>
             <div className={styles.orderSum}>
-                <FontAwesomeIcon icon={faShoppingCart} />
-                <p className={styles.orderAmount}>총 주문 수량</p>
+                <p>
+                    <FontAwesomeIcon icon={faShoppingCart}/>
+                    <span className={styles.orderAmount}>총 주문 수량</span>
+                </p>
                 <p>{initialCount} 개</p>
+
             </div>
             <div className={styles.sectionLine}></div>
             <div className={styles.promoCode}>

@@ -11,13 +11,14 @@
   background-color: rgba(0, 0, 0, 0.4); // 불투명한 배경
 
   .modalContent {
+    position: relative;
+    z-index: -2;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     color: black;
     background-color: #fefefe;
     margin: 15% auto; // 화면 가운데 배치
-    border: 1px solid #888;
     width: 500px; // 너비 조절
     border-radius: 15px;
     line-height: 2;
@@ -29,18 +30,18 @@
       font-size: 30px;
       position: sticky;
       top: 0;
-      background: #fff;
       padding: 10px 10px 0;
-      z-index: 1000; // 높은 z-index로 다른 내용보다 위에 표시
-      cursor: pointer;
+      z-index: 100; // 높은 z-index로 다른 내용보다 위에 표시
       display: flex;
       justify-content: flex-end;
 
       span{
+        cursor: pointer;
         padding-right: 13px;
 
         .closeBtn{
-          background-color: #fff;
+          position: sticky;
+          z-index: 3;
           border-radius: 25px;
           padding: 5px;
           height: 35px;
@@ -89,7 +90,6 @@
       background-color: #fefefe;
       margin: 0 auto; // 가운데 정렬
       padding: 20px;
-      border: 1px solid #888;
       width: 100%; // 전체 너비
       border-radius: 15px 15px 0 0; // 모서리 둥글게
       line-height: 2;
@@ -116,8 +116,6 @@
         padding: 0;
         position: sticky;
         top: 0;
-        background: #fff;
-        z-index: 1000;
 
         &:hover,
         &:focus {

@@ -1,5 +1,7 @@
 import React from 'react';
 import {useModal} from "../common/ModalProvider";
+import styles from "./CancelReservationDetailModal.module.scss"
+import {isNaN} from "lodash";
 
 /**
  * 소비자 마이페이지 창에서 예약 취소 버튼 누를 시 뜨는 모달
@@ -41,9 +43,14 @@ const CancelReservationDetailModal = ({reservationDetail, cancelReservation}) =>
         console.log("픽업 시간:", pickupDate);
         console.log("현재 시간:", now);
         console.log("남은 시간:", remainingTime);
+        console.log(isNaN(timeDifferenceMs))
+
+        if(isNaN(timeDifferenceMs)){
+            console.log("이미 지난 시간입니다.")
+        }
 
         // 픽업 시간이 현재 시간으로부터 1시간 이상 남았는지 확인
-        return timeDifferenceMs > ONE_HOUR;
+        return timeDifferenceMs > ONE_HOUR && !isNaN(timeDifferenceMs);
     };
 
     const isCancelAllowed = chargeCancelFee(reservationDetail.pickupTime);
@@ -51,29 +58,40 @@ const CancelReservationDetailModal = ({reservationDetail, cancelReservation}) =>
     console.log("취소 가능 여부:", isCancelAllowed);
 
     return (
-        <>
+        <div className={styles.cancelDetailInfo}>
             {isCancelAllowed ? (
-                <div>
-                    <p>정말 취소하시겠습니까?</p>
+                <div className={styles.withoutFee}>
+                    <p>정말 취소하시겠어요?</p>
                     <p>{reservationDetail.storeName} 상품이 맞습니까?</p>
-                    <p>{reservationDetail.price}는 자동 환불됩니다.</p>
+
                 </div>
             ) : (
-                <div>
-                    <p>픽업시간까지 남은 시간: {remainingTime}</p>
+                <div className={styles.withFee}>
+                    <p className={styles.remainingTime}>픽업시간까지 남은 시간:
+                        <span>
+                            {remainingTime}
+                        </span>
+                    </p>
                     <p>
+                        취소수수료 :
+                        <span>
+                            <span className={styles.cancelFee}>{reservationDetail.price * 0.5}</span>
+                            <span>원</span>
+                        </span>
+
+                    </p>
+                    <p className={styles.feeRule}>
                         픽업시간 기준 1시간 이내로 예약 취소시 <br/>
                         취소 수수료 50%가 부과됩니다. <br/>
                         정말 취소하시겠습니까?
                     </p>
-                    <p>
-                        취소수수료 : {reservationDetail.price * 0.5}원
-                    </p>
-                    <p>취소 수수료는 환불 금액에서 자동 차감됩니다.</p>
                 </div>
             )}
-            <button className="calendar-button" onClick={handleReservationCancel}>확인</button>
-        </>
+            <button className={styles.cancelConfirmBtn} onClick={handleReservationCancel}>네, 취소할래요</button>
+            {isCancelAllowed ? <p className={styles.feeRule}>{reservationDetail.price} 원은 자동 환불됩니다.</p>
+                : <p className={styles.feeRule}>취소 수수료는 환불 금액에서 자동 차감됩니다.</p>
+            }
+        </div>
     );
 };
 

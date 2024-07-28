@@ -5,23 +5,32 @@
   .infoBox {
     line-height: 3;
     width: 57%;
+    height: fit-content;
 
     .storeInfo {
       display: flex;
       justify-content: space-between;
       border: 1px solid rgb(231, 231, 231);
       border-radius: 8px;
-      padding: 16px;
+      //padding: 16px;
       margin: 8px 0px;
+      position: relative;
+      height: 144px;
 
       .storeImg {
-
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+        object-fit: contain; // 사진 깨지는데 어떻게 보일 지 정해야함
       }
 
       .fromWhere {
+        position: absolute;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        right: 13px;
+        bottom: -10px;
       }
     }
 
@@ -56,10 +65,17 @@
           margin-bottom: 4px;
           background-color: #2e2e2f;
         }
+        .storeAddress{
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+        }
       }
 
       .pickUpTimeInfo {
-
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
       }
 
       .productInfo {
@@ -73,6 +89,10 @@
         .productDes {
           display: flex;
           justify-content: space-between;
+          .productTextDesc{
+            width: 70%;
+            text-align: justify;
+          }
         }
 
       }
@@ -81,11 +101,22 @@
 
   .paymentBox {
 
+
     line-height: 3;
     border: 1px solid rgb(231, 231, 231);
     border-radius: 8px;
     padding: 16px;
     margin: 8px 0px;
+    height: fit-content;
+
+    div{
+      padding: 0 5px;
+      margin-bottom: 8px;
+    }
+
+    svg{
+      padding-right: 5px;
+    }
 
     .productAmtAdjustBtn {
       display: flex;
@@ -124,7 +155,7 @@
     .orderSum {
       display: flex;
       align-items: center;
-
+      justify-content: space-between;
     }
 
     .promoCode {
