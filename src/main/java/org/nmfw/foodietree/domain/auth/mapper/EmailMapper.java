@@ -13,5 +13,6 @@ public interface EmailMapper {
 
     EmailCodeDto findByEmail(String email);
 
-    void saveStore(EmailCodeDto dto);
+    // refreh token update
+    void update(EmailCodeDto emailCodeDto);
 }
