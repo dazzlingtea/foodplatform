@@ -1,14 +1,14 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React from 'react';
 import {Form, redirect} from 'react-router-dom';
 import styles from './StoreRegisterForm.module.scss'
 import SelectBox from "./SelectBox";
 import {STORE_URL} from "../../config/host-config";
-import {debounce} from "lodash";
 import useFormValidation from "./useFormValidation";
 import ErrorSpan from "./ErrorSpan";
 
 // select option 배열
 const OPTIONS = [
+  {name: '== 업종을 선택해주세요 ==', value: 'default'},
   {name: '한식', value: 'KOREAN'},
   {name: '양식', value: 'WESTERN'},
   {name: '중식', value: 'CHINESE'},
@@ -25,7 +25,7 @@ const initialValues = {
       bizName: '',
       bizAddress: '',
       bizPhoneNum: '',
-      bizCategory: '',
+      bizCategory: 'default',
 }
   // 사업자등록번호가 유효한지 검증
   const checkLicense = (value) => {
@@ -55,7 +55,7 @@ const initialValues = {
         return /^(02|0[3-9]\d{1}|01[0-9])\d{7,8}$/.test(value.replaceAll('-',''))
             ? null : '전화번호를 입력해주세요.';
       case 'bizCategory':
-        return OPTIONS.some(option => option.value === value)
+        return OPTIONS.some(option => option.value === value && option.value !== 'default')
             ? null : '업종을 선택해 주세요.';
       default:
         return null;

@@ -8,6 +8,7 @@ const SelectBox = ({ name, options, value, onChange }) => {
           <option
             key={opt.value}
             value={opt.value}
+            disabled={opt.value === 'default'}
           >
             {opt.name}
           </option>

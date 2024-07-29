@@ -32,7 +32,9 @@ const useFormValidation = (initialValues, validate) => {
     // errors 모두 검증 통과하면 isFormValid true
     useEffect(() => {
         const allValid = Object.values(errors).every(error => error === null);
-        setIsFormValid(allValid && Object.values(values).every(value => value !== ''));
+        setIsFormValid(allValid
+          && Object.values(values)
+            .every(value => value !== '' && value !== 'default'));
     }, [errors, values]);
 
     // input change 이벤트 핸들러
