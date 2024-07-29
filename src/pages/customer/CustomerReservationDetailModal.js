@@ -3,11 +3,11 @@ import styles from "./CustomerReservationDetailModal.module.scss";
 import {useModal} from "../common/ModalProvider";
 import {Link} from "react-router-dom";
 
-const CustomerReservationDetailModal = ({reservationDetail, confirmPickUp}) => {
+const CustomerReservationDetailModal = ({reservationDetail, onPickupConfirm}) => {
     const {closeModal} = useModal();
 
     const handleConfirmPickUp = () => {
-        // confirmPickUp(reservationDetail.id); // props로 받아온 함수 실행
+        onPickupConfirm(reservationDetail.id); // props로 받아온 함수 실행
         alert('픽업이 확인되었습니다. 감사합니다.');
         closeModal();
         // 추후 리뷰 기능 추가 가능

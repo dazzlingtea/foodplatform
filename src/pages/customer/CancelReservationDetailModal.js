@@ -11,13 +11,13 @@ import {isNaN} from "lodash";
  * @returns {Element}
  * @constructor
  */
-const CancelReservationDetailModal = ({reservationDetail, cancelReservation}) => {
+const CancelReservationDetailModal = ({reservationDetail, onConfirm}) => {
     const {closeModal} = useModal();
 
     let remainingTime = '';
 
     const handleReservationCancel = () => {
-        // cancelReservation(reservationDetail.reservationId);
+        onConfirm(reservationDetail.reservationId);
         alert('예약이 취소되었습니다.');
         closeModal();
     }

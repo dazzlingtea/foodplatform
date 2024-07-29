@@ -1,29 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './ProductDetailModal.module.scss';
 import { faMinus, faPlus, faShoppingCart, faStar, faTag } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const PaymentBox = ({makeReservation, productDetail}) => {
-    const [initialCount, setInitialCount] = useState(1);
-
-    const handleIncrease = () => {
-        setInitialCount(prevCount => prevCount + 1);
-    };
-
-    const handleDecrease = () => {
-        if (initialCount > 1) {
-            setInitialCount(prevCount => prevCount - 1);
-        }
-    };
+const PaymentBox = ({ makeReservation, productDetail, initialCount, handleIncrease, handleDecrease }) => {
+    const howMuchSaved = Math.floor(((productDetail.storeInfo.price / 0.3) - productDetail.storeInfo.price) * initialCount);
+    const totalPrice = productDetail.storeInfo.price * initialCount;
+    const originalPrice = Math.floor(productDetail.storeInfo.price / 0.3) * initialCount;
 
     const handleMakeReservation = () => {
-        console.log(initialCount);
         makeReservation(initialCount);
-    }
-
-    const howMuchSaved = Math.floor(((productDetail.storeInfo.price/0.3)-productDetail.storeInfo.price)*initialCount);
-    const totalPrice = productDetail.storeInfo.price*initialCount;
-    const originalPrice = Math.floor(productDetail.storeInfo.price/0.3)*initialCount;
+    };
 
     return (
         <section className={styles.paymentBox}>
@@ -34,7 +21,7 @@ const PaymentBox = ({makeReservation, productDetail}) => {
                         <FontAwesomeIcon icon={faMinus} />
                     </button>
                     <p className={styles.initialCnt}>{initialCount}</p>
-                    <button className={styles.adjustBtn} onClick={handleIncrease}>
+                    <button className={styles.adjustBtn} onClick={handleIncrease} disabled={initialCount >= productDetail.storeInfo.remainProduct}>
                         <FontAwesomeIcon icon={faPlus} />
                     </button>
                 </div>
@@ -52,11 +39,10 @@ const PaymentBox = ({makeReservation, productDetail}) => {
             </div>
             <div className={styles.orderSum}>
                 <p>
-                    <FontAwesomeIcon icon={faShoppingCart}/>
+                    <FontAwesomeIcon icon={faShoppingCart} />
                     <span className={styles.orderAmount}>총 주문 수량</span>
                 </p>
                 <p>{initialCount} 개</p>
-
             </div>
             <div className={styles.sectionLine}></div>
             <div className={styles.promoCode}>

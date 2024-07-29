@@ -14,7 +14,7 @@ const ProductDetail = ({productDetail}) => (<div className={styles.productDetail
     <div className={styles.sectionLine}></div>
     <div className={styles.pickUpTimeInfo}>
         <p>픽업 시간 </p>
-        <p>{productDetail.storeInfo.pickUpTime}</p>
+        <p>{productDetail.storeInfo.openAt} ~ {productDetail.storeInfo.closedAt}</p>
     </div>
     <div className={styles.sectionLine}></div>
     <div className={styles.productInfo}>
@@ -22,11 +22,11 @@ const ProductDetail = ({productDetail}) => (<div className={styles.productDetail
             <p>상품 가격</p>
             <p>{productDetail.storeInfo.price}</p>
         </div>
-        <div className={styles.sectionLine}></div>
-        <div className={styles.productDes}>
-            <p>상품 설명</p>
-            <p className={styles.productTextDesc}>{productDetail.storeInfo.desc}</p>
-        </div>
+        {/*<div className={styles.sectionLine}></div>*/}
+        {/*<div className={styles.productDes}>*/}
+        {/*    <p>상품 설명</p>*/}
+        {/*    <p className={styles.productTextDesc}>{productDetail.storeInfo.desc}</p>*/}
+        {/*</div>*/}
     </div>
 </div>);
 
