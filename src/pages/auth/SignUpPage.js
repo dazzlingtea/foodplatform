@@ -60,8 +60,8 @@ const SignUpPage = () => {
                 verificationSent={verificationSent} // verificationSent 상태 전달
             />
             <div className={'sub-wrapper'}>
-              <Link className={styles['sub-login']} to="/login">
-                Login 🌱
+              <Link className={styles['sub-login']} to="/sign-in">
+                sign in 🌱
               </Link>
             </div>
           </div>
