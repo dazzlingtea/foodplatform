@@ -10,7 +10,8 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter @Setter
-@ToString(exclude = "store")
+@ToString
+//        (exclude = "store")
 @EqualsAndHashCode(of="id")
 @NoArgsConstructor
 @AllArgsConstructor

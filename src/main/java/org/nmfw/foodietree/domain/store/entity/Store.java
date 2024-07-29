@@ -14,7 +14,8 @@ import java.util.List;
 
 @Getter @Setter
 @ToString(exclude = {"products"})
-@EqualsAndHashCode(of = "storeId")
+//@EqualsAndHashCode(of = "storeId")
+@EqualsAndHashCode(of = "idxStoreId")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -46,13 +47,13 @@ public class Store {
     private String address; // 가게 주소
 
     @Column(name = "warning_count")
-    private int warningCount; // 경고 누적 횟수
+    private Integer warningCount; // 경고 누적 횟수
 
     @Column(name = "price")
-    private int price; // 가격
+    private Integer price; // 가격
 
     @Column(name = "product_cnt")
-    private int productCnt; // 상품갯수
+    private Integer productCnt; // 상품갯수
     
     @Column(name = "store_contact")
     private String storeContact;  // 가게 연락처
