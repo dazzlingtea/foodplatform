@@ -10,20 +10,22 @@ import javax.persistence.*;
 //@AllArgsConstructor
 //@Builder
 
-@Entity
-@Table(name = "tbl_fav_area")
-@Setter @Getter
+@Setter
+@Getter
 @ToString
-@EqualsAndHashCode(of = "id")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EqualsAndHashCode
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
+
+@Entity
+@Table(name = "tbl_fav_area")
 public class FavArea {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     @Column(name = "customer_id", nullable = false)
     private String customerId;

@@ -5,19 +5,21 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "tbl_issue")
-@Setter @Getter
-@EqualsAndHashCode(of = "id")
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Setter
+@Getter
+@EqualsAndHashCode
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
+
+@Entity
+@Table(name = "tbl_issue")
 public class Issue {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "issue_id")
-    private int issueId;
+    private Long issueId;
 
     @Column(name = "issue_category")
     private String issueCategory;
