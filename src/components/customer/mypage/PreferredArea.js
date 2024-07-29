@@ -14,7 +14,7 @@ const PreferredArea = ({ preferredAreas = [] }) => {
                     {preferredAreas.length > 0 ? (
                         preferredAreas.map((area, index) => (
                             <li key={index}>
-                                <div >{area}</div>
+                                <div>{area}</div>
                             </li>
                         ))
                     ) : (

@@ -98,11 +98,11 @@ const Calendar = () => {
     //             },
     //             body: JSON.stringify({ date })
     //         });
-    //
+
     //         if (!response.ok) {
     //             throw new Error('Failed to set holiday');
     //         }
-    //
+
     //         // 휴무일 설정 성공 시, 휴무일 목록 갱신
     //         const updatedHolidays = await fetchHolidays(date.getFullYear(), date.getMonth());
     //         setHolidays(updatedHolidays);
@@ -133,6 +133,15 @@ const Calendar = () => {
     //         console.error('Error undoing holiday:', error);
     //     }
     // };
+
+    const isToday = (day) => {
+        const today = new Date();
+        return (
+            day === today.getDate() &&
+            currentDate.getMonth() === today.getMonth() &&
+            currentDate.getFullYear() === today.getFullYear()
+        );
+    };
 
     return (
         <div className={styles.calendarContainer}>
@@ -165,7 +174,7 @@ const Calendar = () => {
                         {daysInMonth.map((day, index) => (
                             <div
                                 key={index}
-                                className={`${styles.calendarDay} ${day ? (isHoliday(day) ? styles.holiday : '') : styles.calendarDayEmpty} ${day === new Date().getDate() ? styles.today : ''}`}
+                                className={`${styles.calendarDay} ${day ? (isHoliday(day) ? styles.holiday : '') : styles.calendarDayEmpty} ${isToday(day) ? styles.today : ''}`}
                                 onClick={() => handleDayClick(day)}
                             >
                                 {day}
@@ -178,4 +187,4 @@ const Calendar = () => {
     );
 };
 
-export default Calendar;
+export default Calendar

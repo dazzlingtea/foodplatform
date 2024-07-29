@@ -17,7 +17,7 @@ const PreferredFood = ({ preferredFoods = [] }) => {
                             <li key={index}>
                                 <Link to="#" className={styles.foodLink}>
                                     <div className={styles.imgBox}>
-                                        <img src={food.foodImage} alt="선호음식이미지" className={styles.foodImage}/>
+                                        <img src={food.foodImage || '/assets/img/defaultImage.jpg'} alt="선호음식이미지" className={styles.foodImage}/>
                                     </div>
                                     <span>{food.preferredFood}</span>
                                 </Link>

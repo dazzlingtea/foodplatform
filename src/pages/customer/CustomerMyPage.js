@@ -1,75 +1,87 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Profile from "../../components/customer/mypage/Profile";
 import styles from "./CustomerMyPage.module.scss";
 import CustomerReservationList from "../../components/customer/mypage/CustomerReservationList";
 import PreferredArea from "../../components/customer/mypage/PreferredArea";
 import PreferredFood from "../../components/customer/mypage/PreferredFood";
 import FavoriteStore from "../../components/customer/mypage/FavoriteStore";
-import { useModal } from "../common/ModalProvider";
 import SideBarBtn from "../../components/store/mypage-edit/SideBarBtn";
 
-const customerMyPageDto = {
-    profileImage: '/assets/img/defaultImage.jpg',
-    nickname: '김한솔인듯아닌듯',
-    customerId: '아이디알려줄듯말듯',
-    preferredArea: ['서울', '부산', '제주', '경주', '전주', '홍콩', '뉴욕', '일본'],
-    preferredFood: [
-        { foodImage: '/assets/img/etc.jpg', preferredFood: '김치찌개' },
-        { foodImage: '/assets/img/etc.jpg', preferredFood: '된장찌개' },
-        { foodImage: '/assets/img/etc.jpg', preferredFood: '된장찌개' },
-        { foodImage: '/assets/img/etc.jpg', preferredFood: '된장찌개' },
-        { foodImage: '/assets/img/etc.jpg', preferredFood: '된장찌개' }
-    ],
-    favStore: [
-        { storeId: 1, storeImg: '/assets/img/etc.jpg', storeName: '가게1' },
-        { storeId: 2, storeImg: '/assets/img/etc.jpg', storeName: '가게2' },
-        { storeId: 3, storeImg: '/assets/img/etc.jpg', storeName: '가게3' },
-        { storeId: 4, storeImg: '/assets/img/etc.jpg', storeName: '가게4' },
-        { storeId: 5, storeImg: '/assets/img/etc.jpg', storeName: '가게5' }
-    ]
-};
+const BASE_URL = window.location.origin;
 
-const stats = {
-    coTwo: 10.5,
-    money: 50000
-};
-// 여기까지 더미데이터
-
-const CustomerMyPage = ({ customerId }) => {
-    const { openModal } = useModal();
-
+const CustomerMyPage = () => {
+    const customerId = "test@gmail.com"; // 하드코딩된 customerId
     const [width, setWidth] = useState(window.innerWidth);
     const [show, setShow] = useState(false);
-    const setInnerWidth = () => {
-        setWidth(window.innerWidth);
-    }
+    const [customerData, setCustomerData] = useState({});
+    const [reservations, setReservations] = useState([]);
+    const [stats, setStats] = useState({});
+
     useEffect(() => {
         window.addEventListener("resize", setInnerWidth);
         return () => {
             window.removeEventListener("resize", setInnerWidth);
         }
-    }, );
+    }, []);
+
+    useEffect(() => {
+        fetchCustomerData();
+        fetchReservations();
+        fetchStats();
+    }, [customerId]);
+
+    const setInnerWidth = () => {
+        setWidth(window.innerWidth);
+    }
+
+    const fetchCustomerData = async () => {
+        try {
+            const response = await fetch(`${BASE_URL}/customer/info?customerId=${customerId}`);
+            if (!response.ok) throw new Error('Failed to fetch customer info');
+            const data = await response.json();
+            setCustomerData(data);
+        } catch (error) {
+            console.error('Error fetching customer info:', error);
+        }
+    };
+
+    const fetchReservations = async () => {
+        try {
+            const response = await fetch(`${BASE_URL}/reservation/list`);
+            if (!response.ok) throw new Error('Failed to fetch reservations');
+            const data = await response.json();
+            setReservations(data);
+        } catch (error) {
+            console.error('Error fetching reservations:', error);
+        }
+    };
+
+    const fetchStats = async () => {
+        try {
+            const response = await fetch(`${BASE_URL}/customer/stats?customerId=${customerId}`);
+            if (!response.ok) throw new Error('Failed to fetch stats');
+            const data = await response.json();
+            setStats(data);
+        } catch (error) {
+            console.error('Error fetching stats:', error);
+        }
+    };
+
     const showHandler = () => {
         setShow(prev => !prev);
     }
 
     return (
         <>
-            {width <= 400 && <SideBarBtn onShow={showHandler}/>}
+            {width <= 400 && <SideBarBtn onShow={showHandler} />}
             <div className={styles.myPageArea}>
                 <div className={styles.container}>
-                    <Profile
-                        customerMyPageDto={customerMyPageDto}
-                        stats={stats}
-                        isShow={show}
-                    />
+                    <Profile customerMyPageDto={customerData} stats={stats} isShow={show} />
                     <div className={styles.content}>
-                        <CustomerReservationList
-                            customerId={customerId}
-                        />
-                        <PreferredArea preferredAreas={customerMyPageDto.preferredArea}/>
-                        <PreferredFood preferredFoods={customerMyPageDto.preferredFood}/>
-                        <FavoriteStore favStores={customerMyPageDto.favStore}/>
+                        <CustomerReservationList reservations={reservations} onUpdateReservations={setReservations} />
+                        <PreferredArea preferredAreas={customerData.preferredArea} />
+                        <PreferredFood preferredFoods={customerData.preferredFood} />
+                        <FavoriteStore favStores={customerData.favStore} />
                     </div>
                 </div>
             </div>
