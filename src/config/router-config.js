@@ -16,7 +16,7 @@ import CustomerMyPage from "../pages/customer/CustomerMyPage";
 import CustomerMyPageEdit from "../pages/customer/CustomerMyPageEdit";
 import StoreRegisterPage from "../pages/store/StoreRegisterPage";
 import {storeRegisterAction} from "../components/storeRegister/StoreRegisterForm";
-import ProductRegisterForm, {productRegisterAction} from "../components/storeRegister/ProductRegisterForm";
+import ProductRegisterForm from "../components/storeRegister/ProductRegisterForm";
 import VerifyToken from "../components/auth/VerifyToken";
 
 const homeRouter = [
@@ -77,9 +77,8 @@ const storeRouter = [
         action: storeRegisterAction
     },
     {
-        path: 'product/approval',
+        path: 'approval/p',
         element: <ProductRegisterForm/>,
-        action: productRegisterAction
     }
 ]
 

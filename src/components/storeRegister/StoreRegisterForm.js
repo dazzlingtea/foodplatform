@@ -171,7 +171,10 @@ export const storeRegisterAction = async ({request}) => {
     body: JSON.stringify(payload),
   });
   // 200 외 상태코드 처리 필요
+  if(!response.ok) {
+    const errorMessage = await response.text();
+    alert(errorMessage);
+  }
 
-  // return redirect('/store/mypage')
-  return redirect('/store')
+  return redirect('/store/approval/p')
 }
