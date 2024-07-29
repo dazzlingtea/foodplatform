@@ -29,6 +29,7 @@ public class TokenProvider {
     @Value("${jwt.secret}")
     private String SECRET_KEY;
 
+    // create access token : short term for access server DB and saved at local storage
     public String createToken(EmailCodeDto emailCodeDto) {
 
         byte[] decodedKey = Base64.getDecoder().decode(SECRET_KEY);
@@ -40,21 +41,56 @@ public class TokenProvider {
         System.out.println("Secret Key Length in Bytes: " + key.getEncoded().length);
         System.out.println("Secret Key Length in Bits: " + (key.getEncoded().length * 8));
 
+        // customerId와 storeId 중 null이 아닌 값을 선택
+        String email = emailCodeDto.getCustomerId() != null ? emailCodeDto.getCustomerId() : emailCodeDto.getStoreId();
+        String userType = emailCodeDto.getUserType();
+
         return Jwts.builder()
+                .claim("role", userType) // role 클레임에 userType 추가
                 // header에 들어갈 내용 및 서명을 하기 위한 SECRET_KEY
                 .signWith(key, SignatureAlgorithm.HS512)
                 // payload에 들어갈 내용
-                .setSubject(emailCodeDto.getCustomerId()) // sub
-                .setIssuer("demo app") // iss
+                .setSubject(email) // sub
+                .setIssuer("foodie tree") // iss
                 .setIssuedAt(new Date()) // iat
-                .setExpiration(Date.from(Instant.now().plus(1, ChronoUnit.HOURS))) // exp
+                .setExpiration(Date.from(Instant.now().plus(1, ChronoUnit.MINUTES))) // exp
                 .compact();
     }
+
+    // refresh token : for long term life cycle and did not need to verify email link
+    // save at user's DB
+    public String createRefreshToken(String email) {
+        byte[] decodedKey = Base64.getDecoder().decode(SECRET_KEY);
+        byte[] keyBytes = SECRET_KEY.getBytes();
+        Key key = Keys.hmacShaKeyFor(keyBytes);
+
+        return Jwts.builder()
+                .signWith(key, SignatureAlgorithm.HS512)
+                .setSubject(email)
+                .setIssuer("foodie tree")
+                .setIssuedAt(new Date())
+                .setExpiration(Date.from(Instant.now().plus(30, ChronoUnit.DAYS))) // 유효기간 30일로 설정
+                .compact();
+    }
+
+    public Date getExpirationDateFromToken(String token) {
+        byte[] keyBytes = SECRET_KEY.getBytes();
+        Key key = Keys.hmacShaKeyFor(keyBytes);
+
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getExpiration();
+    }
+
 
    public TokenUserInfo validateAndGetTokenInfo(String token) {
         SecretKey key = Keys.hmacShaKeyFor(Base64.getDecoder().decode(SECRET_KEY));
 
         try {
+            //토큰 발급 당시 서명 처리
             Claims claims = Jwts.parserBuilder()
                     .setSigningKey(key)
                     .build()
@@ -64,9 +100,11 @@ public class TokenProvider {
             log.info("Claims: {}", claims);
 
             return TokenUserInfo.builder()
-                    .userId(claims.getSubject())
-                    .email(claims.get("email", String.class))
+                    .userId(claims.getSubject()) // 이거 왜 추가하는거지?
+                    .email(claims.get("sub", String.class))
+                    .role(claims.get("role", String.class))
                     .build();
+
         } catch (JwtException e) {
             log.error("Token validation error: {}", e.getMessage());
             throw e; // 또는 적절한 예외 처리
@@ -80,7 +118,8 @@ public class TokenProvider {
     @AllArgsConstructor
     @Builder
     public static class TokenUserInfo {
-        private String userId;
+        private String userId; // 얘는 왜 있는건지 아직 파악 못함
+        private String role;
         private String email;
     }
 }

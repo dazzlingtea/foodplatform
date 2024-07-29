@@ -5,34 +5,75 @@
 
 <mapper namespace="org.nmfw.foodietree.domain.auth.mapper.EmailMapper">
 
+<!--    usertype에 따라서 email 칼럼의 expiredate 업데이트-->
+    <update id="update">
+        UPDATE tbl_verification_code
+        SET expiry_date = #{expiryDate}
+        WHERE
+        <choose>
+            <when test="userType == 'customer'">
+                customer_id = #{customerId}
+            </when>
+            <when test="userType == 'store'">
+                store_id = #{storeId}
+            </when>
+        </choose>
+    </update>
+
+
     <insert id="save">
         INSERT INTO
-            tbl_verification_code
-                (
-                    customer_id,
-                    code,
-                    expiry_date
-                )
+        tbl_verification_code
+        (
+        customer_id,
+        store_id,
+        code,
+        expiry_date,
+        email_verified,
+        user_type
+        )
         VALUES
-                (
-                    #{customerId},
-                    NULL,
-                    #{expiryDate}
-                )
+        (
+        <choose>
+            <when test="userType == 'customer'">
+                #{customerId}
+            </when>
+            <when test="userType == 'store'">
+                NULL
+            </when>
+            <otherwise>
+                NULL
+            </otherwise>
+        </choose>,
+        <choose>
+            <when test="userType == 'store'">
+                #{storeId}
+            </when>
+            <otherwise>
+                NULL
+            </otherwise>
+        </choose>,
+        NULL,
+        #{expiryDate},
+        #{emailVerified},
+        #{userType}
+        )
     </insert>
-
 <!--      현재시간으로부터 유효한 코드 가져옴-->
+
     <select id="findByEmail" resultType="EmailCodeDto">
         SELECT
-            customer_id,
-            code,
-            expiry_date
+        customer_id,
+        store_id,
+        code,
+        expiry_date,
+        user_type
         FROM
-            tbl_verification_code
+        tbl_verification_code
         WHERE
-            customer_id = #{customerId}
+        (customer_id = #{customerId} OR (customer_id IS NULL AND store_id = #{storeId}))
         AND
-            expiry_date > NOW()
+        expiry_date > NOW()
         ORDER BY
         expiry_date DESC
         LIMIT 1

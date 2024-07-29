@@ -35,7 +35,7 @@ public class StoreService {
 
     public boolean signUp(StoreSignUpDto dto, HttpSession session) {
         Store store = dto.toEntity();
-        String encodedPassword = encoder.encode(dto.getPassword());
+//        String encodedPassword = encoder.encode(dto.getPassword());
 //        store.setPassword(encodedPassword);
         boolean flag = storeMapper.storeSave(store);
         if (!flag) {

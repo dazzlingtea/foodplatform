@@ -66,9 +66,6 @@ dependencies {
     // 메일서버와 연결해서 메일을 발송
     implementation 'org.springframework.boot:spring-boot-starter-mail'
 
-    // 스프링 data jpa
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-
     //querydsl 추가
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
     annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
@@ -81,6 +78,10 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
 
+    //swagger open api
+//    implementation 'org.springdoc:springdoc-openapi-ui:1.6.13'
+//    implementation 'org.springdoc:springdoc-openapi-data-rest:1.6.13'
+//    implementation 'org.springdoc:springdoc-openapi-security:1.6.13'
 }
 
 tasks.named('test') {
@@ -102,4 +103,3 @@ configurations {
 compileQuerydsl {
     options.annotationProcessorPath = configurations.querydsl
 }
-
