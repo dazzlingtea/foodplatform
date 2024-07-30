@@ -85,7 +85,7 @@ const CustomerReservationDetailModal = ({reservationDetail, onPickupConfirm}) =>
                     </div>
                     <div>가게 주소:
                         <a href="">
-                            {reservationDetail.storeAddress}
+                            {reservationDetail.address}
                         </a>
                     </div>
                     {/* 추후 지도 API로 변경 가능 클릭 시 해당 주소 네이버 지도로 이동*/}

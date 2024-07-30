@@ -48,7 +48,7 @@ const ProductCount = () => {
      */
     const handleAddProductAmount = async (amount) => {
         try {
-            const response = await fetch(`${BASE_URL}/store/main/updateProductCnt`, {
+            const response = await fetch(`${BASE_URL}/store/updateProductCnt`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

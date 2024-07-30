@@ -71,7 +71,14 @@ const Calendar = () => {
 
             const holidays = await response.json();
             if (Array.isArray(holidays)) {
-                return holidays.map(holiday => new Date(holiday.holidayDate).getDate());
+                return holidays.map(holiday => {
+                    const holidayDate = new Date(holiday.holidays);
+                    return {
+                        year: holidayDate.getFullYear(),
+                        month: holidayDate.getMonth(),
+                        day: holidayDate.getDate()
+                    };
+                });
             } else {
                 console.error('Fetched holidays is not an array');
                 return [];
@@ -81,6 +88,7 @@ const Calendar = () => {
             return [];
         }
     };
+
 
     /**
      * 이전 달로 이동하는 함수
@@ -102,7 +110,82 @@ const Calendar = () => {
      * @returns 휴무일 여부
      */
     const isHoliday = (day) => {
-        return holidays.includes(day);
+        return holidays.some(holiday =>
+            holiday.year === currentDate.getFullYear() &&
+            holiday.month === currentDate.getMonth() &&
+            holiday.day === day
+        );
+    };
+    
+
+    /**
+     * 날짜 formatting
+     * @param date - Date 타입
+     * @returns {`${number}-${string}-${string}`}
+     */
+    const toFormattedDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        console.log(`formatted date : ${year}-${month}-${day}`);
+        return `${year}-${month}-${day}`;
+    };
+
+
+    /**
+     * 특정 날짜를 휴무일로 설정하는 함수
+     * @param {string} date - 설정할 날짜 (yyyy-mm-dd 형식의 문자열)
+     * @returns {Promise<boolean>} 성공 여부 (true 또는 false)
+     */
+    const handleSetHoliday = async (date) => {
+        console.log('휴무지정 서버로 보내는 날짜:', date);
+        try {
+            const response = await fetch(`${BASE_URL}/store/calendar/setHoliday`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ holidayDate: date }),
+            });
+            if (response.ok) {
+                const fetchedHolidays = await fetchHolidays(currentDate.getFullYear(), currentDate.getMonth());
+                setHolidays(fetchedHolidays);
+                return true;
+            } else {
+                throw new Error('Failed to set holiday');
+            }
+        } catch (error) {
+            console.error('Error setting holiday:', error);
+            return false;
+        }
+    };
+
+    /**
+     * 특정 날짜의 휴무일 설정을 취소하는 함수
+     * @param {string} date - 설정을 취소할 날짜 (yyyy-mm-dd 형식의 문자열)
+     * @returns {Promise<boolean>} 성공 여부 (true 또는 false)
+     */
+    const handleUndoHoliday = async (date) => {
+        console.log('휴무취소 서버로 보내는 날짜:', date); // 서버로 전송되는 날짜를 출력합니다.
+        try {
+            const response = await fetch(`${BASE_URL}/store/calendar/undoHoliday`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ holidayDate: date }),
+            });
+            if (response.ok) {
+                const fetchedHolidays = await fetchHolidays(currentDate.getFullYear(), currentDate.getMonth());
+                setHolidays(fetchedHolidays);
+                return true;
+            } else {
+                throw new Error('Failed to undo holiday');
+            }
+        } catch (error) {
+            console.error('Error undoing holiday:', error);
+            return false;
+        }
     };
 
     /**
@@ -125,36 +208,45 @@ const Calendar = () => {
      */
     const handleDayClick = async (day) => {
         if (!day) return;
-        const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-        const isPast = selectedDate <= new Date(new Date().setHours(0, 0, 0, 0));
+        const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day, 9);
+        const tempSelectedDate = selectedDate.setHours(0, 0, 0, 0); // 오늘 날짜와 클릭한 날짜 비교 위한 시간 설정
 
-        let soldProducts;
-        if (isPast) {
-            try {
-                const response = await fetch(`${BASE_URL}/store/countPickedUpProducts/${selectedDate.toISOString().split('T')[0]}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch picked up products count');
-                }
-                soldProducts = await response.json();
-            } catch (error) {
-                console.error('Error fetching picked up products count:', error);
-                soldProducts = 0;
+        const today = new Date(new Date().setHours(0, 0, 0, 0));
+        
+        const isPast = tempSelectedDate <= today;
+
+        let calendarDetailDto;
+
+        try {
+            const response = await fetch(`${BASE_URL}/store/calendar/modal/${toFormattedDate(selectedDate)}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch picked up products count');
             }
+            calendarDetailDto = await response.json();
+            console.log(calendarDetailDto);
+        } catch (error) {
+            console.error('Error fetching picked up products count:', error);
+            calendarDetailDto = {};
         }
+
 
         const scheduleDetail = {
             date: selectedDate,
-            openTime: storeInfo.openAt,
-            closeTime: storeInfo.closedAt,
-            totalProducts: storeInfo.productCnt,
-            soldProducts: isPast ? soldProducts : undefined,
+            openTime: calendarDetailDto.openAt,
+            closeTime: calendarDetailDto.closedAt,
+            totalProducts: calendarDetailDto.productCnt,
+            soldProducts: isPast ? calendarDetailDto.todayPickedUpCnt : undefined,
+            updatedProduct: isPast ? calendarDetailDto.todayProductCnt : 0,
             isPast: isPast,
             isHoliday: isHoliday(day),
+            handleSetHoliday: () => handleSetHoliday(toFormattedDate(selectedDate)),
+            handleUndoHoliday: () => handleUndoHoliday(toFormattedDate(selectedDate)),
         };
 
-        openModal('scheduleDetail', { scheduleDetail });
+        openModal('scheduleDetail', {scheduleDetail});
     };
 
+    
     return (
         <div className={styles.calendarContainer}>
             <div className={styles.calend}>
@@ -181,7 +273,8 @@ const Calendar = () => {
                     </div>
                     <div className={styles.calendar}>
                         {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-                            <div key={day} className={`${styles.calendarDayHeader} ${day === 'Sun' ? styles.sunday : ''}`}>{day}</div>
+                            <div key={day} 
+                                className={`${styles.calendarDayHeader} ${day === 'Sun' ? styles.sunday : ''}`}>{day}</div>
                         ))}
                         {daysInMonth.map((day, index) => (
                             <div
