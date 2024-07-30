@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './ProductCount.module.scss';
 import { useModal } from "../../../pages/common/ModalProvider"
 
@@ -6,73 +6,78 @@ const BASE_URL = window.location.origin;
 
 const ProductCount = () => {
     const [productData, setProductData] = useState({
-        todayProductCnt: 10,
-        todayPickedUpCnt: 5,
-        readyToPickUpCnt: 2,
-        remainCnt: 3,
+        todayProductCnt: 0,
+        todayPickedUpCnt: 0,
+        readyToPickUpCnt: 0,
+        remainCnt: 0,
     });
     const { openModal } = useModal();
 
+    /**
+     * 오늘의 랜덤박스 현황을 가져오는 함수
+     */
+    const fetchProductCount = async () => {
+        try {
+            const response = await fetch(`${BASE_URL}/store/getProductCount`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch product count');
+            }
+            const data = await response.json();
+            console.log('Fetched product count data:', data);  // 데이터 로그 추가
+            setProductData({
+                todayProductCnt: data.todayProductCnt,
+                todayPickedUpCnt: data.todayPickedUpCnt,
+                readyToPickUpCnt: data.readyToPickUpCnt,
+                remainCnt: data.remainCnt
+            });
+        } catch (error) {
+            console.error('Error fetching product count:', error);
+        }
+    };
+
+    /**
+     * 컴포넌트가 마운트될 때 오늘의 랜덤박스 현황을 가져옴
+     */
+    useEffect(() => {
+        fetchProductCount();
+    }, []);
+
+    /**
+     * 랜덤박스를 추가하는 함수
+     * @param amount 추가할 랜덤박스의 개수
+     */
+    const handleAddProductAmount = async (amount) => {
+        try {
+            const response = await fetch(`${BASE_URL}/store/main/updateProductCnt`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ newCount: amount })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to add product amount');
+            }
+
+            setProductData((prevData) => ({
+                ...prevData,
+                todayProductCnt: prevData.todayProductCnt + amount,
+                remainCnt: prevData.remainCnt + amount
+            }));
+        } catch (error) {
+            console.error('Error adding product amount:', error);
+        }
+    };
+
+    /**
+     * 랜덤박스 추가 모달을 여는 함수
+     */
     const handleProductUpdate = () => {
         openModal('addProductAmount', {
             addProductAmount: handleAddProductAmount,
             remainCnt: productData.remainCnt
         });
-    };
-
-    // 랜덤박스를 추가하는 함수 (더미 데이터를 사용하므로 주석 처리)
-    // const handleAddProductAmount = async (amount) => {
-    //     try {
-    //         const response = await fetch(`${BASE_URL}/api/product/add`, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify({ amount })
-    //         });
-
-    //         if (!response.ok) {
-    //             throw new Error('Failed to add product amount');
-    //         }
-
-    //         const data = await response.json();
-    //         setProductData((prevData) => ({
-    //             ...prevData,
-    //             todayProductCnt: prevData.todayProductCnt + amount,
-    //             remainCnt: prevData.remainCnt + amount
-    //         }));
-    //     } catch (error) {
-    //         console.error('Error adding product amount:', error);
-    //     }
-    // };
-
-    // 각 자리에 들어갈 수량을 가져오는 함수 (더미 데이터를 사용하므로 주석 처리)
-    // const fetchProductCount = async () => {
-    //     try {
-    //         const response = await fetch(`${BASE_URL}/api/product/count`);
-    //         if (!response.ok) {
-    //             throw new Error('Failed to fetch product count');
-    //         }
-
-    //         const data = await response.json();
-    //         setProductData({
-    //             todayProductCnt: data.todayProductCnt,
-    //             todayPickedUpCnt: data.todayPickedUpCnt,
-    //             readyToPickUpCnt: data.readyToPickUpCnt,
-    //             remainCnt: data.remainCnt
-    //         });
-    //     } catch (error) {
-    //         console.error('Error fetching product count:', error);
-    //     }
-    // };
-
-    // 더미 데이터를 사용하는 함수
-    const handleAddProductAmount = (amount) => {
-        setProductData((prevData) => ({
-            ...prevData,
-            todayProductCnt: prevData.todayProductCnt + amount,
-            remainCnt: prevData.remainCnt + amount
-        }));
     };
 
     return (

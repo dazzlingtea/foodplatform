@@ -1,19 +1,40 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './ReservationList.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faCircleCheck, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { useModal } from "../../../pages/common/ModalProvider"
 
-// const BASE_URL = window.location.origin;
+const BASE_URL = window.location.origin;
 
-const ReservationList = ({ reservations }) => {
-    // const [reservations, setReservations] = useState([]);
-    // const [isFetching, setIsFetching] = useState(false);
+const ReservationList = () => {
+    const [reservations, setReservations] = useState([]);
     const { openModal } = useModal();
+
+    /**
+     * 예약 목록을 가져오는 함수
+     */
+    const fetchReservations = async () => {
+        try {
+            const response = await fetch(`${BASE_URL}/store/reservations`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch reservations');
+            }
+            const data = await response.json();
+            setReservations(data);
+        } catch (error) {
+            console.error('Error fetching reservations:', error);
+        }
+    };
+
+    /**
+     * 예약 아이템의 상태에 따라 스타일을 적용하는 useEffect 훅
+     */
+    useEffect(() => {
+        fetchReservations();
+    }, []);
 
     useEffect(() => {
         const reservationItems = document.querySelectorAll(`.${styles.reservationItem}`);
-
         reservationItems.forEach((item) => {
             const status = item.getAttribute('data-reservation-status');
             if (status === 'CANCELED') {
@@ -26,34 +47,14 @@ const ReservationList = ({ reservations }) => {
                 item.classList.add(styles.noshow);
             }
         });
-    }, []);
+    }, [reservations]);
 
-    // 예약 상세 내역을 가져오는 함수 (더미 데이터를 사용하므로 주석 처리)
-    // const fetchReservationDetail = async (reservationId) => {
-    //     try {
-    //         const response = await fetch(`${BASE_URL}/reservation/${reservationId}`);
-    //         if (!response.ok) {
-    //             throw new Error('Failed to fetch reservation details');
-    //         }
-    //         const data = await response.json();
-    //         return data;
-    //     } catch (error) {
-    //         console.error('Error fetching reservation detail:', error);
-    //         return null;
-    //     }
-    // };
-
+    /**
+     * 예약 상세 정보를 모달로 표시하는 함수
+     * @param reservation 예약 정보
+     */
     const handleReservationClick = async (reservation) => {
         try {
-            // 실제 API 호출 부분 (주석 처리)
-            // const reservationDetail = await fetchReservationDetail(reservation.reservationId);
-            // if (reservationDetail) {
-            //     openModal('storeReservationDetail', { reservationInfo: reservationDetail });
-            // } else {
-            //     alert('Failed to fetch reservation details');
-            // }
-
-            // 더미 데이터용 로직
             openModal('storeReservationDetail', { reservationInfo: reservation });
         } catch (error) {
             console.error('Error fetching reservation detail:', error);

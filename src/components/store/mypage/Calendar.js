@@ -1,17 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Calendar.module.scss';
-import { useModal } from "../../../pages/common/ModalProvider"
+import { useModal } from "../../../pages/common/ModalProvider";
+
+const BASE_URL = window.location.origin;
 
 const Calendar = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [daysInMonth, setDaysInMonth] = useState([]);
     const [holidays, setHolidays] = useState([]);
+    const [storeInfo, setStoreInfo] = useState({});
     const { openModal } = useModal();
 
-    useEffect(() => {
-        updateCalendar(currentDate.getFullYear(), currentDate.getMonth());
-    }, [currentDate]);
+    /**
+     * 가게 정보를 가져오는 함수
+     */
+    const fetchStoreInfo = async () => {
+        try {
+            const response = await fetch(`${BASE_URL}/store/info`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch store info');
+            }
+            const data = await response.json();
+            setStoreInfo(data);
+        } catch (error) {
+            console.error('Error fetching store info:', error);
+        }
+    };
 
+    /**
+     * 현재 달의 날짜와 휴무일 정보를 업데이트하는 함수
+     * @param year 연도
+     * @param month 월
+     */
     const updateCalendar = async (year, month) => {
         const firstDay = new Date(year, month, 1).getDay();
         const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -23,117 +43,73 @@ const Calendar = () => {
 
         setDaysInMonth(daysArray);
 
-        // const fetchedHolidays = await fetchHolidays(year, month);
-        // setHolidays(fetchedHolidays);
+        const fetchedHolidays = await fetchHolidays(year, month);
+        setHolidays(fetchedHolidays);
     };
 
-    // const fetchHolidays = async (year, month) => {
-    //     try {
-    //         const response = await fetch(`/store/mypage/main/calendar/getHoliday`, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify({ date: `${year}-${month + 1}-01` })
-    //         });
+    /**
+     * 컴포넌트가 마운트될 때 현재 달의 날짜와 휴무일 정보를 업데이트함
+     */
+    useEffect(() => {
+        fetchStoreInfo(); // 가게 정보 가져오기
+        updateCalendar(currentDate.getFullYear(), currentDate.getMonth());
+    }, [currentDate]);
 
-    //         if (!response.ok) {
-    //             console.error('Failed to fetch holidays');
-    //             return [];
-    //         }
+    /**
+     * 휴무일 정보를 서버에서 가져오는 함수
+     * @param year 연도
+     * @param month 월
+     * @returns 휴무일 배열
+     */
+    const fetchHolidays = async (year, month) => {
+        try {
+            const response = await fetch(`${BASE_URL}/store/calendar/getHoliday`);
+            if (!response.ok) {
+                console.error('Failed to fetch holidays');
+                return [];
+            }
 
-    //         const holidays = await response.json();
-    //         if (Array.isArray(holidays)) {
-    //             return holidays;
-    //         } else {
-    //             console.error('Fetched holidays is not an array');
-    //             return [];
-    //         }
-    //     } catch (error) {
-    //         console.error('Error fetching holidays:', error);
-    //         return [];
-    //     }
-    // };
+            const holidays = await response.json();
+            if (Array.isArray(holidays)) {
+                return holidays.map(holiday => new Date(holiday.holidayDate).getDate());
+            } else {
+                console.error('Fetched holidays is not an array');
+                return [];
+            }
+        } catch (error) {
+            console.error('Error fetching holidays:', error);
+            return [];
+        }
+    };
 
+    /**
+     * 이전 달로 이동하는 함수
+     */
     const handlePrevMonth = () => {
         setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1));
     };
 
+    /**
+     * 다음 달로 이동하는 함수
+     */
     const handleNextMonth = () => {
         setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1));
     };
 
+    /**
+     * 해당 날짜가 휴무일인지 확인하는 함수
+     * @param day 일(day)
+     * @returns 휴무일 여부
+     */
     const isHoliday = (day) => {
-        const dateString = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-        return holidays.includes(dateString);
+        return holidays.includes(day);
     };
 
-    const handleDayClick = async (day) => {
-        if (!day) return;
-        const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-        const isPast = selectedDate <= new Date(new Date().setHours(0, 0, 0, 0));
-
-        const scheduleDetail = {
-            date: selectedDate,
-            openTime: "09:00",
-            closeTime: "18:00",
-            totalProducts: 50,
-            soldProducts: isPast ? 30 : undefined,
-            isPast: isPast,
-            isHoliday: isHoliday(day),
-            // handleSetHoliday: () => handleSetHoliday(selectedDate),
-            // handleUndoHoliday: isHoliday(day) ? () => handleUndoHoliday(selectedDate) : null
-        };
-
-        openModal('scheduleDetail', { scheduleDetail });
-    };
-
-    // // 휴무일을 설정하는 함수 (더미 데이터를 사용하므로 주석 처리)
-    // const handleSetHoliday = async (date) => {
-    //     try {
-    //         const response = await fetch(`/store/mypage/main/calendar/setHoliday`, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify({ date })
-    //         });
-
-    //         if (!response.ok) {
-    //             throw new Error('Failed to set holiday');
-    //         }
-
-    //         // 휴무일 설정 성공 시, 휴무일 목록 갱신
-    //         const updatedHolidays = await fetchHolidays(date.getFullYear(), date.getMonth());
-    //         setHolidays(updatedHolidays);
-    //     } catch (error) {
-    //         console.error('Error setting holiday:', error);
-    //     }
-    // };
-    //
-    // // 휴무일을 취소하는 함수 (주석)
-    // const handleUndoHoliday = async (date) => {
-    //     try {
-    //         const response = await fetch(`/store/mypage/main/calendar/undoHoliday`, {
-    //             method: 'DELETE',
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify({ holidayDate: date })
-    //         });
-    //
-    //         if (!response.ok) {
-    //             throw new Error('Failed to undo holiday');
-    //         }
-    //
-    //         // 휴무일 취소 성공 시, 휴무일 목록 갱신
-    //         const updatedHolidays = await fetchHolidays(date.getFullYear(), date.getMonth());
-    //         setHolidays(updatedHolidays);
-    //     } catch (error) {
-    //         console.error('Error undoing holiday:', error);
-    //     }
-    // };
-
+    /**
+     * 해당 날짜가 오늘인지 확인하는 함수
+     * @param day 일(day)
+     * @returns 오늘 여부
+     */
     const isToday = (day) => {
         const today = new Date();
         return (
@@ -141,6 +117,42 @@ const Calendar = () => {
             currentDate.getMonth() === today.getMonth() &&
             currentDate.getFullYear() === today.getFullYear()
         );
+    };
+
+    /**
+     * 특정 날짜를 클릭했을 때 호출되는 함수
+     * @param day 일(day)
+     */
+    const handleDayClick = async (day) => {
+        if (!day) return;
+        const selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
+        const isPast = selectedDate <= new Date(new Date().setHours(0, 0, 0, 0));
+
+        let soldProducts;
+        if (isPast) {
+            try {
+                const response = await fetch(`${BASE_URL}/store/countPickedUpProducts/${selectedDate.toISOString().split('T')[0]}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch picked up products count');
+                }
+                soldProducts = await response.json();
+            } catch (error) {
+                console.error('Error fetching picked up products count:', error);
+                soldProducts = 0;
+            }
+        }
+
+        const scheduleDetail = {
+            date: selectedDate,
+            openTime: storeInfo.openAt,
+            closeTime: storeInfo.closedAt,
+            totalProducts: storeInfo.productCnt,
+            soldProducts: isPast ? soldProducts : undefined,
+            isPast: isPast,
+            isHoliday: isHoliday(day),
+        };
+
+        openModal('scheduleDetail', { scheduleDetail });
     };
 
     return (
@@ -187,4 +199,4 @@ const Calendar = () => {
     );
 };
 
-export default Calendar
+export default Calendar;
