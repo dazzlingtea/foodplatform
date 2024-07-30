@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './PreferredFood.module.scss';
+import {imgErrorHandler} from "../../../utils/error";
 
 const PreferredFood = ({ preferredFoods = [] }) => {
     return (
@@ -17,7 +18,7 @@ const PreferredFood = ({ preferredFoods = [] }) => {
                             <li key={index}>
                                 <Link to="#" className={styles.foodLink}>
                                     <div className={styles.imgBox}>
-                                        <img src={food.foodImage || '/assets/img/defaultImage.jpg'} alt="선호음식이미지" className={styles.foodImage}/>
+                                        <img src={food.foodImage} onError={imgErrorHandler} alt="선호음식이미지" className={styles.foodImage}/>
                                     </div>
                                     <span>{food.preferredFood}</span>
                                 </Link>

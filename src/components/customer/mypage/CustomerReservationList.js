@@ -3,6 +3,7 @@ import styles from './CustomerReservationList.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faCircleCheck, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { useModal } from "../../../pages/common/ModalProvider";
+import {imgErrorHandler} from "../../../utils/error";
 
 const BASE_URL = window.location.origin;
 
@@ -155,7 +156,7 @@ const CustomerReservationList = ({ reservations, onUpdateReservations }) => {
                                             {reservation.status === 'NOSHOW' && <FontAwesomeIcon icon={faCircleXmark} className={styles.noshow} />}
                                             {reservation.status === 'RESERVED' && <FontAwesomeIcon icon={faSpinner} className={styles.loading} />}
                                             {reservation.status === 'PICKEDUP' && <FontAwesomeIcon icon={faCircleCheck} className={styles.done} />}
-                                            <img src={reservation.storeImg || '/assets/img/defaultImage.jpg'} alt="Store Image" />
+                                            <img src={reservation.storeImg} onError={imgErrorHandler} alt="Store Image" />
                                         </div>
                                         <span>{reservation.storeName}</span>
                                     </div>

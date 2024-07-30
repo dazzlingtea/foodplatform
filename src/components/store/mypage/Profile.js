@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import styles from './Profile.module.scss';
 import { Link, useLocation } from "react-router-dom";
+import { imgErrorHandler } from "../../../utils/error";
 
 const BASE_URL = window.location.origin;
 
@@ -45,7 +46,7 @@ const Profile = ({ storeInfo, stats, isShow }) => {
                         <div>{stats.coTwo}kg의 이산화탄소 배출을 줄였습니다</div>
                     </div>
                     <div id="community" className={styles.statsBox}>
-                        <img src="/assets/img/mypage-community.png" onError={imgErrorHandler} alt="community"/>
+                        <img src="/assets/img/mypage-community.png" alt="community"/>
                         <div>지금까지 {stats.customerCnt}명의 손님을 만났어요</div>
                     </div>
                 </div>

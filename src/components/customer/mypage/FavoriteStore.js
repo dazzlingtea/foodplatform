@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './FavoriteStore.module.scss';
+import {imgErrorHandler} from "../../../utils/error";
 
 const FavoriteStore = ({ favStores = [] }) => {
     return (
@@ -15,7 +16,7 @@ const FavoriteStore = ({ favStores = [] }) => {
                             <li key={store.storeId}>
                                 <Link to="#" className={styles.storeLink}>
                                     <div className={styles.imgBox}>
-                                        <img src={store.storeImg || '/assets/img/defaultImage.jpg'} alt="최애가게이미지" />
+                                        <img src={store.storeImg} onError={imgErrorHandler} alt="최애가게이미지" />
                                     </div>
                                     <span>{store.storeName}</span>
                                 </Link>

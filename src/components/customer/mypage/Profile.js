@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Profile.module.scss';
 import { Link, useLocation } from "react-router-dom";
+import {imgErrorHandler} from "../../../utils/error";
 
 const Profile = ({ customerMyPageDto, stats, isShow }) => {
     const location = useLocation();
@@ -30,7 +31,7 @@ const Profile = ({ customerMyPageDto, stats, isShow }) => {
         <div className={`${styles.profileSection} ${isShow ? styles.on : undefined}`}>
             <div className={styles.profile}>
                 <a className={styles.imgBox} href="#">
-                    <img src={userData.profileImage || '/assets/img/defaultImage.jpg'} alt="Customer profile image" />
+                    <img src={userData.profileImage} onError={imgErrorHandler} alt="Customer profile image" />
                 </a>
                 <h2>{userData.nickname}</h2>
                 <p>{userData.customerId}</p>
