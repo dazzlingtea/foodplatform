@@ -27,6 +27,12 @@ const categoriesInfo = {
 
 const categories = Object.keys(categoriesInfo).map(key => categoriesInfo[key].name);
 
+// 🌿 카테고리 문자열에서 실제 foodType만 추출하는 함수
+const extractFoodType = (category) => {
+  const match = category.match(/\(foodType=(.*?)\)/);
+  return match ? match[1] : category; 
+};
+
 const CategoriesPage = () => {
   const { categoryName } = useParams();
   const [stores, setStores] = useState([]);
@@ -38,7 +44,7 @@ const CategoriesPage = () => {
     fetch(STORELISTS_URL) 
       .then(response => response.json())
       .then(data => {
-        const filteredStores = data.filter(store => store.category === category.name);
+        const filteredStores = data.filter(store => extractFoodType(store.category) === category.name);
         setStores(filteredStores);
       })
       .catch(error => console.error('데이터를 가져오는 중 오류 발생:', error));
