@@ -6,7 +6,40 @@
   }
 
   .modalBody {
+    text-align: center;
+    display: flex;
+    justify-content: center;
 
+    .holidayInfo{
+      width: 40%;
+
+      .holidayTextInfo{
+        width: 202px;
+      }
+
+      .scheduleInfo{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: space-between;
+
+        div{
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+      .storeInfo{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        justify-content: space-between;
+
+        div{
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
   }
 
   .modalFooter {
@@ -20,6 +53,7 @@
       color: #fff;
       padding: 15px 35px;
       margin-top: 26px;
+      border: none;
 
       :active {
         color: #666;
@@ -37,6 +71,7 @@
       color: #fff;
       padding: 15px 35px;
       margin-top: 26px;
+      border: none;
 
       &:active {
         color: #666;
@@ -49,4 +84,21 @@
   }
 
 
+}
+
+@media (max-width: 400px) {
+
+  .scheduleDetailModal {
+
+    .modalHeader {
+
+    }
+
+    .modalBody {
+      .holidayInfo {
+        width: 64%;
+      }
+
+    }
+    }
 }

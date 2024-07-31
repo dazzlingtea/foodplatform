@@ -23,6 +23,7 @@
       margin: 30px 24px;
       padding: 8px;
       border-radius: 11px;
+      border: none;
     }
 
     .initialCnt {
@@ -32,6 +33,7 @@
   }
 
   .confirmBtn {
+    border: none;
     color: #fff;
     font-weight: 700;
     margin-top: 28px;
@@ -45,7 +47,7 @@
       color: #fff;
       text-decoration: none;
       cursor: pointer;
-      background: linear-gradient(to bottom, #b4da95, #7ab96d);
+      background: linear-gradient(to bottom, #9cb688, #6b9a61);
       transition: 0.5s;
     }
   }

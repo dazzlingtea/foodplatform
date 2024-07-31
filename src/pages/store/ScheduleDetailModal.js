@@ -1,10 +1,10 @@
 import React from 'react';
-import { useModal } from "../common/ModalProvider";
+import {useModal} from "../common/ModalProvider";
 import styles from './ScheduleDetailModal.module.scss';
 import {now} from "lodash/date";
 
-const ScheduleDetailModal = ({ scheduleDetail }) => {
-    const { closeModal } = useModal(); // ModalProvider에서 closeModal 함수 가져오기
+const ScheduleDetailModal = ({scheduleDetail}) => {
+    const {closeModal} = useModal(); // ModalProvider에서 closeModal 함수 가져오기
     // const { openTime, closeTime, totalProducts, soldProducts, isPast, isHoliday, handleSetHoliday, handleUndoHoliday } = scheduleDetail;
 
     // 테스트용 dummy data
@@ -39,21 +39,41 @@ const ScheduleDetailModal = ({ scheduleDetail }) => {
             <div className={styles.modalBody}>
                 <div className={styles.holidayInfo}>
                     {scheduleDetail.isHoliday ? (
-                        <div>휴무일로 지정된 날짜입니다.</div>
+                        <div className={styles.holidayTextInfo}>휴무일로 지정된 날짜입니다.</div>
                     ) : (
                         <>
                             <div className={styles.scheduleInfo}>
-                                <div>오픈: {scheduleDetail.openTime}</div>
-                                <div>픽업마감: {scheduleDetail.closeTime}</div>
+                                <div>오픈:
+                                    <span>
+                                    {scheduleDetail.openTime}
+                                    </span>
+                                </div>
+                                <div>픽업마감:
+                                    <span>
+                                    {scheduleDetail.closeTime}
+                                    </span>
+                                </div>
                             </div>
                             <div className={styles.storeInfo}>
                                 {scheduleDetail.isPast ? (
-                                    <div>판매한 수량: {scheduleDetail.soldProducts}</div>
+                                    <div>판매한 수량:
+                                        <span>
+                                        {scheduleDetail.soldProducts}
+                                        </span>
+                                    </div>
                                 ) : (
-                                    <div>업데이트 될 수량: {scheduleDetail.totalProducts}</div>
+                                    <div>업데이트 될 수량:
+                                        <span>
+                                        {scheduleDetail.totalProducts}
+                                        </span>
+                                    </div>
                                 )}
-                                // {today && (<div>업데이트 된 수량: {scheduleDetail.totalProducts}</div>)}
-                                {(today || scheduleDetail.isPast) && (<div>업데이트 된 수량: {scheduleDetail.updatedProduct}</div>)}
+                                {(today || scheduleDetail.isPast) && (
+                                    <div>업데이트 된 수량:
+                                        <span>
+                                        {scheduleDetail.updatedProduct}
+                                        </span>
+                                    </div>)}
                             </div>
                         </>
                     )}
