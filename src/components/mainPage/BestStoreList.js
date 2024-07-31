@@ -2,9 +2,11 @@ import React, { useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import styles from './FoodNav.module.scss';
+import { useModal } from '../../pages/common/ModalProvider'; // ModalProvider에서 useModal 훅을 가져옵니다.
 
-const BestStoreList = ({ categories = [], stores = [] }) => {
+const BestStoreList = ({ stores = [] }) => {
   const swiperElRef = useRef(null);
+  const { openModal } = useModal(); // useModal 훅을 사용하여 모달을 엽니다.
 
   useEffect(() => {
     if (swiperElRef.current) {
@@ -18,6 +20,10 @@ const BestStoreList = ({ categories = [], stores = [] }) => {
       });
     }
   }, []);
+
+  const handleClick = (store) => {
+    openModal('productDetail', { productDetail: store }); // 클릭 시 모달을 엽니다.
+  };
 
   return (
     <>
@@ -37,16 +43,15 @@ const BestStoreList = ({ categories = [], stores = [] }) => {
           ) : (
             stores.map((store, index) => (
               <SwiperSlide key={index}>
-                <div className={styles.storeItem}>
+                <div className={styles.storeItem} onClick={() => handleClick(store)}>
                   <img src={store.storeImg} alt={store.storeName} />
                   <p className={styles.storeName}>{store.storeName}</p>
                   <span className={styles.storePrice}>{store.price}</span>
-                  <span className={styles.productCnt}></span>
                   <span className={styles.productCnt}>남은 갯수 : {store.productCnt}</span>
                 </div>
               </SwiperSlide>
             ))
-          )} 
+          )}
         </Swiper>
       </div>
     </>
