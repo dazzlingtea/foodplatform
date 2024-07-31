@@ -18,6 +18,7 @@ import StoreRegisterPage from "../pages/store/StoreRegisterPage";
 import {storeRegisterAction} from "../components/storeRegister/StoreRegisterForm";
 import ProductRegisterForm from "../components/storeRegister/ProductRegisterForm";
 import VerifyToken from "../components/auth/VerifyToken";
+import MyFavMap from "../components/customer/my-fav-map/MyFavMap";
 
 const homeRouter = [
     {
@@ -45,12 +46,13 @@ const homeRouter = [
         element: <MainPage/>
     },
     {
+        path: '/myFavMap',
+        element: <MyFavMap/>,
+    },
+    {
         path: '/:categoryName',
         element: <CategoriesPage/>,
     },
-
-
-
 ];
 const customerMyPageRouter = [
     {
