@@ -34,3 +34,17 @@
 .header .btnImg img{
     width:25%;
 }
+
+@media (max-width: 400px) {
+    .header{
+      margin-bottom: 0;
+    }
+    .header h1{
+        top: 42px;
+        left: -45px;
+    }
+    .header .btnImg{
+        right: -202px;
+    }
+  
+  }

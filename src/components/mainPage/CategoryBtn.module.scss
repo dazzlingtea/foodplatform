@@ -1,14 +1,21 @@
-.nav{
-  width: 80%;
-  // background-color: red;
-  margin: 0 auto;
+// 기본 박스 모델 설정
+* {
+  box-sizing: border-box;
 }
-.food-nav{
+
+.nav {
+  width: 80%;
+  margin: 0 auto;
+  // background-color: red; 
+}
+
+.food-nav {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .category-btn {
@@ -16,21 +23,26 @@
   cursor: pointer;
   transition: background-color 0.3s;
   text-align: center;
+  margin: 5px;
 }
 
 .btnImg {
   width: 60px; 
   height: 50px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btnImg img {
-  width: 80%;
+  width: 80%; // 부모 요소의 너비에 맞추기
+  height: auto; // 비율 유지
   object-fit: cover;
   transform-origin: top center;
   transition: transform 0.3s ease;
 }
-.btnImg img:hover{
-  width: 85%;
+
+.btnImg img:hover {
   transform: scale(1.1);
 }
 
@@ -39,4 +51,24 @@
   font-size: 16px;
   font-weight: 600;
   color: #0d0d0d;
+}
+
+
+@media (max-width: 4000px) {
+  .nav{
+    width:100%;
+  }
+  .food-nav{
+    margin: 10px 10px 0 10px;
+  }
+  .btnImg{
+    width:  40px;
+    height: auto;
+    margin-bottom: 15px;
+  }
+  .btnText {
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+
 }

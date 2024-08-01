@@ -1,4 +1,3 @@
-// 가게 리스트 ===================================
 .list {
   margin: 0 auto;
   position: relative;
@@ -88,4 +87,12 @@
 .storeItem .productCnt{
   font-size: 15px;
   right: 20px;
+}
+
+
+@media (max-width: 400px) {
+  .list .title{
+    padding: 20px 20px 5px 0;
+  }
+
 }

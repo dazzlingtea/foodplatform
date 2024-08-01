@@ -2,11 +2,11 @@ import React, { useRef, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import styles from './FoodNav.module.scss';
-import { useModal } from '../../pages/common/ModalProvider'; // ModalProvider에서 useModal 훅을 가져옵니다.
+import { useModal } from '../../pages/common/ModalProvider'; 
 
 const BestStoreList = ({ stores = [] }) => {
   const swiperElRef = useRef(null);
-  const { openModal } = useModal(); // useModal 훅을 사용하여 모달을 엽니다.
+  const { openModal } = useModal();
 
   useEffect(() => {
     if (swiperElRef.current) {
@@ -22,7 +22,7 @@ const BestStoreList = ({ stores = [] }) => {
   }, []);
 
   const handleClick = (store) => {
-    openModal('productDetail', { productDetail: store }); // 클릭 시 모달을 엽니다.
+    openModal('productDetail', { productDetail: store });
   };
 
   return (
