@@ -15,11 +15,6 @@ const SignUpForm = ({ userType, onVerificationSent }) => {
   const [isSending, setIsSending] = useState(false);
 
     // local storage 에서 토큰 파싱 후 로그아웃을 위한 메서드, 개발중
-    const getTokenFromLocalStorage = () => {
-        console.log(localStorage.getItem('token'))
-        return localStorage.getItem('token');
-    };
-
     // access token이 아직 유효할 경우
     // const handleSignInRedirect = () => {
     //     const token = getTokenFromLocalStorage();

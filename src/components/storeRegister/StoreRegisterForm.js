@@ -5,6 +5,7 @@ import SelectBox from "./SelectBox";
 import {STORE_URL} from "../../config/host-config";
 import useFormValidation from "./useFormValidation";
 import ErrorSpan from "./ErrorSpan";
+import query from "lodash";
 
 // select option 배열
 const OPTIONS = [
@@ -162,11 +163,16 @@ export const storeRegisterAction = async ({request}) => {
   }
   console.log('store 페이로드: ', payload)
 
+    const token = query.get('token');
+
+  console.log("did i get a token info? : ",token);
+
   const response = await fetch(`${STORE_URL}/approval`, {
+
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      // 'Authorization': 'Bearer' + token,
+      // 'Authorization': 'Bearer ' + token,
     },
     body: JSON.stringify(payload),
   });
