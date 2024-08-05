@@ -17,7 +17,6 @@ const AddProductAmountModal = lazy(() => import("../store/AddProductAmountModal"
 const ScheduleDetailModal = lazy(() => import("../store/ScheduleDetailModal"));
 
 const Modal = () => {
-
     const { modalState, closeModal } = useModal();
     const { isOpen, type, props } = modalState;
     const [customStyle, setCustomStyle] = useState({width: '100%'});
@@ -111,11 +110,19 @@ const Modal = () => {
                     )}
                 </div>
                 <div className={styles.modalFooter}>
-                        {type === 'productDetail' && isMobile && <BottomPlaceOrder/>}
+                    {type === 'productDetail' && isMobile && (
+                        <BottomPlaceOrder
+                            makeReservation={props.makeReservation}
+                            productDetail={props.productDetail}
+                            initialCount={props.initialCount}
+                            handleIncrease={props.handleIncrease}
+                            handleDecrease={props.handleDecrease}
+                            remainProduct={props.productDetail?.storeInfo?.remainProduct || 0}
+                        />
+                    )}
                 </div>
             </div>
-        </div>
-        ,
+        </div>,
         document.getElementById('modal-root')
     );
 };

@@ -26,13 +26,12 @@
     position: absolute;
     
 }
-.header .btnImg{
+
+.header img{
     position: absolute;
-    top:25px;
-    right: -130px;
-}
-.header .btnImg img{
-    width:25%;
+    width:13%;
+    top:20px;
+    right: 0;
 }
 
 @media (max-width: 400px) {
@@ -43,8 +42,10 @@
         top: 42px;
         left: -45px;
     }
-    .header .btnImg{
-        right: -202px;
+    .header img{
+        top:40px;
+        right: 0px;
+        width:30%;
     }
   
   }

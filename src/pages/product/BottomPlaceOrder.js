@@ -3,14 +3,13 @@ import styles from "./BottomPlaceOrder.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 
-const BottomPlaceOrder = ({ makeReservation, productDetail, initialCount, handleIncrease, handleDecrease }) => {
+const BottomPlaceOrder = ({ makeReservation, productDetail, initialCount, handleIncrease, handleDecrease, remainProduct }) => {
 
     // 디폴트 값 설정: productDetail 및 storeInfo가 없을 경우를 대비
     const storeInfo = productDetail?.storeInfo || {};
-    const remainProduct = storeInfo.remainProduct || 0;
+    const isReservation = remainProduct === 1; // 예약 가능 여부 판단
 
     const handleMakeReservation = () => {
-        console.log(initialCount);
         makeReservation(initialCount);
     };
 
@@ -33,8 +32,11 @@ const BottomPlaceOrder = ({ makeReservation, productDetail, initialCount, handle
                     <FontAwesomeIcon icon={faPlus} />
                 </button>
             </div>
-            <div className={styles.placeOrderBtn} onClick={handleMakeReservation}>
-                <p>구매하기</p>
+            <div 
+                className={`${styles.placeOrderBtn} ${isReservation ? styles.reservation : ''}`} 
+                onClick={handleMakeReservation}
+            >
+                <p>{isReservation ? 'SOLD OUT' : '구매하기'}</p>
             </div>
         </div>
     );

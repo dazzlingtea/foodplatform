@@ -65,9 +65,11 @@ const ProductDetailModal = ({ productDetail, onClose }) => {
                 {!isMobile && (
                     <BottomPlaceOrder
                         makeReservation={makeReservation}
+                        productDetail={productInfo}
                         initialCount={initialCount}
                         handleIncrease={handleIncrease}
                         handleDecrease={handleDecrease}
+                        remainProduct={productCnt}
                     />
                 )}
             </section>

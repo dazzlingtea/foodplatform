@@ -1,9 +1,10 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import Slider from "react-slick";
 import { useModal } from "../../pages/common/ModalProvider";
 import styles from "./FoodNav.module.scss";
-import { register } from "swiper/element/bundle";
-
-register();
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import './slick-theme.css';
 
 // 🌿 랜덤 가게 리스트 생성
 const getRandomStores = (stores, count) => {
@@ -20,99 +21,99 @@ const extractFoodType = (category) => {
 
 const FoodNav = ({ selectedCategory, stores }) => {
   const [randomStores, setRandomStores] = useState([]);
-  const swiperElRef = useRef(null);
   const { openModal } = useModal();
 
   useEffect(() => {
     // 랜덤한 가게 목록을 선택하여 상태를 업데이트
     setRandomStores(getRandomStores(stores, 5)); 
-
-    if (swiperElRef.current) {
-      swiperElRef.current.addEventListener("swiperprogress", (e) => {
-        const [swiper, progress] = e.detail;
-        console.log(progress);
-      });
-
-      swiperElRef.current.addEventListener("swiperslidechange", (e) => {
-        console.log("slide changed");
-      });
-    }
   }, [stores]);
 
   const handleClick = (store) => {
     openModal('productDetail', { productDetail: store });
   };
 
+  const settings = (slidesToShow) => ({
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: slidesToShow,
+    slidesToScroll: 5,
+    centerMode: true,
+    centerPadding: '0',
+    arrows: true,
+    responsive: [
+      {
+        breakpoint: 400,
+        settings: {
+          dots: false,
+          slidesToShow: 2, 
+          centerPadding: '10%',
+        },
+      },
+    ],
+  });
+
   return (
     <>
       {/* 내가 찜한 가게 리스트 */}
       <div className={styles.list}>
         <h2 className={styles.title}>나의 단골 가게</h2>
-        <swiper-container
-          ref={swiperElRef}
-          slides-per-view="4"
-          navigation="true"
-          pagination="true"
-          loop="true"
-        >
+        <Slider {...settings(4)} className={styles.slider}>
           {stores.map((store, index) => (
-            <swiper-slide key={index} onClick={() => handleClick(store)}>
-              <div className={styles.storeItem}>
-                <img src={store.storeImg} alt={store.storeName} />
-                <p className={styles.storeName}>{store.storeName}</p>
-                <span className={styles.storePrice}>{store.price}</span>
-                <span className={styles.productCnt}>남은 갯수 : {store.productCnt}</span>
-              </div>
-            </swiper-slide>
+            <div
+              key={index}
+              onClick={() => handleClick(store)}
+              className={`${styles.storeItem} ${store.productCnt === 1 ? styles['low-stock'] : ''}`}
+            >
+              <img src={store.storeImg} alt={store.storeName} />
+              {store.productCnt === 1 && <div className={styles.overlay}>SOLD OUT</div>}
+              <p className={styles.storeName}>{store.storeName}</p>
+              <span className={styles.storePrice}>{store.price}</span>
+              <span className={styles.productCnt}>수량 : {store.productCnt}</span>
+            </div>
           ))}
-        </swiper-container>
+        </Slider>
       </div>
 
       {/* 주변 가게 리스트 */}
       <div className={styles.list}>
         <h2 className={styles.title}>000동 근처 가게</h2>
-        <swiper-container
-          ref={swiperElRef}
-          slides-per-view="5"
-          navigation="true"
-          pagination="true"
-          loop="true"
-        >
+        <Slider {...settings(4)} className={styles.slider}>
           {stores.map((store, index) => (
-            <swiper-slide key={index} onClick={() => handleClick(store)}>
-              <div className={styles.storeItem}>
-                <img src={store.storeImg} alt={store.storeName} />
-                <p className={styles.storeName}>{store.storeName}</p>
-                <span className={styles.storePrice}>{store.price}</span>
-                <span className={styles.productCnt}>남은 갯수 : {store.productCnt}</span>
-              </div>
-            </swiper-slide>
+            <div
+              key={index}
+              onClick={() => handleClick(store)}
+              className={`${styles.storeItem} ${store.productCnt === 1 ? styles['low-stock'] : ''}`}
+            >
+              <img src={store.storeImg} alt={store.storeName} />
+              {store.productCnt === 1 && <div className={styles.overlay}>SOLD OUT</div>}
+              <p className={styles.storeName}>{store.storeName}</p>
+              <span className={styles.storePrice}>{store.price}</span>
+              <span className={styles.productCnt}>수량 : {store.productCnt}</span>
+            </div>
           ))}
-        </swiper-container>
+        </Slider>
       </div>
 
       {/* 추천 가게 리스트(랜덤) */}
       <div className={styles.list}>
         <h2 className={styles.title}>이웃들의 추천 가게</h2>
-        <swiper-container
-          ref={swiperElRef}
-          slides-per-view="5"
-          navigation="true"
-          pagination="true"
-          loop="true"
-        >
+        <Slider {...settings(4)} className={styles.slider}>
           {randomStores.map((store, index) => (
-            <swiper-slide key={index} onClick={() => handleClick(store)}>
-              <div className={styles.storeItem}>
-                <img src={store.storeImg} alt={store.storeName} className={styles.image} />
-                <span className={styles.category}>{extractFoodType(store.category)}</span>
-                <p className={styles.storeName}>{store.storeName}</p>
-                <span className={styles.storePrice}>{store.price}</span>
-                <span className={styles.productCnt}>남은 갯수 : {store.productCnt}</span>
-              </div>
-            </swiper-slide>
+            <div
+              key={index}
+              onClick={() => handleClick(store)}
+              className={`${styles.storeItem} ${store.productCnt === 1 ? styles['low-stock'] : ''}`}
+            >
+              <img src={store.storeImg} alt={store.storeName} className={styles.image} />
+              <span className={styles.category}>{extractFoodType(store.category)}</span>
+              <p className={styles.storeName}>{store.storeName}</p>
+              <span className={styles.storePrice}>{store.price}</span>
+              <span className={styles.productCnt}>수량 : {store.productCnt}</span>
+              {store.productCnt === 1 && <div className={styles.overlay}>SOLD OUT</div>}
+            </div>
           ))}
-        </swiper-container>
+        </Slider>
       </div>
     </>
   );
