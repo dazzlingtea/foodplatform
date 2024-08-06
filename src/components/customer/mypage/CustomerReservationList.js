@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './CustomerReservationList.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faCircleCheck, faSpinner } from "@fortawesome/free-solid-svg-icons";
@@ -7,9 +7,10 @@ import {imgErrorHandler} from "../../../utils/error";
 
 const BASE_URL = window.location.origin;
 
-const CustomerReservationList = ({ reservations, onUpdateReservations }) => {
+const CustomerReservationList = ({ reservations, onUpdateReservations, isLoading, loadMore, hasMore }) => {
     const { openModal } = useModal();
     const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 400);
+    const listRef = useRef(null);
 
     useEffect(() => {
         const handleResize = () => {
@@ -22,6 +23,28 @@ const CustomerReservationList = ({ reservations, onUpdateReservations }) => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (listRef.current) {
+                const { scrollTop, scrollHeight, clientHeight } = listRef.current;
+                if (scrollTop + clientHeight >= scrollHeight && hasMore) {
+                    loadMore();
+                }
+            }
+        };
+
+        const currentListRef = listRef.current;
+        if (currentListRef) {
+            currentListRef.addEventListener('scroll', handleScroll);
+        }
+
+        return () => {
+            if (currentListRef) {
+                currentListRef.removeEventListener('scroll', handleScroll);
+            }
+        };
+    }, [loadMore, hasMore]);
 
     // 날짜를 0월 0일 0시 0분 형식으로 포맷팅하는 함수
     const formatDate = (dateString) => {
@@ -132,6 +155,20 @@ const CustomerReservationList = ({ reservations, onUpdateReservations }) => {
         }
     };
 
+    // 리뷰 작성 모달을 여는 함수
+    const handleWriteReviewClick = async (reservationId, event) => {
+        event.stopPropagation(); // 이벤트 버블링 방지
+        try {
+            const reservationDetail = reservations.find(r => r.reservationId === reservationId);
+            openModal('writeReview', {
+                reservationDetail
+                // 여기에 리뷰 작성과 관련된 추가 데이터를 전달할 수 있습니다.
+            });
+        } catch (error) {
+            console.error('Error fetching reservation detail for review:', error);
+        }
+    };
+
     return (
         <div className={styles.reservationListForm}>
             <div className={styles.title}>
@@ -139,7 +176,7 @@ const CustomerReservationList = ({ reservations, onUpdateReservations }) => {
                     <span>예약 내역</span>
                 </h3>
             </div>
-            <div className={styles.infoWrapper}>
+            <div className={styles.infoWrapper} ref={listRef}>
                 <ul className={styles.reservationList}>
                     {reservations.length > 0 ? (
                         reservations.map((reservation, index) => (
@@ -190,6 +227,12 @@ const CustomerReservationList = ({ reservations, onUpdateReservations }) => {
                                         <>
                                             <span>픽업을 완료했어요</span>
                                             <span>{reservation.pickedUpAtF}</span>
+                                            <button
+                                                className={`${styles.reviewBtn} ${styles.calendarButton} ${styles.writeReview}`}
+                                                onClick={(event) => handleWriteReviewClick(reservation.reservationId, event)}
+                                            >
+                                                {isMobileView ? '리뷰 작성' : '리뷰 작성하기'}
+                                            </button>
                                         </>
                                     )}
                                 </div>
@@ -198,6 +241,7 @@ const CustomerReservationList = ({ reservations, onUpdateReservations }) => {
                     ) : (
                         <li>예약 내역이 없습니다.</li>
                     )}
+                    {isLoading && <div className={styles.spinner}>Loading...</div>}
                 </ul>
             </div>
         </div>

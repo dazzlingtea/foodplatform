@@ -16,6 +16,11 @@ const CustomerMyPage = () => {
     const [customerData, setCustomerData] = useState({});
     const [reservations, setReservations] = useState([]);
     const [stats, setStats] = useState({});
+    const [displayReservations, setDisplayReservations] = useState([]);
+    const [hasMore, setHasMore] = useState(true);
+    const [startIndex, setStartIndex] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
+    const ITEMS_PER_PAGE = 10; // 한번에 가져올 예약목록 개수 설정
 
     useEffect(() => {
         window.addEventListener("resize", setInnerWidth);
@@ -50,7 +55,11 @@ const CustomerMyPage = () => {
             const response = await fetch(`${BASE_URL}/reservation/list`);
             if (!response.ok) throw new Error('Failed to fetch reservations');
             const data = await response.json();
-            setReservations(data);
+            const sortedData = sortReservations(data);
+            setReservations(sortedData);
+            setDisplayReservations(sortedData.slice(0, ITEMS_PER_PAGE));
+            setStartIndex(ITEMS_PER_PAGE);
+            setHasMore(sortedData.length > ITEMS_PER_PAGE);
         } catch (error) {
             console.error('Error fetching reservations:', error);
         }
@@ -67,6 +76,70 @@ const CustomerMyPage = () => {
         }
     };
 
+    const sortReservations = (reservations) => {
+        const statusOrder = {
+            RESERVED: 1,
+            PICKEDUP: 2,
+            CANCELED: 2,
+            NOSHOW: 2
+        };
+
+        return reservations.sort((a, b) => {
+            const statusComparison = statusOrder[a.status] - statusOrder[b.status];
+            if (statusComparison !== 0) {
+                return statusComparison;
+            }
+
+            // 각 상태에 맞는 시간 값 선택
+            const getTime = (reservation) => {
+                switch (reservation.status) {
+                    case 'RESERVED':
+                        return new Date(reservation.pickupTime);
+                    case 'PICKEDUP':
+                        return new Date(reservation.pickedUpAt);
+                    case 'CANCELED':
+                        return new Date(reservation.cancelReservationAt);
+                    case 'NOSHOW':
+                        return new Date(reservation.pickupTime);
+                    default:
+                        return new Date(); // 기본값 (예외 처리)
+                }
+            };
+
+            // RESERVED 상태인 경우 시간 내림차순
+            if (a.status === 'RESERVED' && b.status === 'RESERVED') {
+                return getTime(a) - getTime(b);
+            }
+
+            // 그 외의 상태인 경우 시간 오름차순
+            return getTime(b) - getTime(a);
+        });
+    };
+
+    const handleScroll = () => {
+        if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
+        if (hasMore && !isLoading) {
+            loadMore();
+        }
+    };
+
+    const loadMore = () => {
+        setIsLoading(true);
+        setTimeout(() => {
+            const newStartIndex = startIndex + ITEMS_PER_PAGE;
+            const moreReservations = reservations.slice(startIndex, newStartIndex);
+            setDisplayReservations(prev => [...prev, ...moreReservations]);
+            setStartIndex(newStartIndex);
+            setHasMore(newStartIndex < reservations.length);
+            setIsLoading(false);
+        }, 500);
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [startIndex, hasMore, isLoading]);
+
     const showHandler = () => {
         setShow(prev => !prev);
     }
@@ -76,12 +149,23 @@ const CustomerMyPage = () => {
             {width <= 400 && <SideBarBtn onShow={showHandler} />}
             <div className={styles.myPageArea}>
                 <div className={styles.container}>
-                    <Profile customerMyPageDto={customerData} stats={stats} isShow={show} />
+                    <Profile customerMyPageDto={customerData} stats={stats} isShow={show} width={width} />
                     <div className={styles.content}>
-                        <CustomerReservationList reservations={reservations} onUpdateReservations={setReservations} />
-                        <PreferredArea preferredAreas={customerData.preferredArea} />
-                        <PreferredFood preferredFoods={customerData.preferredFood} />
-                        <FavoriteStore favStores={customerData.favStore} />
+                        <CustomerReservationList
+                            reservations={displayReservations}
+                            onUpdateReservations={setReservations}
+                            loadMore={loadMore}
+                            hasMore={hasMore}
+                            isLoading={isLoading}
+                        />
+
+                        {width > 400 && (
+                            <>
+                                <PreferredArea preferredAreas={customerData.preferredArea} />
+                                <PreferredFood preferredFoods={customerData.preferredFood} />
+                                <FavoriteStore favStores={customerData.favStore} />
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import styles from './Profile.module.scss';
 import { Link, useLocation } from "react-router-dom";
 import {imgErrorHandler} from "../../../utils/error";
+import PreferredArea from "./PreferredArea";
+import PreferredFood from "./PreferredFood";
+import FavoriteStore from "./FavoriteStore";
 
-const Profile = ({ customerMyPageDto, stats, isShow }) => {
+const Profile = ({ customerMyPageDto, stats, isShow, width }) => {
     const location = useLocation();
     const [userData, setUserData] = useState({});
     const [userStats, setUserStats] = useState({});
@@ -36,7 +39,7 @@ const Profile = ({ customerMyPageDto, stats, isShow }) => {
                 <h2>{userData.nickname}</h2>
                 <p>{userData.customerId}</p>
                 <ul className={styles.nav}>
-                    <Link to={'/customer/edit'} className={styles.navItem} >개인정보수정</Link>
+                    <Link to={'/customer/edit'} className={styles.navItem}>개인정보수정</Link>
                 </ul>
                 <div className={styles.stats}>
                     <div id="carbon" className={styles.statsBox}>
@@ -48,6 +51,13 @@ const Profile = ({ customerMyPageDto, stats, isShow }) => {
                         <div>지금까지 {userStats.money}원을 아꼈어요</div>
                     </div>
                 </div>
+                {width <= 400 && (
+                    <>
+                        <PreferredArea preferredAreas={userData.preferredArea} />
+                        <PreferredFood preferredFoods={userData.preferredFood} />
+                        <FavoriteStore favStores={userData.favStore} />
+                    </>
+                )}
             </div>
         </div>
     );

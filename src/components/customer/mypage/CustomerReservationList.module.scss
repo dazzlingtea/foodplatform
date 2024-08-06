@@ -136,6 +136,7 @@
     height: 50px;
     object-fit: cover;
     transition: transform 0.5s;
+    border-radius: 50%;
   }
 
   svg {
@@ -197,6 +198,26 @@
   }
 }
 
+.reviewBtn {
+  background: #EAEDE2;
+  color: #090909;
+  padding: 0.3em 1em;
+  font-size: 16px;
+  border-radius: 0.5em;
+  cursor: pointer;
+  border: 1px solid #e8e8e8;
+  transition: all 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+
+  &:active {
+    color: #666;
+    box-shadow: inset 4px 4px 3px #c5c5c5, inset -4px -4px 3px #ffffff;
+  }
+}
+
+.spinner {
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -209,6 +230,7 @@
 @media (max-width: 400px) {
   .reservationListForm {
     padding: 0;
+    height: auto;
     .title {
       height: 50px;
       font-size: 16px;
@@ -221,7 +243,7 @@
 
     .infoWrapper {
       padding: 5px;
-      height: calc(100% - 60px);
+      height: auto;
       &::-webkit-scrollbar {
         display: none;
       }
@@ -239,7 +261,7 @@
       justify-content: space-between;
 
       span {
-        margin-left: 0;
+        margin-left: 10px;
         margin-bottom: 5px;
       }
     }
@@ -250,7 +272,7 @@
       align-items: flex-start;
       position: relative;
 
-      .reservationCancelBtn {
+      .reservationCancelBtn, .reviewBtn {
         position: absolute;
         right: 0;
         top: 0;

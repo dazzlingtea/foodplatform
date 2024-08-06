@@ -109,7 +109,7 @@
     height: 100%;
     position: absolute;
     z-index: 10;
-    left:-100%;
+    left: -100%;
     transition: .40s ease-in-out 0s;
     overflow-y: auto;
     &.on {
@@ -117,6 +117,7 @@
     }
 
     .profile {
+      margin-bottom: 90px;
       .imgBox {
         margin-top: 20px;
       }
