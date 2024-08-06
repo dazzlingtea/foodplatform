@@ -1,58 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styles from './ReservationList.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faCircleCheck, faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { useModal } from "../../../pages/common/ModalProvider"
+import { useModal } from "../../../pages/common/ModalProvider";
+import {imgErrorHandler} from "../../../utils/error";
 
-const BASE_URL = window.location.origin;
-
-const ReservationList = () => {
-    const [reservations, setReservations] = useState([]);
+const ReservationList = ({ reservations, isLoading, loadMore, hasMore, width }) => {
     const { openModal } = useModal();
+    const listRef = useRef();
 
-    /**
-     * 예약 목록을 가져오는 함수
-     */
-    const fetchReservations = async () => {
-        try {
-            const response = await fetch(`${BASE_URL}/store/reservations`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch reservations');
-            }
-            const data = await response.json();
-            setReservations(data);
-        } catch (error) {
-            console.error('Error fetching reservations:', error);
-        }
-    };
-
-    /**
-     * 예약 아이템의 상태에 따라 스타일을 적용하는 useEffect 훅
-     */
-    useEffect(() => {
-        fetchReservations();
-    }, []);
-
-    useEffect(() => {
-        const reservationItems = document.querySelectorAll(`.${styles.reservationItem}`);
-        reservationItems.forEach((item) => {
-            const status = item.getAttribute('data-reservation-status');
-            if (status === 'CANCELED') {
-                item.classList.add(styles.canceled);
-            } else if (status === 'RESERVED') {
-                item.classList.add(styles.reserved);
-            } else if (status === 'PICKEDUP') {
-                item.classList.add(styles.pickedup);
-            } else {
-                item.classList.add(styles.noshow);
-            }
-        });
-    }, [reservations]);
-
-    /**
-     * 예약 상세 정보를 모달로 표시하는 함수
-     * @param reservation 예약 정보
-     */
     const handleReservationClick = async (reservation) => {
         try {
             openModal('storeReservationDetail', { reservationInfo: reservation });
@@ -61,6 +17,28 @@ const ReservationList = () => {
         }
     };
 
+    useEffect(() => {
+        const handleScroll = () => {
+            if (listRef.current) {
+                const { scrollTop, scrollHeight, clientHeight } = listRef.current;
+                if (scrollTop + clientHeight >= scrollHeight - 10 && hasMore && !isLoading) {
+                    loadMore();
+                }
+            }
+        };
+
+        const listElement = listRef.current;
+        if (listElement && width > 400) {
+            listElement.addEventListener('scroll', handleScroll);
+        }
+
+        return () => {
+            if (listElement && width > 400) {
+                listElement.removeEventListener('scroll', handleScroll);
+            }
+        };
+    }, [hasMore, isLoading, loadMore, width]);
+
     return (
         <div className={styles.reservationListForm}>
             <div className={styles.title}>
@@ -68,10 +46,15 @@ const ReservationList = () => {
                     <span>예약 내역</span>
                 </h3>
             </div>
-            <div className={`${styles.infoWrapper}`}>
+            <div className={`${styles.infoWrapper}`} ref={listRef}>
                 <ul className={styles.reservationList}>
                     {reservations.map((reservation, index) => (
-                        <li key={index} className={`${styles.reservationItem}`} data-reservation-status={reservation.status} onClick={() => handleReservationClick(reservation)}>
+                        <li
+                            key={index}
+                            className={`${styles.reservationItem} ${styles[reservation.status.toLowerCase()]}`}
+                            data-reservation-status={reservation.status}
+                            onClick={() => handleReservationClick(reservation)}
+                        >
                             <div className={styles.item}>
                                 <div className={styles.imgWrapper}>
                                     <div className={styles.imgBox}>
@@ -79,7 +62,7 @@ const ReservationList = () => {
                                         {reservation.status === 'NOSHOW' && <FontAwesomeIcon icon={faCircleXmark} className={styles.noshow} />}
                                         {reservation.status === 'RESERVED' && <FontAwesomeIcon icon={faSpinner} className={styles.loading} />}
                                         {reservation.status === 'PICKEDUP' && <FontAwesomeIcon icon={faCircleCheck} className={styles.done} />}
-                                        <img src={reservation.profileImage || "/assets/img/defaultImage.jpg"} alt="profile Image" />
+                                        <img src={reservation.profileImage} onError={imgErrorHandler} alt="profile Image" />
                                     </div>
                                 </div>
                                 <span className={styles.reservationNickname}>
@@ -114,6 +97,7 @@ const ReservationList = () => {
                             </div>
                         </li>
                     ))}
+                    {isLoading && <div className={styles.spinner}>Loading...</div>}
                 </ul>
             </div>
         </div>

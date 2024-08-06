@@ -117,7 +117,7 @@ const CustomerMyPage = () => {
     };
 
     const handleScroll = () => {
-        if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight) return;
+        if (window.innerHeight + document.documentElement.scrollTop < document.documentElement.offsetHeight - 1) return;
         if (hasMore && !isLoading) {
             loadMore();
         }
