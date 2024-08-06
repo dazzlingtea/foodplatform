@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react';
-
 import { useNavigate } from 'react-router-dom';
 import { CUSTOMER_URL } from "../../../config/host-config";
-import { checkAuthToken, handleInvalidToken } from '../../../utils/authUtil';
-
+import { checkAuthToken, fetchWithAuth } from '../../../utils/authUtil';
 
 function loadScript(src) {
     return new Promise((resolve, reject) => {
@@ -17,7 +15,7 @@ function loadScript(src) {
 }
 
 const callMyLocation = async (token, refreshToken, navigate) => {
-    const response = await fetch(`${CUSTOMER_URL}/myFavMap`, {
+    const response = await fetchWithAuth(`${CUSTOMER_URL}/myFavMap`, {
         headers: {
             'Authorization': 'Bearer ' + token,
             'refreshToken': refreshToken,
@@ -25,13 +23,10 @@ const callMyLocation = async (token, refreshToken, navigate) => {
         },
         method: 'POST',
         body: JSON.stringify({ location: "nong---=-=-=-=-===--==-=" }) // location 문자열 전달
-    });
+    }, navigate);
 
-    const data = await response.json();
-    if (data.location) {
-        console.log("Received data from myFavMap:", data);
-    } else {
-        handleInvalidToken(navigate); // handleInvalidToken 호출
+    if (response && response.location) {
+        console.log("Received data from myFavMap:", response);
     }
 };
 
@@ -39,63 +34,61 @@ const MyFavMap = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+
+        /**
+         * verifyAndLoadData 를 navigate와 함께 활용
+         * @returns 토큰 검증 결과
+         *  토큰이 유효할 경우 callMyLocation(페치하고싶은 function) 호출
+         */
         const verifyAndLoadData = async () => {
-            const isValid = await checkAuthToken();
-            if (!isValid) {
-                handleInvalidToken(navigate); // handleInvalidToken 호출
-                return;
-            }
+            const tokenData = await checkAuthToken(navigate);
 
-            // 로컬스토리지에서 토큰과 리프레시 토큰 검색
-            const token = localStorage.getItem("token");
-            const refreshToken = localStorage.getItem("refreshToken");
-            if (token || refreshToken) {
-                console.log("Token:", token);
-                console.log("Refresh Token:", refreshToken);
-                await callMyLocation(token, refreshToken, navigate); // navigate 전달
-            } else {
-                console.error("토큰 또는 리프레시 토큰이 없습니다.");
-            }
+            if (tokenData) {
+                const { token, refreshToken } = tokenData;
 
-            const ncpClientId = process.env.REACT_APP_YOUR_CLIENT_ID;
-            if (ncpClientId) {
-                const scriptUrl = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${ncpClientId}`;
-                loadScript(scriptUrl)
-                    .then(() => {
-                        console.log('Naver Map script loaded successfully');
+                // 토큰이 유효할 경우 callMyLocation 호출
+                await callMyLocation(token, refreshToken, navigate);
 
-                        if (navigator.geolocation) {
-                            navigator.geolocation.getCurrentPosition(
-                                (position) => {
-                                    const { latitude, longitude } = position.coords;
+                const ncpClientId = process.env.REACT_APP_YOUR_CLIENT_ID;
+                if (ncpClientId) {
+                    const scriptUrl = `https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${ncpClientId}`;
+                    loadScript(scriptUrl)
+                        .then(() => {
+                            console.log('Naver Map script loaded successfully');
 
-                                    console.log(`Latitude (x): ${latitude}`);
-                                    console.log(`Longitude (y): ${longitude}`);
+                            if (navigator.geolocation) {
+                                navigator.geolocation.getCurrentPosition(
+                                    (position) => {
+                                        const { latitude, longitude } = position.coords;
 
-                                    const mapOptions = {
-                                        center: new window.naver.maps.LatLng(latitude, longitude),
-                                        zoom: 15,
-                                    };
+                                        console.log(`Latitude (x): ${latitude}`);
+                                        console.log(`Longitude (y): ${longitude}`);
 
-                                    const map = new window.naver.maps.Map('map', mapOptions);
-                                    new window.naver.maps.Marker({
-                                        position: new window.naver.maps.LatLng(latitude, longitude),
-                                        map: map,
-                                    });
-                                },
-                                (error) => {
-                                    console.error('Error getting geolocation', error);
-                                }
-                            );
-                        } else {
-                            console.error('Geolocation not supported');
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Failed to load Naver Map script', error);
-                    });
-            } else {
-                console.error('Client ID가 설정되지 않았습니다.');
+                                        const mapOptions = {
+                                            center: new window.naver.maps.LatLng(latitude, longitude),
+                                            zoom: 15,
+                                        };
+
+                                        const map = new window.naver.maps.Map('map', mapOptions);
+                                        new window.naver.maps.Marker({
+                                            position: new window.naver.maps.LatLng(latitude, longitude),
+                                            map: map,
+                                        });
+                                    },
+                                    (error) => {
+                                        console.error('Error getting geolocation', error);
+                                    }
+                                );
+                            } else {
+                                console.error('Geolocation not supported');
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('Failed to load Naver Map script', error);
+                        });
+                } else {
+                    console.error('Client ID가 설정되지 않았습니다.');
+                }
             }
         };
 

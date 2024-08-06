@@ -78,6 +78,17 @@ function VerifyToken() {
     }
   }, [verificationFailed, navigate]);
 
+  useEffect(() => {
+    if (email && userType) {
+      const timeoutId = setTimeout(() => {
+        const redirectPath = userType === 'store' ? '/store/approval' : '/customer';
+        navigate(redirectPath);
+      }, 1800); // 1초 지연
+
+      return () => clearTimeout(timeoutId); // 클린업 함수로 타임아웃 제거
+    }
+  }, [email, userType, navigate]);
+
 
   return (
       <>
