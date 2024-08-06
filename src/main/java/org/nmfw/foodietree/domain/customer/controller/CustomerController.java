@@ -8,6 +8,7 @@ import org.nmfw.foodietree.domain.customer.dto.resp.CustomerMyPageDto;
 import org.nmfw.foodietree.domain.customer.dto.resp.StatsDto;
 import org.nmfw.foodietree.domain.customer.dto.resp.UpdateAreaDto;
 import org.nmfw.foodietree.domain.customer.dto.resp.UpdateDto;
+import org.nmfw.foodietree.domain.customer.service.CustomerEditService;
 import org.nmfw.foodietree.domain.customer.service.CustomerMyPageService;
 import org.nmfw.foodietree.domain.customer.service.CustomerService;
 import org.nmfw.foodietree.domain.reservation.dto.resp.ReservationDetailDto;
@@ -74,6 +75,7 @@ public class CustomerController {
 //        return flag ? "redirect:/customer/sign-in" : "redirect:/customer/sign-up";
 
     private final CustomerMyPageService customerMyPageService;
+    private final CustomerEditService customerEditService;
 
     // 테스트용 계정 강제 삽입, 추후 토큰에서 customerId 입력하는것으로 변경 예정
 //    String customerId = "test@gmail.com";
@@ -165,7 +167,7 @@ public class CustomerController {
                                              @AuthenticationPrincipal TokenUserInfo userInfo
                                              ) {
         String customerId = userInfo.getUsername();
-        boolean flag = customerMyPageService.updateCustomerInfo(customerId, List.of(dto));
+        boolean flag = customerEditService.insertPreferredInfo(customerId, dto);
         if (flag)
             return ResponseEntity.ok().body(true);
         return ResponseEntity.badRequest().body(false);
@@ -188,10 +190,9 @@ public class CustomerController {
     public ResponseEntity<?> deletePreferred(@RequestBody UpdateDto dto,
                                              @AuthenticationPrincipal TokenUserInfo userInfo
                                              ) {
-//        String customerId = "test@gmail.com";
         String customerId = userInfo.getUsername();
 
-        boolean flag = customerMyPageService.deleteCustomerInfo(customerId, List.of(dto));
+        boolean flag = customerEditService.deleteProfileInfo(customerId, dto);
         if (flag)
             return ResponseEntity.ok().body(true);
         return ResponseEntity.badRequest().body(false);
@@ -205,7 +206,7 @@ public class CustomerController {
      * @author   hoho
      * @date     2024 07 24 15:03
      * {
-     *     type: string (nickname or phone_number)
+     *     type: string (nickname or customer_phone_number)
      *     value: string
      * }
      */
@@ -213,9 +214,8 @@ public class CustomerController {
     public ResponseEntity<?> editInfo(@RequestBody UpdateDto dto,
                                       @AuthenticationPrincipal TokenUserInfo userInfo
     ) {
-//        String customerId = "test@gmail.com";
         String customerId = userInfo.getUsername();
-        boolean flag = customerMyPageService.updateCustomerInfo(customerId, List.of(dto));
+        boolean flag = customerEditService.updateProfileInfo(customerId, dto);
         if (flag)
             return ResponseEntity.ok().body(true);
         return ResponseEntity.badRequest().body(false);
