@@ -19,6 +19,7 @@ import {storeRegisterAction} from "../components/storeRegister/StoreRegisterForm
 import ProductRegisterForm from "../components/storeRegister/ProductRegisterForm";
 import VerifyToken from "../components/auth/VerifyToken";
 import MyFavMap from "../components/customer/my-fav-map/MyFavMap";
+import NaverMapWithSearch from "../components/customer/my-fav-map/NaverMapWithSearch";
 
 const homeRouter = [
     {
@@ -47,7 +48,7 @@ const homeRouter = [
     },
     {
         path: '/myFavMap',
-        element: <MyFavMap/>,
+        element: <NaverMapWithSearch/>,
     },
     {
         path: '/:categoryName',
