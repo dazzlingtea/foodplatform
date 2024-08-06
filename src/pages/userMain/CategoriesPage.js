@@ -29,19 +29,22 @@ const categories = Object.keys(categoriesInfo).map(key => categoriesInfo[key].na
 
 // 🌿 카테고리 문자열에서 실제 foodType만 추출하는 함수
 const extractFoodType = (category) => {
-  const match = category.match(/\(foodType=(.*?)\)/);
-  return match ? match[1] : category; 
+  if (category && typeof category === 'string') {
+    const match = category.match(/\(foodType=(.*?)\)/);
+    return match ? match[1] : category;
+  }
+  return ''; // category가 유효하지 않은 경우 빈 문자열 반환
 };
 
 const CategoriesPage = () => {
   const { categoryName } = useParams();
   const [stores, setStores] = useState([]);
 
-  // 카테고리 정보
-  const category = categoriesInfo[categoryName];
+  // 카테고리 정보(null인 경우 기타로 분류)
+  const category = categoriesInfo[categoryName] || { name: '기타', image: salad };
 
   useEffect(() => {
-    fetch(STORELISTS_URL) 
+    fetch(STORELISTS_URL)
       .then(response => response.json())
       .then(data => {
         const filteredStores = data.filter(store => extractFoodType(store.category) === category.name);
@@ -55,10 +58,9 @@ const CategoriesPage = () => {
       {/* 카테고리 분류(헤더) */}
       <div className={styles.header}>
         <h1>{category.name}</h1>
-          <img src={category.image} alt={category.name} />
-      
+        <img src={category.image} alt={category.name} />
       </div>
-      
+
       {/* 카테고리 버튼 */}
       <CategoryBtn categories={categories} onCategoryClick={() => {}} />
 

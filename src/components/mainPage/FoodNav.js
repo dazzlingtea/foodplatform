@@ -14,9 +14,13 @@ const getRandomStores = (stores, count) => {
 
 // 🌿 카테고리 문자열에서 실제 foodType만 추출하는 함수
 const extractFoodType = (category) => {
-  // category 문자열에서 'foodType=' 이후의 값을 추출
-  const match = category.match(/\(foodType=(.*?)\)/);
-  return match ? match[1] : category; // 추출된 foodType 또는 원래 문자열 반환
+   // category가 유효한 문자열인지 확인
+   if (category && typeof category === 'string') {
+    // 'foodType=' 이후의 값 추출
+    const match = category.match(/\(foodType=(.*?)\)/);
+    return match ? match[1] : category; 
+    }
+  return ''; // category가 유효하지 않은 경우 빈 문자열 반환
 };
 
 const FoodNav = ({ selectedCategory, stores }) => {
@@ -35,10 +39,10 @@ const FoodNav = ({ selectedCategory, stores }) => {
   const settings = (slidesToShow) => ({
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 900,
     slidesToShow: slidesToShow,
-    slidesToScroll: 5,
-    centerMode: true,
+    slidesToScroll: slidesToShow,
+    centerMode: false,
     centerPadding: '0',
     arrows: true,
     responsive: [
@@ -46,7 +50,9 @@ const FoodNav = ({ selectedCategory, stores }) => {
         breakpoint: 400,
         settings: {
           dots: false,
-          slidesToShow: 2, 
+          slidesToShow: 2,
+          slidesToScroll: 1, 
+          centerMode: true,
           centerPadding: '10%',
         },
       },
@@ -98,7 +104,7 @@ const FoodNav = ({ selectedCategory, stores }) => {
       {/* 추천 가게 리스트(랜덤) */}
       <div className={styles.list}>
         <h2 className={styles.title}>이웃들의 추천 가게</h2>
-        <Slider {...settings(4)} className={styles.slider}>
+        <Slider {...settings(5)} className={styles.slider}>
           {randomStores.map((store, index) => (
             <div
               key={index}
