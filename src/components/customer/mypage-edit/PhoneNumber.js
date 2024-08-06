@@ -7,7 +7,7 @@ import {CUSTOMER_URL, STORE_URL} from "../../../config/host-config";
 
 const customerId = "thdghtjd115@gmail.com";
 
-const PhoneNumber = () => {
+const PhoneNumber = ({phone}) => {
     const [err, setErr] = useState(false);
     const inputRef = useRef();
 
@@ -16,12 +16,12 @@ const PhoneNumber = () => {
             type: "customer_phone_number",
             value: inputRef.current.value
         }
-        const res = await fetch(CUSTOMER_URL + `/${customerId}/update`, {
+        const res = await fetch(CUSTOMER_URL + `/edit`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify([payload]),
+            body: JSON.stringify(payload),
         });
         if (res.ok) {
             alert("전화번호가 업데이트 되었습니다.");
@@ -36,7 +36,7 @@ const PhoneNumber = () => {
             <div className={styles["input-wrapper"]}>
                 <div className={styles.icon}><FontAwesomeIcon icon={faPhone}/></div>
                 <div>
-                    <input min="1" ref={inputRef}/>
+                    <input min="1" ref={inputRef} defaultValue={phone}/>
                     <FontAwesomeIcon onClick={clickHandler} icon={faSquareCheck}/>
                 </div>
             </div>

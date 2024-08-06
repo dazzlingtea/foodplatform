@@ -1,25 +1,38 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './Edit.module.scss'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {
-    faUser,
-    faClock,
-    faPhone,
-    faDollarSign,
-    faKey,
-    faPenToSquare,
-    faCircleXmark
-} from "@fortawesome/free-solid-svg-icons";
-import {faSquareCheck} from "@fortawesome/free-regular-svg-icons";
 import ProfileImgBtn from "./ProfileImgBtn";
 import PhoneNumber from "./PhoneNumber";
 import NickName from "./NickName";
-import PasswordReset from "./PasswordReset";
 import FavArea from "./FavArea";
 import FavFood from "./FavFood";
 import FavStore from "./FavStore";
+import {CUSTOMER_URL} from "../../../config/host-config";
 
 const Edit = () => {
+    const [data, setData] = useState({});
+    const [favArea, setFavArea] = useState([]);
+    const [favFood, setFavFood] = useState([]);
+    const [favStore, setFavStore] = useState([]);
+
+    useEffect( () => {
+        (async () => {
+            const res = await fetch(CUSTOMER_URL+'/info', {
+                headers: {
+                    // 'Authorization' : 'Bearer ' +
+                }
+            });
+            if (res.ok) {
+                const data = await res.json();
+                setData(data);
+                setFavArea(data.preferredArea);
+                setFavFood(data.preferredFood);
+                setFavStore(data.favStore);
+                console.log(data);
+            } else {
+                alert("잠시후 다시 이용해주세요");
+            }
+        })();
+    }, []);
     return (
         <div className={styles.edit}>
             <div className={styles['edit-box']}>
@@ -30,16 +43,15 @@ const Edit = () => {
                 </div>
                 <div className={styles['edit-wrapper']}>
                     <div className={styles["input-area"]}>
-                        <NickName/>
-                        <PhoneNumber/>
+                        <NickName name={data.nickname}/>
+                        <PhoneNumber phone={data.customerPhoneNumber}/>
                     </div>
-                    <ProfileImgBtn/>
+                    <ProfileImgBtn profileImg={data.profileImage}/>
                 </div>
             </div>
-            <FavArea/>
-            <FavFood/>
-            <FavStore/>
-
+            <FavArea favList={favArea} set={setFavArea}/>
+            <FavFood favList={favFood} set={setFavFood}/>
+            <FavStore favList={favStore} set={setFavStore}/>
         </div>
     );
 };

@@ -4,31 +4,24 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleXmark} from "@fortawesome/free-solid-svg-icons";
 import {CUSTOMER_URL} from "../../../config/host-config";
 
-const favList = [
-    {id: 1, text: "양식", img: "/assets/img/western.jpg"},
-    {id: 2, text: "한식", img: "/assets/img/korean.jpg"},
-    {id: 3, text: "중식", img: "/assets/img/chinese.jpg"},
-]
-const customerId = "thdghtjd115@gmail.com";
-const FavFood = () => {
-    const [list, setList] = useState(favList);
+const FavFood = ({ favList, set }) => {
 
     const clickHandler = async (type, value) => {
         const payload = {
             type,
             value
         }
-        const res = await fetch(CUSTOMER_URL + `/${customerId}/delete`, {
-            method: "PATCH",
+        const res = await fetch(CUSTOMER_URL + `/edit`, {
+            method: "DELETE",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify([payload]),
+            body: JSON.stringify(payload),
         });
         if (res.ok) {
             alert("삭제되었습니다");
             console.log('Delete successful');
-            setList(prev => prev.filter((item) => item.text !== value));
+            set(prev => prev.filter((item) => item.preferredFood !== value));
         } else {
             const errorText = await res.text();
             console.error('Delete failed:', errorText);
@@ -44,16 +37,16 @@ const FavFood = () => {
             <div className={styles['edit-wrapper']}>
                 <ul className={styles.preferred} id="preferred-area">
                     {
-                        list.map((item, idx) => {
+                        favList.map((item, idx) => {
                             return (
                                 <li id={idx} key={idx}>
                                     <div className={styles["img-box"]}>
-                                        <img src={item.img} alt="선호음식이미지"/>
+                                        <img src={item.foodImage} alt="선호음식이미지"/>
                                     </div>
-                                    <span>{item.text}</span>
+                                    <span>{item.preferredFood}</span>
                                     <FontAwesomeIcon
                                         className={styles.xmark} icon={faCircleXmark}
-                                        onClick={() => clickHandler("preferredFood", item.text)}
+                                        onClick={() => clickHandler("preferredFood", item.preferredFood)}
                                     />
                                 </li>
                             );

@@ -4,9 +4,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPenToSquare} from "@fortawesome/free-solid-svg-icons";
 import {CUSTOMER_URL, STORE_URL} from "../../../config/host-config";
 
-const ProfileImgBtn = () => {
+const ProfileImgBtn = ({ profileImg }) => {
     const inputRef = useRef();
-    const [img, setImg] = useState('/assets/img/defaultImage.jpg');
+    const [img, setImg] = useState(null);
 
     const openFileHandler = () => {
         inputRef.current.click();
@@ -20,8 +20,8 @@ const ProfileImgBtn = () => {
     const onClickHandler = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append('storeImg', inputRef.current.files[0]);
-        const response = await fetch(CUSTOMER_URL + '/update/img', {
+        formData.append('customerImg', inputRef.current.files[0]);
+        const response = await fetch(CUSTOMER_URL + '/edit/img', {
             method: 'POST',
             body: formData
         });
@@ -47,7 +47,8 @@ const ProfileImgBtn = () => {
             <a onClick={openFileHandler} className={styles.avatar}>
                 <FontAwesomeIcon className={styles.i} icon={faPenToSquare}/>
                 <img
-                    src={img}
+                    src={img || profileImg}
+                    onError={e => e.target.src = '/assets/img/defaultImage.jpg'}
                     alt="Customer profile image"/>
             </a>
             <button onClick={onClickHandler}>이미지 변경</button>
