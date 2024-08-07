@@ -8,6 +8,8 @@ import FavoriteStore from "../../components/customer/mypage/FavoriteStore";
 import SideBarBtn from "../../components/store/mypage-edit/SideBarBtn";
 
 import { jwtDecode } from 'jwt-decode';
+import {checkAuthToken} from "../../utils/authUtil";
+import {useNavigate} from "react-router-dom";
 
 const BASE_URL = window.location.origin;
 
@@ -29,8 +31,9 @@ const CustomerMyPage = () => {
     const tokenInfo = token ? jwtDecode(token) : null;
     const customerId = tokenInfo ? tokenInfo.sub : null;
 
-    console.log("email from token : ",customerId);
+    const navigate = useNavigate();
 
+    checkAuthToken(navigate);
 
     useEffect(() => {
         window.addEventListener("resize", setInnerWidth);
@@ -48,17 +51,6 @@ const CustomerMyPage = () => {
     const setInnerWidth = () => {
         setWidth(window.innerWidth);
     }
-
-    // const fetchCustomerData = async () => {
-    //     try {
-    //         const response = await fetch(`${BASE_URL}/customer/info?customerId=${customerId}`);
-    //         if (!response.ok) throw new Error('Failed to fetch customer info');
-    //         const data = await response.json();
-    //         setCustomerData(data);
-    //     } catch (error) {
-    //         console.error('Error fetching customer info:', error);
-    //     }
-    // };
 
     const fetchCustomerData = async () => {
         try {
