@@ -3,6 +3,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styles from './FoodNav.module.scss';
+import { imgErrorHandler } from '../../utils/error';
 
 import { useModal } from '../../pages/common/ModalProvider';
 
@@ -47,7 +48,7 @@ const BestStoreList = ({ stores = [] }) => {
               className={`${styles.storeItem} ${store.productCnt === 1 ? styles['low-stock'] : ''}`}
               onClick={() => handleClick(store)}
             >
-              <img src={store.storeImg} alt={store.storeName} />
+              <img src={store.storeImg} alt={store.storeName} onError={imgErrorHandler} />
               {store.productCnt === 1 && <div className={styles.overlay}>SOLD OUT</div>}
               <p className={styles.storeName}>{store.storeName}</p>
               <span className={styles.storePrice}>{store.price}</span>

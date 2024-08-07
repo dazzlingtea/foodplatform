@@ -36,7 +36,11 @@ const ProductDetailModal = ({ productDetail, onClose }) => {
     };
 
     const makeReservation = (count) => {
-        alert(`${count}개 예약이 완료되었습니다.`);
+        if (productDetail.productCnt <= 1) {
+            alert("해당 상품은 품절되었습니다.");
+        } else {
+            alert(`${count}개 예약이 완료되었습니다.`);
+        }
         closeModal();
         if (onClose) onClose();
     };
@@ -70,6 +74,7 @@ const ProductDetailModal = ({ productDetail, onClose }) => {
                         handleIncrease={handleIncrease}
                         handleDecrease={handleDecrease}
                         remainProduct={productCnt}
+                        closeModal={closeModal}
                     />
                 )}
             </section>

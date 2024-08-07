@@ -4,6 +4,7 @@ import { useModal } from '../../pages/common/ModalProvider';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWonSign, faBoxOpen, faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
+import { imgErrorHandler } from '../../utils/error';
 
 const CategoryList = ({ stores }) => {
     const { openModal } = useModal();
@@ -42,7 +43,7 @@ const CategoryList = ({ stores }) => {
                                 className={favorites[store.storeId] ? styles.favorited : styles.notFavorited}
                             />
                         </div>
-                        <img src={store.storeImg} alt={store.storeName} className={styles.categoryImage} />
+                        <img src={store.storeImg} alt={store.storeName} className={styles.categoryImage} onError={imgErrorHandler} />
                         {store.productCnt === 1 && <div className={styles.overlay}>SOLD OUT</div>}
                         <p className={styles.categoryName}>{store.storeName}</p>
                         
