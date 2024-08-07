@@ -5,7 +5,7 @@ import CategoryList from '../../components/mainPage/CategoryList';
 import BestStoreList from '../../components/mainPage/BestStoreList';
 import styles from './CategoriesPage.module.scss';
 import { STORELISTS_URL } from '../../config/host-config';
-import { imgErrorHandler } from '../../utils/error';
+import { DEFAULT_IMG, imgErrorHandler } from '../../utils/error';
 
 import kFood from "../../assets/images/userMain/kFood.png";
 import cFood from "../../assets/images/userMain/cFood.png";
@@ -59,7 +59,7 @@ const CategoriesPage = () => {
       {/* 카테고리 분류(헤더) */}
       <div className={styles.header}>
         <h1>{category.name}</h1>
-        <img src={category.image} alt={category.name} onError={imgErrorHandler} />
+        <img src={category.image || DEFAULT_IMG} alt={category.name} onError={imgErrorHandler} />
       </div>
 
       {/* 카테고리 버튼 */}

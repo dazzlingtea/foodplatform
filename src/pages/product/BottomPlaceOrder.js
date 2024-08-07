@@ -11,7 +11,6 @@ const BottomPlaceOrder = ({ productDetail, initialCount, handleIncrease, handleD
   const handleMakeReservation = async () => {
     if (remainProduct <= 1) {
       alert('해당 상품은 품절되었습니다.');
-      closeModal();
       return;
     }
 
@@ -23,7 +22,6 @@ const BottomPlaceOrder = ({ productDetail, initialCount, handleIncrease, handleD
     } catch (error) {
       console.error('예약 처리 중 오류 발생:', error);
       alert('예약 처리 중 오류가 발생했습니다!');
-      closeModal();
     }
   };
 

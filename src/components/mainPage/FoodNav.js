@@ -5,7 +5,7 @@ import styles from "./FoodNav.module.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './slick-theme.css';
-import { imgErrorHandler } from "../../utils/error";
+import { DEFAULT_IMG, imgErrorHandler } from "../../utils/error";
 
 // 🌿 랜덤 가게 리스트 생성
 const getRandomStores = (stores, count) => {
@@ -71,7 +71,7 @@ const FoodNav = ({ selectedCategory, stores }) => {
               onClick={() => handleClick(store)}
               className={`${styles.storeItem} ${store.productCnt === 1 ? styles['low-stock'] : ''}`}
             >
-              <img src={store.storeImg} alt={store.storeName} onError={imgErrorHandler} />
+              <img src={store.storeImg || DEFAULT_IMG } alt={store.storeName} onError={imgErrorHandler} />
               {store.productCnt === 1 && <div className={styles.overlay}>SOLD OUT</div>}
               <p className={styles.storeName}>{store.storeName}</p>
               <span className={styles.storePrice}>{store.price}</span>
@@ -91,7 +91,7 @@ const FoodNav = ({ selectedCategory, stores }) => {
               onClick={() => handleClick(store)}
               className={`${styles.storeItem} ${store.productCnt === 1 ? styles['low-stock'] : ''}`}
             >
-              <img src={store.storeImg} alt={store.storeName} onError={imgErrorHandler} />
+              <img src={store.storeImg || DEFAULT_IMG } alt={store.storeName} onError={imgErrorHandler} />
               {store.productCnt === 1 && <div className={styles.overlay}>SOLD OUT</div>}
               <p className={styles.storeName}>{store.storeName}</p>
               <span className={styles.storePrice}>{store.price}</span>
@@ -111,7 +111,7 @@ const FoodNav = ({ selectedCategory, stores }) => {
               onClick={() => handleClick(store)}
               className={`${styles.storeItem} ${store.productCnt === 1 ? styles['low-stock'] : ''}`}
             >
-              <img src={store.storeImg} alt={store.storeName} className={styles.image} onError={imgErrorHandler} />
+              <img src={store.storeImg || DEFAULT_IMG} alt={store.storeName} className={styles.image} onError={imgErrorHandler} />
               <span className={styles.category}>{extractFoodType(store.category)}</span>
               <p className={styles.storeName}>{store.storeName}</p>
               <span className={styles.storePrice}>{store.price}</span>

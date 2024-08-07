@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './CategoryBtn.module.scss';
+import { DEFAULT_IMG, imgErrorHandler } from '../../utils/error';
 
 import kFood from "../../assets/images/userMain/kFood.png";
 import cFood from "../../assets/images/userMain/cFood.png";
@@ -40,7 +41,7 @@ const CategoryBtn = ({ categories }) => {
           return (
             <div key={category} className={styles['category-btn']} onClick={() => handleCategoryClick(category)}>
               <div className={styles.btnImg}>
-                <img src={categoryInfo.image} alt={category} />
+                <img src={categoryInfo.image || DEFAULT_IMG} alt={category} onError={imgErrorHandler} />
               </div>
               <div className={styles.btnText}>{category}</div>
             </div>
