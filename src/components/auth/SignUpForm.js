@@ -1,9 +1,10 @@
 // SignUpForm.jsx
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './SignUpForm.module.scss';
 import commonStyles from '../../common.module.scss';
 import _ from 'lodash';
 import {useNavigate} from "react-router-dom";
+import {checkLoggedIn} from "../../utils/authUtil";
 
 
 const SignUpForm = ({ userType, onVerificationSent }) => {
@@ -14,17 +15,9 @@ const SignUpForm = ({ userType, onVerificationSent }) => {
   const [isExistingUser, setIsExistingUser] = useState(false);
   const [isSending, setIsSending] = useState(false);
 
-    // local storage 에서 토큰 파싱 후 로그아웃을 위한 메서드, 개발중
-    // access token이 아직 유효할 경우
-    // const handleSignInRedirect = () => {
-    //     const token = getTokenFromLocalStorage();
-    //     if (token) {
-    //         console.log("token");
-    //         navigate(`/verifyEmail?token=${encodeURIComponent(token)}`);
-    //     } else {
-    //         console.error('No token found in localStorage');
-    //     }
-    // };
+    useEffect(() => {
+        checkLoggedIn(navigate);
+    }, [navigate]);
 
   const checkEmailInput = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

@@ -33,7 +33,13 @@ const CustomerMyPage = () => {
 
     const navigate = useNavigate();
 
-    checkAuthToken(navigate);
+    useEffect(() => {
+        checkAuthToken(navigate);
+
+        fetchCustomerData();
+        fetchReservations();
+        fetchStats();
+    }, [customerId]);
 
     useEffect(() => {
         window.addEventListener("resize", setInnerWidth);
@@ -42,11 +48,6 @@ const CustomerMyPage = () => {
         }
     }, []);
 
-    useEffect(() => {
-        fetchCustomerData();
-        fetchReservations();
-        fetchStats();
-    }, [customerId]);
 
     const setInnerWidth = () => {
         setWidth(window.innerWidth);

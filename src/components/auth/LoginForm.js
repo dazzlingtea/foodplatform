@@ -1,9 +1,10 @@
 // components/auth/LoginForm.jsx
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './LoginForm.module.scss';
 import commonStyles from '../../common.module.scss';
 import _ from "lodash";
+import {checkLoggedIn} from "../../utils/authUtil";
 
 const LoginForm = ({ userType, onVerificationSent }) => {
     const [email, setEmail] = useState('');
@@ -12,6 +13,10 @@ const LoginForm = ({ userType, onVerificationSent }) => {
     const navigate = useNavigate();
     const [isExistingUser, setIsExistingUser] = useState(false);
     const [isSending, setIsSending] = useState(false);
+
+    useEffect(() => {
+        checkLoggedIn(navigate);
+    }, [navigate]);
 
     const getTokenFromLocalStorage = () => {
         console.log(localStorage.getItem('token'))
