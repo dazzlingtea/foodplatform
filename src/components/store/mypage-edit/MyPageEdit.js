@@ -16,7 +16,7 @@ const MyPageEdit = () => {
         return () => {
             window.removeEventListener("resize", setInnerWidth);
         }
-    }, );
+    }, []);
     const showHandler = () => {
         setShow(prev => !prev);
     }

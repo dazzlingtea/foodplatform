@@ -5,17 +5,21 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import styles from './Edit.module.scss';
 import {faDollarSign} from "@fortawesome/free-solid-svg-icons";
 
-const ProductPrice = () => {
+const ProductPrice = ({value}) => {
     const [err, setErr] = useState(false);
     const selectRef = useRef();
 
     const clickHandler = async () => {
-        const res = await fetch(STORE_URL + '/mypage/edit/update/price', {
-            method: 'PATCH',
+        const payload = {
+            type: "price",
+            value: selectRef.current.value,
+        }
+        const res = await fetch(STORE_URL + '/edit', {
+            method: "PATCH",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(selectRef.current.value),
+            body: JSON.stringify(payload)
         });
         if (res.ok) {
             alert("가격이 업데이트 되었습니다.");
@@ -31,7 +35,7 @@ const ProductPrice = () => {
                 <FontAwesomeIcon icon={faDollarSign}/>
             </div>
             <span>스페셜박스 가격</span>
-            <select id="price" ref={selectRef}>
+            <select id="price" ref={selectRef} value={value}>
                 <option value="3900">3900</option>
                 <option value="5900">5900</option>
                 <option value="7900">7900</option>

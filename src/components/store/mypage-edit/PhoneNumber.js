@@ -5,16 +5,16 @@ import {faPhone} from "@fortawesome/free-solid-svg-icons";
 import {faSquareCheck} from "@fortawesome/free-regular-svg-icons";
 import {STORE_URL} from "../../../config/host-config";
 
-const PhoneNumber = () => {
+const PhoneNumber = ({value}) => {
     const [err, setErr] = useState(false);
     const inputRef = useRef();
 
     const clickHandler = async () => {
         const payload = {
-            type: "business_number",
+            type: "store_contact",
             value: inputRef.current.value
         }
-        const res = await fetch(STORE_URL + '/mypage/edit/update/info', {
+        const res = await fetch(STORE_URL + '/edit', {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -35,7 +35,7 @@ const PhoneNumber = () => {
                 <div className={styles.icon}><FontAwesomeIcon icon={faPhone}/></div>
                 <div>
                     <span>가게 전화번호</span>
-                    <input id="business-number-input" min="1" ref={inputRef}/>
+                    <input id="business-number-input" min="1" ref={inputRef} defaultValue={value}/>
                     <FontAwesomeIcon onClick={clickHandler} icon={faSquareCheck}/>
                 </div>
             </div>

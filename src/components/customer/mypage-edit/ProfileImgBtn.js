@@ -3,6 +3,7 @@ import styles from "./ProfileImgBtn.module.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPenToSquare} from "@fortawesome/free-solid-svg-icons";
 import {CUSTOMER_URL, STORE_URL} from "../../../config/host-config";
+import {imgErrorHandler} from "../../../utils/error";
 
 const ProfileImgBtn = ({ profileImg }) => {
     const inputRef = useRef();
@@ -48,7 +49,7 @@ const ProfileImgBtn = ({ profileImg }) => {
                 <FontAwesomeIcon className={styles.i} icon={faPenToSquare}/>
                 <img
                     src={img || profileImg}
-                    onError={e => e.target.src = '/assets/img/defaultImage.jpg'}
+                    onError={imgErrorHandler}
                     alt="Customer profile image"/>
             </a>
             <button onClick={onClickHandler}>이미지 변경</button>

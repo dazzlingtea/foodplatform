@@ -9,8 +9,27 @@ import ProductCount from "./ProductCount";
 import PhoneNumber from "./PhoneNumber";
 import ProductPrice from "./ProductPrice";
 import PasswordReset from "./PasswordReset";
+import {useEffect, useState} from "react";
+import {STORE_URL} from "../../../config/host-config";
 
 const Edit = () => {
+    const [data, setData] = useState({});
+    useEffect(() => {
+        (async () => {
+            const res = await fetch(STORE_URL + '/info', {
+                headers: {
+                    // 'Authorization' : 'Bearer ' +
+                }
+            });
+            if (res.ok) {
+                const data = await res.json();
+                setData(data);
+                console.log(data);
+            } else {
+                alert("잠시후 다시 이용해주세요");
+            }
+        })();
+    }, []);
     return (
         <div className={styles.edit}>
             <div className={styles['edit-box']}>
@@ -24,20 +43,20 @@ const Edit = () => {
                         <div className={styles["input-wrapper"]}>
                             <div className={styles.icon}><FontAwesomeIcon icon={faUser}/></div>
                             <span>상호명</span>
-                            <div id="store-name-mypage-edit">가게이름</div>
+                            <div id="store-name-mypage-edit">{data.storeName}</div>
                         </div>
                         <div className={styles["input-wrapper"]}>
                             <div className={styles.icon}><FontAwesomeIcon icon={faUser}/></div>
                             <span>이메일</span>
-                            <span id="store-id-mypage-edit">이메일주소</span>
+                            <span id="store-id-mypage-edit">{data.storeId}</span>
                         </div>
-                        <PickUpStart/>
-                        <PickUpEnd/>
-                        <ProductCount/>
-                        <PhoneNumber/>
-                        <ProductPrice />
+                        <PickUpStart value={data.openAt}/>
+                        <PickUpEnd value={data.closedAt}/>
+                        <ProductCount value={data.productCnt}/>
+                        <PhoneNumber value={data.storeContact}/>
+                        <ProductPrice value={data.price}/>
                     </div>
-                    <ProfileImgBtn/>
+                    <ProfileImgBtn value={data.storeImg}/>
                 </div>
             </div>
         </div>

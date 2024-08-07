@@ -3,10 +3,11 @@ import styles from "./ProfileImgBtn.module.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPenToSquare} from "@fortawesome/free-solid-svg-icons";
 import {STORE_URL} from "../../../config/host-config";
+import {imgErrorHandler} from "../../../utils/error";
 
-const ProfileImgBtn = () => {
+const ProfileImgBtn = ({value}) => {
     const inputRef = useRef();
-    const [img, setImg] = useState('/assets/img/defaultImage.jpg');
+    const [img, setImg] = useState( null);
 
     const openFileHandler = () => {
         inputRef.current.click();
@@ -21,7 +22,7 @@ const ProfileImgBtn = () => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('storeImg', inputRef.current.files[0]);
-        const response = await fetch(STORE_URL + '/mypage/edit/update/img', {
+        const response = await fetch(STORE_URL + '/edit/img', {
             method: 'POST',
             body: formData
         });
@@ -47,8 +48,10 @@ const ProfileImgBtn = () => {
             <a onClick={openFileHandler} className={styles.avatar}>
                 <FontAwesomeIcon className={styles.i} icon={faPenToSquare}/>
                 <img
-                    src={img}
-                    alt="Customer profile image"/>
+                    src={img || value}
+                    alt="Customer profile image"
+                    onError={imgErrorHandler}
+                />
             </a>
             <button onClick={onClickHandler}>이미지 변경</button>
         </div>

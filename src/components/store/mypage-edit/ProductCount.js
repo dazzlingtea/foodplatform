@@ -5,17 +5,21 @@ import {faUser} from "@fortawesome/free-solid-svg-icons";
 import {faSquareCheck} from "@fortawesome/free-regular-svg-icons";
 import {STORE_URL} from "../../../config/host-config";
 
-const ProductCount = () => {
+const ProductCount = ({value}) => {
     const [err, setErr] = useState(false);
     const inputRef = useRef();
 
     const clickHandler = async () => {
-        const res = await fetch(STORE_URL + '/mypage/edit/update/productCnt', {
-            method: 'PATCH',
+        const payload = {
+            type: "productCnt",
+            value: inputRef.current.value,
+        }
+        const res = await fetch(STORE_URL + '/edit', {
+            method: "PATCH",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(inputRef.current.value),
+            body: JSON.stringify(payload)
         });
         if (res.ok) {
             alert("상품 기본 수량이 업데이트 되었습니다.");
@@ -31,11 +35,11 @@ const ProductCount = () => {
                 <div className={styles.icon}><FontAwesomeIcon icon={faUser}/></div>
                 <div>
                     <span>기본 수량 값</span>
-                    <input type={"number"} min={1} ref={inputRef}/>
+                    <input type={"number"} min={1} ref={inputRef} defaultValue={value}/>
                     <FontAwesomeIcon onClick={clickHandler} icon={faSquareCheck}/>
                 </div>
             </div>
-            { err &&
+            {err &&
                 <b style={{color: "red"}}>입력한 상품 수량을 확인해주세요.</b>
             }
         </>
