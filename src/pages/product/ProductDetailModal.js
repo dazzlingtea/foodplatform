@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useModal } from '../common/ModalProvider';
+import React, {useState, useEffect} from 'react';
+import {useModal} from '../common/ModalProvider';
 import styles from './ProductDetailModal.module.scss';
 import StoreInfo from './StoreInfo';
 import ProductDetail from './ProductDetail';
 import PaymentBox from './PaymentBox';
 import BottomPlaceOrder from './BottomPlaceOrder';
 
-const ProductDetailModal = ({ productDetail, onClose }) => {
-    const { closeModal } = useModal();
+const ProductDetailModal = ({productDetail, onClose}) => {
+    const {closeModal} = useModal();
 
     const [initialCount, setInitialCount] = useState(1);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 400);
@@ -47,7 +47,7 @@ const ProductDetailModal = ({ productDetail, onClose }) => {
 
     if (!productDetail) return null;
 
-    const { storeName, storeImg, address, openAt, closedAt, price, storeContact, productCnt } = productDetail;
+    const {storeName, storeImg, address, openAt, closedAt, price, storeContact, productCnt} = productDetail;
 
     const productInfo = {
         storeInfo: {
@@ -64,19 +64,17 @@ const ProductDetailModal = ({ productDetail, onClose }) => {
     return (
         <section className={styles.productDetailModal}>
             <section className={styles.infoBox}>
-                <StoreInfo productDetail={productInfo} />
-                <ProductDetail productDetail={productInfo} />
-                {!isMobile && (
-                    <BottomPlaceOrder
-                        makeReservation={makeReservation}
-                        productDetail={productInfo}
-                        initialCount={initialCount}
-                        handleIncrease={handleIncrease}
-                        handleDecrease={handleDecrease}
-                        remainProduct={productCnt}
-                        closeModal={closeModal}
-                    />
-                )}
+                <StoreInfo productDetail={productInfo}/>
+                <ProductDetail productDetail={productInfo}/>
+                <BottomPlaceOrder
+                    makeReservation={makeReservation}
+                    productDetail={productInfo}
+                    initialCount={initialCount}
+                    handleIncrease={handleIncrease}
+                    handleDecrease={handleDecrease}
+                    remainProduct={productCnt}
+                    closeModal={closeModal}
+                />
             </section>
             {!isMobile && (
                 <PaymentBox

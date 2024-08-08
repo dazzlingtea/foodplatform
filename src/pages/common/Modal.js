@@ -110,16 +110,16 @@ const Modal = () => {
                     )}
                 </div>
                 <div className={styles.modalFooter}>
-                    {type === 'productDetail' && isMobile && (
-                        <BottomPlaceOrder
-                            makeReservation={props.makeReservation}
-                            productDetail={props.productDetail}
-                            initialCount={props.initialCount}
-                            handleIncrease={props.handleIncrease}
-                            handleDecrease={props.handleDecrease}
-                            remainProduct={props.productDetail?.storeInfo?.remainProduct || 0}
-                        />
-                    )}
+                    {/*{type === 'productDetail' && isMobile && (*/}
+                    {/*    <BottomPlaceOrder*/}
+                    {/*        makeReservation={props.makeReservation}*/}
+                    {/*        productDetail={props.productDetail}*/}
+                    {/*        initialCount={props.initialCount}*/}
+                    {/*        handleIncrease={props.handleIncrease}*/}
+                    {/*        handleDecrease={props.handleDecrease}*/}
+                    {/*        remainProduct={props.productDetail?.storeInfo?.remainProduct || 0}*/}
+                    {/*    />*/}
+                    {/*)}*/}
                 </div>
             </div>
         </div>,

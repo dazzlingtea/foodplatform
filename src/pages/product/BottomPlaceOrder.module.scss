@@ -39,37 +39,47 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    
+
     &.reservation {
-      background-color: #d3d3d3; 
-      color: #000; 
+      background-color: #d3d3d3;
+      color: #000;
     }
   }
 }
 
 @media (max-width: 400px) {
-  .bottomPlaceOrder{
 
-    .productAmtAdjustBtn{
+  .bottomPlaceOrder {
+    //outline: 2px solid blue;
+    position: fixed;
+    bottom: 17px;
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    left: 21px;
+    background: white;
+    padding: 4px 0;
+
+    .productAmtAdjustBtn {
       width: 35%;
 
-      .adjustBtn{
+      .adjustBtn {
         width: 35px;
         height: 35px;
       }
 
-      .initialCnt{
+      .initialCnt {
         font-size: 22px;
       }
     }
 
-    .placeOrderBtn{
+    .placeOrderBtn {
       width: 65%;
       font-size: 22px;
       padding: 11px;
 
       &.reservation {
-        background-color: #d3d3d3; 
+        background-color: #d3d3d3;
         color: #000;
       }
     }
