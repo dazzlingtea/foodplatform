@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './CustomerReservationList.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark, faCircleCheck, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark, faCircleCheck, faSpinner, faSliders } from "@fortawesome/free-solid-svg-icons";
 import { useModal } from "../../../pages/common/ModalProvider";
-import {imgErrorHandler} from "../../../utils/error";
+import { imgErrorHandler } from "../../../utils/error";
 
 const BASE_URL = window.location.origin;
 
-const CustomerReservationList = ({ reservations, onUpdateReservations, isLoading, loadMore, hasMore }) => {
+const CustomerReservationList = ({ reservations, onUpdateReservations, isLoading, loadMore, hasMore, initialFilters, onApplyFilters }) => {
     const { openModal } = useModal();
     const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 400);
+    const [filters, setFilters] = useState(initialFilters || {}); // 필터 유지
     const listRef = useRef(null);
 
     useEffect(() => {
@@ -169,12 +170,28 @@ const CustomerReservationList = ({ reservations, onUpdateReservations, isLoading
         }
     };
 
+    // 필터 모달을 여는 함수
+    const openFilterModal = () => {
+        openModal('customerReservationFilter', {
+            onApply: handleApplyFilters,
+            initialFilters: filters
+        });
+        console.log("filters: ", filters);
+    };
+
+    // 필터 적용 함수
+    const handleApplyFilters = (newFilters) => {
+        setFilters(newFilters);
+        onApplyFilters(newFilters);
+    };
+
     return (
         <div className={styles.reservationListForm}>
             <div className={styles.title}>
                 <h3 className={styles.titleText}>
                     <span>예약 내역</span>
                 </h3>
+                <FontAwesomeIcon icon={faSliders} className={styles.filter} onClick={openFilterModal}/>
             </div>
             <div className={styles.infoWrapper} ref={listRef}>
                 <ul className={styles.reservationList}>
@@ -189,11 +206,16 @@ const CustomerReservationList = ({ reservations, onUpdateReservations, isLoading
                                 <div className={styles.item}>
                                     <div className={styles.imgWrapper}>
                                         <div className={styles.imgBox}>
-                                            {reservation.status === 'CANCELED' && <FontAwesomeIcon icon={faCircleXmark} className={styles.canceled} />}
-                                            {reservation.status === 'NOSHOW' && <FontAwesomeIcon icon={faCircleXmark} className={styles.noshow} />}
-                                            {reservation.status === 'RESERVED' && <FontAwesomeIcon icon={faSpinner} className={styles.loading} />}
-                                            {reservation.status === 'PICKEDUP' && <FontAwesomeIcon icon={faCircleCheck} className={styles.done} />}
-                                            <img src={reservation.storeImg} onError={imgErrorHandler} alt="Store Image" />
+                                            {reservation.status === 'CANCELED' &&
+                                                <FontAwesomeIcon icon={faCircleXmark} className={styles.canceled}/>}
+                                            {reservation.status === 'NOSHOW' &&
+                                                <FontAwesomeIcon icon={faCircleXmark} className={styles.noshow}/>}
+                                            {reservation.status === 'RESERVED' &&
+                                                <FontAwesomeIcon icon={faSpinner} className={styles.loading}/>}
+                                            {reservation.status === 'PICKEDUP' &&
+                                                <FontAwesomeIcon icon={faCircleCheck} className={styles.done}/>}
+                                            <img src={reservation.storeImg} onError={imgErrorHandler}
+                                                 alt="Store Image"/>
                                         </div>
                                         <span>{reservation.storeName}</span>
                                     </div>

@@ -19,6 +19,7 @@ const CustomerMyPage = () => {
     const [show, setShow] = useState(false);
     const [customerData, setCustomerData] = useState({});
     const [reservations, setReservations] = useState([]);
+    const [filteredReservations, setFilteredReservations] = useState([]);
     const [stats, setStats] = useState({});
     const [displayReservations, setDisplayReservations] = useState([]);
     const [hasMore, setHasMore] = useState(true);
@@ -96,6 +97,7 @@ const CustomerMyPage = () => {
             const data = await response.json();
             const sortedData = sortReservations(data);
             setReservations(sortedData);
+            setFilteredReservations(sortedData);
             setDisplayReservations(sortedData.slice(0, ITEMS_PER_PAGE));
             setStartIndex(ITEMS_PER_PAGE);
             setHasMore(sortedData.length > ITEMS_PER_PAGE);
@@ -176,10 +178,10 @@ const CustomerMyPage = () => {
         setIsLoading(true);
         setTimeout(() => {
             const newStartIndex = startIndex + ITEMS_PER_PAGE;
-            const moreReservations = reservations.slice(startIndex, newStartIndex);
+            const moreReservations = filteredReservations.slice(startIndex, newStartIndex);
             setDisplayReservations(prev => [...prev, ...moreReservations]);
             setStartIndex(newStartIndex);
-            setHasMore(newStartIndex < reservations.length);
+            setHasMore(newStartIndex < filteredReservations.length);
             setIsLoading(false);
         }, 500);
     };
@@ -187,11 +189,28 @@ const CustomerMyPage = () => {
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, [startIndex, hasMore, isLoading]);
+    }, [startIndex, hasMore, isLoading, filteredReservations]);
 
     const showHandler = () => {
         setShow(prev => !prev);
     }
+
+    const applyFilters = (filters) => {
+        const { category, dateRange, status } = filters;
+
+        const filtered = reservations.filter(reservation => {
+            const categoryMatch = category.length === 0 || category.includes(reservation.category);
+            const statusMatch = status.length === 0 || status.includes(reservation.status);
+            const dateMatch = (!dateRange.startDate || new Date(reservation.pickupTime) >= new Date(dateRange.startDate)) &&
+                (!dateRange.endDate || new Date(reservation.pickupTime) <= new Date(dateRange.endDate));
+            return categoryMatch && statusMatch && dateMatch;
+        });
+
+        setFilteredReservations(filtered);
+        setDisplayReservations(filtered.slice(0, ITEMS_PER_PAGE));
+        setStartIndex(ITEMS_PER_PAGE);
+        setHasMore(filtered.length > ITEMS_PER_PAGE);
+    };
 
     return (
         <>
@@ -206,6 +225,7 @@ const CustomerMyPage = () => {
                             loadMore={loadMore}
                             hasMore={hasMore}
                             isLoading={isLoading}
+                            onApplyFilters={applyFilters}
                         />
 
                         {width > 400 && (
