@@ -13,13 +13,13 @@ import salad from "../../assets/images/userMain/salad.png";
 
 // 카테고리 정보 객체
 const categoriesInfo = {
-  KOREAN: { path: 'korean', image: kFood },
-  CHINESE: { path: 'chinese', image: cFood },
-  WESTERN: { path: 'western', image: uFood },
-  JAPANESE: { path: 'japanese', image: jFood },
-  DESSERT: { path: 'dessert', image: dessert },
-  CAFE: { path: 'cafe', image: cafe },
-  ELSE: { path: 'etc', image: salad },
+  한식: { path: 'korean', image: kFood },
+  중식: { path: 'chinese', image: cFood },
+  양식: { path: 'western', image: uFood },
+  일식: { path: 'japanese', image: jFood },
+  디저트: { path: 'dessert', image: dessert },
+  카페: { path: 'cafe', image: cafe },
+  기타: { path: 'etc', image: salad },
 };
 
 const CategoryBtn = ({ categories }) => {
@@ -33,22 +33,22 @@ const CategoryBtn = ({ categories }) => {
   };
 
   return (
-      <div className={styles.nav}>
-        <div className={styles["food-nav"]}>
-          {categories.map((category) => {
-            const categoryInfo = categoriesInfo[category];
-            if (!categoryInfo) return null;
-            return (
-                <div key={category} className={styles['category-btn']} onClick={() => handleCategoryClick(category)}>
-                  <div className={styles.btnImg}>
-                    <img src={categoryInfo.image || DEFAULT_IMG} alt={category} onError={imgErrorHandler} />
-                  </div>
-                  <div className={styles.btnText}>{category}</div>
-                </div>
-            );
-          })}
-        </div>
+    <div className={styles.nav}>
+      <div className={styles["food-nav"]}>
+        {categories.map((category) => {
+          const categoryInfo = categoriesInfo[category];
+          if (!categoryInfo) return null; 
+          return (
+            <div key={category} className={styles['category-btn']} onClick={() => handleCategoryClick(category)}>
+              <div className={styles.btnImg}>
+                <img src={categoryInfo.image || DEFAULT_IMG} alt={category} onError={imgErrorHandler} />
+              </div>
+              <div className={styles.btnText}>{category}</div>
+            </div>
+          ); 
+        })}
       </div>
+    </div>
   );
 };
 

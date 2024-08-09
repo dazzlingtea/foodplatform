@@ -6,6 +6,7 @@ const ProductMainPage = () => {
 
     const {openModal} = useModal();
 
+
     const handleModal = () => {
         openModal('productDetail', {productId: 1});
     }
