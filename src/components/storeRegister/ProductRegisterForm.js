@@ -71,11 +71,15 @@ const ProductRegisterForm = () => {
 
     console.log('payload 이미지 확인: ', payload.get('productImage'))
 
+    const token = localStorage.getItem('token');
+    const refreshToken = localStorage.getItem('refreshToken');
+
     const response = await fetch(`${STORE_URL}/approval/p`, {
       method: 'POST',
       headers: {
         // 'Content-Type': 'multipart/form-data', FormData 생략 가능
-        // 'Authorization': 'Bearer' + token,
+        'Authorization': 'Bearer' + token,
+        'refreshToken' : refreshToken,
       },
       body: payload
     });
