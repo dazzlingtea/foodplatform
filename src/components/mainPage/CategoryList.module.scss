@@ -63,6 +63,7 @@
     transition: opacity 0.3s ease;  
   }
 
+
   &.low-stock {
     .overlay {
       opacity: 1;
@@ -73,21 +74,33 @@
     }
   }
 
-  // 찜 기능 하트 아이콘
-  .heartIcon {
-    font-size: 18px;
-    color: rgb(255, 71, 114);
-    position: absolute;
-    right: 10px;
-    bottom: 80px;
-    z-index: 1;
-    transition: transform 0.3s ease, color 0.3s ease; 
+// 찜 기능 하트 아이콘
+.heartIcon {
+  font-size: 18px;
+  color: rgb(152, 152, 152);
+  position: absolute;
+  right: 10px;
+  bottom: 80px;
+  z-index: 1;
+  transition: transform 0.3s ease, color 0.3s ease; 
 
-    &:hover {
-      transform: scale(1.2); 
-      color: rgb(255, 0, 100);
-    }
+  // 마우스를 올렸을 때
+  &:hover {
+    transform: scale(1.2); 
+    color: rgb(255, 0, 100);
   }
+
+  // 클릭했을 때
+  &.favorited {
+    color: rgb(255, 71, 114);
+  }
+}
+
+// 클릭된 상태에서 마우스 올렸을 때
+.heartIcon.favorited:hover {
+  transform: scale(1.1); 
+  color: rgb(255, 0, 100);
+}
 
   p {
     height: 15%;

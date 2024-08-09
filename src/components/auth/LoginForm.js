@@ -1,6 +1,6 @@
-// components/auth/LoginForm.jsx
+
 import React, {useEffect, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useLocation, useNavigate} from 'react-router-dom';
 import styles from './LoginForm.module.scss';
 import commonStyles from '../../common.module.scss';
 import _ from "lodash";
@@ -10,30 +10,28 @@ const LoginForm = ({ userType, onVerificationSent }) => {
     const [email, setEmail] = useState('');
     const [emailValid, setEmailValid] = useState(false);
     const [verificationSent, setVerificationSent] = useState(false);
-    const navigate = useNavigate();
     const [isExistingUser, setIsExistingUser] = useState(false);
     const [isSending, setIsSending] = useState(false);
 
-    useEffect(() => {
-        checkLoggedIn(navigate);
-    }, [navigate]);
+    /**
+     * auth util
+     * 토큰 유무에 따른 로그인 페이지 리다이렉션 메서드
+     */
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    const getTokenFromLocalStorage = () => {
-        console.log(localStorage.getItem('token'))
-        console.log(localStorage.getItem('refreshToken'))
-        return localStorage.getItem('token');
-    };
+    useEffect(() => {
+        checkLoggedIn(navigate, location.pathname);
+    }, [navigate, location.pathname]);
 
     const checkEmailInput = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     };
 
-    //customer
-    // 새로운 아이디 -> 중복검사 후 no -> 회원가입하기로 유도
     const checkCustomerDupId = async (email) => {
         try {
-            const response = await fetch(`/customer/check?keyword=${email}`);
+            const response = await fetch(`/customer/check?email=${email}`);
             const result = await response.json();
             if (result) {
                 console.log(`입력하신 이메일 [ ${email} ] 은 customer 회원입니다.`);
@@ -50,11 +48,9 @@ const LoginForm = ({ userType, onVerificationSent }) => {
         }
     }
 
-    // store
-    // 새로운 아이디 -> 중복검사 후 no -> 회원가입하기로 유도
     const checkStoreDupId = async (email) => {
         try {
-            const response = await fetch(`/store/check?keyword=${email}`);
+            const response = await fetch(`/store/check?email=${email}`);
             const result = await response.json();
             if (result) {
                 console.log(`입력하신 이메일[ ${email} ]은 store 회원입니다... `);

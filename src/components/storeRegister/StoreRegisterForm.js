@@ -1,11 +1,12 @@
-import React from 'react';
-import {Form, redirect} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Form, redirect, useNavigate} from 'react-router-dom';
 import styles from './StoreRegisterForm.module.scss'
 import SelectBox from "./SelectBox";
 import {STORE_URL} from "../../config/host-config";
 import useFormValidation from "./useFormValidation";
 import ErrorSpan from "./ErrorSpan";
 import query from "lodash";
+import {checkAuthToken} from "../../utils/authUtil";
 
 // select option 배열
 const OPTIONS = [
@@ -68,7 +69,6 @@ const StoreRegisterForm = () => {
 
   const { values, errors, isFormValid, changeHandler, setValues }
       = useFormValidation(initialValues, validate);
-
 
   return (
     <Form
@@ -163,6 +163,14 @@ export const storeRegisterAction = async ({request}) => {
   }
   console.log('store 페이로드: ', payload)
 
+
+  /**
+   * 브라우저 로컬스토리지에 저장된 access token = token 정보 가져오기
+   * jwtDecode(token).role : userType
+   * jwtDecode(token).sub : user email
+   * 혹은 checkAuthToken() method 이용하여 리턴값{userType, email}으로 활용
+   * @type {string}
+   */
   const token = localStorage.getItem('token');
   const refreshToken = localStorage.getItem('refreshToken');
 
@@ -175,7 +183,7 @@ export const storeRegisterAction = async ({request}) => {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + token,
-      'refreshToken' : refreshToken,
+      'refreshToken' : refreshToken
     },
     body: JSON.stringify(payload),
   });

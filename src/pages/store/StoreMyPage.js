@@ -6,6 +6,8 @@ import ProductCount from "../../components/store/mypage/ProductCount";
 import Calendar from "../../components/store/mypage/Calendar";
 import { useModal } from '../common/ModalProvider';
 import SideBarBtn from "../../components/store/mypage-edit/SideBarBtn";
+import {useNavigate} from "react-router-dom";
+import {checkAuthToken} from "../../utils/authUtil";
 
 const BASE_URL = window.location.origin;
 
@@ -91,14 +93,36 @@ const StoreMyPage = () => {
         }
     }, []);
 
+
     /**
-     * 가게 정보, 통계 정보, 예약 목록을 가져오는 useEffect 훅
+     * 토큰이 있으면 현재 페이지 유지
+     * 토큰이 없으면 로그인 창 리다이렉션
+     * 토큰의 usertype이 store과 같을 경우 현재 페이지 유지
+     * 토큰의 usertype이 store과 다를 경우 메인 페이지 리다이렉션
      */
+    const navigate = useNavigate();
+
     useEffect(() => {
-        fetchStoreInfo();
-        fetchStats();
-        fetchReservations();
-    }, []);
+        const fetchUser = async () => {
+            const userInfo = await checkAuthToken(navigate);
+
+
+            if (userInfo) {
+                const requiredRole = 'store'; // 필요한 role  작성 필요
+                if (userInfo.userType !== requiredRole) {
+                    alert('접근 권한이 없습니다.');
+                    navigate('/main');
+                    return;
+                }
+
+                fetchStoreInfo();
+                fetchStats();
+                fetchReservations();
+            }
+        };
+
+        fetchUser();
+    }, [navigate]);
 
     /**
      * 사이드바를 표시하거나 숨기는 함수

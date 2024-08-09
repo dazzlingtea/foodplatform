@@ -137,6 +137,35 @@
 }
 
 
+// 찜 하트 기능
+.heartIcon {
+  font-size: 18px;
+  color: rgb(152, 152, 152); // 기본 회색
+  position: absolute;
+  right: 20px;
+  bottom: 70px;
+  z-index: 1;
+  transition: transform 0.3s ease, color 0.3s ease; 
+
+  // 마우스를 올렸을 때
+  &:hover {
+    transform: scale(1.2); 
+    color: rgb(255, 0, 100); // 핑크색
+  }
+
+  // 클릭했을 때
+  &.favorited {
+    color: rgb(255, 71, 114); // 빨간색
+  }
+}
+
+// 하트 아이콘이 클릭된 상태에서 호버할 때 스타일 적용
+.heartIcon.favorited:hover {
+  transform: scale(1.1); 
+  color: rgb(255, 0, 100); // 핑크색
+}
+
+
 @media (max-width: 400px) {
 
   .list{

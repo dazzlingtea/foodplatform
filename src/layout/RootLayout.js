@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import ModalProvider from "../pages/common/ModalProvider";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const RootLayout = () => {
     const location = useLocation();
@@ -24,16 +26,12 @@ const RootLayout = () => {
 
     return (
         <ModalProvider>
-            <header>
-                header
-            </header>
+           <Header />
             <main>
                 <Outlet />
             </main>
             {!shouldHideFooter && ( // shouldHideFooter가 true가 아닌 경우에만 footer 렌더링
-                <footer>
-                    footer
-                </footer>)}
+                < Footer />) }
         </ModalProvider>
     );
 };

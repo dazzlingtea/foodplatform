@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import styles from './SignUpForm.module.scss';
 import commonStyles from '../../common.module.scss';
 import _ from 'lodash';
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {checkLoggedIn} from "../../utils/authUtil";
 
 
@@ -11,13 +11,20 @@ const SignUpForm = ({ userType, onVerificationSent }) => {
   const [email, setEmail] = useState('');
   const [emailValid, setEmailValid] = useState(false);
   const [verificationSent, setVerificationSent] = useState(false);
-  const navigate = useNavigate();
   const [isExistingUser, setIsExistingUser] = useState(false);
   const [isSending, setIsSending] = useState(false);
 
+    /**
+     * auth util
+     * 토큰 유무에 따른 로그인 페이지 리다이렉션 메서드
+     */
+
+    const navigate = useNavigate();
+    const location = useLocation();
+
     useEffect(() => {
-        checkLoggedIn(navigate);
-    }, [navigate]);
+        checkLoggedIn(navigate, location.pathname);
+    }, [navigate, location.pathname]);
 
   const checkEmailInput = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -28,7 +35,7 @@ const SignUpForm = ({ userType, onVerificationSent }) => {
   // 새로운 아이디 -> 중복검사 후 no -> 회원가입하기로 유도
   const checkCustomerDupId = async (email) => {
     try {
-      const response = await fetch(`/customer/check?keyword=${email}`);
+      const response = await fetch(`/email/check?email=${email}`);
       const result = await response.json();
       if (!result) {
         console.log(`입력하신 이메일 [ ${email} ] 은 customer 회원이 아닙니다.`);
@@ -46,10 +53,9 @@ const SignUpForm = ({ userType, onVerificationSent }) => {
 }
 
 // store
-// 새로운 아이디 -> 중복검사 후 no -> 회원가입하기로 유도
 const checkStoreDupId = async (email) => {
     try {
-      const response = await fetch(`/store/check?type=account&keyword=${email}`);
+      const response = await fetch(`/email/check?email=${email}`);
       const result = await response.json();
       if (!result) { //찾지 못하였으면
         console.log(`입력하신 이메일[ ${email} ]은 store 회원이 아닙니다. `);
