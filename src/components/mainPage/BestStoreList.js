@@ -118,6 +118,7 @@ const BestStoreList = ({ stores = [] }) => {
                     stores.map((store, index) => (
                         <div
                             key={index}
+                            onClick={() => handleClick(store)}
                             className={`${styles.storeItem} ${store.productCnt === 1 ? styles['low-stock'] : ''}`}
                         >
                             <div 
