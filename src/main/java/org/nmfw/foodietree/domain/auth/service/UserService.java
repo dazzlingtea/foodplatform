@@ -10,6 +10,7 @@ import org.nmfw.foodietree.domain.customer.entity.Customer;
 import org.nmfw.foodietree.domain.customer.service.CustomerService;
 import org.nmfw.foodietree.domain.store.entity.Store;
 import org.nmfw.foodietree.domain.store.service.StoreService;
+import org.nmfw.foodietree.domain.store.repository.StoreRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +25,8 @@ public class UserService {
 
     private final CustomerService customerService;
     private final StoreService storeService;
-
     private final TokenProvider tokenProvider;
-
+    private final StoreRepository storeRepository;
 
     public ResponseEntity<Map<String, ? extends Serializable>> saveUserInfo(EmailCodeDto emailCodeDto) {
 
@@ -82,8 +82,8 @@ public class UserService {
         log.info(" 새로운 토큰 재발급 ! {}",token);
         String refreshToken = tokenProvider.createRefreshToken(emailCodeDtoEmail, emailCodeDtoUserType);
         log.info("새로운 리프레시 토큰 재발급 ! {} ",refreshToken);
-
         LocalDateTime expirationDate = tokenProvider.getExpirationDateFromRefreshToken(refreshToken);
+        String storeApprove = null;
 
         if (emailCodeDtoUserType.equals("store")) {
 
@@ -94,6 +94,8 @@ public class UserService {
                     .build();
 
             storeService.signUpUpdateStore(emailCodeStoreDto);
+            Store store = storeRepository.findByStoreId(emailCodeDtoEmail).orElseThrow();
+            storeApprove = store.getApprove() != null ? store.getApprove().getStatusDesc() : null;
 
             // customer 일 경우
         } else if (emailCodeDtoUserType.equals("customer")) {
@@ -112,9 +114,10 @@ public class UserService {
                 "success", true,
                 "token", token,
                 "refreshToken", refreshToken,
-                "email", emailCodeDtoEmail,  // "email" 키에 email을 할당
-                "role", emailCodeDtoUserType,  // "role" 키에 userType을 할당
-                "message", "Token reissued successfully."
+                "email", emailCodeDtoEmail,
+                "role", emailCodeDtoUserType,
+                "message", "Token reissued successfully.",
+                "storeApprove", storeApprove != null
         ));
     }
 
@@ -133,7 +136,6 @@ public class UserService {
             log.info("store 타입 확인");
             log.info("로그인 로직 확인 : 들어오는 유저타입 : {}", emailCodeDto.getUserType());
             if (storeService.findOne(emailCodeDto.getEmail())) {
-
                 log.info("로그인 로직 확인 : 들어오는 유저타입 : {}, TRUE", emailCodeDto.getUserType());
                 result = true;
             }
@@ -141,7 +143,6 @@ public class UserService {
             log.info("customer 타입 확인");
             log.info("로그인 로직 확인 : 들어오는 유저타입 : {}", emailCodeDto.getUserType());
             if (customerService.findOne(emailCodeDto.getEmail())) {
-
                 log.info("로그인 로직 확인 : 들어오는 유저타입 : {}, TRUE", emailCodeDto.getUserType());
                 result = true;
             }
@@ -184,3 +185,4 @@ public class UserService {
         }
     }
 }
+

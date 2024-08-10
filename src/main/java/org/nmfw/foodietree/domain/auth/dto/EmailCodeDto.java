@@ -18,5 +18,6 @@ public class EmailCodeDto{
     private LocalDateTime expiryDate; // 인증번호 만료기간
     private Boolean emailVerified;
     private String userType;
+    private String storeApprove;
 
 }
