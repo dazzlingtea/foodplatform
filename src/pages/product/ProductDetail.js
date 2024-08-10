@@ -1,10 +1,13 @@
 import React from 'react';
 import styles from './ProductDetailModal.module.scss';
+import NaverMapWithSearch from "../../components/customer/my-fav-map/NaverMapWithSearch";
 
 const ProductDetail = ({productDetail}) => (<div className={styles.productDetail}>
-    <p>스페셜팩 정보</p>
+    {/*<p>스페셜팩 정보</p>*/}
     <div className={styles.map}>
-        <div className={styles.mapImg}>지도 들어갈 자리</div>
+        <div className={styles.mapImg}>
+            <NaverMapWithSearch type={'store'} productDetail={productDetail}/>
+        </div>
         <div className={styles.storeAddress}>
             <p>픽업 주소 </p>
             <p>{productDetail.storeInfo.storeAddress}</p>

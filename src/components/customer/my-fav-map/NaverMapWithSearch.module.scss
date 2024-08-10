@@ -1,0 +1,41 @@
+.descText{
+  font-size: 14px;
+  color: #1d1d1d;
+}
+.searchInput{
+  width: 155px;
+  height: 28px;
+  border-radius: 5px;
+  border: 1px solid gray;
+}
+
+.searchBtn{
+  width: 57px;
+  height: 28px;
+  margin-left: 4px;
+  margin-bottom: 14px;
+  border-style: none;
+  border-radius: 6px;
+}
+
+.marker{
+  background-color: darkgreen;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid white;
+}
+
+.infoWindow{
+  padding: 10px;
+  min-width: 200px;
+  line-height: 150%;
+}
+
+.infoWindowPlaceAlias{
+  margin-top: 5px;
+}
+
+@media (max-width: 400px) {
+
+}
