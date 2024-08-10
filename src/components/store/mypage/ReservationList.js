@@ -1,14 +1,18 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './ReservationList.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleXmark, faCircleCheck, faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { faCircleXmark, faCircleCheck, faSpinner, faSliders } from "@fortawesome/free-solid-svg-icons";
 import { useModal } from "../../../pages/common/ModalProvider";
 import {imgErrorHandler} from "../../../utils/error";
 
-const ReservationList = ({ reservations, isLoading, loadMore, hasMore, width }) => {
+const ReservationList = ({ reservations, isLoading, loadMore, hasMore, width, initialFilters, onApplyFilters }) => {
     const { openModal } = useModal();
     const listRef = useRef();
+    const [filters, setFilters] = useState(initialFilters || {});
 
+    /**
+     * 예약 항목을 클릭했을 때의 핸들러
+     */
     const handleReservationClick = async (reservation) => {
         try {
             openModal('storeReservationDetail', { reservationInfo: reservation });
@@ -17,6 +21,10 @@ const ReservationList = ({ reservations, isLoading, loadMore, hasMore, width }) 
         }
     };
 
+    /**
+     * 스크롤 이벤트를 처리하는 useEffect 훅
+     * 스크롤이 바닥에 도달하면 `loadMore` 호출
+     */
     useEffect(() => {
         const handleScroll = () => {
             if (listRef.current) {
@@ -39,12 +47,31 @@ const ReservationList = ({ reservations, isLoading, loadMore, hasMore, width }) 
         };
     }, [hasMore, isLoading, loadMore, width]);
 
+    /**
+     * 필터 모달을 여는 함수
+     */
+    const openFilterModal = () => {
+        openModal('storeReservationFilter', {
+            onApply: handleApplyFilters,
+            initialFilters: filters
+        });
+    };
+
+    /**
+     * 필터를 적용했을 때의 핸들러
+     */
+    const handleApplyFilters = (newFilters) => {
+        setFilters(newFilters);
+        onApplyFilters(newFilters);
+    };
+
     return (
         <div className={styles.reservationListForm}>
             <div className={styles.title}>
                 <h3 className={styles.titleText}>
                     <span>예약 내역</span>
                 </h3>
+                <FontAwesomeIcon icon={faSliders} className={styles.filter} onClick={openFilterModal} />
             </div>
             <div className={`${styles.infoWrapper}`} ref={listRef}>
                 <ul className={styles.reservationList}>
