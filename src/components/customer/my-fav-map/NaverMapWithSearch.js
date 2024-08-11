@@ -131,7 +131,7 @@ const NaverMapWithSearch = ({type, productDetail}) => {
             if (places.length < 3) {
                 addPlace(e.coord);
             } else {
-                alert('최대 3개의 장소만 저장할 수 있습니다.');
+                // console.log('최대 3개의 장소만 저장할 수 있습니다.');
             }
         });
 
@@ -235,15 +235,21 @@ const NaverMapWithSearch = ({type, productDetail}) => {
 
         console.log(`Adding marker at ${place.latlng} with title: ${place.title}`);
 
+
         const markerOptions = {
             position: place.latlng,
             map: mapInstance,
             title: place.title,
             icon: {
-                content: `<div style="background-color: ${color}; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white;"></div>`,
+                url: '/assets/img/32heartmarker.png',
+                // content: `<div style="background-color: ${color}; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white;"></div>`,
                 anchor: new window.naver.maps.Point(10, 10)
             }
         };
+
+        if (color === 'red') {
+            markerOptions.icon.url = '/assets/img/32storemarker.png';
+        }
 
         const marker = new window.naver.maps.Marker(markerOptions);
 
@@ -256,9 +262,8 @@ const NaverMapWithSearch = ({type, productDetail}) => {
                 infoWindowInstance.setContent([
                     '<div className={styles.infoWindow}>',
                     `<h4 style="margin-top:5px;">${place.title}</h4>`,
-                    place.roadAddress ? `<p>[도로명 주소] ${place.roadAddress}</p>` : '',
-                    place.jibunAddress ? `<p>[지번 주소] ${place.jibunAddress}</p>` : '',
-                    `<button onclick="document.getElementById('removeFav').click()">선호 지역에서 제거하기</button>`,
+                    place.roadAddress ? `<p>[도로명 주소] ${place.roadAddress}</p>` : `<p>[지번 주소] ${place.jibunAddress}</p>`,
+                    `<button onclick="document.getElementById('removeFav').click()" style="padding: 3px">선호 지역에서 제거하기</button>`,
                     '</div>',
                 ].join('\n'));
                 infoWindowInstance.open(mapInstance, marker);
@@ -304,7 +309,7 @@ const NaverMapWithSearch = ({type, productDetail}) => {
                     map: map,
                     title: address,
                     icon: {
-                        content: `<div style="background-color: #e87a7a; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white;"></div>`,
+                        url: "/assets/img/32currentpin.png",
                         anchor: new window.naver.maps.Point(10, 10)
                     }
                 };
@@ -313,22 +318,23 @@ const NaverMapWithSearch = ({type, productDetail}) => {
                 setSearchMarker(newSearchMarker);
 
                 const htmlAddresses = [];
+                let addressToShow = '';
+
                 if (item.roadAddress) {
-                    htmlAddresses.push(`[도로명 주소] <span class="roadAddress">${item.roadAddress}</span>`);
+                    addressToShow = `[도로명 주소] <span class="roadAddress">${item.roadAddress}</span>`;
+                } else if (item.jibunAddress) {
+                    addressToShow = `[지번 주소] <span class="jibunAddress">${item.jibunAddress}</span>`;
                 }
-                if (item.jibunAddress) {
-                    htmlAddresses.push(`[지번 주소] <span class="jibunAddress">${item.jibunAddress}</span>`);
-                }
-                if (item.englishAddress) {
-                    htmlAddresses.push(`[영문 주소] ${item.englishAddress}`);
-                }
+                // if (item.englishAddress) {
+                //     htmlAddresses.push(`[영문 주소] ${item.englishAddress}`);
+                // }
 
                 infoWindow.setContent([
-                    '<div style="padding:10px;min-width:200px;line-height:150%;">',
-                    `<h4 style="margin-top:5px;">검색 주소 : ${address}</h4><br />`,
-                    htmlAddresses.join('<br />'),
-                    `<input type="text" id="aliasInput" placeholder="별칭 입력" style="margin-top:10px;" onkeydown="if(event.key === 'Enter'){document.getElementById('addFav').click();}" />`,
-                    `<button onclick="document.getElementById('addFav').click()">선호 지역으로 추가하기</button>`,
+                    '<div style="padding:10px;max-width:250px;line-height:150%;">',
+                    `<h4 style="margin-top:5px;">검색 주소 : ${address}</h4>`,
+                    addressToShow,
+                    `<br><input type="text" id="aliasInput" placeholder="별칭 입력" style="margin-top:10px;" />`,
+                    `<button onclick="document.getElementById('addFav').click()" style="padding: 3px">선호 지역으로 추가하기</button>`,
                     '</div>',
                 ].join('\n'));
 
@@ -373,7 +379,7 @@ const NaverMapWithSearch = ({type, productDetail}) => {
                         infoWindow.close();
                     }
                 } else {
-                    alert('선호 지역 추가에 실패했습니다.');
+                    // alert('선호 지역 추가에 실패했습니다.');
                 }
             } catch (error) {
                 console.error('Error adding to favorites:', error);
