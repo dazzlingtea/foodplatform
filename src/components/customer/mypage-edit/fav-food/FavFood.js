@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
-import styles from "./Edit.module.scss";
+import styles from "../Edit.module.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleXmark} from "@fortawesome/free-solid-svg-icons";
-import {CUSTOMER_URL} from "../../../config/host-config";
-import {authFetch} from "../../../utils/authUtil";
+import {CUSTOMER_URL} from "../../../../config/host-config";
+import {authFetch} from "../../../../utils/authUtil";
+import AddFavFoodBtn from "./AddFavFoodBtn";
+import {categoryImgList} from "../../../../utils/img-handler";
 
 const FavFood = ({ favList, set }) => {
 
@@ -34,6 +36,7 @@ const FavFood = ({ favList, set }) => {
                 <h3 className={styles["title-text"]}>
                     <span> 선호음식 </span>
                 </h3>
+                <AddFavFoodBtn favList={favList} set={set}/>
             </div>
             <div className={styles['edit-wrapper']}>
                 <ul className={styles.preferred} id="preferred-area">
@@ -42,12 +45,12 @@ const FavFood = ({ favList, set }) => {
                             return (
                                 <li id={idx} key={idx}>
                                     <div className={styles["img-box"]}>
-                                        <img src={item.foodImage} alt="선호음식이미지"/>
+                                        <img src={categoryImgList[item.preferredFood]} alt="선호음식이미지"/>
                                     </div>
                                     <span>{item.preferredFood}</span>
                                     <FontAwesomeIcon
                                         className={styles.xmark} icon={faCircleXmark}
-                                        onClick={() => clickHandler("preferredFood", item.preferredFood)}
+                                        onClick={() => clickHandler("food", item.preferredFood)}
                                     />
                                 </li>
                             );

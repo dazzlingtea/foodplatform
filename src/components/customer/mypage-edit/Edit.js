@@ -4,7 +4,7 @@ import ProfileImgBtn from "./ProfileImgBtn";
 import PhoneNumber from "./PhoneNumber";
 import NickName from "./NickName";
 import FavArea from "./FavArea";
-import FavFood from "./FavFood";
+import FavFood from "./fav-food/FavFood";
 import FavStore from "./FavStore";
 import {CUSTOMER_URL} from "../../../config/host-config";
 import {authFetch} from "../../../utils/authUtil";

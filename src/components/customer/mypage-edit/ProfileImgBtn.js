@@ -3,7 +3,7 @@ import styles from "./ProfileImgBtn.module.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPenToSquare} from "@fortawesome/free-solid-svg-icons";
 import {CUSTOMER_URL, STORE_URL} from "../../../config/host-config";
-import {imgErrorHandler} from "../../../utils/error";
+import {DEFAULT_IMG, imgErrorHandler} from "../../../utils/error";
 import {authFetch} from "../../../utils/authUtil";
 
 const ProfileImgBtn = ({ profileImg }) => {
@@ -49,7 +49,7 @@ const ProfileImgBtn = ({ profileImg }) => {
             <a onClick={openFileHandler} className={styles.avatar}>
                 <FontAwesomeIcon className={styles.i} icon={faPenToSquare}/>
                 <img
-                    src={img || profileImg}
+                    src={img || (profileImg || DEFAULT_IMG)}
                     onError={imgErrorHandler}
                     alt="Customer profile image"/>
             </a>
