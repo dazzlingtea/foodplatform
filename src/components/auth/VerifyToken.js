@@ -7,12 +7,18 @@ function VerifyToken() {
 
   useEffect(() => {
     if (data && data.email && data.userType) {
-      const { email, userType } = data;
+      const { email, userType, storeApprove } = data;
       localStorage.setItem('email', email);
       localStorage.setItem('userType', userType);
 
       const timeoutId = setTimeout(() => {
-        const redirectPath = userType === 'store' ? '/store/approval' : '/customer';
+        let redirectPath;
+        if (userType === 'store') {
+          redirectPath = '/store/approval'; // store approve 가 없는 경우
+          if (storeApprove) redirectPath = '/store' // store approve가 있는 경우
+        } else {
+          redirectPath = '/main';
+        }
         navigate(redirectPath);
       }, 1500);
       return () => clearTimeout(timeoutId);

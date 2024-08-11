@@ -89,7 +89,7 @@ export const verifyTokenLoader = async ({ request }) => {
         if (data.success) {
             localStorage.setItem('token', data.token);
             localStorage.setItem('refreshToken', data.refreshToken);
-            return { email: data.email, userType: data.role };
+            return { email: data.email, userType: data.role, storeApprove: data.storeApprove };
         }
     }
 

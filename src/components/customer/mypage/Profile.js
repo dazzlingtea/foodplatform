@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Profile.module.scss';
 import { Link, useLocation } from "react-router-dom";
-import {imgErrorHandler} from "../../../utils/error";
+import {DEFAULT_IMG, imgErrorHandler} from "../../../utils/error";
 import PreferredArea from "./PreferredArea";
 import PreferredFood from "./PreferredFood";
 import FavoriteStore from "./FavoriteStore";
@@ -34,7 +34,7 @@ const Profile = ({ customerMyPageDto, stats, isShow, width }) => {
         <div className={`${styles.profileSection} ${isShow ? styles.on : undefined}`}>
             <div className={styles.profile}>
                 <a className={styles.imgBox} href="#">
-                    <img src={userData.profileImage} onError={imgErrorHandler} alt="Customer profile image" />
+                    <img src={userData.profileImage || DEFAULT_IMG} onError={imgErrorHandler} alt="Customer profile image" />
                 </a>
                 <h2>{userData.nickname}</h2>
                 <p>{userData.customerId}</p>
