@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from "./NaverMapWithSearch.module.scss";
-import {authCheckLoader, authFetch, checkAuthToken, getUserEmail, getUserRole} from "../../../utils/authUtil";
+import { authFetch, checkAuthToken} from "../../../utils/authUtil";
 import {useNavigate} from "react-router-dom";
 function loadScript(src) {
     return new Promise((resolve, reject) => {
@@ -22,11 +22,9 @@ const NaverMapWithSearch = ({type, productDetail}) => {
     const [places, setPlaces] = useState([]);
     const [searchMarker, setSearchMarker] = useState(null);
     const [activeMarker, setActiveMarker] = useState(null);
-    // const [type, setType] = useState('store');
+    const [loading, setLoading] = useState(true);
 
     const navigate = useNavigate();
-
-    // const type = getUserRole();
 
     useEffect(() => {
         // 로그인 하지 않았으면 메인으로 리다이렉트
@@ -44,11 +42,15 @@ const NaverMapWithSearch = ({type, productDetail}) => {
             const scriptUrl = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${ncpClientId}&submodules=geocoder`;
             loadScript(scriptUrl)
                 .then(() => {
-                    if (window.naver && window.naver.maps) {
-                        initMap(type);
-                    } else {
-                        console.error('Naver Maps API is not loaded properly');
-                    }
+                    // 반복적으로 naver.maps.Service가 로드되었는지 확인
+                    const checkNaverMaps = setInterval(() => {
+                        if (window.naver && window.naver.maps && window.naver.maps.Service) {
+                            clearInterval(checkNaverMaps);
+                            initMap(type); // 스크립트 로드 후 initMap 함수 호출
+                        } else {
+                            console.log('Naver Maps API is not fully loaded yet, retrying...');
+                        }
+                    }, 100); // 100ms마다 확인
                 })
                 .catch((error) => {
                     console.error('Failed to load Naver Map script', error);
@@ -59,7 +61,7 @@ const NaverMapWithSearch = ({type, productDetail}) => {
     }, []);
 
     const initMap = (type) => {
-
+        setLoading(true);
         if (type === 'store') {
             const storeName = productDetail.storeInfo.storeName;
             const storeAddress = productDetail.storeInfo.storeAddress;
@@ -81,10 +83,8 @@ const NaverMapWithSearch = ({type, productDetail}) => {
                     const item = response.v2.addresses[0];
                     const latlng = new window.naver.maps.LatLng(item.y, item.x);
 
-                    initializeMap(item.y, item.x, type); // Initialize map with store location
-                    addPlace(latlng, storeName, item.roadAddress, item.jibunAddress, 'red'); // 색상 'red' 전달
-                    console.log('Store location:', latlng.toString());
-                    console.log("marker added");
+                    initializeMap(item.y, item.x); // Initialize map with store location
+                    setLoading(false); // 로딩 완료
                 }
             );
         }
@@ -94,13 +94,16 @@ const NaverMapWithSearch = ({type, productDetail}) => {
                     (position) => {
                         const { latitude, longitude } = position.coords;
                         initializeMap(latitude, longitude);
+                        setLoading(false); // 로딩 완료
                     },
                     () => {
                         initializeMap(37.555183, 126.936883); // 중앙정보처리학원 신촌로176
+                        setLoading(false); // 로딩 완료
                     }
                 );
             } else {
                 initializeMap(37.555183, 126.936883); // Geolocation을 지원하지 않는 경우
+                setLoading(false); // 로딩 완료
             }
         }
     };
@@ -125,10 +128,10 @@ const NaverMapWithSearch = ({type, productDetail}) => {
             if (infoWindowInstance.getMap()) {
                 infoWindowInstance.close();
             }
-            if (places.length < 10) {
+            if (places.length < 3) {
                 addPlace(e.coord);
             } else {
-                alert('최대 10개의 장소만 저장할 수 있습니다.');
+                alert('최대 3개의 장소만 저장할 수 있습니다.');
             }
         });
 
@@ -136,7 +139,14 @@ const NaverMapWithSearch = ({type, productDetail}) => {
         if(type === 'customer') {
             fetchPlacesFromServer();
         }else{
-            addPlace(new window.naver.maps.LatLng(productDetail.storeInfo.lat, productDetail.storeInfo.lng), productDetail.storeInfo.storeName, productDetail.storeInfo.storeAddress, 'red');
+            const storeInfo = {
+                id: places.length + 1,
+                title: productDetail.storeInfo.storeName,
+                latlng: new window.naver.maps.LatLng(lat, lng),
+                roadAddress: productDetail.storeInfo.storeAddress,
+                jibunAddress: productDetail.storeInfo.storeAddress
+            };
+            addMarker(storeInfo, mapInstance, infoWindowInstance, 'red');
         }
     };
 
@@ -213,7 +223,6 @@ const NaverMapWithSearch = ({type, productDetail}) => {
     };
 
     const addMarker = (place, mapInstance, infoWindowInstance, color = 'skyblue') => {
-        console.log('Adding marker!!!!!!!!!!!!!!!:', place.title)
         if (!mapInstance) {
             console.error('Map instance is not initialized');
             return;
@@ -253,6 +262,13 @@ const NaverMapWithSearch = ({type, productDetail}) => {
                     '</div>',
                 ].join('\n'));
                 infoWindowInstance.open(mapInstance, marker);
+            }else{
+                if(color === 'red'){
+                    let webLng = place.latlng.lng();
+                    let webLat = place.latlng.lat();
+                    let url = 'http://map.naver.com/index.nhn?enc=utf8&level=2&lng=' + webLng + '&lat=' + webLat + '&pinTitle=' + encodeURIComponent(place.title) + '&pinType=SITE';
+                    window.open(url, '_blank'); // 새 창에서 URL 열기
+                }
             }
         });
     };
@@ -376,11 +392,11 @@ const NaverMapWithSearch = ({type, productDetail}) => {
             const placeToRemove = places.find(place => place.latlng && place.latlng.equals(position));
             if (placeToRemove) {
                 try {
-                    const response = await fetch('/customer/edit/area', {
+                    const response = await authFetch('/customer/edit/area', {
                         method: 'DELETE',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
+                        // headers: {
+                        //     'Content-Type': 'application/json',
+                        // },
                         body: JSON.stringify({
                             preferredArea: placeToRemove.roadAddress || placeToRemove.jibunAddress,
                             alias: placeToRemove.title,
