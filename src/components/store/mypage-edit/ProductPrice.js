@@ -4,6 +4,7 @@ import {faSquareCheck} from "@fortawesome/free-regular-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import styles from './Edit.module.scss';
 import {faDollarSign} from "@fortawesome/free-solid-svg-icons";
+import {authFetch} from "../../../utils/authUtil";
 
 const ProductPrice = ({value}) => {
     const [err, setErr] = useState(false);
@@ -14,7 +15,7 @@ const ProductPrice = ({value}) => {
             type: "price",
             value: selectRef.current.value,
         }
-        const res = await fetch(STORE_URL + '/edit', {
+        const res = await authFetch(STORE_URL + '/edit', {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json'

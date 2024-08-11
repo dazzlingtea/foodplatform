@@ -11,12 +11,13 @@ import ProductPrice from "./ProductPrice";
 import PasswordReset from "./PasswordReset";
 import {useEffect, useState} from "react";
 import {STORE_URL} from "../../../config/host-config";
+import {authFetch} from "../../../utils/authUtil";
 
 const Edit = () => {
     const [data, setData] = useState({});
     useEffect(() => {
         (async () => {
-            const res = await fetch(STORE_URL + '/info', {
+            const res = await authFetch(STORE_URL + '/info', {
                 headers: {
                     // 'Authorization' : 'Bearer ' +
                 }

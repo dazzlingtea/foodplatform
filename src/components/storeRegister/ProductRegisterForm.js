@@ -6,6 +6,7 @@ import PriceRadioBox from "./PriceRadioBox";
 import {STORE_URL} from "../../config/host-config";
 import useFormValidation from "./useFormValidation";
 import ErrorSpan from "./ErrorSpan";
+import {authFetch} from "../../utils/authUtil";
 
 // 상품 가격 옵션 배열
 const PRICE_OPTIONS = [
@@ -71,15 +72,11 @@ const ProductRegisterForm = () => {
 
     console.log('payload 이미지 확인: ', payload.get('productImage'))
 
-    const token = localStorage.getItem('token');
-    const refreshToken = localStorage.getItem('refreshToken');
-
-    const response = await fetch(`${STORE_URL}/approval/p`, {
+    const response = await authFetch(`${STORE_URL}/approval/p`, {
       method: 'POST',
       headers: {
         // 'Content-Type': 'multipart/form-data', FormData 생략 가능
-        'Authorization': 'Bearer' + token,
-        'refreshToken' : refreshToken,
+        // 'Authorization': 'Bearer' + token,
       },
       body: payload
     });

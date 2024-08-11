@@ -1,8 +1,10 @@
+import {authFetch} from "../../utils/authUtil";
+
 const BASE_URL = window.location.origin;
 
 export const createReservation = async (customerId, storeId, cnt) => {
     try {
-      const response = await fetch(`${BASE_URL}/reservation/create-reservation?customerId=${encodeURIComponent(customerId)}`, {
+      const response = await authFetch(`${BASE_URL}/reservation/create-reservation?customerId=${encodeURIComponent(customerId)}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

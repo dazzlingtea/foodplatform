@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser} from "@fortawesome/free-solid-svg-icons";
 import {faSquareCheck} from "@fortawesome/free-regular-svg-icons";
 import {STORE_URL} from "../../../config/host-config";
+import {authFetch} from "../../../utils/authUtil";
 
 const ProductCount = ({value}) => {
     const [err, setErr] = useState(false);
@@ -14,7 +15,7 @@ const ProductCount = ({value}) => {
             type: "productCnt",
             value: inputRef.current.value,
         }
-        const res = await fetch(STORE_URL + '/edit', {
+        const res = await authFetch(STORE_URL + '/edit', {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json'

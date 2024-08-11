@@ -2,13 +2,14 @@ import styles from './SideBar.module.scss';
 import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {STORE_URL} from "../../../config/host-config";
+import {authFetch} from "../../../utils/authUtil";
 
 const SideBar = ({isShow}) => {
     const [data, setData] = useState({});
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(STORE_URL + '/stats', {
+            const res = await authFetch(STORE_URL + '/stats', {
                 headers: {
                     // 'Authorization' : 'Bearer ' +
                 }

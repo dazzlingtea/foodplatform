@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPenToSquare} from "@fortawesome/free-solid-svg-icons";
 import {STORE_URL} from "../../../config/host-config";
 import {imgErrorHandler} from "../../../utils/error";
+import {authFetch} from "../../../utils/authUtil";
 
 const ProfileImgBtn = ({value}) => {
     const inputRef = useRef();
@@ -22,7 +23,7 @@ const ProfileImgBtn = ({value}) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append('storeImg', inputRef.current.files[0]);
-        const response = await fetch(STORE_URL + '/edit/img', {
+        const response = await authFetch(STORE_URL + '/edit/img', {
             method: 'POST',
             body: formData
         });

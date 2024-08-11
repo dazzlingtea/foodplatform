@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import styles from './SideBar.module.scss';
 import {Link} from "react-router-dom";
 import {CUSTOMER_URL} from "../../../config/host-config";
+import {authFetch} from "../../../utils/authUtil";
 
 const SideBar = ({isShow}) => {
     const [stats, setStats] = useState({});
@@ -15,7 +16,7 @@ const SideBar = ({isShow}) => {
 
     useEffect( () => {
         (async () => {
-            const res = await fetch(CUSTOMER_URL+'/stats', {
+            const res = await authFetch(CUSTOMER_URL+'/stats', {
                 headers: {
                     // 'Authorization' : 'Bearer ' +
                 }

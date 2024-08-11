@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSquareCheck} from "@fortawesome/free-regular-svg-icons";
 import styles from './Edit.module.scss';
 import {STORE_URL} from "../../../config/host-config";
+import {authFetch} from "../../../utils/authUtil";
 
 const PickUpEnd = ({ value }) => {
     const [err, setErr] = useState(false);
@@ -13,7 +14,7 @@ const PickUpEnd = ({ value }) => {
             type: "closedAt",
             value: inputRef.current.value,
         }
-        const res = await fetch(STORE_URL + '/edit', {
+        const res = await authFetch(STORE_URL + '/edit', {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json'

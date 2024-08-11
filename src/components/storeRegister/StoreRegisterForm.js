@@ -6,6 +6,7 @@ import {STORE_URL} from "../../config/host-config";
 import useFormValidation from "./useFormValidation";
 import ErrorSpan from "./ErrorSpan";
 import query from "lodash";
+import {authFetch} from "../../utils/authUtil";
 import {checkAuthToken} from "../../utils/authUtil";
 
 // select option 배열
@@ -163,27 +164,16 @@ export const storeRegisterAction = async ({request}) => {
   }
   console.log('store 페이로드: ', payload)
 
-
-  /**
-   * 브라우저 로컬스토리지에 저장된 access token = token 정보 가져오기
-   * jwtDecode(token).role : userType
-   * jwtDecode(token).sub : user email
-   * 혹은 checkAuthToken() method 이용하여 리턴값{userType, email}으로 활용
-   * @type {string}
-   */
-  const token = localStorage.getItem('token');
-  const refreshToken = localStorage.getItem('refreshToken');
-
+    const token = query.get('token');
 
   console.log("did i get a token info? : ",token);
 
-  const response = await fetch(`${STORE_URL}/approval`, {
+  const response = await authFetch(`${STORE_URL}/approval`, {
 
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token,
-      'refreshToken' : refreshToken
+      // 'Authorization': 'Bearer ' + token,
     },
     body: JSON.stringify(payload),
   });
@@ -193,6 +183,5 @@ export const storeRegisterAction = async ({request}) => {
     alert(errorMessage);
     return null;
   }
-
   return redirect('/store/approval/p');
 }

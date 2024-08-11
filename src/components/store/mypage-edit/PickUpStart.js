@@ -4,6 +4,7 @@ import {faClock} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faSquareCheck} from "@fortawesome/free-regular-svg-icons";
 import {STORE_URL} from "../../../config/host-config";
+import {authFetch} from "../../../utils/authUtil";
 
 const PickUpStart = ({value}) => {
     const [err, setErr] = useState(false);
@@ -13,7 +14,7 @@ const PickUpStart = ({value}) => {
             type: "openAt",
             value: inputRef.current.value,
         }
-        const res = await fetch(STORE_URL + '/edit', {
+        const res = await authFetch(STORE_URL + '/edit', {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json'

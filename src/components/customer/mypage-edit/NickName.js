@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPhone, faUser} from "@fortawesome/free-solid-svg-icons";
 import {faSquareCheck} from "@fortawesome/free-regular-svg-icons";
 import {CUSTOMER_URL, STORE_URL} from "../../../config/host-config";
+import {authFetch} from "../../../utils/authUtil";
 
 
 const NickName = ({name}) => {
@@ -16,7 +17,7 @@ const NickName = ({name}) => {
             type: "nickname",
             value: inputRef.current.value
         }
-        const res = await fetch(CUSTOMER_URL + `/edit`, {
+        const res = await authFetch(CUSTOMER_URL + `/edit`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'

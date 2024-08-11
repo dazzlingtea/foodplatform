@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Calendar.module.scss';
 import { useModal } from "../../../pages/common/ModalProvider";
+import {authFetch} from "../../../utils/authUtil";
 
 const BASE_URL = window.location.origin;
 
@@ -16,7 +17,7 @@ const Calendar = () => {
      */
     const fetchStoreInfo = async () => {
         try {
-            const response = await fetch(`${BASE_URL}/store/info`);
+            const response = await authFetch(`${BASE_URL}/store/info`);
             if (!response.ok) {
                 throw new Error('Failed to fetch store info');
             }
@@ -63,7 +64,7 @@ const Calendar = () => {
      */
     const fetchHolidays = async (year, month) => {
         try {
-            const response = await fetch(`${BASE_URL}/store/calendar/getHoliday`);
+            const response = await authFetch(`${BASE_URL}/store/calendar/getHoliday`);
             if (!response.ok) {
                 console.error('Failed to fetch holidays');
                 return [];
@@ -140,7 +141,7 @@ const Calendar = () => {
     const handleSetHoliday = async (date) => {
         console.log('휴무지정 서버로 보내는 날짜:', date);
         try {
-            const response = await fetch(`${BASE_URL}/store/calendar/setHoliday`, {
+            const response = await authFetch(`${BASE_URL}/store/calendar/setHoliday`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -168,7 +169,7 @@ const Calendar = () => {
     const handleUndoHoliday = async (date) => {
         console.log('휴무취소 서버로 보내는 날짜:', date); // 서버로 전송되는 날짜를 출력합니다.
         try {
-            const response = await fetch(`${BASE_URL}/store/calendar/undoHoliday`, {
+            const response = await authFetch(`${BASE_URL}/store/calendar/undoHoliday`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -218,7 +219,7 @@ const Calendar = () => {
         let calendarDetailDto;
 
         try {
-            const response = await fetch(`${BASE_URL}/store/calendar/modal/${toFormattedDate(selectedDate)}`);
+            const response = await authFetch(`${BASE_URL}/store/calendar/modal/${toFormattedDate(selectedDate)}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch picked up products count');
             }
