@@ -17,8 +17,15 @@
       position: relative;
       height: 144px;
 
+      .productImg {
+        width: 70%;
+        height: 100%;
+        border-radius: 8px;
+        object-fit: contain; // 사진 깨지는데 어떻게 보일 지 정해야함
+      }
+
       .storeImg {
-        width: 100%;
+        width: 30%;
         height: 100%;
         border-radius: 8px;
         object-fit: contain; // 사진 깨지는데 어떻게 보일 지 정해야함

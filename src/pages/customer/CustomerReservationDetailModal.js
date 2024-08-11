@@ -2,6 +2,7 @@ import React from 'react';
 import styles from "./CustomerReservationDetailModal.module.scss";
 import {useModal} from "../common/ModalProvider";
 import {Link} from "react-router-dom";
+import {DEFAULT_IMG, imgErrorHandler} from "../../utils/error";
 
 const CustomerReservationDetailModal = ({reservationDetail, onPickupConfirm}) => {
     const {closeModal} = useModal();
@@ -74,10 +75,15 @@ const CustomerReservationDetailModal = ({reservationDetail, onPickupConfirm}) =>
                 <div className={styles.imgSection}>
                     <img
                         className={styles.reservedProductImg}
-                        src={`${reservationDetail.productImg}||'/assets/img/dessert.jpg'`}
+                        src={reservationDetail.productImg||DEFAULT_IMG}
                         alt="상품 이미지"
+                        onError={imgErrorHandler}
                     />
-                    <img className={styles.reservedStoreImg} src={reservationDetail.storeImg} alt="가게 이미지"/>
+                    <img className={styles.reservedStoreImg}
+                         src={reservationDetail.storeImg || DEFAULT_IMG}
+                         alt="가게 이미지"
+                         onError={imgErrorHandler}
+                    />
                 </div>
                 <div className={styles.reservationTextInfo}>
                     <div>가게명:
