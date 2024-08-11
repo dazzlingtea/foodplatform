@@ -191,12 +191,21 @@ export const checkLoggedIn = (navigate, currentPath) => {
 export const authFetch = async (url, req) => {
     const token = localStorage.getItem("token");
     const refreshToken = localStorage.getItem("refreshToken");
-    const init = {
+    let init = {
         ...req,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
             'refreshToken': refreshToken
+        }
+    }
+    if (url.includes("img") || url.inclues("approval/p")) {
+        init = {
+            ...req,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'refreshToken': refreshToken
+            }
         }
     }
     return await fetch(url , init);
