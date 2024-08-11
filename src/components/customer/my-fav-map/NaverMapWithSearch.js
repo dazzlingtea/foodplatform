@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from "./NaverMapWithSearch.module.scss";
+import {authCheckLoader, authFetch, checkAuthToken, getUserEmail, getUserRole} from "../../../utils/authUtil";
+import {useNavigate} from "react-router-dom";
 function loadScript(src) {
     return new Promise((resolve, reject) => {
         const script = document.createElement('script');
@@ -13,6 +15,7 @@ function loadScript(src) {
 
 // type: 'customer' or 'store'
 const NaverMapWithSearch = ({type, productDetail}) => {
+
     const [map, setMap] = useState(null);
     const [infoWindow, setInfoWindow] = useState(null);
     const [searchKeyword, setSearchKeyword] = useState("");
@@ -20,12 +23,20 @@ const NaverMapWithSearch = ({type, productDetail}) => {
     const [searchMarker, setSearchMarker] = useState(null);
     const [activeMarker, setActiveMarker] = useState(null);
     // const [type, setType] = useState('store');
+
+    const navigate = useNavigate();
+
+    // const type = getUserRole();
+
     useEffect(() => {
+        // 로그인 하지 않았으면 메인으로 리다이렉트
+        checkAuthToken(navigate);
+
         if (map) {
             // map이 설정된 후 실행할 코드
             fetchPlacesFromServer();
         }
-    }, [map]);
+    }, [map, navigate]);
 
     useEffect(() => {
         const ncpClientId = process.env.REACT_APP_YOUR_CLIENT_ID;
@@ -34,7 +45,7 @@ const NaverMapWithSearch = ({type, productDetail}) => {
             loadScript(scriptUrl)
                 .then(() => {
                     if (window.naver && window.naver.maps) {
-                        initMap();
+                        initMap(type);
                     } else {
                         console.error('Naver Maps API is not loaded properly');
                     }
@@ -47,7 +58,7 @@ const NaverMapWithSearch = ({type, productDetail}) => {
         }
     }, []);
 
-    const initMap = () => {
+    const initMap = (type) => {
 
         if (type === 'store') {
             const storeName = productDetail.storeInfo.storeName;
@@ -70,7 +81,7 @@ const NaverMapWithSearch = ({type, productDetail}) => {
                     const item = response.v2.addresses[0];
                     const latlng = new window.naver.maps.LatLng(item.y, item.x);
 
-                    initializeMap(item.y, item.x); // Initialize map with store location
+                    initializeMap(item.y, item.x, type); // Initialize map with store location
                     addPlace(latlng, storeName, item.roadAddress, item.jibunAddress, 'red'); // 색상 'red' 전달
                     console.log('Store location:', latlng.toString());
                     console.log("marker added");
@@ -131,7 +142,7 @@ const NaverMapWithSearch = ({type, productDetail}) => {
 
     const fetchPlacesFromServer = async () => {
         try {
-            const response = await fetch('/customer/info/area');
+            const response = await authFetch('/customer/info/area');
             const fetchedPlaces = response.ok ? await response.json() : [];
 
             console.log('Fetched places:', fetchedPlaces);
@@ -324,11 +335,11 @@ const NaverMapWithSearch = ({type, productDetail}) => {
 
             // 서버에 추가 요청 보내기
             try {
-                const response = await fetch('/customer/edit/area', {
+                const response = await authFetch('/customer/edit/area', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    // headers: {
+                    //     'Content-Type': 'application/json',
+                    // },
                     body: JSON.stringify({
                         preferredArea: preferredArea, // 위치 정보
                         alias: aliasValue,
