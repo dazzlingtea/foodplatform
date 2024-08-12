@@ -1,3 +1,4 @@
+// FoodNav.js
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { useModal } from "../../pages/common/ModalProvider";
@@ -9,13 +10,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { FAVORITESTORE_URL } from '../../config/host-config';
-import { getUserEmail, getToken, getRefreshToken } from "../../utils/authUtil"; // <-- 이 줄 추가
-
-// 🌿 랜덤 가게 리스트 생성
-const getRandomStores = (stores, count) => {
-  const shuffled = [...stores].sort(() => 0.5 - Math.random()); // stores 배열을 랜덤으로 섞기
-  return shuffled.slice(0, count); // 원하는 개수의 가게를 선택
-};
+import { getUserEmail, getToken, getRefreshToken } from "../../utils/authUtil";
+import { DEFAULT_IMG, imgErrorHandler } from "../../utils/error";
+import FavAreaSelector from "./FavAreaSelector";
 
 // 🌿 카테고리 문자열에서 실제 foodType만 추출하는 함수
 const extractFoodType = (category) => {
@@ -81,22 +78,38 @@ const fetchFavorites = async (customerId, setFavorites) => {
 };
 
 const FoodNav = ({ selectedCategory, stores }) => {
-  const [randomStores, setRandomStores] = useState([]);
   const [favorites, setFavorites] = useState({});
+  const [filteredStores, setFilteredStores] = useState([]);
+  const [selectedArea, setSelectedArea] = useState(null);
   const { openModal } = useModal();
 
-  // customerId 더미값
+  // customerId값
   const customerId = getUserEmail();
-
-  useEffect(() => {
-    setRandomStores(getRandomStores(stores, 5));
-  }, [stores]);
 
   useEffect(() => {
     if (customerId) {
       fetchFavorites(customerId, setFavorites);
     }
   }, [customerId]);
+
+  useEffect(() => {
+    // store 정보
+    console.log('Stores:', stores);
+    // 선택된 area 정보
+    console.log('Selected Area:', selectedArea);
+
+    if (selectedArea !== null) {
+      // 선택된 area와 같은 address를 가진 가게 리스트 필터링
+      const newFilteredStores = stores.filter(store => {
+        const address = store.address || '';
+        const isMatch = address.includes(selectedArea);
+        console.log(`Checking store ${store.storeName}: ${address} - Match: ${isMatch}`);
+        return isMatch;
+      });
+
+      setFilteredStores(newFilteredStores);
+    }
+  }, [stores, selectedArea]);
 
   const handleClick = (store) => {
     openModal('productDetail', { productDetail: store });
@@ -140,11 +153,13 @@ const FoodNav = ({ selectedCategory, stores }) => {
 
   return (
     <>
+      <FavAreaSelector onAreaSelect={setSelectedArea} />
+
       {/* 내가 찜한 가게 리스트 */}
       <div className={styles.list}>
         <h2 className={styles.title}>나의 단골 가게</h2>
         <Slider {...settings(4)} className={styles.slider}>
-          {stores.map((store, index) => (
+          {filteredStores.map((store, index) => (
             <div
               key={index}
               onClick={() => handleClick(store)}
@@ -161,7 +176,7 @@ const FoodNav = ({ selectedCategory, stores }) => {
                   icon={favorites[store.storeId] ? faHeartSolid : faHeartRegular} 
                 />
               </div>
-              <img src={store.storeImg} alt={store.storeName} />
+              <img src={store.storeImg || DEFAULT_IMG} alt={store.storeName} onError={imgErrorHandler}/>
               {store.productCnt === 1 && <div className={styles.overlay}>SOLD OUT</div>}
               <p className={styles.storeName}>{store.storeName}</p>
               <span className={styles.storePrice}>{store.price}</span>
@@ -173,9 +188,9 @@ const FoodNav = ({ selectedCategory, stores }) => {
 
       {/* 주변 가게 리스트 */}
       <div className={styles.list}>
-        <h2 className={styles.title}>000동 근처 가게</h2>
+        <h2 className={styles.title}>{selectedArea ? `${selectedArea} 근처 가게` : '근처 가게'}</h2>
         <Slider {...settings(4)} className={styles.slider}>
-          {stores.map((store, index) => (
+          {filteredStores.map((store, index) => (
             <div
               key={index}
               onClick={() => handleClick(store)}
@@ -192,7 +207,7 @@ const FoodNav = ({ selectedCategory, stores }) => {
                   icon={favorites[store.storeId] ? faHeartSolid : faHeartRegular} 
                 />
               </div>
-              <img src={store.storeImg} alt={store.storeName} />
+              <img src={store.storeImg || DEFAULT_IMG} alt={store.storeName} onError={imgErrorHandler}/>
               {store.productCnt === 1 && <div className={styles.overlay}>SOLD OUT</div>}
               <p className={styles.storeName}>{store.storeName}</p>
               <span className={styles.storePrice}>{store.price}</span>
@@ -206,7 +221,7 @@ const FoodNav = ({ selectedCategory, stores }) => {
       <div className={styles.list}>
         <h2 className={styles.title}>이웃들의 추천 가게</h2>
         <Slider {...settings(5)} className={styles.slider}>
-          {randomStores.map((store, index) => (
+          {filteredStores.map((store, index) => (
             <div
               key={index}
               onClick={() => handleClick(store)}
@@ -223,7 +238,7 @@ const FoodNav = ({ selectedCategory, stores }) => {
                   icon={favorites[store.storeId] ? faHeartSolid : faHeartRegular} 
                 />
               </div>
-              <img src={store.storeImg} alt={store.storeName} className={styles.image} />
+              <img src={store.storeImg || DEFAULT_IMG} alt={store.storeName} className={styles.image} onError={imgErrorHandler} />
               <span className={styles.category}>{extractFoodType(store.category)}</span>
               <p className={styles.storeName}>{store.storeName}</p>
               <span className={styles.storePrice}>{store.price}</span>

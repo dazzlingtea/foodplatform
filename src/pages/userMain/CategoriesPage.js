@@ -66,7 +66,7 @@ const CategoriesPage = () => {
       {/* 카테고리 분류(헤더) */}
       <div className={styles.header}>
         <h1>{category.name}</h1>
-        <img src={category.image} alt={category.name} />
+        <img src={category.image || DEFAULT_IMG} alt={category.name} onError={imgErrorHandler}/>
       </div>
 
       {/* 카테고리 버튼 */}

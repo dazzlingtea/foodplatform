@@ -9,6 +9,7 @@ import { faWonSign, faBoxOpen, faHeart as faHeartSolid } from "@fortawesome/free
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { FAVORITESTORE_URL } from '../../config/host-config';
 import {getUserData, getUserEmail} from "../../utils/authUtil";
+import { DEFAULT_IMG, imgErrorHandler } from '../../utils/error';
 
 // 하트 상태를 토글하고 서버에 저장하는 함수
 const toggleFavorite = async (storeId, customerId) => {
@@ -132,7 +133,7 @@ const BestStoreList = ({ stores = [] }) => {
                                     icon={favorites[store.storeId] ? faHeartSolid : faHeartRegular} 
                                 />
                             </div>
-                            <img src={store.storeImg} alt={store.storeName} />
+                            <img src={store.storeImg || DEFAULT_IMG} alt={store.storeName}  onError={imgErrorHandler}/>
                             {store.productCnt === 1 && <div className={styles.overlay}>SOLD OUT</div>}
                             <p className={styles.storeName}>{store.storeName}</p>
                             <span className={styles.storePrice}><FontAwesomeIcon icon={faWonSign} /> {store.price}</span>
