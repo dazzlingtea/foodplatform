@@ -1,6 +1,6 @@
 import React from 'react';
 import {BiSearch} from "react-icons/bi";
-import styles from './SearchInTable.module.scss';
+import styles from './FiltersInTable.module.scss';
 
 const FiltersInTable = ({columnFilters, setColumnFilters}) => {
   const searchInput = columnFilters.find(f => f.id === 'name')?.value || "";

@@ -67,6 +67,24 @@ const ApprovalTable = () => {
     setData(DATA.approvals);
     setStats(() => DATA.stats);
   }
+  const onFetch = ({result}) => {
+    const {status, ids} = result;
+    setData(prevData => {
+      const idsToUpdate = new Set(ids);
+
+      // result.status를 모든 data에 적용
+      const updatedData = prevData.map(item => {
+        if (idsToUpdate.has(item.id)) {
+          // id가 ids에 있는 경우 status를 업데이트
+          return { ...item, status: status };
+        }
+        // id가 ids에 없는 경우 원래의 데이터 유지
+        return item;
+      });
+      console.log('onFetch updatedData', updatedData)
+      return updatedData;
+    });
+  }
 
   // 기간을 기준으로 서버에 데이터 요청 및 렌더링
   useEffect(() => {
@@ -91,7 +109,7 @@ const ApprovalTable = () => {
           <ApprovalButtons
             rows={rowSelection}
             data={data}
-            onFetch={fetchApprovals}
+            onFetch={onFetch}
           />
         </div>
       </div>

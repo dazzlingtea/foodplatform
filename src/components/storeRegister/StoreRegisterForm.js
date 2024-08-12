@@ -6,7 +6,7 @@ import {STORE_URL} from "../../config/host-config";
 import useFormValidation from "./useFormValidation";
 import ErrorSpan from "./ErrorSpan";
 import query from "lodash";
-import {authFetch} from "../../utils/authUtil";
+import {authFetch, getToken} from "../../utils/authUtil";
 import {checkAuthToken} from "../../utils/authUtil";
 
 // select option 배열
@@ -164,9 +164,9 @@ export const storeRegisterAction = async ({request}) => {
   }
   console.log('store 페이로드: ', payload)
 
-    const token = query.get('token');
+    // const token = query.get('token');
 
-  console.log("did i get a token info? : ",token);
+  // console.log("did i get a token info? : ",getToken());
 
   const response = await authFetch(`${STORE_URL}/approval`, {
 
