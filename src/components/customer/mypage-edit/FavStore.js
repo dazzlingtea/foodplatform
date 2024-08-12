@@ -46,7 +46,7 @@ const FavStore = ({ favList, set}) => {
                                     <span>{item.storeName}</span>
                                     <FontAwesomeIcon
                                         className={styles.xmark} icon={faCircleXmark}
-                                        onClick={() => clickHandler("favStore", item)}
+                                        onClick={() => clickHandler("store", item)}
                                     />
                                 </li>
                             )
