@@ -47,7 +47,7 @@ const ProductDetailModal = ({productDetail, onClose}) => {
 
     if (!productDetail) return null;
 
-    const {storeName, storeImg, address, openAt, closedAt, price, storeId, storeContact, productCnt} = productDetail;
+    const {storeName, storeImg, address, openAt, closedAt, price, storeId, storeContact, productCnt, productImg} = productDetail;
 
 
     const productInfo = {

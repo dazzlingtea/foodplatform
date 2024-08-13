@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import StoreRegisterForm from "../../components/storeRegister/StoreRegisterForm";
-import ProductRegisterForm from "../../components/storeRegister/ProductRegisterForm";
 import {useNavigate} from "react-router-dom";
 import {checkAuthToken} from "../../utils/authUtil";
 
