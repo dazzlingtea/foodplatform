@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-
 import styles from './CategoryList.module.scss';
 import { useModal } from '../../pages/common/ModalProvider';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWonSign, faBoxOpen, faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { DEFAULT_IMG, imgErrorHandler } from '../../utils/error';
-
 import { FAVORITESTORE_URL } from '../../config/host-config';
 import { getRefreshToken, getToken, getUserEmail } from "../../utils/authUtil";
 
@@ -17,19 +15,16 @@ const toggleFavorite = async (storeId, customerId) => {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization' : 'Bearer ' + getToken(),
-                'refreshToken' : getRefreshToken()
+                'Authorization': 'Bearer ' + getToken(),
+                'refreshToken': getRefreshToken()
             },
             body: JSON.stringify({ customerId }),
         });
 
-        // 응답의 Content-Type을 확인하여 JSON으로 파싱할 수 있는지 확인
         const contentType = response.headers.get('Content-Type');
         if (contentType && contentType.includes('application/json')) {
-            const data = await response.json();
-            //console.log('Favorite toggled successfully!', data);
+            await response.json();
         } else {
-            // JSON이 아닌 응답을 처리
             const text = await response.text();
             console.error('⚠️Unexpected response format:', text);
         }
@@ -50,7 +45,6 @@ const fetchFavorites = async (customerId, setFavorites) => {
             },
         });
 
-        // 응답의 Content-Type을 확인하여 JSON으로 파싱할 수 있는지 확인
         const contentType = response.headers.get('Content-Type');
         if (contentType && contentType.includes('application/json')) {
             const data = await response.json();
@@ -60,7 +54,6 @@ const fetchFavorites = async (customerId, setFavorites) => {
             }, {});
             setFavorites(favorites);
         } else {
-            // JSON이 아닌 응답을 처리
             const text = await response.text();
             console.error('⚠️Unexpected response format:', text);
         }
@@ -75,6 +68,20 @@ const CategoryList = ({ stores }) => {
 
     const customerId = getUserEmail();
 
+    useEffect(() => {
+        if (customerId) {
+            fetchFavorites(customerId, setFavorites);
+        }
+    }, [customerId]);
+
+    // 세션 스토리지에서 selectedArea 로드
+    const selectedArea = sessionStorage.getItem('selectedArea') || '';
+
+    // selectedArea를 포함하는 가게 필터링
+    const filteredStores = stores.filter(store => 
+        store.address && selectedArea && store.address.includes(selectedArea)
+    );
+
     const handleClick = (store) => {
         openModal('productDetail', { productDetail: store });
     };
@@ -83,7 +90,6 @@ const CategoryList = ({ stores }) => {
         try {
             await toggleFavorite(storeId, customerId);
 
-            // 찜 상태를 토글
             setFavorites(prevFavorites => ({
                 ...prevFavorites,
                 [storeId]: !prevFavorites[storeId]
@@ -93,41 +99,38 @@ const CategoryList = ({ stores }) => {
         }
     };
 
-    useEffect(() => {
-        if (customerId) {
-            fetchFavorites(customerId, setFavorites);
-        }
-    }, [customerId]);
-
     return (
         <div className={styles.list}>
             <h1 className={styles.storeList}>우리 동네 가게 리스트</h1>
             <div className={styles.categoryContainer}>
-                {stores.map((store, index) => (
-                    <div 
-                        key={index} 
-                        className={`${styles.categoryItem} ${store.productCnt === 1 ? styles['low-stock'] : ''}`}
-                        onClick={() => handleClick(store)}
-                    >
-                        <div
-                            className={`${styles.heartIcon} ${favorites[store.storeId] ? styles.favorited : styles.notFavorited}`}
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                handleFavoriteClick(store.storeId);
-                            }}
+                {filteredStores.length === 0 ? (
+                    <div>No stores available for selected area</div>
+                ) : (
+                    filteredStores.map((store, index) => (
+                        <div 
+                            key={index} 
+                            className={`${styles.categoryItem} ${store.productCnt === 1 ? styles['low-stock'] : ''}`}
+                            onClick={() => handleClick(store)}
                         >
-                            <FontAwesomeIcon 
-                                icon={favorites[store.storeId] ? faHeartSolid : faHeartRegular}
-                            />
+                            <div
+                                className={`${styles.heartIcon} ${favorites[store.storeId] ? styles.favorited : styles.notFavorited}`}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleFavoriteClick(store.storeId);
+                                }}
+                            >
+                                <FontAwesomeIcon 
+                                    icon={favorites[store.storeId] ? faHeartSolid : faHeartRegular}
+                                />
+                            </div>
+                            <img src={store.storeImg || DEFAULT_IMG} alt={store.storeName} className={styles.categoryImage} onError={imgErrorHandler}/>
+                            {store.productCnt === 1 && <div className={styles.overlay}>SOLD OUT</div>}
+                            <p className={styles.categoryName}>{store.storeName}</p>
+                            <span className={styles.storePrice}><FontAwesomeIcon icon={faWonSign} /> {store.price}원</span>
+                            <span className={styles.productCnt}><FontAwesomeIcon icon={faBoxOpen} /> {store.productCnt}/{store.productCnt}</span>
                         </div>
-                        <img src={store.storeImg || DEFAULT_IMG} alt={store.storeName} className={styles.categoryImage} onError={imgErrorHandler}/>
-                        {store.productCnt === 1 && <div className={styles.overlay}>SOLD OUT</div>}
-                        <p className={styles.categoryName}>{store.storeName}</p>
-                        
-                        <span className={styles.storePrice}><FontAwesomeIcon icon={faWonSign} /> {store.price}원</span>
-                        <span className={styles.productCnt}><FontAwesomeIcon icon={faBoxOpen} /> {store.productCnt}/{store.productCnt}</span>
-                    </div>
-                ))}
+                    ))
+                )}
             </div> 
         </div>
     );

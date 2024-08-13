@@ -1,4 +1,3 @@
-// FavAreaSelector.js
 import React, { useEffect, useState } from 'react';
 import { getUserEmail, getToken, getRefreshToken } from '../../utils/authUtil';
 import { FAVORITESTORE_URL } from '../../config/host-config';
@@ -11,6 +10,15 @@ const FavAreaSelector = ({ onAreaSelect }) => {
   const [customerId, setCustomerId] = useState(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [selectedArea, setSelectedArea] = useState(null);
+
+  useEffect(() => {
+    // 세션 스토리지 저장
+    const storedArea = sessionStorage.getItem('selectedArea');
+    if (storedArea) {
+      console.log('Loaded from sessionStorage:', storedArea);
+      setSelectedArea(storedArea);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchCustomerId = async () => {
@@ -44,11 +52,17 @@ const FavAreaSelector = ({ onAreaSelect }) => {
         const data = await response.json();
         setAreas(data);
 
-        // Id가 작은 preferredArea를 기본값으로 설정
-        if (data.length > 0) {
-          const defaultArea = data[0];
-          setSelectedArea(defaultArea.preferredArea);
-          onAreaSelect(defaultArea.preferredArea); //그리고 선택된 area를 preferredArea로 설정
+        // 세션 스토리지에 storedArea가 저장되어 있는지 확인
+        // 없다면 0번째 preferredArea 
+        const storedArea = sessionStorage.getItem('selectedArea');
+        if (storedArea) {
+          setSelectedArea(storedArea);
+          console.log('Default area from sessionStorage:', storedArea);
+        } else if (data.length > 0) {
+          const defaultArea = data[0].preferredArea;
+          setSelectedArea(defaultArea);
+          sessionStorage.setItem('selectedArea', defaultArea);
+          console.log('Default area saved to sessionStorage:', defaultArea);
         }
 
       } catch (error) {
@@ -62,6 +76,9 @@ const FavAreaSelector = ({ onAreaSelect }) => {
   useEffect(() => {
     if (selectedArea !== null) {
       onAreaSelect(selectedArea);
+      // 선택된 세션스토리지 업데이트
+      sessionStorage.setItem('selectedArea', selectedArea);
+      console.log('Selected area saved to sessionStorage:', selectedArea);
     }
   }, [selectedArea, onAreaSelect]);
 

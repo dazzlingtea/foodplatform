@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWonSign, faBoxOpen, faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import { FAVORITESTORE_URL } from '../../config/host-config';
-import {getUserData, getUserEmail} from "../../utils/authUtil";
+import { getUserEmail } from "../../utils/authUtil";
 import { DEFAULT_IMG, imgErrorHandler } from '../../utils/error';
 
 // 하트 상태를 토글하고 서버에 저장하는 함수
@@ -24,7 +24,7 @@ const toggleFavorite = async (storeId, customerId) => {
 
         const contentType = response.headers.get('Content-Type');
         if (contentType && contentType.includes('application/json')) {
-            const data = await response.json();
+            await response.json();
         } else {
             const text = await response.text();
             console.error('⚠️Unexpected response format:', text);
@@ -62,8 +62,7 @@ const BestStoreList = ({ stores = [] }) => {
     const { openModal } = useModal();
     const [favorites, setFavorites] = useState({});
 
-    // customerId 더미값
-    // const customerId = 'test@gmail.com';
+    // customerId
     const customerId = getUserEmail();
 
     useEffect(() => {
@@ -71,6 +70,14 @@ const BestStoreList = ({ stores = [] }) => {
             fetchFavorites(customerId, setFavorites);
         }
     }, [customerId]);
+
+    // 세션 스토리지에서 selectedArea 로드
+    const selectedArea = sessionStorage.getItem('selectedArea') || '';
+
+    // selectedArea를 포함하는 가게 필터링
+    const filteredStores = stores.filter(store => 
+        store.address && selectedArea && store.address.includes(selectedArea)
+    );
 
     const handleClick = (store) => {
         openModal('productDetail', { productDetail: store });
@@ -113,14 +120,14 @@ const BestStoreList = ({ stores = [] }) => {
         <div className={styles.list}>
             <h2 className={styles.title}>추천 가게</h2>
             <Slider {...settings} className={styles.slider}>
-                {stores.length === 0 ? (
-                    <div>No stores available</div>
+                {filteredStores.length === 0 ? (
+                    <div>No stores available for selected area</div>
                 ) : (
-                    stores.map((store, index) => (
+                    filteredStores.map((store, index) => (
                         <div
                             key={index}
                             className={`${styles.storeItem} ${store.productCnt === 1 ? styles['low-stock'] : ''}`}
-                            onClick={() => handleClick(store)} 
+                            onClick={() => handleClick(store)}
                         >
                             <div 
                                 className={`${styles.heartIcon} ${favorites[store.storeId] ? styles.favorited : styles.notFavorited}`} 
@@ -133,7 +140,7 @@ const BestStoreList = ({ stores = [] }) => {
                                     icon={favorites[store.storeId] ? faHeartSolid : faHeartRegular} 
                                 />
                             </div>
-                            <img src={store.storeImg || DEFAULT_IMG} alt={store.storeName}  onError={imgErrorHandler}/>
+                            <img src={store.storeImg || DEFAULT_IMG} alt={store.storeName} onError={imgErrorHandler}/>
                             {store.productCnt === 1 && <div className={styles.overlay}>SOLD OUT</div>}
                             <p className={styles.storeName}>{store.storeName}</p>
                             <span className={styles.storePrice}><FontAwesomeIcon icon={faWonSign} /> {store.price}</span>

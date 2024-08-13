@@ -14,7 +14,7 @@ import jFood from "../../assets/images/userMain/jFood.png";
 import dessert from "../../assets/images/userMain/dessert.png";
 import cafe from "../../assets/images/userMain/cafe.png";
 import salad from "../../assets/images/userMain/salad.png";
-import { checkAuthToken} from "../../utils/authUtil";
+import {authFetch, checkAuthToken} from "../../utils/authUtil";
 
 // 카테고리 정보 >> 헤더 오른쪽 카테고리 이미지 렌더링을 위해
 const categoriesInfo = {
@@ -52,7 +52,7 @@ const CategoriesPage = () => {
       // 토큰 확인 유무에 따른 페이지 리다이렉션
       checkAuthToken(navigate);
 
-    fetch(STORELISTS_URL)
+      authFetch(STORELISTS_URL)
       .then(response => response.json())
       .then(data => {
         const filteredStores = data.filter(store => extractFoodType(store.category) === category.name);

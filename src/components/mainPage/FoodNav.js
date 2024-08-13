@@ -1,4 +1,3 @@
-// FoodNav.js
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { useModal } from "../../pages/common/ModalProvider";
