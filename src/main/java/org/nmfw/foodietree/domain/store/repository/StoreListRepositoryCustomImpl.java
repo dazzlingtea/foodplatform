@@ -3,6 +3,7 @@ package org.nmfw.foodietree.domain.store.repository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -87,8 +88,8 @@ public class StoreListRepositoryCustomImpl implements StoreListRepositoryCustom 
             .from(product)
             .leftJoin(reservation).on(product.productId.eq(reservation.productId))
             .leftJoin(store).on(product.storeId.eq(store.storeId))
-            .where(dateTemplate(Date.class, "DATE_FORMAT({0}, '%Y-%m-%d')", product.pickupTime)
-                .eq(currentDate()).and(reservation.reservationTime.isNull()))
+            .where(product.pickupTime.gt(LocalDateTime.now())
+                .and(reservation.reservationTime.isNull()))
             .groupBy(product.storeId)
             .fetch()
             .stream()
