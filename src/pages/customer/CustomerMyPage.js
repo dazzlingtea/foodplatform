@@ -209,8 +209,14 @@ const CustomerMyPage = () => {
         const filtered = reservations.filter(reservation => {
             const categoryMatch = category.length === 0 || category.includes(reservation.category);
             const statusMatch = status.length === 0 || status.includes(reservation.status);
-            const dateMatch = (!dateRange.startDate || new Date(reservation.pickupTime) >= new Date(dateRange.startDate)) &&
-                (!dateRange.endDate || new Date(reservation.pickupTime) <= new Date(dateRange.endDate));
+
+            const reservationDate = new Date(reservation.reservationTime).setHours(0, 0, 0, 0); // 시간을 0시 0분으로 초기화하여 날짜만 비교
+            const startDate = dateRange.startDate ? new Date(dateRange.startDate).setHours(0, 0, 0, 0) : null;
+            const endDate = dateRange.endDate ? new Date(dateRange.endDate).setHours(0, 0, 0, 0) : null;
+
+            const dateMatch = (!startDate || reservationDate >= startDate) &&
+                (!endDate || reservationDate <= endDate);
+
             return categoryMatch && statusMatch && dateMatch;
         });
 

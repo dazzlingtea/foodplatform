@@ -31,6 +31,24 @@ const StoreReservationFilterModal = ({ onApply, initialFilters }) => {
         }
     };
 
+    const handleStartDateChange = (e) => {
+        const selectedStartDate = e.target.value;
+        if (endDate && new Date(selectedStartDate) > new Date(endDate)) {
+            alert("시작 날짜는 종료 날짜 이후 일 수 없습니다.");
+        } else {
+            setStartDate(selectedStartDate);
+        }
+    };
+
+    const handleEndDateChange = (e) => {
+        const selectedEndDate = e.target.value;
+        if (startDate && new Date(selectedEndDate) < new Date(startDate)) {
+            alert("종료 날짜는 시작 날짜 이전 일 수 없습니다.");
+        } else {
+            setEndDate(selectedEndDate);
+        }
+    };
+
     const handleApply = () => {
         onApply({ dateRange: { startDate, endDate }, status });
         closeModal();
@@ -50,20 +68,20 @@ const StoreReservationFilterModal = ({ onApply, initialFilters }) => {
                     <input
                         type="date"
                         value={startDate}
-                        onChange={(e) => setStartDate(e.target.value)}
+                        onChange={handleStartDateChange}
                     />
                     <span>~</span>
                     <input
                         type="date"
                         value={endDate}
-                        onChange={(e) => setEndDate(e.target.value)}
+                        onChange={handleEndDateChange}
                     />
                 </div>
             </div>
             <div className={styles.filterGroup}>
                 <label>주문 상태</label>
                 <div className={styles.options}>
-                    {['RESERVED', 'PICKEDUP', 'CANCELED', 'NOSHOW'].map((item) => (
+                    {['RESERVED', 'PICKEDUP', 'CANCELED', 'NOSHOW'].map(item => (
                         <div
                             key={item}
                             className={`${styles.option} ${status.includes(item) ? styles.selected : ''}`}

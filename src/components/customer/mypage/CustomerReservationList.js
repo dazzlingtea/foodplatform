@@ -3,8 +3,7 @@ import styles from './CustomerReservationList.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faCircleCheck, faSpinner, faSliders } from "@fortawesome/free-solid-svg-icons";
 import { useModal } from "../../../pages/common/ModalProvider";
-import {imgErrorHandler} from "../../../utils/error";
-import {authFetch} from "../../../utils/authUtil";
+import { imgErrorHandler } from "../../../utils/error";
 
 const BASE_URL = window.location.origin;
 
@@ -164,7 +163,6 @@ const CustomerReservationList = ({ reservations, onUpdateReservations, isLoading
             const reservationDetail = reservations.find(r => r.reservationId === reservationId);
             openModal('writeReview', {
                 reservationDetail
-                // 여기에 리뷰 작성과 관련된 추가 데이터를 전달할 수 있습니다.
             });
         } catch (error) {
             console.error('Error fetching reservation detail for review:', error);
@@ -182,8 +180,17 @@ const CustomerReservationList = ({ reservations, onUpdateReservations, isLoading
 
     // 필터 적용 함수
     const handleApplyFilters = (newFilters) => {
-        setFilters(newFilters);
-        onApplyFilters(newFilters);
+        const updatedFilters = {
+            ...newFilters
+        };
+
+        // 기존 필터 상태와 병합하여 업데이트
+        setFilters(prevFilters => ({
+            ...prevFilters,
+            ...updatedFilters
+        }));
+
+        onApplyFilters(updatedFilters);
     };
 
     return (
@@ -192,7 +199,7 @@ const CustomerReservationList = ({ reservations, onUpdateReservations, isLoading
                 <h3 className={styles.titleText}>
                     <span>예약 내역</span>
                 </h3>
-                <FontAwesomeIcon icon={faSliders} className={styles.filter} onClick={openFilterModal}/>
+                <FontAwesomeIcon icon={faSliders} className={styles.filter} onClick={openFilterModal} />
             </div>
             <div className={styles.infoWrapper} ref={listRef}>
                 <ul className={styles.reservationList}>
@@ -208,15 +215,14 @@ const CustomerReservationList = ({ reservations, onUpdateReservations, isLoading
                                     <div className={styles.imgWrapper}>
                                         <div className={styles.imgBox}>
                                             {reservation.status === 'CANCELED' &&
-                                                <FontAwesomeIcon icon={faCircleXmark} className={styles.canceled}/>}
+                                                <FontAwesomeIcon icon={faCircleXmark} className={styles.canceled} />}
                                             {reservation.status === 'NOSHOW' &&
-                                                <FontAwesomeIcon icon={faCircleXmark} className={styles.noshow}/>}
+                                                <FontAwesomeIcon icon={faCircleXmark} className={styles.noshow} />}
                                             {reservation.status === 'RESERVED' &&
-                                                <FontAwesomeIcon icon={faSpinner} className={styles.loading}/>}
+                                                <FontAwesomeIcon icon={faSpinner} className={styles.loading} />}
                                             {reservation.status === 'PICKEDUP' &&
-                                                <FontAwesomeIcon icon={faCircleCheck} className={styles.done}/>}
-                                            <img src={reservation.storeImg} onError={imgErrorHandler}
-                                                 alt="Store Image"/>
+                                                <FontAwesomeIcon icon={faCircleCheck} className={styles.done} />}
+                                            <img src={reservation.storeImg} onError={imgErrorHandler} alt="Store Image" />
                                         </div>
                                         <span>{reservation.storeName}</span>
                                     </div>
