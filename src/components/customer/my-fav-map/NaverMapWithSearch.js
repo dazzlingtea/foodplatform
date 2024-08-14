@@ -23,6 +23,7 @@ const NaverMapWithSearch = ({type, productDetail}) => {
     const [searchMarker, setSearchMarker] = useState(null);
     const [activeMarker, setActiveMarker] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [inputBorderColor, setInputBorderColor] = useState("#ccc"); // Default border color
 
     const navigate = useNavigate();
 
@@ -59,6 +60,15 @@ const NaverMapWithSearch = ({type, productDetail}) => {
             console.error('Client ID가 설정되지 않았습니다.');
         }
     }, []);
+
+    // Update border color based on searchKeyword value
+    useEffect(() => {
+        if (searchKeyword.includes('00구')) {
+            setInputBorderColor("blue");
+        } else {
+            setInputBorderColor("red");
+        }
+    }, [searchKeyword]);
 
     const initMap = (type) => {
         setLoading(true);
@@ -285,6 +295,10 @@ const NaverMapWithSearch = ({type, productDetail}) => {
             return;
         }
 
+        if (!address.includes('구')) {
+            return alert('검색어에 "구"가 포함되어야 합니다.');
+        }
+
         window.naver.maps.Service.geocode(
             { query: address },
             function (status, response) {
@@ -441,13 +455,15 @@ const NaverMapWithSearch = ({type, productDetail}) => {
                         value={searchKeyword}
                         onChange={(e) => setSearchKeyword(e.target.value)}
                         placeholder="주소 검색"
+                        style={{borderColor: inputBorderColor}} // Set border color dynamically
                         onKeyDown={(e) => {
                             if (e.key === 'Enter') {
                                 searchAddressToCoordinate(searchKeyword);
                             }
                         }}
                     />
-                    <button className={styles.searchBtn} onClick={() => searchAddressToCoordinate(searchKeyword)}>검색</button>
+                    <button className={styles.searchBtn} onClick={() => searchAddressToCoordinate(searchKeyword)}>검색
+                    </button>
                     <button id="addFav" style={{display: 'none'}} onClick={addSearchMarkerToFavorite}>선호 지역으로 추가하기
                     </button>
                     <button id="removeFav" style={{display: 'none'}}
