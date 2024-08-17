@@ -5,19 +5,48 @@ import { faCircleXmark, faCircleCheck, faSpinner, faSliders } from "@fortawesome
 import { useModal } from "../../../pages/common/ModalProvider";
 import {imgErrorHandler} from "../../../utils/error";
 
-const ReservationList = ({ reservations, isLoading, loadMore, hasMore, width, initialFilters, onApplyFilters }) => {
+const BASE_URL = window.location.origin;
+
+const ReservationList = ({ reservations, onUpdateReservations, isLoading, loadMore, hasMore, width, initialFilters, onApplyFilters }) => {
     const { openModal } = useModal();
     const listRef = useRef();
     const [filters, setFilters] = useState(initialFilters || {});
+
+    // 예약 픽업 fetch 함수
+    const completePickup = async (reservationId) => {
+        try {
+            const response = await fetch(`${BASE_URL}/reservation/pickup?reservationId=${reservationId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('픽업에 실패했습니다.');
+            }
+
+            // 예약 목록을 갱신
+            const updatedReservations = reservations.map(reservation =>
+                reservation.reservationId === reservationId ? { ...reservation, status: 'PICKEDUP', pickedUpAtF: new Date().toISOString() } : reservation
+            );
+            onUpdateReservations(updatedReservations);
+        } catch (error) {
+            console.error('Error completing pickup:', error);
+        }
+    };
 
     /**
      * 예약 항목을 클릭했을 때의 핸들러
      */
     const handleReservationClick = async (reservation) => {
         try {
-            openModal('storeReservationDetail', { reservationInfo: reservation });
+            openModal('storeReservationDetail', {
+                reservationInfo: reservation,
+                onPickupConfirm: () => completePickup(reservation.reservationId)  // 픽업 확인 함수 전달
+            });
         } catch (error) {
-            console.error('Error fetching reservation detail:', error);
+            console.error('Error opening modal:', error);
         }
     };
 

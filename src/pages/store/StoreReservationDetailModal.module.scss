@@ -1,3 +1,22 @@
+.btnDes{
+  font-size: 13px;
+  color: rgba(13, 13, 13, 0.68);
+  margin-top: 20px;
+
+}
+.pickupConfirmBtn{
+  justify-content: center;
+  padding: 13px 144px;
+  font-size: 19px;
+  background: rgba(55, 112, 49, 0.58);;
+  border-radius: 15px;
+  color: white;
+  font-weight: 700;
+  margin-top: 5px;
+  border: none;
+  cursor: pointer;
+}
+
 @media (max-width: 400px) {
   .modalWrapper {
 

@@ -255,6 +255,19 @@ const StoreMyPage = () => {
         setHasMore(reservations.length > ITEMS_PER_PAGE);
     };
 
+    // 예약 목록을 업데이트하는 함수
+    const handleUpdateReservations = (updatedReservations) => {
+        setReservations(updatedReservations);
+        // 필터가 적용된 상태라면 필터링된 목록도 업데이트
+        if (isFiltered) {
+            const filtered = updatedReservations.filter(reservation => applyCurrentFilters(reservation, filters));
+            setFilteredReservations(filtered);
+            setDisplayReservations(filtered.slice(0, ITEMS_PER_PAGE));
+        } else {
+            setDisplayReservations(updatedReservations.slice(0, ITEMS_PER_PAGE));
+        }
+    };
+
     return (
         <>
             {width <= 400 && <SideBarBtn onShow={showHandler} />}
@@ -269,6 +282,7 @@ const StoreMyPage = () => {
                     <div className={styles.content}>
                         <ReservationList
                             reservations={displayReservations}
+                            onUpdateReservations={handleUpdateReservations}
                             isLoading={isLoading}
                             loadMore={loadMore}
                             hasMore={hasMore}
