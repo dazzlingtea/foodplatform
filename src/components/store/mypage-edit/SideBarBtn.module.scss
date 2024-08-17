@@ -21,7 +21,7 @@
   right: 0;
   height: var(--bar-hegiht);
   border-radius: calc(var(--bar-hegiht) / 2);
-  background: #fff;
+  background: #06654E;
   color: inherit;
   opacity: 1;
   transition: none 0.35s cubic-bezier(.5,-0.35,.35,1.5) 0s;
@@ -67,7 +67,7 @@
 
 .sidebarBtn {
   position: absolute;
-  top: 28px;
+  top: 13px; // header size에 맞게 수정
   left: 30px;
   background: none;
   border: none;

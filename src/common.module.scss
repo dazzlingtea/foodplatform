@@ -33,7 +33,7 @@ body {
 
 // Header
 header {
-    background-color: #2a6f2b;
+    background-color: #F5F5DD;
     border-bottom-style: solid;
     border-color: #FFF;
     border-width: 2px;
@@ -42,7 +42,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 80px;
+    height: 70px;
 
     .container {
         display: flex;
@@ -90,8 +90,9 @@ header {
 
 // Footer
 footer {
-    height: 400px;
-    background-color: #2a6f2b;
+    height: 1080px;
+    width: 100%;
+    background-color: #F5F5DD;
     color: beige;
     text-align: center;
     padding: 20px 0;

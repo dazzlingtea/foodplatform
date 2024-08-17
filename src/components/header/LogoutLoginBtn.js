@@ -17,6 +17,7 @@ const LogoutLoginBtn = () => {
         await logoutAction(navigate); // 로그아웃 액션 호출
         setIsAuthenticated(false); // 로그아웃 후 인증 상태 업데이트
     };
+
     return (
         <div>
             {isAuthenticated ? (

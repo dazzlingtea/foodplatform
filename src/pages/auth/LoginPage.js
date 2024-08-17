@@ -25,7 +25,6 @@ const LoginPage = () => {
   return (
       <div className={styles['login-page']}>
           <div className={styles.container}>
-            <div className={styles['logo']}>FoodieTree</div>
             <div className={styles['login-section']}>
               {!verificationSent && ( // 이메일 발송 후 사용자 유형 버튼 숨기기
                   <div className={styles['user-type-buttons']}>

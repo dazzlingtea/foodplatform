@@ -1,21 +1,133 @@
+/* 공통 버튼 스타일 */
+button {
+  background: none;  /* 배경색 제거 */
+  border: none;      /* 테두리 제거 */
+  padding: 0;        /* 기본 패딩 제거 */
+  margin: 0;         /* 기본 마진 제거 */
+  outline: none;     /* 포커스 시 나타나는 아웃라인 제거 */
+  cursor: pointer;   /* 클릭 가능한 상태임을 나타내는 커서 */
+}
 
-.logoutButton, .loginButton {
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 16px;
-  position: absolute;
-  right: 30px;
+/* 헤더 스타일 */
+.header {
+  display: flex;
+  justify-content: space-between; /* 양 끝으로 배치 */
+  align-items: center; /* 수직 중앙 정렬 */
+  padding: 0 20px; /* 좌우 패딩 */
+  height: 60px; /* 헤더 높이 */
+}
+
+/* 로고 버튼 */
+.logoBtn {
+  background-image: url("../assets/icon/greenlogo.png");
+  height: 60px;
+  width: 60px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-left: 70px;
+}
+
+/* 현재 위치 버튼 스타일 */
+.locationPinIcon {
+  background-image: url("../assets/icon/location-pin.png");
+  height: 32px;
+  width: 32px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-left: 30px;
+}
+
+/* 텍스트 영역 */
+.areaName {
+  font-size: 18px;
+  margin-left: 5px;
+}
+
+/* 선택된 카테고리 및 버튼 */
+.selectedAreaCategory {
+  font-size: 18px;
+  margin-left: 10px;
+}
+
+.selectedAreaCategoryBtn {
+  background-image: url("../assets/icon/greenwhiteBtn.png");
+  height: 15px;
+  width: 15px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+
+/* 검색창 스타일 */
+.searchStoreSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+  background-color: rgba(6, 101, 78, 0.3);
   border-radius: 50px;
+  height: 40px;
+  margin: 0 auto;
+  position: relative;
+  transition: background-color 0.3s ease; // 검색창 누르면 바뀌는 효과
+  margin-left: 200px;
+
+  input {
+    width: 100%;
+    border-radius: 5px;
+    background: none;
+    border: none;
+    padding-left: 35px;
+    margin-left: 10px;
+    &::placeholder {
+      color: #000000;
+    }
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  .magnifyClickBtn {
+    position: absolute;
+    left: 20px;
+    height: 20px;
+    width: 20px;
+  }
+
+  .magnifyIcon {
+    color: #06654E;
+    height: 20px;
+  }
 }
 
-/* 각각의 버튼에 대한 스타일을 따로 적용하려면 아래와 같이 개별적으로 지정 */
-.logoutButton {
-  background-color: #610e0e;
+/* 로그인 및 회원가입 버튼 */
+.loginBtnSection {
+  display: flex;
+  gap: 10px; /* 버튼 간격 */
 }
 
-.loginButton {
-  background-color: rgb(71, 122, 188);
+.signInBtn, .signUpBtn {
+  font-size: 18px;
+  color: #06654E;
+  &:hover {
+    border-bottom: #06654E solid 1px;
+  }
 }
 
+/* 로그인 및 회원가입 버튼 위치 */
+.signInBtn {
+  margin-left: auto; /* 오른쪽으로 이동 */
+}
+
+.signUpBtn {
+  margin-right: auto; /* 왼쪽으로 이동 */
+}
+
+.dot {
+  margin-top: 5px;
+  margin-left: 10px;
+}
