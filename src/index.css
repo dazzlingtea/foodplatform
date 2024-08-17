@@ -49,3 +49,15 @@ main {
   margin: 2rem auto;
   text-align: center;
 }
+
+.container {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto; /* 중앙 정렬 */
+}
+
+footer {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto; /* 중앙 정렬 */
+}

@@ -2,7 +2,6 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import styles from './LoginForm.module.scss';
-import commonStyles from '../../common.module.scss';
 import _ from "lodash";
 import {checkLoggedIn} from "../../utils/authUtil";
 

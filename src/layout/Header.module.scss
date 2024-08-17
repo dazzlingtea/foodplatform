@@ -11,10 +11,14 @@ button {
 /* 헤더 스타일 */
 .header {
   display: flex;
-  justify-content: space-between; /* 양 끝으로 배치 */
-  align-items: center; /* 수직 중앙 정렬 */
-  padding: 0 20px; /* 좌우 패딩 */
-  height: 60px; /* 헤더 높이 */
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  height: 60px;
+  width: 100%; /* 너비를 100%로 설정 */
+  max-width: 1920px; /* 최대 너비를 1920px로 제한 */
+  margin: 0 auto; /* 중앙 정렬 */
+  background-color: #F5F5DD;
 }
 
 /* 로고 버튼 */
@@ -113,8 +117,12 @@ button {
 .signInBtn, .signUpBtn {
   font-size: 18px;
   color: #06654E;
+  transition: 0.3s ease-in-out;
+  cursor: pointer; /* 커서를 포인터로 변경 */
+
   &:hover {
-    border-bottom: #06654E solid 1px;
+    transform: translate(-10%, -10%);
+    border-bottom: 1px solid #06654e;
   }
 }
 

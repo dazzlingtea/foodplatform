@@ -1,42 +1,64 @@
-
-
 import { jwtDecode } from 'jwt-decode';
-// 로컬스토리지 토큰 가져오기
+
+/** 로컬스토리지에서 토큰 구하기
+ * @returns {string|null}
+ */
 export const getToken = () => {
-    const token = localStorage.getItem('token');
+    return localStorage.getItem('token') || null;
+};
 
-    return token;
-}
-
-// 로컬스토리지 리프레시 토큰 가져오기
+/**로컬스토리지에서 리프레시 토큰 구하기
+ * @returns {string|null}
+ */
 export const getRefreshToken = () => {
-    const refreshToken = localStorage.getItem('refreshToken');
+    return localStorage.getItem('refreshToken') || null;
+};
 
-    return refreshToken;
-}
-
-// 인증 토큰에서 이메일 가져오기
+/** 토큰에서 이메일 구하기
+ * 토큰이 없으면 에러 캐치, null 반환
+ * @returns {string|null}
+ */
 export const getUserEmail = () => {
-    const token = localStorage.getItem('token');
-    const tokenInfo = jwtDecode(token);
-    const userEmail = tokenInfo.sub;
-
-    return userEmail;
+    const token = getToken();
+    if (token) {
+        try {
+            const tokenInfo = jwtDecode(token);
+            return tokenInfo.sub;
+        } catch (error) {
+            console.error('Invalid token:', error);
+            return null;
+        }
+    }
+    return null;
 };
 
-// 인증 토큰에서 role 가져오기
+
+/** 토큰에서 유저 롤 구하기
+ * 토큰이 없으면 에러 캐치, null 반환
+ * @returns {string|null}
+ */
 export const getUserRole = () => {
-    const token = localStorage.getItem('token');
-    const tokenInfo = jwtDecode(token);
-    const userType = tokenInfo.role;
-
-    return userType;
+    const token = getToken();
+    if (token) {
+        try {
+            const tokenInfo = jwtDecode(token);
+            return tokenInfo.role || null;
+        } catch (error) {
+            console.error('Invalid token:', error);
+            return null;
+        }
+    }
+    return null;
 };
-
-// 로컬스토리지에서 닉네임(subName, nickName) 가져오기
+/**
+ * 로컬 스토리지에서 닉네임(subName, nickName) 가져오기
+ * @returns {string|null}
+ */
 export const getSubName = () => {
     const subName = localStorage.getItem("subName");
-
+    if(!subName) {
+        return null;
+    }
     return subName;
 }
 
@@ -50,10 +72,28 @@ export const logoutAction = async (navigate) => {
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('email');
     localStorage.removeItem('userType');
+    localStorage.removeItem('userName');
+    localStorage.removeItem('userImage');
+    sessionStorage.removeItem('userAddress');
     // navigate를 호출하는 것도 비동기 작업으로 상태가 안정적으로 업데이트된 후 호출되도록 합니다.
     await new Promise((resolve) => setTimeout(resolve, 0));
     navigate('/');
 };
+
+/**
+ * delete user data from web browser
+ */
+export const removeLocalStorageData = () => {
+    if (getToken() || getRefreshToken()) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('email');
+        localStorage.removeItem('userType');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userImage');
+        sessionStorage.removeItem('userAddress');
+    }
+}
 
 /**
  * checkAuthToken
@@ -66,7 +106,8 @@ export const logoutAction = async (navigate) => {
 export const checkAuthToken = async (navigate) => {
     const token = localStorage.getItem("token");
     const refreshToken = localStorage.getItem("refreshToken");
-    if (!token) {
+    if (!token || !refreshToken) {
+        removeLocalStorageData();
         alert("로그인이 필요한 서비스입니다.");
         navigate('/sign-in');
         return null;
@@ -156,7 +197,7 @@ export const authFetch = async (url, req) => {
 }
 
 
-// 이메일 토큰 판별
+// 인증 이메일 url 토큰 판별
 export const verifyTokenLoader = async ({ request }) => {
     const url = new URL(request.url);
     const token = url.searchParams.get('token');
