@@ -9,6 +9,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import MyInfo from "../components/header/MyInfo";
 import {getCurrentLocation, initializeNaverMapsForHeader, reverseGeocode} from "../utils/locationUtil";
 import SidebarModal from "../components/header/SidebarModal";
+import SearchInput from "../components/search/SearchInput";
 
 // 아이콘을 라이브러리에 추가
 library.add(faMagnifyingGlass);
@@ -84,16 +85,15 @@ const Header = () => {
 
 
             {/* 상점 검색 칸 */}
-            <form className={styles.searchStoreSection}>
-                <button className={styles.magnifyClickBtn}>
-                    <FontAwesomeIcon icon="magnifying-glass" className={styles.magnifyIcon}/>
-                </button>
-                <input
-                    type="text"
-                    placeholder="여기에 음식점 혹은 위치를 검색해보세요."
-                />
-                {getToken() && <SearchInput/>}
-            </form>
+            {
+                getToken() &&
+                <div className={styles.searchStoreSection}>
+                    <button className={styles.magnifyClickBtn}>
+                        <FontAwesomeIcon icon="magnifying-glass" className={styles.magnifyIcon}/>
+                    </button>
+                    <SearchInput/>
+                </div>
+            }
 
             {/* 로그인 및 회원가입 버튼 */}
             <div className={styles.loginBtnSection}>
@@ -112,4 +112,5 @@ const Header = () => {
 </header>
     );
 }
+
 export default Header;

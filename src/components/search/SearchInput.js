@@ -1,8 +1,5 @@
 import React, {useEffect, useRef} from 'react';
 import {useNavigate, useSearchParams} from "react-router-dom";
-import styles from "./SearchInput.module.scss";
-import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {checkAuthFn} from "../../utils/authUtil";
 
 const SearchInput = () => {
@@ -25,12 +22,8 @@ const SearchInput = () => {
     }
 
     return (
-        <div className={styles["input-box"]}>
-            <div>
-                <button onClick={onClickHandler}><FontAwesomeIcon icon={faMagnifyingGlass} /></button>
-                <input ref={inputRef} type="text" onKeyUp={onKeyHandler}/>
-            </div>
-        </div>
+            <input ref={inputRef} type="text" onKeyUp={onKeyHandler} placeholder="여기에 음식점 혹은 위치를 검색해보세요." />
+
     );
 };
 
