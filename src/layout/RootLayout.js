@@ -19,7 +19,7 @@ const RootLayout = () => {
     }, []);
 
     // footer 숨길 경로
-    const hideFooterRoutes = ['/store', '/customer'];
+    const hideFooterRoutes = ['/store', '/customer', '/search'];
 
     // 현재 경로가 hideFooterRoutes 중 하나로 시작 && 화면이 모바일 상태이면 true
     const shouldHideFooter = hideFooterRoutes.some(route => location.pathname.startsWith(route)) && isMobile;

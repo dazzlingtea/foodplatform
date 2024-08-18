@@ -238,3 +238,11 @@ export const verifyTokenLoader = async ({ request }) => {
     throw new Error('Token is missing or invalid');
 };
 
+export const checkAuthFn = (callback, navigate) => {
+    if (getToken()) {
+        callback();
+    } else {
+        alert("로그인이 필요한 서비스 입니다.");
+        navigate("/sign-in");
+    }
+}

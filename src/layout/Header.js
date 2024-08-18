@@ -92,6 +92,7 @@ const Header = () => {
                     type="text"
                     placeholder="여기에 음식점 혹은 위치를 검색해보세요."
                 />
+                {getToken() && <SearchInput/>}
             </form>
 
             {/* 로그인 및 회원가입 버튼 */}
@@ -111,5 +112,4 @@ const Header = () => {
 </header>
     );
 }
-
 export default Header;

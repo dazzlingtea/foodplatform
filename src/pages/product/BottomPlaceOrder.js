@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { createReservation } from './ProductReservation';
 
-const BottomPlaceOrder = ({ productDetail, initialCount, handleIncrease, handleDecrease, remainProduct, closeModal }) => {
+const BottomPlaceOrder = ({ productDetail, initialCount, handleIncrease, handleDecrease, remainProduct, closeModal, cntHandler }) => {
   const storeId = productDetail.storeInfo?.storeId || '';
   const customerId = 'test@gmail.com';
 
@@ -17,6 +17,7 @@ const BottomPlaceOrder = ({ productDetail, initialCount, handleIncrease, handleD
     try {
       const response = await createReservation(customerId, storeId, initialCount);
       console.log('예약 처리 응답:', response);
+      cntHandler(storeId, initialCount);
       alert('예약이 완료되었습니다!');
       closeModal();
     } catch (error) {

@@ -6,7 +6,7 @@ import ProductDetail from './ProductDetail';
 import PaymentBox from './PaymentBox';
 import BottomPlaceOrder from './BottomPlaceOrder';
 
-const ProductDetailModal = ({productDetail, onClose}) => {
+const ProductDetailModal = ({productDetail, onClose, setStoreListHandler}) => {
     const {closeModal} = useModal();
 
     const [initialCount, setInitialCount] = useState(1);
@@ -79,6 +79,7 @@ const ProductDetailModal = ({productDetail, onClose}) => {
                     handleDecrease={handleDecrease}
                     remainProduct={productCnt}
                     closeModal={closeModal}
+                    cntHandler={setStoreListHandler}
                 />
             </section>
             {!isMobile && (
