@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.nmfw.foodietree.domain.notification.service.NotificationService;
+import org.nmfw.foodietree.domain.product.entity.Product;
 import org.nmfw.foodietree.domain.product.repository.ProductRepository;
 import org.nmfw.foodietree.domain.reservation.dto.resp.PaymentIdDto;
 import org.nmfw.foodietree.domain.reservation.dto.resp.PaymentResponseDto;
@@ -24,6 +26,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.LocalDateTime;
 
+import static org.nmfw.foodietree.domain.auth.security.TokenProvider.*;
+
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +37,8 @@ public class ReservationService {
     private final ReservationMapper reservationMapper;
     private final ReservationRepository reservationRepository;
     private final ProductRepository productRepository;
+    private final NotificationService notificationService;
+
     @Value("${env.payment.api.url}")
     private String apiUrl;
     @Value("${env.payment.api.key}")
@@ -43,13 +49,14 @@ public class ReservationService {
      * @param reservationId 취소할 예약의 ID
      * @return 취소가 완료되었는지 여부
      */
-    public boolean cancelReservation(long reservationId) {
+    public boolean cancelReservation(long reservationId, TokenUserInfo userInfo) {
         Reservation reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new RuntimeException("예약 내역이 존재하지 않습니다."));
 
         // 취소한 적이 없으면 취소
         if(reservation.getCancelReservationAt() == null) {
             reservation.setCancelReservationAt(LocalDateTime.now());
+            notificationService.sendCancelReservationAlert(reservation);
             return true;
         }
         // 이미 픽업했거나, 노쇼인 경우를 확인하지 않아도 되는지?
@@ -149,7 +156,6 @@ public class ReservationService {
 
         List<ReservationFoundStoreIdDto> list = reservationRepository.findByStoreIdLimit(storeId, cnt);
         if (list.isEmpty()) return false;
-
         List<Reservation> collect = list.stream()
             .map(e -> Reservation.builder()
                 .productId(e.getProductId())
@@ -158,6 +164,7 @@ public class ReservationService {
                 .build())
             .collect(Collectors.toList());
         reservationRepository.saveAll(collect);
+        notificationService.sendCreatedReservationAlert(customerId, data);
 		return true;
 	}
 
