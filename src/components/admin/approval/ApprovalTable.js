@@ -1,13 +1,12 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {
-  flexRender,
   getCoreRowModel,
-  getFilteredRowModel, getPaginationRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
   getSortedRowModel,
   useReactTable
 } from "@tanstack/react-table";
 import FiltersInTable from "./FiltersInTable";
-import {BiSortAlt2, BiSortDown, BiSortUp} from "react-icons/bi";
 import styles from "./ApprovalTables.module.scss";
 import {ApprovalColumns} from "./ApprovalColumns";
 import DateRangePicker from "./DateRangePicker";
@@ -67,22 +66,17 @@ const ApprovalTable = () => {
     setData(DATA.approvals);
     setStats(() => DATA.stats);
   }
-  const onFetch = ({result}) => {
-    const {status, ids} = result;
+  const onFetch = (payload) => {
+    const {actionType, approvalIdList} = payload;
+    const status = actionType === 'APPROVED' ? '승인' : '거절'
     setData(prevData => {
-      const idsToUpdate = new Set(ids);
-
-      // result.status를 모든 data에 적용
-      const updatedData = prevData.map(item => {
+      const idsToUpdate = new Set(approvalIdList);
+      return prevData.map(item => {
         if (idsToUpdate.has(item.id)) {
-          // id가 ids에 있는 경우 status를 업데이트
-          return { ...item, status: status };
+          return {...item, status: status};
         }
-        // id가 ids에 없는 경우 원래의 데이터 유지
         return item;
       });
-      console.log('onFetch updatedData', updatedData)
-      return updatedData;
     });
   }
 

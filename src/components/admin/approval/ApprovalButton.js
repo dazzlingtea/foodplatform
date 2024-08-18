@@ -33,19 +33,14 @@ const ApprovalButton = ({rows, data, onFetch}) => {
     const isConfirm = window.confirm(
       ` ✅ 요청: ${actionType === 'APPROVED' ? '스토어 등록 승인' : '스토어 등록 거절'} \n ✅ 선택한 행의 갯수: ${rowsLength}`);
 
-    if (!isConfirm) {
-      return;
-    }
-
+    if (!isConfirm) { return; }
+    let payload;
     const fetchApproveStatus = async () => {
 
-      const payload = {
+      payload = {
         actionType,
         approvalIdList,
       }
-      // const token = localStorage.getItem('token');
-      // const refreshToken = localStorage.getItem('refreshToken');
-
       const res = await fetch(ADMIN_URL + '/approve', {
         method: 'POST',
         headers: {
@@ -57,16 +52,12 @@ const ApprovalButton = ({rows, data, onFetch}) => {
       })
       // 200 외 상태코드 처리 필요
       alert(` ✅ 요청: 스토어 등록 ${actionType === 'APPROVED' ? '승인' : '거절'} \n ✅ 처리 여부: ${res.ok ? '성공' : await res.text()}`)
-      if (!res.ok) {
-        return null;
-      }
+      if (!res.ok) { return null; }
       return await res.json();
     }
     const result = await fetchApproveStatus();
-    console.log('action result', result)
-    // result { status: '승인', ids: [1,5,6,...] }
     if (result) {
-      onFetch(result); // 데이터 상태 업데이트
+      onFetch(payload); // 데이터 상태 업데이트
     }
   }
 

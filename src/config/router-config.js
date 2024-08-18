@@ -25,6 +25,7 @@ import NaverMapWithSearch from "../components/customer/my-fav-map/NaverMapWithSe
 import Main from "../pages/Main";
 import Search from "../pages/search/Search";
 
+
 const homeRouter = [
     {
         index: true,
@@ -118,7 +119,7 @@ export const router = createBrowserRouter([
             {
                 path: '/admin',
                 element: <AdminPage/>,
-            }
+            },
         ]
     },
 ]);
