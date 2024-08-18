@@ -35,10 +35,13 @@ const PhoneNumber = ({phone}) => {
     return (
         <>
             <div className={styles["input-wrapper"]}>
-                <div className={styles.icon}><FontAwesomeIcon icon={faPhone}/></div>
+                <div>
+                    <div className={styles.icon}><FontAwesomeIcon icon={faPhone}/></div>
+                    <span>전화번호</span>
+                </div>
                 <div>
                     <input min="1" ref={inputRef} defaultValue={phone}/>
-                    <FontAwesomeIcon onClick={clickHandler} icon={faSquareCheck}/>
+                    <FontAwesomeIcon className={styles["font-i"]} onClick={clickHandler} icon={faSquareCheck}/>
                 </div>
             </div>
             { err &&

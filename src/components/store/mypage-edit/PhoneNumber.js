@@ -33,11 +33,13 @@ const PhoneNumber = ({value}) => {
     return (
         <>
             <div className={styles["input-wrapper"]}>
-                <div className={styles.icon}><FontAwesomeIcon icon={faPhone}/></div>
                 <div>
-                    <span>가게 전화번호</span>
+                    <div className={styles.icon}><FontAwesomeIcon icon={faPhone}/></div>
+                    <span>전화번호</span>
+                </div>
+                <div>
                     <input id="business-number-input" min="1" ref={inputRef} defaultValue={value}/>
-                    <FontAwesomeIcon onClick={clickHandler} icon={faSquareCheck}/>
+                    <FontAwesomeIcon className={styles["font-i"]} onClick={clickHandler} icon={faSquareCheck}/>
                 </div>
             </div>
             { err &&

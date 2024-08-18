@@ -35,7 +35,8 @@
 
 .edit-wrapper {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: flex-start;
   border: 1px solid rgba(204, 204, 204, 0.83);
   border-top: none;
   border-radius: 0 0 15px 15px;
@@ -70,20 +71,34 @@
 }
 
 .input-area {
-  width: 100%;
+  width: 430px;
   margin-left: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   padding: 15px 0 30px 0;
+  margin-right: 40px;
   .input-wrapper {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     font-size: 18px;
     padding-bottom: 15px;
     padding-top: 15px;
-    .icon {
-      margin-right: 10px;
+    div {
+      display: flex;
+      align-items: center;
+      .icon {
+        margin-right: 10px;
+      }
+      span {
+        margin-right: 10px;
+      }
+    }
+    .font-i {
+      margin-left: 10px;
+      color: #4caf50;
+      cursor: pointer;
     }
   }
 }
@@ -133,7 +148,13 @@
   border: solid 1px #e3e9ed;
   background-color: #fff;
   box-sizing: border-box;
-  margin-bottom: 20px;
+  overflow-x: auto;
+  li {
+    margin-right: 17px;
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .img-box {
@@ -163,10 +184,20 @@
     .edit-wrapper {
       flex-direction: column-reverse;
       align-items: center;
+      justify-content: space-between;
     }
   }
   .img-box {
     width: 80px;
     height: 80px;
+  }
+  .input-area {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    .input-wrapper {
+      font-size: 15px;
+      justify-content: space-between;
+    }
   }
 }

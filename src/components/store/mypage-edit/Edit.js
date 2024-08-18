@@ -1,14 +1,12 @@
 import styles from './Edit.module.scss'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faUser, faClock, faPhone, faDollarSign, faKey, faPenToSquare} from "@fortawesome/free-solid-svg-icons";
-import {faSquareCheck} from "@fortawesome/free-regular-svg-icons";
+import {faUser} from "@fortawesome/free-solid-svg-icons";
 import ProfileImgBtn from "./ProfileImgBtn";
 import PickUpStart from "./PickUpStart";
 import PickUpEnd from "./PickUpEnd";
 import ProductCount from "./ProductCount";
 import PhoneNumber from "./PhoneNumber";
 import ProductPrice from "./ProductPrice";
-import PasswordReset from "./PasswordReset";
 import {useEffect, useState} from "react";
 import {STORE_URL} from "../../../config/host-config";
 import {authFetch} from "../../../utils/authUtil";
@@ -42,13 +40,17 @@ const Edit = () => {
                 <div className={styles['edit-wrapper']}>
                     <div className={styles["input-area"]}>
                         <div className={styles["input-wrapper"]}>
-                            <div className={styles.icon}><FontAwesomeIcon icon={faUser}/></div>
-                            <span>상호명</span>
+                            <div>
+                                <div className={styles.icon}><FontAwesomeIcon icon={faUser}/></div>
+                                <span>상호명</span>
+                            </div>
                             <div id="store-name-mypage-edit">{data.storeName}</div>
                         </div>
                         <div className={styles["input-wrapper"]}>
-                            <div className={styles.icon}><FontAwesomeIcon icon={faUser}/></div>
-                            <span>이메일</span>
+                            <div>
+                                <div className={styles.icon}><FontAwesomeIcon icon={faUser}/></div>
+                                <span>이메일</span>
+                            </div>
                             <span id="store-id-mypage-edit">{data.storeId}</span>
                         </div>
                         <PickUpStart value={data.openAt}/>

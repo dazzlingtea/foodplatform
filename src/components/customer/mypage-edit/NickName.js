@@ -36,10 +36,13 @@ const NickName = ({name}) => {
     return (
         <>
             <div className={styles["input-wrapper"]}>
-                <div className={styles.icon}><FontAwesomeIcon icon={faUser}/></div>
+                <div>
+                    <div className={styles.icon}><FontAwesomeIcon icon={faUser}/></div>
+                    <span>닉네임</span>
+                </div>
                 <div>
                     <input min="1" ref={inputRef} defaultValue={name}/>
-                    <FontAwesomeIcon onClick={clickHandler} icon={faSquareCheck}/>
+                    <FontAwesomeIcon className={styles["font-i"]} onClick={clickHandler} icon={faSquareCheck}/>
                 </div>
             </div>
             {err &&

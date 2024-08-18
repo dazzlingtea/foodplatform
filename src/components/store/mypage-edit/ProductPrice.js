@@ -37,16 +37,20 @@ const ProductPrice = ({value}) => {
     }
     return (
         <div className={styles["input-wrapper"]}>
-            <div className={styles.icon}>
-                <FontAwesomeIcon icon={faDollarSign}/>
+            <div>
+                <div className={styles.icon}>
+                    <FontAwesomeIcon icon={faDollarSign}/>
+                </div>
+                <span>스페셜박스 가격</span>
             </div>
-            <span>스페셜박스 가격</span>
-            <select id="price" ref={selectRef} value={selected || value} onChange={changeHandler}>
-                <option value="3900">3900</option>
-                <option value="5900">5900</option>
-                <option value="7900">7900</option>
-            </select>
-            <FontAwesomeIcon onClick={clickHandler} icon={faSquareCheck}/>
+            <div>
+                <select id="price" ref={selectRef} value={selected || value} onChange={changeHandler}>
+                    <option value="3900">3900</option>
+                    <option value="5900">5900</option>
+                    <option value="7900">7900</option>
+                </select>
+                <FontAwesomeIcon className={styles["font-i"]} onClick={clickHandler} icon={faSquareCheck}/>
+            </div>
             { err &&
                 <b style={{color: "red"}}></b>
             }

@@ -33,11 +33,13 @@ const ProductCount = ({value}) => {
     return (
         <>
             <div className={styles["input-wrapper"]}>
-                <div className={styles.icon}><FontAwesomeIcon icon={faUser}/></div>
                 <div>
+                    <div className={styles.icon}><FontAwesomeIcon icon={faUser}/></div>
                     <span>기본 수량 값</span>
+                </div>
+                <div>
                     <input type={"number"} min={1} ref={inputRef} defaultValue={value}/>
-                    <FontAwesomeIcon onClick={clickHandler} icon={faSquareCheck}/>
+                    <FontAwesomeIcon className={styles["font-i"]} onClick={clickHandler} icon={faSquareCheck}/>
                 </div>
             </div>
             {err &&

@@ -30,11 +30,13 @@ const PickUpEnd = ({ value }) => {
     }
     return (
         <div className={styles["input-wrapper"]}>
-            <div className={styles.icon}><FontAwesomeIcon icon={faClock}/></div>
             <div>
+                <div className={styles.icon}><FontAwesomeIcon icon={faClock}/></div>
                 <span>픽업 마감 시간</span>
+            </div>
+            <div>
                 <input type={"time"} ref={inputRef} defaultValue={value}/>
-                <FontAwesomeIcon onClick={clickHandler} icon={faSquareCheck}/>
+                <FontAwesomeIcon className={styles["font-i"]} onClick={clickHandler} icon={faSquareCheck}/>
             </div>
         </div>
     );

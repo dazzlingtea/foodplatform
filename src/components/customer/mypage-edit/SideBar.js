@@ -43,11 +43,11 @@ const SideBar = ({isShow}) => {
                     </li>
                 </ul>
                 <div className={styles.stats}>
-                    <div id="carbon" >
+                    <div className={styles['stat-box']} id="carbon" >
                         <img src="/assets/img/mypage-carbon.png" alt="leaf"/>
                         <div>{stats.coTwo}kg의 이산화탄소 배출을 줄였습니다</div>
                     </div>
-                    <div id="community">
+                    <div className={styles['stat-box']} id="community">
                         <img src="/assets/img/mypage-pigbank.png" alt="community"/>
                         <div>지금까지 {stats.money}원을 아꼈어요</div>
                     </div>

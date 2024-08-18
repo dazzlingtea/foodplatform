@@ -3,37 +3,57 @@ import styles from "./ProfileImgBtn.module.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPenToSquare} from "@fortawesome/free-solid-svg-icons";
 import {STORE_URL} from "../../../config/host-config";
-import {imgErrorHandler} from "../../../utils/error";
+import {DEFAULT_IMG, imgErrorHandler} from "../../../utils/error";
 import {authFetch} from "../../../utils/authUtil";
 
 const ProfileImgBtn = ({value}) => {
     const inputRef = useRef();
     const [img, setImg] = useState( null);
+    const [isShow, setIsShow] = useState(false);
+    const [file, setFile] = useState(null);
 
     const openFileHandler = () => {
         inputRef.current.click();
     }
 
     const onChangeHandler = () => {
-        const target = URL.createObjectURL(inputRef.current.files[0]);
-        setImg(target);
+        const selected = inputRef.current.files[0];
+        if (selected) {
+            setFile(selected);
+            setIsShow(true);
+        } else {
+            setFile(null);
+            setIsShow(false);
+        }
     }
 
     const onClickHandler = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append('storeImg', inputRef.current.files[0]);
+        formData.append('storeImg', file);
         const response = await authFetch(STORE_URL + '/edit/img', {
             method: 'POST',
             body: formData
         });
         if (response.ok) {
-            alert("가게 이미지가 성공적으로 업데이트 되었습니다.");
+            alert("프로필 이미지가 성공적으로 업데이트 되었습니다.");
+            setIsShow(false);
         } else {
             const errMsg = await response.text();
             alert(errMsg);
         }
     }
+
+    useEffect(() => {
+        if (file) {
+            const target = URL.createObjectURL(inputRef.current.files[0]);
+            setImg(target);
+            return () => URL.revokeObjectURL(target);
+        } else {
+            setImg(null);
+            setIsShow(false);
+        }
+    }, [file]);
 
     return (
         <div id="store-mypage-image-edit" className={styles["image-wrapper"]}>
@@ -49,12 +69,14 @@ const ProfileImgBtn = ({value}) => {
             <a onClick={openFileHandler} className={styles.avatar}>
                 <FontAwesomeIcon className={styles.i} icon={faPenToSquare}/>
                 <img
-                    src={img || value}
+                    src={img || (value || DEFAULT_IMG)}
                     alt="Customer profile image"
                     onError={imgErrorHandler}
                 />
             </a>
-            <button onClick={onClickHandler}>이미지 변경</button>
+            {
+                isShow && <button className={styles.btn} onClick={onClickHandler}>이미지 변경</button>
+            }
         </div>
     );
 };

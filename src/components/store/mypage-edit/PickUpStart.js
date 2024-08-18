@@ -32,11 +32,13 @@ const PickUpStart = ({value}) => {
     return (
         <>
             <div className={styles["input-wrapper"]}>
-                <div className={styles.icon}><FontAwesomeIcon icon={faClock}/></div>
                 <div>
+                    <div className={styles.icon}><FontAwesomeIcon icon={faClock}/></div>
                     <span>픽업 시작 시간</span>
+                </div>
+                <div>
                     <input type={"time"} ref={inputRef} defaultValue={value}/>
-                    <FontAwesomeIcon onClick={clickHandler} icon={faSquareCheck}/>
+                    <FontAwesomeIcon className={styles["font-i"]} onClick={clickHandler} icon={faSquareCheck}/>
                     {err &&
                         <b id="error-message" style={{color: "red"}}>
                             픽업 시작 시간은 픽업 마감 시간보다 늦을 수 없습니다.

@@ -40,12 +40,12 @@ li {
   justify-content: center;
   font-size: 21px;
   text-align: center;
-  width: 335px;
+  width: 100%;
   margin-right: 10px;
 }
 
 .nav-link {
-  width: 335px;
+  width: 100%;
   padding-top: .6rem;
   padding-bottom: .6rem;
   border-radius: .75rem;
@@ -53,8 +53,10 @@ li {
   display: flex;
   justify-content: center;
   text-align: center;
-  &:hover {
-    background-color: rgb(224, 238, 224);
+  @media (hover:hover) and (pointer: fine) {
+    &:hover {
+      background-color: rgb(224, 238, 224);
+    }
   }
 }
 
@@ -65,7 +67,7 @@ li {
   margin-top: 20px;
   flex-direction: column;
 
-  div {
+  div.stat-box {
     padding: 20px;
     width: 100%;
     margin-bottom: 10px;
@@ -74,17 +76,22 @@ li {
     border-radius: 15px;
     margin-top: 20px;
 
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 13px rgba(0, 0, 0, 0.2);
-      font-size: 19px;
+    @media (hover:hover) and (pointer: fine) {
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 13px rgba(0, 0, 0, 0.2);
+        font-size: 19px;
+      }
     }
     div {
+      padding: 20px;
+      width: 100%;
+      margin-bottom: 10px;
+      text-align: center;
+      border-radius: 15px;
+      margin-top: 20px;
       font-size: 16px;
-      /*box-shadow: 0 4px 2px rgba(0, 0, 0, 0.1);*/
       background: linear-gradient(135deg, #fdfcfc, #f1f8ee);
-      /*border: 2px solid #d4f593;*/
-      margin-top: 10px;
     }
   }
 }
@@ -101,5 +108,8 @@ li {
     &.on {
       left: 0;
     }
+  }
+  .stats {
+    margin-bottom: 90px;
   }
 }
