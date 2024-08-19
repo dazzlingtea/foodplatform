@@ -69,8 +69,9 @@ const homeRouter = [
         path: '/reviewForm',
         element: <ReviewForm />,
     },
+    {
         path: '/search',
-        element: <Search/>
+        element: <Search/>,
     }
 ];
 const customerMyPageRouter = [
