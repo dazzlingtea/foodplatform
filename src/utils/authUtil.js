@@ -48,7 +48,7 @@ export const getUserRole = () => {
             return null;
         }
     }
-    return null;
+    return token;
 };
 /**
  * 로컬 스토리지에서 닉네임(subName, nickName) 가져오기
@@ -60,6 +60,25 @@ export const getSubName = () => {
         return null;
     }
     return subName;
+}
+
+export const getUserAddress = () => {
+    const userAddress = sessionStorage.getItem("userAddress");
+    if(!userAddress) {
+        return "(새로고침 하여 위치를 불러와 주세요)";
+    }
+    return userAddress;
+}
+
+export const extractArea = () => {
+    const address = getUserAddress();
+
+    // 패턴: '시'와 '구', '동', '읍', '면' 단어가 포함된 곳까지 매칭
+    const regex = /([가-힣]+시)?\s*([가-힣]+(구|동|읍|면))/;
+    const match = address.match(regex);
+
+    // 매칭된 시, 구, 동, 읍, 면이 있으면 반환, 없으면 전체 주소 반환
+    return match ? match[0].trim() : address;
 }
 
 /**

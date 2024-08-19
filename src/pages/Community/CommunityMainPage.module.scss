@@ -1,0 +1,219 @@
+.container {
+  background-color: #f5f5f5;
+}
+
+.highSection {
+  text-align: center;
+  margin-bottom: 40px;
+  height: 300px;
+  background-color: #F0FFE1;
+}
+
+.highSection h1 {
+  color: #383838;
+  font-size: 40px;
+  font-weight: 500;
+  position: relative;
+  top: 80px;
+  right: 440px;
+}
+
+.highSection h2 {
+  color: #383838;
+  font-size: 40px;
+  font-weight: 500;
+  position: relative;
+  top: 30px;
+  right: 180px;
+}
+
+.highSection strong {
+  color: #383838;
+  font-size: 52px;
+  font-weight: 900;
+  position: relative;
+  top: 70px;
+  right: 430px;
+}
+
+.highSection .highlights {
+  background-color: #AFD485;
+  position: relative;
+  width: 260px;
+  height: 30px;
+  left: 400px;
+  top: 110px;
+
+}
+
+.treePlanting {
+  width: 900px;
+  max-width: 1200px;
+  height: 600px;
+  padding: 20px;
+  box-sizing: border-box;
+  margin: 30px auto; /* Center the section */
+}
+
+.treePlanting h2 {
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  margin-top: 50px;
+  width: 100%;
+  text-align: left;
+}
+
+.seoulMap {
+  position: relative;
+  bottom: 20px;
+  width: 500px;
+  height: 500px;
+  background-image: url("../../assets/commutiny-img/seoulmap.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+.treeInfo {
+  display: flex;
+  justify-content: center;
+  width: 300px;
+  position: relative;
+  bottom: 400px;
+  left: 480px;
+}
+
+.mapImage {
+  width: 250px;
+  height: auto;
+}
+
+.treeStats {
+  display: flex;
+  flex-direction: column;
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.statNumber {
+  font-size: 50px;
+  color: #4caf50;
+  margin-right: 5px;
+}
+
+.statLabel {
+  font-size: 30px;
+  color: #666;
+}
+
+.latestReviews {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 900px;
+  margin: 30px auto; /* Center the section */
+}
+
+.latestReviews h3 {
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  margin-top: 50px;
+  width: 100%;
+  text-align: left;
+}
+
+.reviewGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  max-width: 900px;
+  width: 100%;
+  justify-items: center;
+}
+
+.reviewItem {
+  background-color: #e0e0e0;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  height: 250px;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.reviewItem:nth-child(odd) {
+  align-items: flex-end;
+}
+
+.reviewItem:nth-child(even) {
+  align-items: flex-start;
+}
+
+.viewMoreButton {
+  font-size: 18px;
+  font-weight: 500;
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #50B498;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 900px;
+}
+
+.writeReview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 900px;
+  margin: 30px auto; /* Center the section */
+}
+
+.writeReview h3 {
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  margin-top: 50px;
+  width: 100%;
+  text-align: left;
+}
+
+.reviewBox {
+  background-color: #CCF5D2;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 100%;
+  max-width: 900px;
+  height: 500px;
+  margin-bottom: 50px;
+}
+
+.writeReviewButton {
+  font-size: 18px;
+  font-weight: 500;
+  display: inline-block;
+  margin-top: 370px;
+  padding: 10px 20px;
+  background-color: #50B498;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}

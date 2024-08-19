@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getToken, getRefreshToken } from '../utils/authUtil';
+import {getToken, getRefreshToken, extractArea} from '../utils/authUtil';
 import styles from './Header.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SideBarBtn from "../components/store/mypage-edit/SideBarBtn";
@@ -44,7 +44,7 @@ const Header = () => {
                 })
                 .catch(error => {
                     console.error('위치 정보 또는 주소 변환 오류:', error);
-                    setAddress('주소 변환 실패');
+                    setAddress('위치를 가져오는데 실패했습니다.');
                 });
         };
 
@@ -67,6 +67,11 @@ const Header = () => {
         setModalVisible(prev => !prev);
     };
 
+    const handleClick = () => {
+        navigate('/reviewMain');
+    }
+
+    let userArea = extractArea();
 
     return (
         <header className={styles.header}>
@@ -78,13 +83,14 @@ const Header = () => {
 
             {/* 현재 위치 */}
             <div className={styles.locationPinIcon}></div>
-            <div className={styles.areaName}>{address}</div>
+            <div className={styles.areaName}>{userArea}</div>
             <div className={styles.dot}>・</div>
             <div className={styles.selectedAreaCategory}>Now</div>
             <div className={styles.selectedAreaCategoryBtn}></div>
 
 
             {/* 상점 검색 칸 */}
+            {/*로그인을 하지 않아도 검색칸은 보이되, 로그인이 필요한 서비스 안내하기*/}
             {
                 getToken() &&
                 <div className={styles.searchStoreSection}>
@@ -94,6 +100,10 @@ const Header = () => {
                     <SearchInput/>
                 </div>
             }
+
+            {/*리뷰 커뮤니티 메인*/}
+            <div className={styles.reviewMainIcon} onClick={handleClick}></div>
+
 
             {/* 로그인 및 회원가입 버튼 */}
             <div className={styles.loginBtnSection}>

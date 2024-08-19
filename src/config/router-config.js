@@ -25,6 +25,7 @@ import NaverMapWithSearch from "../components/customer/my-fav-map/NaverMapWithSe
 import Main from "../pages/Main";
 import CommunityReviewPage from "../pages/Community/CommunityPage";
 import ReviewForm from "../pages/Community/ReviwForm";
+import CommunityMainPage from "../pages/Community/CommunityMainPage";
 import Search from "../pages/search/Search";
 
 const homeRouter = [
@@ -68,6 +69,10 @@ const homeRouter = [
     {
         path: '/reviewForm',
         element: <ReviewForm />,
+    },
+    {
+        path: '/reviewMain',
+        element: <CommunityMainPage />,
     },
     {
         path: '/search',
