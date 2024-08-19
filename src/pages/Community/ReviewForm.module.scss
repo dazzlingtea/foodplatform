@@ -1,0 +1,200 @@
+.reviewCard {
+    max-width: 800px;
+    margin: 50px auto;
+    background: #fff;
+    border-radius: 15px;
+}
+
+.title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.reviewForm {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+}
+
+// 별점 기능
+.formGroup {
+    width: 100%;
+    margin-bottom: 30px;
+    text-align: center;
+    overflow: hidden; 
+}
+
+.label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.input,
+.textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    background: #f9f9f9;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.input:focus,
+.textarea:focus {
+    background: #fff;
+    border-color: #3b8c75;
+    outline: none;
+}
+
+.textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.fileInput {
+    display: block;
+    margin-top: 10px;
+}
+
+.previewImage {
+    margin-top: 20px;
+    width: 500px; 
+    height: 500px; 
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    display: block;
+    margin-left: auto;
+}
+
+.submitButton {
+    display: inline-block;
+    width: 100%;
+    padding: 12px;
+    background-color: #50B498;
+    color: #fff;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.submitButton:hover {
+    background-color: #3b8c75;
+}
+
+.title {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-align: left;
+    font-size: 18px;
+}
+
+
+/* 가게 정보 */
+.formStoreInfo {
+    display: flex;
+    align-items: center; 
+    margin-bottom: 20px;
+    text-align: left;
+    width: 100%; 
+    justify-content: flex-start;
+    border: 1px solid #d0d0d0;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.storeImage {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.storeDetails {
+    display: flex;
+    flex-direction: column;
+}
+
+.storeName {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    padding: 3px 0;
+}
+
+.storeVisit {
+    font-size: 16px;
+    color: #555;
+}
+
+/* 키워드 선택 영역 */
+.keywordSection {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.keywordContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.keyword {
+    display: inline-block;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.selectedKeyword {
+    border-color: #28a745; 
+    background-color: #eaf9e6;
+    color: #28a745; 
+}
+
+@media (max-width: 600px) {
+    .reviewCard {
+        padding: 15px;
+    }
+
+    .input,
+    .textarea {
+        font-size: 14px;
+    }
+
+    .previewImage {
+        width: 100%;
+        height: auto;
+    }
+
+    .submitButton {
+        font-size: 16px;
+    }
+
+    .storeImage {
+        width: 50px;
+        height: 50px;
+    }
+
+    .storeName {
+        font-size: 20px;
+    }
+
+    .storeVisit {
+        font-size: 16px; 
+    }
+    .reviewCard {
+        margin: 10px auto;
+    }
+}
