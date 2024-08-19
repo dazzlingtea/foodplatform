@@ -27,6 +27,8 @@ import CommunityReviewPage from "../pages/Community/CommunityPage";
 import ReviewForm from "../pages/Community/ReviwForm";
 import CommunityMainPage from "../pages/Community/CommunityMainPage";
 import Search from "../pages/search/Search";
+import ProtectedRouter from "../pages/auth/ProtectedRouter";
+import CustomerMyPageOutlet from "../pages/customer/CustomerMyPageOutlet";
 
 const homeRouter = [
     {
@@ -123,17 +125,30 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/store',
-                element: <StoreMyPageOutlet/>,
+                element: (
+                    <ProtectedRouter>
+                        <StoreMyPageOutlet/>
+                    </ProtectedRouter>
+                ),
                 children: storeRouter
             },
             {
                 path: '/customer',
+                element: (
+                    <ProtectedRouter>
+                        <CustomerMyPageOutlet/>
+                    </ProtectedRouter>
+                ),
                 children: customerMyPageRouter
             },
             {
                 path: '/admin',
-                element: <AdminPage/>,
-            },
+                element: (
+                    <ProtectedRouter>
+                        <AdminPage/>
+                    </ProtectedRouter>
+                )
+            }
         ]
     },
 ]);
