@@ -1,3 +1,8 @@
+.reviewForm{
+    width: 100%;
+    background: #fff;
+}
+
 .reviewCard {
     max-width: 800px;
     margin: 50px auto;
@@ -67,7 +72,7 @@
     border-radius: 10px;
     border: 1px solid #ddd;
     display: block;
-    margin-left: auto;
+    margin: 0 auto;
 }
 
 .submitButton {
