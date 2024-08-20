@@ -28,32 +28,40 @@ const LoginPage = () => {
             <div className={styles['login-section']}>
               {!verificationSent && ( // 이메일 발송 후 사용자 유형 버튼 숨기기
                   <div className={styles['user-type-buttons']}>
-                    <button
-                        className={`${styles['user-type-button']} ${
-                            userType === 'customer' ? styles.active : ''
-                        }`}
-                        onClick={() => handleUserTypeChange('customer')}
-                    >
-                      Customer
-                    </button>
-                    <button
-                        className={`${styles['user-type-button']} ${
-                            userType === 'store' ? styles.active : ''
-                        }`}
-                        onClick={() => handleUserTypeChange('store')}
-                    >
-                      Store
-                    </button>
+                      <button
+                          className={`${styles['user-type-button']} ${
+                              userType === 'customer' ? styles.active : ''
+                          }`}
+                          onClick={() => handleUserTypeChange('customer')}
+                      >
+                          Customer
+                      </button>
+                      <button
+                          className={`${styles['user-type-button']} ${
+                              userType === 'store' ? styles.active : ''
+                          }`}
+                          onClick={() => handleUserTypeChange('store')}
+                      >
+                          Store
+                      </button>
+                      <button
+                          className={`${styles['user-type-button']} ${
+                              userType === 'admin' ? styles.active : ''
+                          }`}
+                          onClick={() => handleUserTypeChange('admin')}
+                      >
+                          Admin
+                      </button>
                   </div>
               )}
-              <LoginForm
-                  userType={userType}
+                <LoginForm
+                    userType={userType}
 
-                  onResendEmail={handleResendEmail}
-                  onVerificationSent={handleVerificationSent}
-                  verificationSent={verificationSent} // verificationSent 상태 전달
-              />
-             <div className={'sub-wrapper'}>
+                    onResendEmail={handleResendEmail}
+                    onVerificationSent={handleVerificationSent}
+                    verificationSent={verificationSent} // verificationSent 상태 전달
+                />
+                <div className={'sub-wrapper'}>
               <Link className={styles['sub-sign-up']} to="/sign-up">
                 sign up 🌱
                 </Link>

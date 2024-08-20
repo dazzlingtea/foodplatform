@@ -31,6 +31,26 @@ const SignUpForm = ({ userType, onVerificationSent }) => {
     return emailRegex.test(email);
   };
 
+    //admin : customer 테이블에 저장되지만, role은 admin으로 저장됨
+    const checkAdminDupId = async (email) => {
+        try {
+            const response = await fetch(`/email/check?email=${email}`);
+            const result = await response.json();
+            if (!result) {
+                console.log(`입력하신 이메일 [ ${email} ] 은 admin 회원이 아닙니다.`);
+                setIsExistingUser(false);
+                return true;
+            } else {
+                console.error(`입력하신 이메일 [ ${email} ] 은 admin 회원입니다.`);
+                setIsExistingUser(true);
+                return false;
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            return false;
+        }
+    };
+
   //customer
   // 새로운 아이디 -> 중복검사 후 no -> 회원가입하기로 유도
   const checkCustomerDupId = async (email) => {
@@ -79,6 +99,8 @@ const checkDupId = async (email) => {
       return await checkCustomerDupId(email);
     case 'store':
       return await checkStoreDupId(email);
+      case 'admin' :
+          return await checkAdminDupId(email);
     default:
       return false;
   }
@@ -99,7 +121,7 @@ const sendVerificationLinkForSignUp = async (email) => {
           }),
       });
       if (response.ok) {
-          console.log('이메일이 성공적으로 전달되었습니다.',userType,email);
+          console.log('이메일이 성공적으로 전달되었습니다. usertype, email 확인하기 : ',userType,email);
           return true;
       } else {
           console.error('Failed to send verification link');

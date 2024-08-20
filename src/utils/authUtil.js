@@ -136,6 +136,10 @@ export const checkAuthToken = async (navigate) => {
     const userType = tokenInfo.role;
     const email = tokenInfo.sub;
 
+    console.log(tokenInfo);
+    console.log(userType);
+    console.log(email);
+
     return {token, refreshToken, userType, email};
 }
 

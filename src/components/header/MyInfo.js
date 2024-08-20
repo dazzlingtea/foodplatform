@@ -31,6 +31,8 @@ const MyInfo = () => {
                         localStorage.setItem('userImage', data.productImg);
                     } else if (getUserRole() === 'customer') {
                         localStorage.setItem('userImage', data.profileImage);
+                    } else if (getUserRole() === 'store') {
+                        localStorage.setItem('userImage', data.profileImage);
                     }
 
                     // 닉네임이 null 일 경우 저장하지 않음
@@ -85,6 +87,18 @@ const MyInfo = () => {
                             className={styles.profileImage}
                             onClick={() => handleIconClick("/customer")}
                         />
+                    </>
+                ) : getUserRole() === 'admin' ? (
+                    <>
+                        {/* Admin 아이콘과 프로필 이미지 */}
+
+                        <img
+                            src={userInfo.profileImage}
+                            alt="Customer Profile"
+                            className={styles.profileImage}
+                            onClick={() => handleIconClick("/customer")}
+                        />
+                        <span className={styles.admin}>ADMIN</span>
                     </>
                 ) : null}
             </div>
