@@ -34,3 +34,8 @@
   font-size: 12px;
 }
 
+@media (max-width: 400px) {
+  .myInfo, .myIconContainer {
+    display: none;
+  }
+}
