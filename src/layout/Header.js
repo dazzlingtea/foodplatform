@@ -82,11 +82,11 @@ const Header = () => {
             <div className={styles.logoBtn}></div>
 
             {/* 현재 위치 */}
-            <div className={styles.locationPinIcon}></div>
+            {/* <div className={styles.locationPinIcon}></div>
             <div className={styles.areaName}>{userArea}</div>
             <div className={styles.dot}>・</div>
             <div className={styles.selectedAreaCategory}>Now</div>
-            <div className={styles.selectedAreaCategoryBtn}></div>
+            <div className={styles.selectedAreaCategoryBtn}></div> */}
 
 
             {/* 상점 검색 칸 */}

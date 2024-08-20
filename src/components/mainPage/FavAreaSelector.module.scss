@@ -1,68 +1,70 @@
-// FavAreaSelector.module.scss
-
 .container {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  background: rgba(245, 245, 221, 0.8);
+  width: 250px;
+  position: absolute;
+  left: 180px;
+  top: 12px;
+}
+
+.title {
+  font-size: 13px;
+  font-weight: bold;
+  color: #333;
+  text-align: left;
+  cursor: pointer;
+}
+
+.areaList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.areaList.expanded {
+  max-height: 500px; /* 충분히 큰 값으로 설정 */
+  opacity: 1;
+}
+
+.areaItem {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+
+  &:last-child {
+    border-bottom: none;
   }
-  
-  .title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #333;
+
+  &:hover {
+    background-color: #f1f1f1;
   }
-  
-  .areaList {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .areaItem {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-    cursor: pointer;
-  
-    &:last-child {
-      border-bottom: none;
-    }
-  
-    &:hover {
-      background-color: #f1f1f1;
-    }
-  }
-  
-  .favoriteButton {
-    font-size: 1.2rem;
-    margin-right: 10px;
-    background: none;
-    border: none;
-    color: #f39c12;
-    cursor: pointer;
-    transition: color 0.3s ease;
-  
-    &.favorited {
-      color: #e74c3c;
-    }
-  
-    &:hover {
-      color: #e74c3c;
-    }
-  }
-  
-  .areaName {
-    font-size: 1rem;
-    font-weight: normal;
-    color: #555;
-    margin-right: 5px;
-  }
-  
-  .areaAlias {
-    font-size: 0.9rem;
-    color: #888;
-  }
-  
+}
+
+.areaName {
+  font-size: 12px;
+  font-weight: normal;
+  color: #555;
+  margin-right: 5px;
+}
+
+.areaAlias {
+  font-size: 10px;
+  font-weight: bold;
+  color: rgb(68, 132, 68);
+}
+
+// @media (max-width: 400px) {
+//   .container {
+//     // background: rgba(253, 253, 90, 0.8);
+//     background: rgba(245, 245, 221, 0.8);
+//     width: 210px;
+//     left: 25px;
+//     top: 12px;
+//   }
+// }

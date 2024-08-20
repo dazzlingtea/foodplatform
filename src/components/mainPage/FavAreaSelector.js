@@ -98,20 +98,18 @@ const FavAreaSelector = ({ onAreaSelect }) => {
       <h2 className={styles.title} onClick={handleToggle}>
         <FontAwesomeIcon icon={faLocationDot} /> {selectedAreaDetails ? selectedAreaDetails.preferredArea : '현재 등록된 주소'} {isExpanded ? '▲' : '▼'}
       </h2>
-      {isExpanded && (
-        <ul className={styles.areaList}>
-          {areas.map((area) => (
-            <li
-              key={area.id}
-              className={styles.areaItem}
-              onClick={() => handleAreaClick(area)}
-            >
-              <span className={styles.areaName}>{area.preferredArea}</span>
-              {area.alias && <span className={styles.areaAlias}>({area.alias})</span>}
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul className={`${styles.areaList} ${isExpanded ? styles.expanded : ''}`}>
+        {areas.map((area) => (
+          <li
+            key={area.id}
+            className={styles.areaItem}
+            onClick={() => handleAreaClick(area)}
+          >
+            <span className={styles.areaName}>{area.preferredArea}</span>
+            {area.alias && <span className={styles.areaAlias}>({area.alias})</span>}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
