@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.nmfw.foodietree.domain.auth.security.TokenProvider;
 import org.nmfw.foodietree.domain.notification.service.NotificationService;
 import org.nmfw.foodietree.domain.product.entity.Product;
 import org.nmfw.foodietree.domain.product.repository.ProductRepository;
@@ -19,6 +20,7 @@ import org.nmfw.foodietree.domain.reservation.entity.ReservationStatus;
 import org.nmfw.foodietree.domain.reservation.entity.value.PaymentStatus;
 import org.nmfw.foodietree.domain.reservation.mapper.ReservationMapper;
 import org.nmfw.foodietree.domain.reservation.repository.ReservationRepository;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,18 +28,16 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.LocalDateTime;
 
-import static org.nmfw.foodietree.domain.auth.security.TokenProvider.*;
-
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 @Transactional
 public class ReservationService {
-    private final ReservationMapper reservationMapper;
     private final ReservationRepository reservationRepository;
-    private final ProductRepository productRepository;
     private final NotificationService notificationService;
+    private final TaskScheduler taskScheduler;
+    private final ProductRepository productRepository;
 
     @Value("${env.payment.api.url}")
     private String apiUrl;
@@ -49,7 +49,7 @@ public class ReservationService {
      * @param reservationId 취소할 예약의 ID
      * @return 취소가 완료되었는지 여부
      */
-    public boolean cancelReservation(long reservationId, TokenUserInfo userInfo) {
+    public boolean cancelReservation(long reservationId) {
         Reservation reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new RuntimeException("예약 내역이 존재하지 않습니다."));
 
@@ -70,20 +70,14 @@ public class ReservationService {
      */
     public boolean completePickup(long reservationId) {
 
-//        ReservationDetailDto reservation = reservationRepository.findReservationByReservationId(reservationId);
-//        if(reservation == null) throw new RuntimeException("예약내역을 찾울 수 없습니다.");
-//
-//        // 취소시간, 픽업시간이 있는 경우 false
-//        ReservationStatus status = determinePickUpStatus(reservation);
-//        if(status == ReservationStatus.RESERVED) {
-//            reservationRepository.completePickup(reservationId);
-//            return true;
-//        }
         Reservation reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new RuntimeException("예약 내역이 존재하지 않습니다."));
 
         if(reservation.getPickedUpAt() == null) {
             reservation.setPickedUpAt(LocalDateTime.now());
+            reservationRepository.save(reservation);
+            // 30분 후에 리뷰 권유 알림을 보내는 작업을 예약
+            scheduleReviewRequest(reservation);
             return true;
         }
 
@@ -213,5 +207,17 @@ public class ReservationService {
             }
         }
         return PaymentStatus.INCONSISTENCY;
+    }
+
+    /**
+     * 픽업 완료 30분 후 리뷰알림 발송 예약
+     * @param reservation - 픽업 완료 된 예약 엔터티 -> ReservationDetailDto로 변경해도 될지?
+     */
+    private void scheduleReviewRequest(Reservation reservation) {
+//        LocalDateTime targetTime = LocalDateTime.now().plusMinutes(30);
+        LocalDateTime targetTime = LocalDateTime.now().plusMinutes(1);
+        ZoneId zoneId = ZoneId.of("Asia/Seoul");
+        Date targetDate = Date.from(targetTime.atZone(zoneId).toInstant());
+        taskScheduler.schedule(() -> notificationService.sendReviewRequest(reservation), targetDate);
     }
 }
