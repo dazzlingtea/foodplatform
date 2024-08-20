@@ -4,7 +4,7 @@ import { faCircleUser, faStore } from "@fortawesome/free-solid-svg-icons";
 import styles from "./MyInfo.module.scss";
 import { useNavigate } from "react-router-dom";
 import {getRefreshToken, getSubName, getToken, getUserRole} from "../../utils/authUtil";
-import Notification from "../socket/Notification";
+import Notification from "../notification/Notification";
 
 // 내 정보 들어가기
 const MyInfo = () => {

@@ -37,7 +37,7 @@ const ReservationBtn = ({ tar : {remainProduct, productDetail, initialCount }}) 
         const paymentId = response.paymentId;
 
         try {
-            const response = await authFetch(`/reservation/create-reservation`, {
+            const response = await authFetch(`/reservation`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -45,6 +45,7 @@ const ReservationBtn = ({ tar : {remainProduct, productDetail, initialCount }}) 
                 body: JSON.stringify({
                     storeId: storeId,
                     cnt: `${initialCount}`,
+                    storeName: productDetail.storeInfo.storeName,
                     paymentId
                 }),
             });

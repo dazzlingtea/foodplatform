@@ -8,6 +8,7 @@ $table-width: 1580px;
   padding: 20px 10px;
   border-radius: 20px;
   font-family: $font-pretendard;
+  background: #FFFFFF;
   //overflow: auto;
 
   .table-interaction {
@@ -74,7 +75,7 @@ $table-width: 1580px;
           }
           &:hover {
             color: #fff;
-            background: #10da72;
+            background: #50B498;
             box-shadow: 0 2px 8px -1px rgba(#151924, .22);
           }
         }
