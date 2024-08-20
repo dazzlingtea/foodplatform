@@ -99,6 +99,16 @@ const ReviewForm = ({ onSubmit, reservationId, customerId, storeImg }) => {
   };
 
   return (
+<>
+      {/* 가게 정보 섹션
+         <div className={styles.formStoreInfo}>
+          <img src={storeImage} alt={storeName} className={styles.storeImage} />
+          <div className={styles.storeDetails}>
+            <div className={styles.storeName}>{storeName}</div>
+            <div className={styles.storeVisit}>에 방문했군요!</div>
+          </div>
+        </div> */}
+
     <div className={styles.reviewForm}>
     <div className={styles.reviewCard}>
       <form className={styles.reviewForm} onSubmit={handleSubmit}>
@@ -162,6 +172,7 @@ const ReviewForm = ({ onSubmit, reservationId, customerId, storeImg }) => {
       </form>
     </div>
     </div>
+</>
   );
 };
 
