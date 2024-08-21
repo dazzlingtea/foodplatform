@@ -1,18 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styles from "./CustomerReservationDetailModal.module.scss";
 import {useModal} from "../common/ModalProvider";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {DEFAULT_IMG, imgErrorHandler} from "../../utils/error";
-
 const CustomerReservationDetailModal = ({reservationDetail, onPickupConfirm}) => {
     const {closeModal} = useModal();
-
+    const navigate = useNavigate();
     const handleConfirmPickUp = () => {
         onPickupConfirm(reservationDetail.id); // props로 받아온 함수 실행
         alert('픽업이 확인되었습니다. 감사합니다.');
         closeModal();
         // 추후 리뷰 기능 추가 가능
     };
+
+    const issuePageHandler = () => {
+        closeModal();
+        navigate('/customer/issue' ,{ state: { reservationDetail} });
+    }
 
     let tag = '';
     switch (reservationDetail.status) {
@@ -111,7 +115,7 @@ const CustomerReservationDetailModal = ({reservationDetail, onPickupConfirm}) =>
                     </>
                     : <></>}
 
-                <div className={styles.needHelp}>도움이 필요하신가요?</div>
+                <div onClick={issuePageHandler} className={styles.needHelp}>도움이 필요하신가요?</div>
                 {/* 추후 추가될 기능 문의하기 버튼 */}
             </div>
         </>

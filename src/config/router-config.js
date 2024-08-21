@@ -23,6 +23,9 @@ import MyFavMap from "../components/customer/my-fav-map/MyFavMap";
 import AdminPage from "../pages/AdminPage";
 import NaverMapWithSearch from "../components/customer/my-fav-map/NaverMapWithSearch";
 import Main from "../pages/Main";
+import ChatComponent from "../components/admin/issue/ChatComponent";
+import IssueSection from "../components/admin/issue/IssueSection";
+import CustomerIssuePage from "../pages/customer/CustomerIssuePage";
 import CommunityReviewPage from "../pages/Community/CommunityPage";
 import ReviewForm from "../pages/Community/ReviwForm";
 import CommunityMainPage from "../pages/Community/CommunityMainPage";
@@ -89,6 +92,10 @@ const customerMyPageRouter = [
     {
         path: 'edit',
         element: <CustomerMyPageEdit/>
+    },
+    {
+        path: 'issue',
+        element: <CustomerIssuePage/>
     }
 ];
 
@@ -111,6 +118,17 @@ const storeRouter = [
         element: <ProductRegisterForm/>,
     }
 ]
+
+const adminRouter = [
+    {
+        index: true,
+        element: <AdminPage/>
+    },
+    {
+        path: 'issue',
+        element: <IssueSection/>
+    }
+];
 
 export const router = createBrowserRouter([
     {
@@ -147,7 +165,15 @@ export const router = createBrowserRouter([
                     <ProtectedRouter>
                         <AdminPage/>
                     </ProtectedRouter>
-                )
+                ),
+            },
+            {
+                path: '/admin/issue',
+                element: (
+                    <ProtectedRouter>
+                        <IssueSection/>
+                    </ProtectedRouter>
+                ),
             }
         ]
     },

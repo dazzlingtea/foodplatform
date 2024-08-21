@@ -39,6 +39,7 @@
         cursor: pointer;
         padding-right: 13px;
 
+
         .closeBtn{
           position: sticky;
           z-index: 3;
@@ -57,6 +58,12 @@
           }
         }
       }
+
+      .customerSupportTitle{
+        padding-right: 0;
+        margin: auto;
+      }
+
     }
 
     .modalInnerContent {

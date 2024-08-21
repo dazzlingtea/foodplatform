@@ -1,0 +1,236 @@
+.chatContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+
+  .chatBoxBody {
+    flex-grow: 1; /* 가변 영역 */
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #f1f1f1;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+
+    .message{
+      max-width: 364px;
+    }
+
+    .chatImage{
+      max-width: 190px;
+      max-height: 190px;
+    }
+
+  }
+
+  .chatBoxFooter {
+    background-color: #f8f9fa;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0; /* 고정 */
+    border-top: 1px solid #ccc;
+    justify-content: space-between;
+
+    .inputContainer{
+      display: flex;
+      justify-content: space-between;
+
+
+      .fileUpload {
+        display: flex;
+        align-items: center;
+
+        .uploadLabel {
+          display: inline-block;
+          cursor: pointer;
+          position: relative;
+          width: 40px;
+          height: 40px;
+          background-color: #ddd;
+          border-radius: 50%;
+          text-align: center;
+          line-height: 40px;
+          font-size: 24px;
+          font-weight: bold;
+          margin-right: 8px;
+
+          .plusButton {
+            font-size: 24px;
+            color: #555;
+          }
+
+          .fileInput {
+            display: none;
+          }
+        }
+      }
+
+      .messageInput{
+        height: 50px;
+        flex-grow: 1;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-right: 8px;
+        font-size: 17px;
+      }
+
+
+    }
+      .imagePreviewContainer{
+        display: flex;
+        flex-wrap: wrap;
+        margin: 10px auto auto;
+
+        .previewImage {
+          width: 50px;
+          height: 50px;
+          object-fit: cover;
+          margin-right: 5px;
+          margin-bottom: 5px;
+          border-radius: 5px;
+        }
+      }
+
+
+  }
+
+  .chatButtonBox{
+      position: absolute;
+      bottom: 25px;
+      left: 100px;
+      display: flex;
+      width: 60%;
+      justify-content: space-evenly;
+  }
+
+
+  .quitChatBtn{
+    color: #4b4a4f;
+    font-size: 15px;
+  }
+
+
+
+  .chatTitle{
+    margin-top: 77px;
+    font-size: 19px;
+    font-weight: 600;
+  }
+
+  .categorySelection{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 45%;
+    justify-content: space-evenly;
+
+    .categoryBtn{
+      padding: 16px 10px;
+      width: 49%;
+      background-color: #a6caf3;
+      color: #1f1d1f;
+      font-size: 16px;
+    }
+
+    .categoryBtn:hover{
+      background-color: #007bff;
+      color: white;
+    }
+
+  }
+}
+
+.chatBoxHeader {
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  flex-shrink: 0; /* 고정 */
+}
+
+
+
+
+.chatBoxFooter input {
+  height: 50px;
+  flex-grow: 1;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-right: 8px;
+  font-size: 17px;
+}
+
+.chatBoxFooter button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+
+
+.myMessage {
+  background-color: #d1e7dd;
+  text-align: right;
+  float: right;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  width: fit-content;
+}
+
+.otherMessage {
+  background-color: #f8d7da;
+  text-align: left;
+  float: left;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  width: fit-content;
+}
+input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #ccc;
+}
+
+
+
+
+
+@media (max-width: 400px){
+    .chatContainer {
+
+      .chatTitle{
+        margin-top: 27px;
+      }
+
+      .categorySelection{
+        height: 90%;
+
+        .categoryBtn{
+        width: 80%;
+        }
+      }
+    }
+}
+

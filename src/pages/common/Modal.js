@@ -4,7 +4,6 @@ import {useModal} from "./ModalProvider";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMinus, faTimes} from "@fortawesome/free-solid-svg-icons";
 import ReactDOM from "react-dom";
-import BottomPlaceOrder from "../product/BottomPlaceOrder";
 
 // 동적 import => 필요한 시점에만 로드 가능 (성능 개선)
 const EmailVerificationModal = lazy(() => import("./EmailVerificationModal"));
@@ -19,11 +18,15 @@ const CustomerReservationFilterModal = lazy(() => import("../customer/CustomerRe
 const StoreReservationFilterModal = lazy(() => import("../store/StoreReservationFilterModal"));
 const AddFavFoodModal = lazy(() => import("../customer/modal/AddFavFoodModal"));
 const MyFavAreaEditModal = lazy(() => import("../customer/FavAreaEditModal"));
+const CustomerIssueChattingModal = lazy(() => import("../../components/customer/issue/CustomerIssueChattingModal"));
+const AdminIssueChattingModal = lazy(() => import("../../components/admin/issue/AdminIssueChattingModal"));
+const AdminIssueReviewModal = lazy(() => import("../../components/admin/issue/AdminIssueReviewModal"));
 
 const Modal = () => {
     const {modalState, closeModal} = useModal();
     const {isOpen, type, props} = modalState;
     const [customStyle, setCustomStyle] = useState({width: '100%'});
+    const [customInnerContentStyle, setCustomInnerContentStyle] = useState({}); // 추가
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 400); // 추가
 
     useEffect(() => {
@@ -40,6 +43,13 @@ const Modal = () => {
                 } else {
                     setCustomStyle({width: '750px'});
                 }
+            } else if (type === 'customerIssueChatting' || type === 'adminIssueChatting') {
+                if(window.innerWidth <= 400) {
+                    setCustomStyle({bottom: '0px', left: '0px', height: '70%', padding: '0'})
+                }else{
+                    setCustomStyle({bottom: '172px', left: '308px', height: '70%'})
+                }
+                setCustomInnerContentStyle({height: '764px', marginBottom: '50px', padding: '0'})
             } else {
                 setCustomStyle({});
             }
@@ -108,11 +118,25 @@ const Modal = () => {
         case 'addFavFood':
             ModalComponent = AddFavFoodModal;
             break;
+        case 'customerIssueChatting':
+            ModalComponent = CustomerIssueChattingModal;
+            break;
+        case 'adminIssueChatting':
+            ModalComponent = AdminIssueChattingModal;
+            break;
+        case 'adminIssueReview':
+            ModalComponent = AdminIssueReviewModal;
+            break;
         default:
             ModalComponent = null;
     }
 
     const handleClose = (e) => {
+
+        if (type === 'customerIssueChatting' || type === 'adminIssueChatting') {
+            alert("채팅방에서 나가시려면 '나가기' 버튼을 눌러주세요.");
+            return;
+        }
         if (e.target === e.currentTarget) {
             closeModal();
         }
@@ -120,12 +144,16 @@ const Modal = () => {
 
     return ReactDOM.createPortal(
         <div className={styles.modal} onClick={handleClose}>
-            <div className={styles.modalContent} style={type === 'productDetail' || 'favAreaEdit' ? customStyle : {}}
+            <div className={styles.modalContent}
+                 style={type === 'productDetail' || 'favAreaEdit' || 'customerIssueChatting' || 'adminIssueChatting' ? customStyle : {}}
                  onClick={(e) => e.stopPropagation()}>
                 <div className={styles.close}>
-                    <span><FontAwesomeIcon className={styles.closeBtn} onClick={closeModal} icon={faTimes}/></span>
+                    {((type === 'customerIssueChatting') || (type === 'adminIssueChatting')) ?
+                        <span className={styles.customerSupportTitle}>customer support</span> :
+                        <span><FontAwesomeIcon className={styles.closeBtn} onClick={closeModal} icon={faTimes}/></span>}
                 </div>
-                <div className={styles.modalInnerContent}>
+                <div className={styles.modalInnerContent}
+                     style={(type === 'customerIssueChatting' || 'adminIssueChatting') ? customInnerContentStyle : {}}>
                     {ModalComponent && (
                         <Suspense fallback={<div>Loading...</div>}>
                             <ModalComponent {...props}/>
@@ -133,16 +161,6 @@ const Modal = () => {
                     )}
                 </div>
                 <div className={styles.modalFooter}>
-                    {/*{type === 'productDetail' && isMobile && (*/}
-                    {/*    <BottomPlaceOrder*/}
-                    {/*        makeReservation={props.makeReservation}*/}
-                    {/*        productDetail={props.productDetail}*/}
-                    {/*        initialCount={props.initialCount}*/}
-                    {/*        handleIncrease={props.handleIncrease}*/}
-                    {/*        handleDecrease={props.handleDecrease}*/}
-                    {/*        remainProduct={props.productDetail?.storeInfo?.remainProduct || 0}*/}
-                    {/*    />*/}
-                    {/*)}*/}
                 </div>
             </div>
         </div>,
