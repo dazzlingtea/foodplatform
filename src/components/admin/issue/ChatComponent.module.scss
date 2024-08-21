@@ -4,6 +4,21 @@
   height: 100%;
   overflow: hidden;
 
+
+  button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+  }
+
+  button:disabled {
+    background-color: #ccc;
+  }
+
+
   .chatBoxBody {
     flex-grow: 1; /* 가변 영역 */
     overflow-y: auto;
@@ -193,26 +208,6 @@
   border-radius: 10px;
   width: fit-content;
 }
-input[type="text"] {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-button {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 5px;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-}
-
-button:disabled {
-  background-color: #ccc;
-}
-
 
 
 
