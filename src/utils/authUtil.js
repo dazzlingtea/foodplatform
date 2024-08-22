@@ -179,6 +179,8 @@ export const checkLoggedIn = (navigate, currentPath) => {
                 navigate('/store');
             } else if (userType === 'customer') {
                 navigate('/customer');
+            } else if (userType === 'admin') {
+                navigate('/admin');
             }
             return;
         }
@@ -189,6 +191,9 @@ export const checkLoggedIn = (navigate, currentPath) => {
         } else if (userType === 'customer') {
             alert(`안녕하세요 ${email}님! 이미 로그인되어 있어 ${userType} 마이페이지로 이동합니다.`);
             navigate('/customer');
+        } else if (userType === 'admin') {
+            alert(`안녕하세요 ${email}님! 이미 로그인되어 있어 ${userType} 관리자 페이지로 이동합니다.`);
+            navigate('/admin');
         }
     } catch (error) {
         console.error('Invalid token:', error);
