@@ -16,6 +16,8 @@ function VerifyToken() {
         if (userType === 'store') {
           redirectPath = '/store/approval'; // store approve 가 없는 경우
           if (storeApprove) redirectPath = '/store' // store approve가 있는 경우
+        } else if (userType === 'admin') {
+          redirectPath = '/admin';
         } else {
           redirectPath = '/main';
         }
