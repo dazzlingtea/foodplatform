@@ -96,7 +96,7 @@ const MyInfo = () => {
                             src={userInfo.profileImage}
                             alt="Customer Profile"
                             className={styles.profileImage}
-                            onClick={() => handleIconClick("/customer")}
+                            onClick={() => handleIconClick("/admin")}
                         />
                         <span className={styles.admin}>ADMIN</span>
                     </>
