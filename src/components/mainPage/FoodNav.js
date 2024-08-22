@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { useModal } from "../../pages/common/ModalProvider";
 import styles from "./FoodNav.module.scss";
+import Skeleton from "./Skeleton";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './slick-theme.css';
@@ -138,21 +139,38 @@ const FoodNav = ({ selectedCategory, stores }) => {
   const [selectedArea, setSelectedArea] = useState(null);
   const [myFavoriteAndOrderStores, setMyFavoriteAndOrderStores] = useState([]);
   const [recommendedStores, setRecommendedStores] = useState([]);
+  const [loading, setLoading] = useState(true);  // 로딩 상태 추가
+
   const [randomRecommendedStores, setRandomRecommendedStores] = useState([]);
+
   const { openModal } = useModal();
 
-  // customerId값
   const customerId = getUserEmail();
 
   useEffect(() => {
     if (customerId) {
-      fetchFavorites(customerId, setFavorites);
-      fetchFavoriteAndOrderStores(customerId, setMyFavoriteAndOrderStores);
-      fetchRecommendedStores(customerId, setRecommendedStores);
+      // 데이터 불러오기 시작 전에 로딩 상태 설정
+      const fetchData = async () => {
+        try {
+          await Promise.all([
+            fetchFavorites(customerId, setFavorites),
+            fetchFavoriteAndOrderStores(customerId, setMyFavoriteAndOrderStores),
+            fetchRecommendedStores(customerId, setRecommendedStores)
+          ]);
+        } catch (error) {
+          console.error('⚠️Error fetching data:', error);
+        } finally {
+          // 데이터가 로드된 후 최소 1.5초 동안 스켈레톤 유지
+          setTimeout(() => setLoading(false), 1500);
+        }
+      };
+
+      fetchData();
     }
   }, [customerId]);
 
   useEffect(() => {
+
   // store 정보
   console.log('Stores:', stores);
   // 선택된 area 정보
@@ -169,6 +187,7 @@ const FoodNav = ({ selectedCategory, stores }) => {
   useEffect(() => {
     if (selectedArea !== null) {
       // 선택된 지역에 맞는 모든 가게 필터링
+
       const newFilteredStores = stores.filter(store => {
         const address = store.address || '';
         return address.includes(selectedArea);
@@ -231,6 +250,11 @@ const filteredRecommendedStores = recommendedStores.filter(store => {
     ],
   });
 
+  // 로딩 상태일 때 Skeleton 컴포넌트 렌더링
+  if (loading) {
+    return <Skeleton count={4} init={true} />;
+  }
+
   return (
     <>
       <FavAreaSelector onAreaSelect={setSelectedArea} />
@@ -249,18 +273,20 @@ const filteredRecommendedStores = recommendedStores.filter(store => {
                 className={`${styles.heartIcon} ${favorites[store.storeId] ? styles.favorited : styles.notFavorited}`} 
                 onClick={(e) => {
                   e.stopPropagation();
-                  handleFavoriteClick(store.storeId);
-                }}
+                    handleFavoriteClick(store.storeId);
+                  }}
               >
                 <FontAwesomeIcon 
                   icon={favorites[store.storeId] ? faHeartSolid : faHeartRegular} 
                 />
               </div>
               <img src={store.storeImg || DEFAULT_IMG} alt={store.storeName} onError={imgErrorHandler}/>
+
               {store.productCnt === 0 && <div className={styles.overlay}>SOLD OUT</div>}
               <p className={styles.storeName}>{store.storeName}</p>
+
               <span className={styles.storePrice}>{store.price}</span>
-              <span className={styles.productCnt}>수량 : {store.productCnt}</span>
+              <span className={styles.productCnt}>(수량 {store.productCnt})</span>
             </div>
           ))}
         </Slider>
@@ -291,7 +317,7 @@ const filteredRecommendedStores = recommendedStores.filter(store => {
               {store.productCnt === 0 && <div className={styles.overlay}>SOLD OUT</div>}
               <p className={styles.storeName}>{store.storeName}</p>
               <span className={styles.storePrice}>{store.price}</span>
-              <span className={styles.productCnt}>수량 : {store.productCnt}</span>
+              <span className={styles.productCnt}>(수량 {store.productCnt})</span>
             </div>
           ))}
         </Slider>
@@ -311,13 +337,14 @@ const filteredRecommendedStores = recommendedStores.filter(store => {
                 className={`${styles.heartIcon} ${favorites[store.storeId] ? styles.favorited : styles.notFavorited}`} 
                 onClick={(e) => {
                   e.stopPropagation();
-                  handleFavoriteClick(store.storeId);
-                }}
+                    handleFavoriteClick(store.storeId);
+                  }}
               >
                 <FontAwesomeIcon 
                   icon={favorites[store.storeId] ? faHeartSolid : faHeartRegular} 
                 />
               </div>
+
               <img src={store.storeImg || DEFAULT_IMG} alt={store.storeName} onError={imgErrorHandler}/>
               {store.productCnt === 0 && <div className={styles.overlay}>SOLD OUT</div>}
               <p className={styles.storeName}>{store.storeName}</p>
@@ -342,8 +369,8 @@ const filteredRecommendedStores = recommendedStores.filter(store => {
                 className={`${styles.heartIcon} ${favorites[store.storeId] ? styles.favorited : styles.notFavorited}`} 
                 onClick={(e) => {
                   e.stopPropagation();
-                  handleFavoriteClick(store.storeId);
-                }}
+                    handleFavoriteClick(store.storeId);
+                  }}
               >
                 <FontAwesomeIcon 
                   icon={favorites[store.storeId] ? faHeartSolid : faHeartRegular} 
@@ -351,10 +378,12 @@ const filteredRecommendedStores = recommendedStores.filter(store => {
               </div>
               <img src={store.storeImg || DEFAULT_IMG} alt={store.storeName} className={styles.image} onError={imgErrorHandler} />
               <span className={styles.category}>{extractFoodType(store.category)}</span>
-              <p className={styles.storeName}>{store.storeName}</p>
+                <p className={styles.storeName}>{store.storeName}</p>
               <span className={styles.storePrice}>{store.price}</span>
+
               <span className={styles.productCnt}>수량 : {store.productCnt}</span>
               {store.productCnt === 0 && <div className={styles.overlay}>SOLD OUT</div>}
+
             </div>
           ))}
         </Slider>

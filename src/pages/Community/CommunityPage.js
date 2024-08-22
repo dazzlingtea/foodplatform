@@ -1,44 +1,82 @@
-// CommunityPage.js
-import React from 'react';
-import Review from '../../components/communityReivew/Review';
+import React, { useEffect, useState } from 'react';
 import styles from './CommunityPage.module.scss';
+import Review from '../.././components/communityReivew/Review'
 
-const reviews = [
-  {
-    profilePic: 'https://via.placeholder.com/50', 
-    name: 'customerId',
-    reviewImage: 'https://via.placeholder.com/300',
-    reviewText: '처음 마셔보는 차를 설명과 함께 마셔서 좋은 경험이었어요 홍시랑 먹는 산딸기막국수도 새롭고 맛있었어요 또 오고싶은 곳입니다Highly recommend it.',
-    store: 'Sunny Cafe',
-    storeAddress: '123 Green Street, Newtown',
-    favorites: true,
-  },
-  {
-    profilePic: 'https://via.placeholder.com/50',
-    name: 'Jane customerId',
-    reviewImage: 'https://via.placeholder.com/300',
-    reviewText: 'Not bad, but could be improved.',
-    store: 'Sunny Cafe',
-    storeAddress: '123 Green Street, Newtown',
-    favorites: true,
-  },
-  // 추가적인 더미 리뷰 데이터
-];
+const REVIEWS_API_URL = '/review/all';
+const STORE_INFO_API_URL = '/review/storeInfo';
 
 const CommunityPage = () => {
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [storeInfoMap, setStoreInfoMap] = useState({}); // 가게 정보를 저장할 상태
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await fetch(REVIEWS_API_URL);
+        const reviewsData = await response.json();
+
+        if (Array.isArray(reviewsData)) {
+          setReviews(reviewsData);
+          
+          // 모든 리뷰의 reservationId를 추출
+          const reservationIds = reviewsData.map(review => review.reservationId);
+
+          // reservationId를 기반으로 가게 정보 요청
+          const storeInfoPromises = reservationIds.map(async (id) => {
+            const storeResponse = await fetch(`${STORE_INFO_API_URL}?reservationId=${id}`);
+            const storeData = await storeResponse.json();
+            return { id, storeData };
+          });
+
+          // 모든 가게 정보 요청을 병렬로 수행
+          const storeInfoResults = await Promise.all(storeInfoPromises);
+
+          // 결과를 맵 형태로 변환
+          const storeInfoMap = storeInfoResults.reduce((acc, { id, storeData }) => {
+            acc[id] = storeData;
+            return acc;
+          }, {});
+
+          setStoreInfoMap(storeInfoMap);
+        } else {
+          console.error('Expected an array but received:', reviewsData);
+          setReviews([]); // 빈 배열로 초기화
+        }
+      } catch (err) {
+        console.error('Error fetching reviews:', err);
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchReviews();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error loading reviews</div>;
+  if (!reviews.length) return <div>No reviews found</div>;
+
   return (
     <div className={styles.communityPage}>
-      {reviews.map((review, index) => (
-        <Review
-          key={index}
-          profilePic={review.profilePic}
-          name={review.name}
-          reviewImage={review.reviewImage}
-          reviewText={review.reviewText}
-          store={review.store}
-          storeAddress={review.storeAddress}
-        />
-      ))}
+      {reviews.map((review) => {
+        const name = review.customerId.split('@')[0];
+        const storeInfo = storeInfoMap[review.reservationId] || {};
+        return (
+          <Review
+            key={review.reservationId}
+            profilePic={review.profilePic}
+            name={name}
+            reviewImage={review.reviewImg}
+            reviewText={review.reviewContent}
+            store={storeInfo.storeName || review.storeName} 
+            storeAddress={storeInfo.address || review.address} 
+            hashtags={review.hashtags || []} // 해시태그 전달
+          />
+        );
+      })}
     </div>
   );
 };

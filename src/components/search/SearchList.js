@@ -63,10 +63,8 @@ const SearchList = ({stores = [], setStores}) => {
                                  className={styles.categoryImage} onError={imgErrorHandler}/>
                             {store.productCnt === 1 && <div className={styles.overlay}>SOLD OUT</div>}
                             <p className={styles.categoryName}>{store.storeName}</p>
-                            <span className={styles.storePrice}><FontAwesomeIcon
-                                icon={faWonSign}/> {store.price}원</span>
-                            <span className={styles.productCnt}><FontAwesomeIcon
-                                icon={faBoxOpen}/> {store.restCnt}/{store.productCnt}</span>
+                            <span className={styles.storePrice}>{store.price}원</span>
+                            <span className={styles.productCnt}>(수량 {store.restCnt})</span>
                         </div>
                     ))
                 }

@@ -2,6 +2,7 @@
   background-color: #f5f5f5;
 }
 
+/* High Section Styles */
 .highSection {
   text-align: center;
   margin-bottom: 40px;
@@ -9,8 +10,13 @@
   background-color: #F0FFE1;
 }
 
-.highSection h1 {
+.highSection h1,
+.highSection h2,
+.highSection strong {
   color: #383838;
+}
+
+.highSection h1 {
   font-size: 40px;
   font-weight: 500;
   position: relative;
@@ -19,7 +25,6 @@
 }
 
 .highSection h2 {
-  color: #383838;
   font-size: 40px;
   font-weight: 500;
   position: relative;
@@ -28,7 +33,6 @@
 }
 
 .highSection strong {
-  color: #383838;
   font-size: 52px;
   font-weight: 900;
   position: relative;
@@ -43,24 +47,22 @@
   height: 30px;
   left: 400px;
   top: 110px;
-
 }
 
+/* Tree Planting Section Styles */
 .treePlanting {
   width: 900px;
   max-width: 1200px;
   height: 600px;
   padding: 20px;
+  margin: 30px auto;
   box-sizing: border-box;
-  margin: 30px auto; /* Center the section */
 }
 
 .treePlanting h2 {
   font-size: 30px;
   font-weight: 600;
-  margin-bottom: 20px;
-  margin-top: 50px;
-  width: 100%;
+  margin: 50px 0 20px;
   text-align: left;
 }
 
@@ -75,7 +77,6 @@
   background-repeat: no-repeat;
 }
 
-
 .treeInfo {
   display: flex;
   justify-content: center;
@@ -83,11 +84,6 @@
   position: relative;
   bottom: 400px;
   left: 480px;
-}
-
-.mapImage {
-  width: 250px;
-  height: auto;
 }
 
 .treeStats {
@@ -112,6 +108,7 @@
   color: #666;
 }
 
+/* Latest Reviews Section Styles */
 .latestReviews {
   display: flex;
   justify-content: center;
@@ -119,15 +116,13 @@
   flex-direction: column;
   width: 100%;
   max-width: 900px;
-  margin: 30px auto; /* Center the section */
+  margin: 30px auto;
 }
 
 .latestReviews h3 {
   font-size: 30px;
   font-weight: 600;
-  margin-bottom: 20px;
-  margin-top: 50px;
-  width: 100%;
+  margin: 50px 0 20px;
   text-align: left;
 }
 
@@ -175,6 +170,7 @@
   width: 900px;
 }
 
+/* Write Review Section Styles */
 .writeReview {
   display: flex;
   justify-content: center;
@@ -182,34 +178,59 @@
   flex-direction: column;
   width: 100%;
   max-width: 900px;
-  margin: 30px auto; /* Center the section */
+  margin: 30px auto;
 }
 
-.writeReview h3 {
+.writeReview h4 {
   font-size: 30px;
   font-weight: 600;
-  margin-bottom: 20px;
-  margin-top: 50px;
-  width: 100%;
+  margin: 50px 0 20px;
   text-align: left;
 }
 
-.reviewBox {
-  background-color: #CCF5D2;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
+.pendingReviewsList {
   width: 100%;
-  max-width: 900px;
-  height: 500px;
-  margin-bottom: 50px;
+  max-height: 600px;
+  overflow: scroll;
+  margin-bottom: 60px;
+}
+
+.pendingReviewItem {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.pendingReviewItem img {
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.pendingReviewDetails {
+  flex: 1;
+  margin-left: 20px;
+}
+
+.pendingReviewDetails h4 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.pendingReviewDetails p {
+  font-size:16px;
+  margin-bottom: 10px;
 }
 
 .writeReviewButton {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
-  display: inline-block;
-  margin-top: 370px;
   padding: 10px 20px;
   background-color: #50B498;
   color: white;

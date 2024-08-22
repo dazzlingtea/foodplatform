@@ -62,7 +62,6 @@ const MyInfo = () => {
 
     return (
         <div className={styles.myInfoContainer}>
-            <Notification email={userInfo.email} role={getUserRole()} />
             <span className={styles.myInfo}>
                 {/*안녕하세요 {getSubName() ? getSubName() : userInfo.email}님!*/}
             </span>
@@ -70,6 +69,7 @@ const MyInfo = () => {
                 {getUserRole() === 'store' ? (
                     <>
                         {/* Store 아이콘과 프로필 이미지 */}
+                        <Notification email={userInfo.email} role={getUserRole()} />
                         <img
                             src={userInfo.productImg}
                             alt="Store Profile"
@@ -80,7 +80,7 @@ const MyInfo = () => {
                 ) : getUserRole() === 'customer' ? (
                     <>
                         {/* Customer 아이콘과 프로필 이미지 */}
-
+                        <Notification email={userInfo.email} role={getUserRole()} />
                         <img
                             src={userInfo.profileImage}
                             alt="Customer Profile"
@@ -91,7 +91,7 @@ const MyInfo = () => {
                 ) : getUserRole() === 'admin' ? (
                     <>
                         {/* Admin 아이콘과 프로필 이미지 */}
-
+                        <Notification email={userInfo.email} role={getUserRole()} />
                         <img
                             src={userInfo.profileImage}
                             alt="Customer Profile"

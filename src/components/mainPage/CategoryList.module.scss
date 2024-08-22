@@ -112,6 +112,7 @@
     left: 0;
     right: 0;
     font-size: 20px;
+    font-weight: 700;
   }
 
   .storePrice {
@@ -122,10 +123,11 @@
   }
 
   .productCnt {
-    font-size: 15px;
+    font-size: 12px;
     position: absolute;
     bottom: 20px;
     right: 10px;
+    color: #888;
   }
 }
 

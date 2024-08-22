@@ -28,8 +28,8 @@ const ProductDetail = ({productDetail}) => (<div className={styles.productDetail
         </div>
         <div className={styles.sectionLine}></div>
         <div className={styles.productDes}>
-            <p>상품 설명</p>
-            <p className={styles.productTextDesc}>{productDetail.storeInfo.desc}</p>
+            {/* <p>상품 설명</p>
+            <p className={styles.productTextDesc}>{productDetail.storeInfo.desc}</p> */}
         </div>
     </div>
 </div>);

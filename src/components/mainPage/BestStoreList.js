@@ -143,8 +143,8 @@ const BestStoreList = ({ stores = [] }) => {
                             <img src={store.storeImg || DEFAULT_IMG} alt={store.storeName} onError={imgErrorHandler}/>
                             {store.productCnt === 0 && <div className={styles.overlay}>SOLD OUT</div>}
                             <p className={styles.storeName}>{store.storeName}</p>
-                            <span className={styles.storePrice}><FontAwesomeIcon icon={faWonSign} /> {store.price}</span>
-                            <span className={styles.productCnt}><FontAwesomeIcon icon={faBoxOpen} /> 수량: {store.productCnt}</span>
+                            <span className={styles.storePrice}> {store.price}</span>
+                            <span className={styles.productCnt}>(수량 {store.productCnt})</span>
                         </div>
                     ))
                 )}

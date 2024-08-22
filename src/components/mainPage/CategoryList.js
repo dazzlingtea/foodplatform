@@ -126,8 +126,8 @@ const CategoryList = ({ stores }) => {
                             <img src={store.storeImg || DEFAULT_IMG} alt={store.storeName} className={styles.categoryImage} onError={imgErrorHandler}/>
                             {store.productCnt === 0 && <div className={styles.overlay}>SOLD OUT</div>}
                             <p className={styles.categoryName}>{store.storeName}</p>
-                            <span className={styles.storePrice}><FontAwesomeIcon icon={faWonSign} /> {store.price}원</span>
-                            <span className={styles.productCnt}><FontAwesomeIcon icon={faBoxOpen} /> {store.productCnt}/{store.productCnt}</span>
+                            <span className={styles.storePrice}> {store.price}원</span>
+                            <span className={styles.productCnt}>(수량 {store.productCnt})</span>
                         </div>
                     ))
                 )}
