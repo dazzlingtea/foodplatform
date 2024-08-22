@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
-import StoreRegisterForm from "../../components/storeRegister/StoreRegisterForm";
 import {useNavigate} from "react-router-dom";
 import {checkAuthToken} from "../../utils/authUtil";
+import RegisterStep from "../../components/storeRegister/RegisterStep";
 
 const StoreRegisterPage = () => {
   // console.log('가게-등록-페이지 실행!');
@@ -30,8 +30,7 @@ const StoreRegisterPage = () => {
 
     return (
     <>
-      <StoreRegisterForm />
-      {/*<ProductRegisterForm/>*/}
+      <RegisterStep />
     </>
   );
 };

@@ -36,7 +36,7 @@ const validate = (name, value) => {
   }
 };
 
-const ProductRegisterForm = () => {
+const ProductRegisterForm = ({onSetStep}) => {
 
   const { values, errors, isFormValid, changeHandler, setValues }
       = useFormValidation(initialValues, validate);
@@ -72,21 +72,23 @@ const ProductRegisterForm = () => {
 
     console.log('payload 이미지 확인: ', payload.get('productImage'))
 
-    const response = await authFetch(`${STORE_URL}/approval/p`, {
-      method: 'POST',
-      headers: {
-        // 'Content-Type': 'multipart/form-data', FormData 생략 가능
-        // 'Authorization': 'Bearer' + token,
-      },
-      body: payload
-    });
-    // 200 외 상태코드 처리
-    if(!response.ok) {
-      const errorMessage = await response.text();
-      alert(errorMessage);
+    try {
+      const response = await authFetch(`${STORE_URL}/approval/p`, {
+        method: 'POST',
+        headers: {
+          // 'Content-Type': 'multipart/form-data', FormData 생략 가능
+          // 'Authorization': 'Bearer' + token,
+        },
+        body: payload
+      });
+      // 200 외 상태코드 처리
+      if (response.ok) {
+        onSetStep(3);
+        alert(`스페셜팩 등록 성공하셨습니다!`);
+      }
+    } catch (e) {
+        console.log(e)
     }
-    alert(`입력하신 내용을 관리자가 확인 후 승인합니다.`);
-    return navigate('/store');
   }
 
   useEffect(() => {
@@ -99,9 +101,6 @@ const ProductRegisterForm = () => {
         className={formStyle.registration}
         onSubmit={submitHandler}
       >
-        <h2>스페셜팩 등록</h2>
-        <h3>푸디트리를 통해 새로운 로컬 고객을 만나보세요!</h3>
-
         <UploadInput onAdd={onAdd}/>
           {errors.productImage && <ErrorSpan message={errors.productImage} />}
         <label htmlFor="productCnt">스페셜팩 수량

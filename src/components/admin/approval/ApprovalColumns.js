@@ -90,7 +90,7 @@ export const ApprovalColumns =
     {
       accessorKey: 'address',
       header: '주소',
-      size: 200,
+      size: 230,
       cell: (props) => <p>{props.getValue()}</p>,
     },
     {
@@ -114,6 +114,7 @@ export const ApprovalColumns =
     {
       accessorKey: 'proImage',
       header: '상품 사진',
+      size: 80,
       cell: ({getValue}) =>
         <img src={getValue() ? `${getValue()}` : '/logo192.png'}
              alt={'상품사진'}

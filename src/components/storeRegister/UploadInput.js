@@ -48,7 +48,7 @@ const UploadInput = ({ onAdd }) => {
       />
       {!selectedFile &&
         <label htmlFor="productImage">
-          {"손님이 볼 수 있게 \n\n스페셜팩 사진 한 장만 \n\n업로드 해주세요"}
+          {"고객이 볼 수 있게 \n\n스페셜팩 사진 한 장만 \n\n업로드 해주세요"}
         </label>
       }
       {

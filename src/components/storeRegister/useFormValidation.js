@@ -5,7 +5,7 @@ import { debounce } from 'lodash';
  * 폼 입력값을 검증하는 커스텀 훅
  * @param initialValues - 초기값을 담은 객체 (상태변수)
  * @param validate - 입력값 검증 결과를 리턴하는 함수
- * @returns {{setValues: (value: unknown) => void, values: unknown, isFormValid: boolean, changeHandler: changeHandler, errors: {}}}
+ * @returns {{setValues: (value: unknown) => void, values: unknown, isFormValid: boolean, changeHandler, errors: {}}}
  */
 const useFormValidation = (initialValues, validate) => {
     // 폼 입력값 상태관리

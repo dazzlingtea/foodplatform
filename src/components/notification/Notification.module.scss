@@ -8,12 +8,13 @@
   height: 40px;
   //border: 1px solid #ee00ee;
   color: #06654E;
-  font-size: 35px;
+  font-size: 32px;
   text-align: center;
   line-height: 35px;
   position: absolute;
   top: 12px;
   right: 100px;
+  cursor: pointer;
 }
 .notify-list {
   background: #FFFFFF;
@@ -26,7 +27,7 @@
   position: relative;
   top: 45px;
   right: 250px;
-  z-index: 1;
+  z-index: 5;
   //padding: 3px;
   box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.3);
   font-family: "Pretendard Variable", Pretendard, sans-serif;
@@ -39,8 +40,7 @@
 
   li {
     min-height: 45px;
-    border-bottom: 1px solid var(--color-gray-300);
-    //border: 1px solid blue;
+    border-bottom: 1px solid #ebebeb;
     padding: 15px 10px;
     font-size: 16px;
     margin: auto;
@@ -48,6 +48,11 @@
     &:first-child {
       font-size: 16px;
       font-weight: 700;
+      background: #f9fafc;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #1d1d1d;
     }
   }
 }
@@ -86,6 +91,20 @@
 .cancel {
  background: #fec0c0;
   border-color: #fca2a2;
+}
+.read-all-btn {
+  background: #50B498;
+  color: #FFFFFF;
+  width: 70px;
+  height: 30px;
+  //padding: 3px 5px;
+  border-radius: 5px;
+  font-family: "Pretendard Variable", Pretendard, sans-serif;
+}
+.read {
+  background-color: rgba(50, 50, 80, 0.1); /* 배경 흐림 처리 */
+  color: rgba(0, 0, 0, 0.5); /* 글씨 흐림 처리 */
+  filter: blur(0.5px); /* 선택적: 흐림 효과 */
 }
 
 @media (max-width: 400px) {

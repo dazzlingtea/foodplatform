@@ -1,6 +1,6 @@
-$upload-w: 568px;
-$upload-h: 360px;
-$color-main: #43e97b;
+$upload-w: 500px;
+$upload-h: 300px;
+$color-main: var(--color-main-300);
 $color-light: #e3ffef;
 
 .image-upload {
@@ -12,7 +12,7 @@ $color-light: #e3ffef;
   width: 80%;
   height: $upload-h;
   max-width: $upload-w;
-  margin: 0 auto 30px;
+  margin: 0 auto 15px;
   padding: 10px;
   border: 1px solid var(--color-gray-200);
   border-radius: 10px;
@@ -27,7 +27,7 @@ $color-light: #e3ffef;
   }
   label {
     cursor: pointer;
-    color: #bbb;
+    color: #aaa;
     width: 100%;
     height: $upload-h;
     display: flex;
@@ -73,47 +73,55 @@ $color-light: #e3ffef;
 .chips {
   display: flex;
   flex-direction: row;
-  align-content: center;
+  //align-content: center;
   width: 75%;
+  height: 40px;
   margin: 0 auto 10px;
   gap: 15px;
 
-  label.chip{
-    display: block;
-    width: 100px;
-    font-size: 1rem;
-    color: var(--color-gray-400);
-    font-weight: 400;
-    background: #ffffff;
-    border: 1px solid var(--color-gray-400);
-    padding: 10px 20px;
-    border-radius: 20px;
-    text-align: center;
-    transition: 300ms;
+  .chipBox {
+    display: flex;
+    flex-direction: row;
 
-    &:hover {
-      color: #ffffff;
+    label.chip{
+      display: block;
+      width: 100px;
+      font-size: 1rem;
+      //color: var(--color-gray-400);
+      color: #65636f;
+      font-weight: 400;
+      background: #ffffff;
+      border: 1px solid var(--color-gray-400);
+      padding: 10px 20px;
+      border-radius: 20px;
+      text-align: center;
+      transition: 300ms;
+
+      &:hover {
+        color: #ffffff;
+        font-weight: 500;
+        border: 1px solid $color-main;
+        background: $color-main;
+      }
+    }
+
+    label.picked {
+      color: $color-main;
       font-weight: 500;
       border: 1px solid $color-main;
-      background: $color-main;
+      background: $color-light;
     }
-  }
 
-  label.picked {
-    color: $color-main;
-    font-weight: 500;
-    border: 1px solid $color-main;
-    background: $color-light;
-  }
+    .radioInput {
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+      opacity: 0;
+    }
 
-  .radioInput {
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-    opacity: 0;
   }
 
 }

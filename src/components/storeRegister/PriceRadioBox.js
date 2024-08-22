@@ -13,29 +13,28 @@ const PriceRadioBox = ({options, onPrice}) => {
   }
 
   return (
-      <>
-        <div className={styles.chips}>
-          {options.map((opt, index) => (
-              <div key={opt.value}>
-                <input
-                    type="radio"
-                    id={`price-${opt.value}`}
-                    name="price"
-                    value={opt.value}
-                    checked={pickedPriceIndex === index}
-                    onChange={() => clickHandler(index, opt.value)}
-                    className={styles.radioInput}
-                />
-                <label
-                    htmlFor={`price-${opt.value}`}
-                    className={`${styles.chip} ${pickedPriceIndex === index ? styles.picked : ''}`}
-                >
-                  {opt.name}
-                </label>
-              </div>
-          ))}
-        </div>
-      </>
+      <div className={styles.chips}>
+        {options.map((opt, index) => (
+            <div key={opt.value} className={styles.chipBox}>
+              <input
+                  type="radio"
+                  id={`price-${opt.value}`}
+                  name="price"
+                  value={opt.value}
+                  checked={pickedPriceIndex === index}
+                  onChange={() => clickHandler(index, opt.value)}
+                  className={styles.radioInput}
+              />
+              <label
+                  htmlFor={`price-${opt.value}`}
+                  className={`${styles.chip} ${pickedPriceIndex === index ? styles.picked : ''}`}
+              >
+                {opt.name}
+              </label>
+            </div>
+        ))}
+      </div>
+
   );
 };
 

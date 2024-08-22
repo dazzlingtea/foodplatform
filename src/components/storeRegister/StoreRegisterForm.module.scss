@@ -1,17 +1,15 @@
  // 폰트: 프리텐다드
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 
- $form-w: 750px;
- $form-inner-w: 75%;
- $color-main: #43e97b;
+ $form-w: 700px;
+ $form-inner-w: 77%;
+ $color-main: var(--color-main-300);
  $font-pretendard: "Pretendard Variable", Pretendard, sans-serif;
 
 .registration {
-  width: 750px;
-  margin: 0 auto;
-  padding: 20px 50px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 650px;
+  max-height: 570px;
+  margin: 40px 5px 10px;
   position: relative;
   display: flex;
   justify-content: center;
@@ -21,18 +19,6 @@
   text-align: left;
   font-family: $font-pretendard ;
 
-  h2 {
-    font-weight: 700;
-    font-size: 1.2rem;
-    margin-top: 30px;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  h3 {
-    font-size: 1.1rem;
-    margin-bottom: 30px;
-    text-align: center;
-  }
   label {
     width: $form-inner-w;
     margin: 0 auto 5px;
@@ -40,7 +26,7 @@
     flex-direction: row;
     justify-content: space-between;
     font-weight: 500;
-    color: var(--color-gray-500);
+    color: #414047;
 
     .error {
       font-size: 0.9rem;
@@ -61,8 +47,8 @@
     font-size: 16px;
 
     &:focus {
-      border: 2px solid $color-main;
-      box-shadow: 1px 3px 5px rgba(100, 100, 100, 0.1);
+      border: none;
+      box-shadow: 0 0 0 2px $color-main;
       outline: none;
     }
     & * {
@@ -71,9 +57,23 @@
     }
     &::placeholder {
       font-family: $font-pretendard;
-      color: #ccc;
+      color: #8b8b8d;
     }
 
+  }
+
+  .address-row {
+    display: flex;
+    flex-direction: row;
+    width: $form-inner-w;
+    margin: 0 auto 5px;
+    //border: 1px solid blueviolet;
+    justify-content: space-between;
+
+    input {
+      margin: 0 6px 0 0;
+      width: 80%;
+    }
   }
 
   .btn-approval {
@@ -82,12 +82,10 @@
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    margin: 30px 0 50px;
     padding:15px 35px;
     border: 0;
     border-radius:6px;
     background: $color-main;
-    //color:var(--color-gray-800);
     color: #FFFFFF;
     font-family: $font-pretendard;
     font-size: 1rem;
@@ -97,7 +95,7 @@
     cursor:pointer;
 
     &:hover, &:active {
-      background:linear-gradient(to right, $color-main 0%, #38f9d7 100%);
+      background: #38efa9;
     }
   }
   .disabled {
@@ -112,17 +110,10 @@
 
  @media (max-width: 400px) {
    .registration {
-     width: 100%;
-     padding: 15px;
+     width: 99%;
+     padding: 15px 10px;
+     margin: 0 auto;
 
-     h2 {
-       font-size: 1.2rem;
-       margin-top: 10px
-     }
-
-     h3 {
-       font-size: 1rem;
-     }
      label {
        width: 96%;
 
@@ -135,6 +126,15 @@
        margin: 0 auto 30px;
        padding: 8px;
        font-size: 16px;
+     }
+     .address-row {
+       width: 96%;
+       margin: 0 auto 30px;
+       font-size: 16px;
+
+       input {
+         width: 70%;
+       }
      }
 
      .btn-approval {

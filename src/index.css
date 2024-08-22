@@ -3,7 +3,8 @@
 }
 
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Pretendard Variable", Pretendard, sans-serif;
+  /*font-family: Inter, Avenir, Helvetica, Arial, sans-serif;*/
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
@@ -32,6 +33,12 @@
   --color-primary-700: #fbc14d;
   --color-primary-800: #fab833;
   --color-primary-900: #f6ad1b;
+
+  --color-main-100: #DEF9C4;
+  --color-main-200: #9CDBA6;
+  --color-main-300: #50B498;
+  --color-main-400: #468585;
+  --color-main-500: #0D6E74;
 }
 
 body {
@@ -60,4 +67,10 @@ footer {
   width: 100%;
   max-width: 1920px;
   margin: 0 auto; /* 중앙 정렬 */
+}
+button {
+  font-family: "Pretendard Variable", Pretendard, sans-serif;
+}
+input {
+
 }

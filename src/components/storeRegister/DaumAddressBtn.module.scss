@@ -1,0 +1,26 @@
+.daum-container {
+  position: relative;
+}
+.daum-btn {
+  background: #ddf4c8;
+  padding: 11px 17px;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 16px;
+  color: #575758;
+}
+.daum-window {
+  border: 1px solid #d9d9db;
+  border-radius: 5px;
+  box-shadow: 2px 5px 10px 8px rgba(100, 100, 100, 0.1);
+  position: absolute;
+  right: 50%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+@media (max-width: 400px) {
+  .daum-window {
+    right: -15px;
+  }
+}

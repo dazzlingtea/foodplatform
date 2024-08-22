@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import styles from './ReviewForm.module.scss';
 import Rating from '@mui/material/Rating';
-import {useLocation, useNavigate} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import {checkAuthToken, getRefreshToken, getToken, getUserEmail} from "../../utils/authUtil";
 
 // 해시태그를 백엔드에서 기대하는 Enum으로 매핑
@@ -61,11 +61,8 @@ const ReviewForm = ({ onSubmit, reservationId, storeImg }) => {
   const [selectedFile, setSelectedFile] = useState(null); //선택한 이미지
   const navigate = useNavigate();
 
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const rId = queryParams.get('r');
-  // const reservationId = queryParams.get('r');
-  console.log('알림에서 전달된 예약Id ', rId);
+  const { rId } = useParams(); // 경로에서 id를 가져옴
+  console.log('알림에서 전달된 예약Id ', rId)
   const customerId  = getUserEmail();
   console.log('customerId : ',customerId);
 

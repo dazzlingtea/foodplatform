@@ -8,6 +8,7 @@ import ErrorSpan from "./ErrorSpan";
 import query from "lodash";
 import {authFetch, getToken} from "../../utils/authUtil";
 import {checkAuthToken} from "../../utils/authUtil";
+import DaumAddressBtn from "./DaumAddressBtn";
 
 // select option 배열
 const OPTIONS = [
@@ -29,6 +30,7 @@ const initialValues = {
       bizAddress: '',
       bizPhoneNum: '',
       bizCategory: 'default',
+      detailedAddress: '',
 }
   // 사업자등록번호가 유효한지 검증
   const checkLicense = (value) => {
@@ -53,6 +55,7 @@ const initialValues = {
             ? null : '유효한 번호를 입력해주세요.';
       case 'bizName':
       case 'bizAddress':
+      case 'detailedAddress':
         return value.trim() !== '' ? null : '필수 입력 값입니다.';
       case 'bizPhoneNum':
         return /^(02|0[3-9]\d{1}|01[0-9])\d{7,8}$/.test(value.replaceAll('-',''))
@@ -66,20 +69,19 @@ const initialValues = {
   };
 
 const StoreRegisterForm = () => {
-  // console.log('가게-등록-폼 실행!');
 
   const { values, errors, isFormValid, changeHandler, setValues }
       = useFormValidation(initialValues, validate);
+  const setAddress = (address) => setValues((prev) => ({ ...prev, bizAddress: address }));
+  const setDetailedAddress = (detailedAddress) => setValues((prev) => ({ ...prev, detailedAddress }));
 
   return (
     <Form
       method='post'
       className={styles.registration}
     >
-      <h2>가게 등록</h2>
-      <h3>푸디트리와 지구를 위한 한걸음 함께 해보아요!</h3>
       <label htmlFor='bizLicenseNum'>사업자등록번호
-        {errors.bizLicenseNum && <ErrorSpan message={errors.bizLicenseNum} />}
+        {errors.bizLicenseNum && <ErrorSpan message={errors.bizLicenseNum}/>}
       </label>
       <input
         id='bizLicenseNum'
@@ -88,11 +90,11 @@ const StoreRegisterForm = () => {
         onChange={changeHandler}
         type="text"
         maxLength={10}
-        placeholder="숫자만 입력해주세요."
+        placeholder="'-'를 제외한 10자리 숫자만 입력하세요."
       />
 
       <label htmlFor='bizName'>상호명
-        {errors.bizName && <ErrorSpan message={errors.bizName} />}
+        {errors.bizName && <ErrorSpan message={errors.bizName}/>}
       </label>
       <input
         id='bizName'
@@ -101,23 +103,35 @@ const StoreRegisterForm = () => {
         onChange={changeHandler}
         type="text"
         maxLength={30}
-        placeholder="상호명은 필수 입력 값입니다."
+        placeholder="상호명을 입력하세요."
         required
       />
-      <label htmlFor='bizAddress'>가게 주소
-        {errors.bizAddress && <ErrorSpan message={errors.bizAddress} />}
+      <label htmlFor='bizAddress'>주소
+        {errors.bizAddress && <ErrorSpan message={errors.bizAddress}/>}
       </label>
+      <div className={styles['address-row']}>
+        <input
+          id='bizAddress'
+          name='bizAddress'
+          value={values.bizAddress}
+          onChange={changeHandler}
+          type="text"
+          placeholder="도로명 주소를 입력하세요."
+          required
+        />
+        <DaumAddressBtn addressAction={{setAddress}} />
+      </div>
       <input
-        id='bizAddress'
-        name='bizAddress'
-        value={values.bizAddress}
+        id='detailedAddress'
+        name='detailedAddress'
+        value={values.detailedAddress}
         onChange={changeHandler}
-        type="text"
-        placeholder="가게 주소는 필수 입력 값입니다."
+        type='text'
+        placeholder='상세주소를 입력하세요.'
         required
       />
-      <label htmlFor='bizPhoneNum'>가게 연락처
-        {errors.bizPhoneNum && <ErrorSpan message={errors.bizPhoneNum} />}
+      <label htmlFor='bizPhoneNum'>연락처
+        {errors.bizPhoneNum && <ErrorSpan message={errors.bizPhoneNum}/>}
       </label>
       <input
         id='bizPhoneNum'
@@ -125,11 +139,11 @@ const StoreRegisterForm = () => {
         value={values.bizPhoneNum}
         onChange={changeHandler}
         type="text"
-        placeholder="가게 연락처는 필수 입력 값입니다."
+        placeholder="전화 번호 또는 휴대전화 번호를 입력하세요."
         required
       />
       <label htmlFor='bizCategory'>업종
-        {errors.bizCategory && <ErrorSpan message={errors.bizCategory} />}
+        {errors.bizCategory && <ErrorSpan message={errors.bizCategory}/>}
       </label>
       <SelectBox
         name='bizCategory'
@@ -140,9 +154,9 @@ const StoreRegisterForm = () => {
 
 
       <button
-          type="submit"
-          className={`${styles['btn-approval']} ${!isFormValid && styles.disabled}`}
-          disabled={!isFormValid}
+        type="submit"
+        className={`${styles['btn-approval']} ${!isFormValid && styles.disabled}`}
+        disabled={!isFormValid}
       >
         가게 등록 요청하기
       </button>
@@ -158,29 +172,22 @@ export const storeRegisterAction = async ({request}) => {
   const payload = {
     bizLicenseNum: formData.get('bizLicenseNum'),
     bizName: formData.get('bizName'),
-    bizAddress: formData.get('bizAddress'),
+    bizAddress: `${formData.get('bizAddress')} ${formData.get('detailedAddress')}`,
     bizPhoneNum: formData.get('bizPhoneNum'),
     bizCategory: formData.get('bizCategory'),
   }
   console.log('store 페이로드: ', payload)
 
-    // const token = query.get('token');
-
-  // console.log("did i get a token info? : ",getToken());
-
   const response = await authFetch(`${STORE_URL}/approval`, {
-
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      // 'Authorization': 'Bearer ' + token,
     },
     body: JSON.stringify(payload),
   });
-  // 200 외 상태코드 처리 필요
   if(!response.ok) {
     const errorMessage = await response.text();
-    alert(errorMessage);
+    alert('storeRegisterForm 액션 결과 : '+ errorMessage);
     return null;
   }
   return redirect('/store/approval/p');

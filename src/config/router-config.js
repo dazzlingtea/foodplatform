@@ -72,7 +72,7 @@ const homeRouter = [
         element: <CommunityReviewPage />,
     },
     {
-        path: '/reviewForm',
+        path: '/reviewForm/:rId',
         element: <ReviewForm />,
     },
     {
@@ -115,7 +115,7 @@ const storeRouter = [
     },
     {
         path: 'approval/p',
-        element: <ProductRegisterForm/>,
+        element: <StoreRegisterPage/>,
     }
 ]
 

@@ -14,15 +14,16 @@ import ApprovalButtons from "./ApprovalButton";
 import TansPagination from "./TansPagination";
 import TansTable from "./TansTable";
 import ApprovalSummary from "./ApprovalSummary";
-import {checkAuthToken, getRefreshToken, getToken, getUserRole} from "../../../utils/authUtil";
+import {authFetch, checkAuthToken, getRefreshToken, getToken, getUserRole} from "../../../utils/authUtil";
 import {useNavigate} from "react-router-dom";
 
 const ApprovalTable = () => {
+  const beginDate = '2024-07-01';
   const [data, setData] = useState([]);
   const columns = useMemo(() => ApprovalColumns, []);
   const [columnFilters, setColumnFilters] = useState([]);
   const [rowSelection, setRowSelection] = useState({}); // 선택한 행
-  const [startDate, setStartDate] = useState(new Date('2024-07-01'));
+  const [startDate, setStartDate] = useState(new Date(beginDate));
   const [endDate, setEndDate] = useState(new Date());
   const [stats, setStats] = useState({});
   const navigate = useNavigate();
@@ -47,29 +48,24 @@ const ApprovalTable = () => {
     const startISO = startDate.toISOString();
     const endISO = endDate.toISOString()
 
-    // const token = localStorage.getItem('token');
-    // const refreshToken = localStorage.getItem('refreshToken');
-
     let userRole = getUserRole();
-    console.log("userRole :",userRole);
+    console.log("userRole :", userRole);
 
-    const res = await fetch(
+    const res = await authFetch(
       `/admin/approve?start=${startISO}&end=${endISO}`,
       {
         method: 'GET',
         headers: {
-          'Content-Type' : 'application/json',
+          'Content-Type': 'application/json',
           'Cache-Control': 'no-cache',
-          // 'Authorization' : 'Bearer ' + getToken(),
-          // 'refreshToken': getRefreshToken(),
         },
       });
-    if(!res.ok) {
+    if (!res.ok) {
       const errorMessage = await res.text();
-      alert(errorMessage);
+      console.log(errorMessage);
       return null;
     }
-    const DATA =  await res.json(); // DATA 배열 approvals, 객체 stats
+    const DATA = await res.json(); // DATA 배열 approvals, 객체 stats
     setData(DATA.approvals);
     setStats(() => DATA.stats);
   }
@@ -95,21 +91,32 @@ const ApprovalTable = () => {
 
   // useEffect 훅 사용하여 admin이 아닐 경우 접근 제한
   useEffect(() => {
-  debugger
-    const userInfo = checkAuthToken(navigate);
+      debugger
+      const userInfo = checkAuthToken(navigate);
 
-        if (userInfo) {
-          const requiredRole = 'admin'; // 단일 역할을 설정
-          const userRole = getUserRole(); // 사용자 역할 가져오기
+      if (userInfo) {
+        const requiredRole = 'admin'; // 단일 역할을 설정
+        const userRole = getUserRole(); // 사용자 역할 가져오기
 
-          if (userRole !== requiredRole) { // 문자열 비교
-            alert('접근 권한이 없습니다.');
-            navigate('/main');
-            return;
-          }
+        if (userRole !== requiredRole) { // 문자열 비교
+          alert('접근 권한이 없습니다.');
+          navigate('/main');
+          return;
         }
-  },
-  []);
+      }
+    },
+    []);
+
+  const btnClickHandler = (type) => {
+    const today = new Date();
+    if (type === 'all') {
+      setStartDate(new Date(beginDate));
+      setEndDate(today);
+    } else if (type === 'today') {
+      setStartDate(today);
+      setEndDate(today);
+    }
+  };
 
   return (
     <div className={styles['table-section']}>
@@ -117,6 +124,10 @@ const ApprovalTable = () => {
       <div className={styles['table-interaction']}>
         <FiltersInTable columnFilters={columnFilters} setColumnFilters={setColumnFilters}/>
         <div className={styles['left-interactions']}>
+          <div className={styles['date-btn-box']}>
+            <button className={styles['date-btn']} onClick={() => btnClickHandler('all')}>전체</button>
+            <button className={styles['date-btn']} onClick={() => btnClickHandler('today')}>오늘</button>
+          </div>
           <DateRangePicker
             startDate={startDate}
             endDate={endDate}

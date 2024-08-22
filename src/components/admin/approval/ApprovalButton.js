@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "./ApprovalTables.module.scss";
 import {ADMIN_URL} from "../../../config/host-config";
-import {redirect} from "react-router-dom";
+import {authFetch} from "../../../utils/authUtil";
 
 const ApprovalButton = ({rows, data, onFetch}) => {
   // 버튼 클릭 시 승인 또는 거절 요청을 서버로 보내는 기능
@@ -36,24 +36,21 @@ const ApprovalButton = ({rows, data, onFetch}) => {
     if (!isConfirm) { return; }
     let payload;
     const fetchApproveStatus = async () => {
-
       payload = {
         actionType,
         approvalIdList,
       }
-      const res = await fetch(ADMIN_URL + '/approve', {
+      const res = await authFetch(ADMIN_URL + '/approve', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // 'Authorization': 'Bearer ' + token,
-          // 'refreshToken' : refreshToken,
         },
         body: JSON.stringify(payload),
       })
       // 200 외 상태코드 처리 필요
-      alert(` ✅ 요청: 스토어 등록 ${actionType === 'APPROVED' ? '승인' : '거절'} \n ✅ 처리 여부: ${res.ok ? '성공' : await res.text()}`)
+      alert(` ✅ 요청: 스토어 등록 ${actionType === 'APPROVED' ? '승인' : '거절'} \n ✅ 처리 여부: ${res.ok ? '성공' : '실패'}`)
       if (!res.ok) { return null; }
-      return await res.json();
+      return true;
     }
     const result = await fetchApproveStatus();
     if (result) {
