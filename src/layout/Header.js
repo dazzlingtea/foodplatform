@@ -23,7 +23,6 @@ const Header = () => {
     const [address, setAddress] = useState('위치를 불러오는 중...'); // 기본 주소 상태 설정
     const [modalVisible, setModalVisible] = useState(false);
 
-
     useEffect(() => {
         // 로그인 한 사람 정보 가져오기
         if(getToken()) {
@@ -72,14 +71,14 @@ const Header = () => {
     }
 
     let userArea = extractArea();
+    const clickHandler = () => {
+      navigate('/main');
+    }
 
     return (
         <header className={styles.header}>
-            {/* 햄버거 버튼 */}
-            {width > 400 && <SideBarBtn onShow={toggleModal}/>}
-
             {/* 로고 */}
-            <div className={styles.logoBtn}></div>
+            <div className={styles.logoBtn} onClick={clickHandler}></div>
 
             {/* 현재 위치 */}
             <div className={styles.locationPinIcon}></div>

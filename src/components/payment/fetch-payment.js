@@ -2,12 +2,12 @@ import {authFetch} from "../../utils/authUtil";
 import * as PortOne from "@portone/browser-sdk/v2";
 import {RESERVATION_URL} from "../../config/host-config";
 
-export const createReservationFetch = (storeId, cnt, paymentId) => authFetch(RESERVATION_URL, {
+export const createReservationFetch = (storeId, cnt, paymentId, storeName) => authFetch(RESERVATION_URL, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
     },
-    body: JSON.stringify({storeId, cnt, paymentId}),
+    body: JSON.stringify({storeId, cnt, paymentId, storeName}),
 });
 
 export const patchReservationFetch = (paymentId, reservationId) => authFetch(RESERVATION_URL, {
