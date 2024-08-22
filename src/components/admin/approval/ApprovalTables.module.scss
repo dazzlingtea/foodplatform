@@ -2,7 +2,7 @@ $font-pretendard: "Pretendard Variable", Pretendard, sans-serif;
 $table-width: 1580px;
 
 .table-section {
-  margin: 20px auto 50px;
+  margin: 94px auto 50px;
   width: $table-width;
   min-height: 500px;
   padding: 20px 10px;
@@ -83,6 +83,31 @@ $table-width: 1580px;
       }
   }
 
+  .tans-page-container {
+    display: flex;
+    flex-direction: row;
+    width: 20%;
+    margin: 0 auto;
+    justify-content: space-around;
+    align-items: center;
+    line-height: 24px;
+    //border: 1px solid orange;
+
+    button {
+      border: none;
+      background: transparent;
+      font-size: 24px;
+      padding: 0;
+      color: var(--color-gray-400);
+      width: 30px;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--color-gray-700);
+      }
+    }
+  }
+}
   .table-content {
     font-family: $font-pretendard ;
     font-size: 14px;
@@ -131,28 +156,3 @@ $table-width: 1580px;
       }
     }
   }
-  .tans-page-container {
-    display: flex;
-    flex-direction: row;
-    width: 20%;
-    margin: 0 auto;
-    justify-content: space-around;
-    align-items: center;
-    line-height: 24px;
-    //border: 1px solid orange;
-
-    button {
-      border: none;
-      background: transparent;
-      font-size: 24px;
-      padding: 0;
-      color: var(--color-gray-400);
-      width: 30px;
-      cursor: pointer;
-
-      &:hover {
-        color: var(--color-gray-700);
-      }
-    }
-  }
-}

@@ -29,7 +29,7 @@ const LoginPage = () => {
               {!verificationSent && ( // 이메일 발송 후 사용자 유형 버튼 숨기기
                   <div className={styles['user-type-buttons']}>
                       <button
-                          className={`${styles['user-type-button']} ${
+                          className={`${styles['user-type-button-customer']} ${styles['user-type-button']}  ${
                               userType === 'customer' ? styles.active : ''
                           }`}
                           onClick={() => handleUserTypeChange('customer')}
@@ -37,7 +37,7 @@ const LoginPage = () => {
                           Customer
                       </button>
                       <button
-                          className={`${styles['user-type-button']} ${
+                          className={`${styles['user-type-button-store']} ${styles['user-type-button']} ${
                               userType === 'store' ? styles.active : ''
                           }`}
                           onClick={() => handleUserTypeChange('store')}
@@ -45,7 +45,7 @@ const LoginPage = () => {
                           Store
                       </button>
                       <button
-                          className={`${styles['user-type-button']} ${
+                          className={`${styles['user-type-button-admin']} ${styles['user-type-button']} ${
                               userType === 'admin' ? styles.active : ''
                           }`}
                           onClick={() => handleUserTypeChange('admin')}

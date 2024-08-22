@@ -43,14 +43,23 @@ const Modal = () => {
                 } else {
                     setCustomStyle({width: '750px'});
                 }
-            } else if (type === 'customerIssueChatting' || type === 'adminIssueChatting') {
+            } else if (type === 'customerIssueChatting' || type === 'adminIssueChatting' ) {
                 if(window.innerWidth <= 400) {
                     setCustomStyle({bottom: '0px', left: '0px', height: '70%', padding: '0'})
                 }else{
                     setCustomStyle({bottom: '172px', left: '308px', height: '70%'})
                 }
                 setCustomInnerContentStyle({height: '764px', marginBottom: '50px', padding: '0'})
-            } else {
+            } else if (type === 'adminIssueReview') {
+                if (window.innerWidth <= 400) {
+                    setCustomStyle({bottom: '0px', left: '0px', height: '70%'});
+                } else {
+                    setCustomStyle({bottom: '172px', left: '391px', height: '70%', width: '700px'});
+                }
+                setCustomInnerContentStyle({height: '764px', marginBottom: '50px'})
+
+            }
+            else {
                 setCustomStyle({});
             }
             setIsMobile(window.innerWidth <= 400); // 추가

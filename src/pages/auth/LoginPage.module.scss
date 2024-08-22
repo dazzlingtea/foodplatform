@@ -20,11 +20,18 @@
         display: flex;
         justify-content: center;
         margin-bottom: 20px;
-
+        .user-type-button-customer{
+          border-radius: 10px 0 0 0;
+        }
+        .user-type-button-admin{
+          border-radius: 0 10px 0 0 ;
+        }
+        .user-type-button-store{
+          border-radius: 0;
+        }
         .user-type-button {
           padding: 15px;
           width: 50%;
-          border-radius: 10px;
           border: none;
           cursor: pointer;
           background-color: #ffffff;

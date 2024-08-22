@@ -18,9 +18,10 @@ const ChatComponent = ({issueId, type}) => {
     const chatBoxRef = useRef(null);
     const {closeModal} = useModal();
     const [previewImages, setPreviewImages] = useState([]);
+    const BASE_URL = window.location.origin;
 
     useEffect(() => {
-        const socket = new SockJS('http://localhost:3000/chat');
+        const socket = new SockJS(`${BASE_URL}/chat`);
         const stompClient = Stomp.over(() => socket);
 
         stompClient.connect({}, (frame) => {
@@ -269,6 +270,7 @@ const ChatComponent = ({issueId, type}) => {
                     <br/>
                     잠시만 기다려주세요!
                 </div>
+                <div className={styles.quitChatBtn} onClick={()=>quitIssueHandler()}>채팅 나가기</div>
             </div>
         );
     }
@@ -328,7 +330,7 @@ const ChatComponent = ({issueId, type}) => {
                         type="text"
                         value={messageInput}
                         onChange={(e) => setMessageInput(e.target.value)}
-                        onKeyDown={handleKeyPress} // 엔터 키 이벤트 핸들러 추가
+                        onKeyUp={handleKeyPress} // 엔터 키 이벤트 핸들러 추가
                         placeholder="Type your message..."
                         disabled={type === 'customer' && !adminStarted}
                     />
@@ -336,7 +338,7 @@ const ChatComponent = ({issueId, type}) => {
                         onClick={handleSend}
                         disabled={!connected || (type === 'customer' && !adminStarted)}
                     >
-                        Send
+                        전송
                     </button>
                 </div>
                 <div className={styles.imagePreviewContainer}>

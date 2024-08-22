@@ -1,0 +1,57 @@
+.issueReviewContainer {
+  display: flex;
+  flex-direction: column;
+  font-size: 19px;
+
+  .title{
+    font-weight: 700;
+    font-size: 20px;
+    text-align: start;
+    margin-bottom: 5px;
+  }
+
+  .issueBox {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+
+    .issueChattingBox{
+      display: flex;
+
+      .chattingText{
+        margin-left: 5px;
+        padding: 7px;
+        border: 1px solid #3b3a3a;
+        border-radius: 12px;
+        max-width: 534px;
+        max-height: 300px;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+    }
+
+  }
+
+  .reservationBox {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .photoGallery {
+    display: flex;
+    justify-content: space-evenly;
+    overflow: auto;
+
+    .photoImage {
+      max-width: 200px;
+      max-height: 200px;
+    }
+  }
+
+  .lines{
+    width: 100%;
+    border-bottom: 1px solid #3b3a3a;
+    margin: 10px 0;
+  }
+}

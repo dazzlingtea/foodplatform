@@ -199,7 +199,7 @@ const LoginForm = ({ userType, onVerificationSent }) => {
                             </div>
                         ) : (
                             <div className={styles['id-wrapper']}>
-                                <h2>{userType} 로그인을 위한 이메일을 입력해주세요!
+                                <h2 >{userType} 로그인을 위한 <br/>이메일을 입력해주세요!
                                     {isExistingUser ? (
                                         <>
                                             <br /><br />

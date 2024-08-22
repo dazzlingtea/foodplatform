@@ -127,11 +127,11 @@ export const IssueColumns = (openModal) => [
 
             return (
                 status !== "PENDING" ? (
-                    <button style={{margin:'8px' , background: 'lightgrey', color: 'black', width: '110px'}} onClick={handleIssueReview}>
+                    <button style={{padding:'8px' , background: 'lightgrey', color: 'black', width: '110px', borderRadius: '8px'}} onClick={handleIssueReview}>
                         이슈 조회하기
                     </button>
                 ) : (
-                    <button style={{margin:'8px', width: '110px'}} onClick={handleMoveToChat}>
+                    <button style={{padding:'8px', width: '110px', background: 'cornflowerblue', color: '#faf9f9', borderRadius: '8px'}} onClick={handleMoveToChat}>
                         채팅방으로 이동
                     </button>
                 )
