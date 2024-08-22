@@ -31,7 +31,7 @@ const ApprovalSummary = ({stats}) => {
               <span>총계</span>
               <span>{(PENDING || 0) + (APPROVED || 0) + (REJECTED || 0)}</span>
           </div>
-          <h2 onClick={handleIssuePage}>고객 지원</h2>
+          <h2 className={styles.H2otherPage} onClick={handleIssuePage}>고객 지원</h2>
       </div>
   );
 };

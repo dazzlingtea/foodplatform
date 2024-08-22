@@ -29,7 +29,7 @@ const IssueSummary = ({stats}) => {
                 <span>총계</span>
                 <span>{(PENDING || 0) + (SOLVED || 0) + (CANCELLED || 0)}</span>
             </div>
-            <h2 onClick={handleAdminPage}>스토어 등록 요청</h2>
+            <h2 className={styles.H2otherPage} onClick={handleAdminPage}>스토어 등록 요청</h2>
         </div>
     );
 };
