@@ -109,7 +109,7 @@ const CategoryList = ({ stores }) => {
                     filteredStores.map((store, index) => (
                         <div 
                             key={index} 
-                            className={`${styles.categoryItem} ${store.productCnt === 1 ? styles['low-stock'] : ''}`}
+                            className={`${styles.categoryItem} ${store.productCnt === 0 ? styles['low-stock'] : ''}`}
                             onClick={() => handleClick(store)}
                         >
                             <div
@@ -124,7 +124,7 @@ const CategoryList = ({ stores }) => {
                                 />
                             </div>
                             <img src={store.storeImg || DEFAULT_IMG} alt={store.storeName} className={styles.categoryImage} onError={imgErrorHandler}/>
-                            {store.productCnt === 1 && <div className={styles.overlay}>SOLD OUT</div>}
+                            {store.productCnt === 0 && <div className={styles.overlay}>SOLD OUT</div>}
                             <p className={styles.categoryName}>{store.storeName}</p>
                             <span className={styles.storePrice}><FontAwesomeIcon icon={faWonSign} /> {store.price}원</span>
                             <span className={styles.productCnt}><FontAwesomeIcon icon={faBoxOpen} /> {store.productCnt}/{store.productCnt}</span>

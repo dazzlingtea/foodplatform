@@ -101,7 +101,7 @@ const BestStoreList = ({ stores = [] }) => {
         slidesToScroll: 5,
         infinite: true,
         arrows: true,
-        dots: true,
+        dots: false,
         centerMode: true,
         centerPadding: '0',
         responsive: [
@@ -126,7 +126,7 @@ const BestStoreList = ({ stores = [] }) => {
                     filteredStores.map((store, index) => (
                         <div
                             key={index}
-                            className={`${styles.storeItem} ${store.productCnt === 1 ? styles['low-stock'] : ''}`}
+                            className={`${styles.storeItem} ${store.productCnt === 0 ? styles['low-stock'] : ''}`}
                             onClick={() => handleClick(store)}
                         >
                             <div 
@@ -141,7 +141,7 @@ const BestStoreList = ({ stores = [] }) => {
                                 />
                             </div>
                             <img src={store.storeImg || DEFAULT_IMG} alt={store.storeName} onError={imgErrorHandler}/>
-                            {store.productCnt === 1 && <div className={styles.overlay}>SOLD OUT</div>}
+                            {store.productCnt === 0 && <div className={styles.overlay}>SOLD OUT</div>}
                             <p className={styles.storeName}>{store.storeName}</p>
                             <span className={styles.storePrice}><FontAwesomeIcon icon={faWonSign} /> {store.price}</span>
                             <span className={styles.productCnt}><FontAwesomeIcon icon={faBoxOpen} /> 수량: {store.productCnt}</span>

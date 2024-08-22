@@ -17,28 +17,28 @@ const MainPage = () => {
 
   useEffect(() => {
 
-      checkAuthToken(navigate);
+    checkAuthToken(navigate);
 
     // API로부터 데이터 가져오기
     fetch(STORELISTS_URL, {
         // 회원에게만 메인페이지 제공
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
             'Authorization' : 'Bearer ' + getToken(),
             'refreshToken' : getRefreshToken()
-        }
+      }
     })
-        .then(response => response.json())
-        .then(data => setStores(data))
-        .catch(error => console.error('데이터를 가져오는 중 오류 발생:', error));
+      .then(response => response.json())
+      .then(data => setStores(data))
+      .catch(error => console.error('데이터를 가져오는 중 오류 발생:', error));
   }, [navigate]);
 
   return (
-      <div className="main-page">
-        <CategoryBtn categories={categories} onCategoryClick={handleCategoryClick} />
-        <FoodNav selectedCategory={selectedCategory} stores={stores} />
-      </div>
+    <div className="main-page" style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
+      <CategoryBtn categories={categories} onCategoryClick={handleCategoryClick} />
+      <FoodNav selectedCategory={selectedCategory} stores={stores} />
+    </div>
   );
 }
 

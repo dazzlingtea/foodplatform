@@ -138,6 +138,7 @@ const FoodNav = ({ selectedCategory, stores }) => {
   const [selectedArea, setSelectedArea] = useState(null);
   const [myFavoriteAndOrderStores, setMyFavoriteAndOrderStores] = useState([]);
   const [recommendedStores, setRecommendedStores] = useState([]);
+  const [randomRecommendedStores, setRandomRecommendedStores] = useState([]);
   const { openModal } = useModal();
 
   // customerId값
@@ -152,18 +153,25 @@ const FoodNav = ({ selectedCategory, stores }) => {
   }, [customerId]);
 
   useEffect(() => {
-    // store 정보
-    console.log('Stores:', stores);
-    // 선택된 area 정보
-    console.log('Selected Area:', selectedArea);
+  // store 정보
+  console.log('Stores:', stores);
+  // 선택된 area 정보
+  console.log('Selected Area:', selectedArea);
 
+
+    if (stores.length > 0) {
+      // 모든 가게 리스트에서 랜덤으로 10개 선택
+      const randomStores = getRandomStores(stores, 10);
+      setRandomRecommendedStores(randomStores);
+    }
+  }, [stores]);
+
+  useEffect(() => {
     if (selectedArea !== null) {
-      // 선택된 area와 같은 address를 가진 가게 리스트 필터링
+      // 선택된 지역에 맞는 모든 가게 필터링
       const newFilteredStores = stores.filter(store => {
         const address = store.address || '';
-        const isMatch = address.includes(selectedArea);
-        console.log(`Checking store ${store.storeName}: ${address} - Match: ${isMatch}`);
-        return isMatch;
+        return address.includes(selectedArea);
       });
 
       setFilteredStores(newFilteredStores);
@@ -176,19 +184,16 @@ const FoodNav = ({ selectedCategory, stores }) => {
     return selectedArea ? address.includes(selectedArea) : true;
   });
 
-  // 필터링된 추천 가게 리스트 생성
-  const filteredRecommendedStores = recommendedStores.filter(store => {
-    const address = store.address || '';
-    return selectedArea ? address.includes(selectedArea) : true;
-  });
-
-  // 이웃들의 추천 가게 리스트에서 selectedArea에 해당하는 가게를 랜덤으로 5개 선택
-  const randomRecommendedStores = getRandomStores(filteredRecommendedStores, 5);
-
-  const handleClick = (store) => {
+// 필터링된 추천 가게 리스트 생성
+const filteredRecommendedStores = recommendedStores.filter(store => {
+  const address = store.address || '';
+  return selectedArea ? address.includes(selectedArea) : true;
+});
+ const handleClick = (store) => {
     openModal('productDetail', { productDetail: store });
   };
 
+  // 하트 클릭 핸들러
   const handleFavoriteClick = async (storeId) => {
     try {
       await toggleFavorite(storeId, customerId);
@@ -202,6 +207,7 @@ const FoodNav = ({ selectedCategory, stores }) => {
     }
   };
 
+  // 슬라이더 설정
   const settings = (slidesToShow) => ({
     dots: false,
     infinite: true,
@@ -229,15 +235,15 @@ const FoodNav = ({ selectedCategory, stores }) => {
     <>
       <FavAreaSelector onAreaSelect={setSelectedArea} />
 
-      {/* 내가 찜한 가게 리스트 */}
-      <div className={styles.list}>
+       {/* 내가 찜한 가게 리스트 */}
+       <div className={styles.list}>
         <h2 className={styles.title}>나의 단골 가게</h2>
         <Slider {...settings(4)} className={styles.slider}>
           {filteredFavoriteStores.map((store, index) => (
             <div
               key={index}
               onClick={() => handleClick(store)}
-              className={`${styles.storeItem} ${store.productCnt === 1 ? styles['low-stock'] : ''}`}
+              className={`${styles.storeItem} ${store.productCnt === 0 ? styles['low-stock'] : ''}`}
             >
               <div 
                 className={`${styles.heartIcon} ${favorites[store.storeId] ? styles.favorited : styles.notFavorited}`} 
@@ -251,7 +257,7 @@ const FoodNav = ({ selectedCategory, stores }) => {
                 />
               </div>
               <img src={store.storeImg || DEFAULT_IMG} alt={store.storeName} onError={imgErrorHandler}/>
-              {store.productCnt === 1 && <div className={styles.overlay}>SOLD OUT</div>}
+              {store.productCnt === 0 && <div className={styles.overlay}>SOLD OUT</div>}
               <p className={styles.storeName}>{store.storeName}</p>
               <span className={styles.storePrice}>{store.price}</span>
               <span className={styles.productCnt}>수량 : {store.productCnt}</span>
@@ -268,7 +274,7 @@ const FoodNav = ({ selectedCategory, stores }) => {
             <div
               key={index}
               onClick={() => handleClick(store)}
-              className={`${styles.storeItem} ${store.productCnt === 1 ? styles['low-stock'] : ''}`}
+              className={`${styles.storeItem} ${store.productCnt === 0 ? styles['low-stock'] : ''}`}
             >
               <div 
                 className={`${styles.heartIcon} ${favorites[store.storeId] ? styles.favorited : styles.notFavorited}`} 
@@ -282,7 +288,7 @@ const FoodNav = ({ selectedCategory, stores }) => {
                 />
               </div>
               <img src={store.storeImg || DEFAULT_IMG} alt={store.storeName} onError={imgErrorHandler}/>
-              {store.productCnt === 1 && <div className={styles.overlay}>SOLD OUT</div>}
+              {store.productCnt === 0 && <div className={styles.overlay}>SOLD OUT</div>}
               <p className={styles.storeName}>{store.storeName}</p>
               <span className={styles.storePrice}>{store.price}</span>
               <span className={styles.productCnt}>수량 : {store.productCnt}</span>
@@ -291,7 +297,7 @@ const FoodNav = ({ selectedCategory, stores }) => {
         </Slider>
       </div>
 
-      {/* 추천 가게 리스트(랜덤) */}
+      {/* 추천 가게 리스트 (랜덤으로 10개) */}
       <div className={styles.list}>
         <h2 className={styles.title}>이웃들의 추천 가게</h2>
         <Slider {...settings(5)} className={styles.slider}>
@@ -299,7 +305,7 @@ const FoodNav = ({ selectedCategory, stores }) => {
             <div
               key={index}
               onClick={() => handleClick(store)}
-              className={`${styles.storeItem} ${store.productCnt === 1 ? styles['low-stock'] : ''}`}
+              className={`${styles.storeItem} ${store.productCnt === 0 ? styles['low-stock'] : ''}`}
             >
               <div 
                 className={`${styles.heartIcon} ${favorites[store.storeId] ? styles.favorited : styles.notFavorited}`} 
@@ -312,12 +318,11 @@ const FoodNav = ({ selectedCategory, stores }) => {
                   icon={favorites[store.storeId] ? faHeartSolid : faHeartRegular} 
                 />
               </div>
-              <img src={store.storeImg || DEFAULT_IMG} alt={store.storeName} className={styles.image} onError={imgErrorHandler} />
-              <span className={styles.category}>{extractFoodType(store.category)}</span>
+              <img src={store.storeImg || DEFAULT_IMG} alt={store.storeName} onError={imgErrorHandler}/>
+              {store.productCnt === 0 && <div className={styles.overlay}>SOLD OUT</div>}
               <p className={styles.storeName}>{store.storeName}</p>
               <span className={styles.storePrice}>{store.price}</span>
               <span className={styles.productCnt}>수량 : {store.productCnt}</span>
-              {store.productCnt === 1 && <div className={styles.overlay}>SOLD OUT</div>}
             </div>
           ))}
         </Slider>
@@ -331,7 +336,7 @@ const FoodNav = ({ selectedCategory, stores }) => {
             <div
               key={index}
               onClick={() => handleClick(store)}
-              className={`${styles.storeItem} ${store.productCnt === 1 ? styles['low-stock'] : ''}`}
+              className={`${styles.storeItem} ${store.productCnt === 0 ? styles['low-stock'] : ''}`}
             >
               <div 
                 className={`${styles.heartIcon} ${favorites[store.storeId] ? styles.favorited : styles.notFavorited}`} 
@@ -349,7 +354,7 @@ const FoodNav = ({ selectedCategory, stores }) => {
               <p className={styles.storeName}>{store.storeName}</p>
               <span className={styles.storePrice}>{store.price}</span>
               <span className={styles.productCnt}>수량 : {store.productCnt}</span>
-              {store.productCnt === 1 && <div className={styles.overlay}>SOLD OUT</div>}
+              {store.productCnt === 0 && <div className={styles.overlay}>SOLD OUT</div>}
             </div>
           ))}
         </Slider>
