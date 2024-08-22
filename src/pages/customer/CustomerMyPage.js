@@ -7,14 +7,12 @@ import PreferredFood from "../../components/customer/mypage/PreferredFood";
 import FavoriteStore from "../../components/customer/mypage/FavoriteStore";
 import SideBarBtn from "../../components/store/mypage-edit/SideBarBtn";
 
-import { jwtDecode } from 'jwt-decode';
 import {authFetch, checkAuthToken} from "../../utils/authUtil";
 import {useNavigate} from "react-router-dom";
 
 const BASE_URL = window.location.origin;
 
 const CustomerMyPage = () => {
-    // const customerId = "test@gmail.com"; // 하드코딩된 customerId
     const [width, setWidth] = useState(window.innerWidth);
     const [show, setShow] = useState(false);
     const [customerData, setCustomerData] = useState({});
@@ -25,7 +23,8 @@ const CustomerMyPage = () => {
     const [hasMore, setHasMore] = useState(true);
     const [startIndex, setStartIndex] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
-    const ITEMS_PER_PAGE = 10; // 한번에 가져올 예약목록 개수 설정
+    const [userInfo, setUserInfo] = useState(null); // userInfo를 상태로 관리
+    const ITEMS_PER_PAGE = 10;
 
     /**
      * 토큰이 있으면 현재 페이지 유지
@@ -47,6 +46,7 @@ const CustomerMyPage = () => {
                     return;
                 }
 
+                setUserInfo(userInfo); // userInfo 상태 저장
                 fetchCustomerData(userInfo.token, userInfo.refreshToken, userInfo.email);
                 fetchReservations(userInfo.token, userInfo.refreshToken, userInfo.email);
                 fetchStats(userInfo.token, userInfo.refreshToken, userInfo.email);
@@ -56,7 +56,6 @@ const CustomerMyPage = () => {
         fetchUser();
     }, [navigate]);
 
-
     useEffect(() => {
         window.addEventListener("resize", setInnerWidth);
         return () => {
@@ -64,10 +63,9 @@ const CustomerMyPage = () => {
         }
     }, []);
 
-
     const setInnerWidth = () => {
         setWidth(window.innerWidth);
-    }
+    };
 
     const fetchCustomerData = async (token, refreshToken, customerId) => {
         try {
@@ -91,8 +89,7 @@ const CustomerMyPage = () => {
 
     const fetchReservations = async (token, refreshToken) => {
         try {
-
-            const response = await authFetch(`${BASE_URL}/reservation/list` , {
+            const response = await authFetch(`${BASE_URL}/reservation/list`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -115,17 +112,15 @@ const CustomerMyPage = () => {
     };
 
     const fetchStats = async (token, refreshToken, customerId) => {
-
         try {
-            const response = await authFetch(`${BASE_URL}/customer/stats?customerId=${customerId}`
-                ,{
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`,
-                        'refreshToken': refreshToken
-                    }
-                });
+            const response = await authFetch(`${BASE_URL}/customer/stats?customerId=${customerId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                    'refreshToken': refreshToken
+                }
+            });
 
             if (!response.ok) throw new Error('Failed to fetch stats');
             const data = await response.json();
@@ -161,7 +156,7 @@ const CustomerMyPage = () => {
                     case 'NOSHOW':
                         return new Date(reservation.pickupTime);
                     default:
-                        return new Date(); // 기본값 (예외 처리)
+                        return new Date();
                 }
             };
 
@@ -183,6 +178,7 @@ const CustomerMyPage = () => {
     };
 
     const loadMore = () => {
+        if (!hasMore || isLoading) return;
         setIsLoading(true);
         setTimeout(() => {
             const newStartIndex = startIndex + ITEMS_PER_PAGE;
@@ -201,7 +197,7 @@ const CustomerMyPage = () => {
 
     const showHandler = () => {
         setShow(prev => !prev);
-    }
+    };
 
     const applyFilters = (filters) => {
         const { category, dateRange, status } = filters;
@@ -240,6 +236,7 @@ const CustomerMyPage = () => {
                             hasMore={hasMore}
                             isLoading={isLoading}
                             onApplyFilters={applyFilters}
+                            onFetchReservations={() => fetchReservations(userInfo.token, userInfo.refreshToken)}
                         />
 
                         {width > 400 && (

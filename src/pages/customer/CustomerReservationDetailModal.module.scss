@@ -50,7 +50,7 @@
     margin-top: 20px;
 
   }
-    .pickupConfirmBtn{
+    .pickupConfirmBtn, .paymentBtn{
       justify-content: center;
       padding: 13px 144px;
       font-size: 19px;
@@ -61,6 +61,18 @@
       margin-top: 5px;
       border: none;
     }
+  .pickupCancelBtn{
+    justify-content: center;
+    padding: 13px 144px;
+    font-size: 19px;
+    background: rgba(178, 34, 34, 0.58);
+    border-radius: 15px;
+    color: white;
+    font-weight: 700;
+    margin-top: 5px;
+    border: none;
+  }
+
 
     .needHelp{
       color: rgba(13, 13, 13, 0.44);
@@ -98,7 +110,7 @@
       }
 
     }
-    .pickupConfirmBtn{
+    .pickupConfirmBtn, .pickupCancelBtn, .paymentBtn {
       width: 100%;
       padding: 13px 0;
     }

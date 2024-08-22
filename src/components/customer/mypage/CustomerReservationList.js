@@ -3,11 +3,11 @@ import styles from './CustomerReservationList.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faCircleCheck, faSpinner, faSliders } from "@fortawesome/free-solid-svg-icons";
 import { useModal } from "../../../pages/common/ModalProvider";
-import { imgErrorHandler } from "../../../utils/error";
+import {DEFAULT_IMG, imgErrorHandler} from "../../../utils/error";
 
 const BASE_URL = window.location.origin;
 
-const CustomerReservationList = ({ reservations, onUpdateReservations, isLoading, loadMore, hasMore, initialFilters, onApplyFilters }) => {
+const CustomerReservationList = ({ reservations, onUpdateReservations, isLoading, loadMore, hasMore, initialFilters, onApplyFilters, onFetchReservations }) => {
     const { openModal } = useModal();
     const [isMobileView, setIsMobileView] = useState(window.innerWidth <= 400);
     const [filters, setFilters] = useState(initialFilters || {}); // 필터 유지
@@ -90,9 +90,12 @@ const CustomerReservationList = ({ reservations, onUpdateReservations, isLoading
 
             // 예약 취소 성공 시 예약 목록 갱신
             const updatedReservations = reservations.map(reservation =>
-                reservation.reservationId === reservationId ? { ...reservation, status: 'CANCELED', cancelReservationAtF: formatDate(new Date().toISOString()) } : reservation
+                reservation.reservationId === reservationId
+                    ? { ...reservation, status: 'CANCELED', cancelReservationAtF: formatDate(new Date().toISOString()) }
+                    : reservation
             );
             onUpdateReservations(updatedReservations);
+            await onFetchReservations();
         } catch (error) {
             console.error('Error canceling reservation:', error);
         }
@@ -126,10 +129,13 @@ const CustomerReservationList = ({ reservations, onUpdateReservations, isLoading
     const handleReservationClick = async (reservationId) => {
         try {
             const reservationDetail = await fetchReservationDetail(reservationId);
+            console.log(reservationDetail);
+            console.log(reservationId);
             if (reservationDetail) {
                 openModal('customerReservationDetail', {
                     reservationDetail,
-                    onPickupConfirm: async () => await completePickup(reservationId)
+                    onCancelClick: () => handleCancelReservationClick(reservationId),
+                    onPickupConfirm: async () => await completePickup(reservationId),
                 });
             } else {
                 alert('Failed to fetch reservation details');
@@ -140,8 +146,7 @@ const CustomerReservationList = ({ reservations, onUpdateReservations, isLoading
     };
 
     // 예약 취소 모달을 여는 함수
-    const handleCancelReservationClick = async (reservationId, event) => {
-        event.stopPropagation(); // 이벤트 버블링 방지
+    const handleCancelReservationClick = async (reservationId) => {
         try {
             const reservationDetail = reservations.find(r => r.reservationId === reservationId);
 
@@ -155,6 +160,7 @@ const CustomerReservationList = ({ reservations, onUpdateReservations, isLoading
             console.error('Error fetching cancel reservation detail:', error);
         }
     };
+
 
     // 리뷰 작성 모달을 여는 함수
     const handleWriteReviewClick = async (reservationId, event) => {
@@ -222,7 +228,7 @@ const CustomerReservationList = ({ reservations, onUpdateReservations, isLoading
                                                 <FontAwesomeIcon icon={faSpinner} className={styles.loading} />}
                                             {reservation.status === 'PICKEDUP' &&
                                                 <FontAwesomeIcon icon={faCircleCheck} className={styles.done} />}
-                                            <img src={reservation.storeImg} onError={imgErrorHandler} alt="Store Image" />
+                                            <img src={reservation.storeImg || DEFAULT_IMG} onError={imgErrorHandler} alt="Store Image" />
                                         </div>
                                         <span>{reservation.storeName}</span>
                                     </div>
@@ -244,24 +250,24 @@ const CustomerReservationList = ({ reservations, onUpdateReservations, isLoading
                                         <>
                                             <span>픽업하러 가는 중이에요!</span>
                                             <span>{reservation.pickupTimeF}까지</span>
-                                            <button
-                                                className={`${styles.reservationCancelBtn} ${styles.calendarButton} ${styles.cancelRes}`}
-                                                onClick={(event) => handleCancelReservationClick(reservation.reservationId, event)}
-                                            >
-                                                {isMobileView ? '예약 취소' : '예약 취소하기'}
-                                            </button>
+                                            {/*<button*/}
+                                            {/*    className={`${styles.reservationCancelBtn} ${styles.calendarButton} ${styles.cancelRes}`}*/}
+                                            {/*    onClick={(event) => handleCancelReservationClick(reservation.reservationId, event)}*/}
+                                            {/*>*/}
+                                            {/*    {isMobileView ? '예약 취소' : '예약 취소하기'}*/}
+                                            {/*</button>*/}
                                         </>
                                     )}
                                     {reservation.status === 'PICKEDUP' && (
                                         <>
                                             <span>픽업을 완료했어요</span>
                                             <span>{reservation.pickedUpAtF}</span>
-                                            <button
-                                                className={`${styles.reviewBtn} ${styles.calendarButton} ${styles.writeReview}`}
-                                                onClick={(event) => handleWriteReviewClick(reservation.reservationId, event)}
-                                            >
-                                                {isMobileView ? '리뷰 작성' : '리뷰 작성하기'}
-                                            </button>
+                                            {/*<button*/}
+                                            {/*    className={`${styles.reviewBtn} ${styles.calendarButton} ${styles.writeReview}`}*/}
+                                            {/*    onClick={(event) => handleWriteReviewClick(reservation.reservationId, event)}*/}
+                                            {/*>*/}
+                                            {/*    {isMobileView ? '리뷰 작성' : '리뷰 작성하기'}*/}
+                                            {/*</button>*/}
                                         </>
                                     )}
                                 </div>

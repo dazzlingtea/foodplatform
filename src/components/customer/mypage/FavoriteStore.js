@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './FavoriteStore.module.scss';
-import {imgErrorHandler} from "../../../utils/error";
+import {DEFAULT_IMG, imgErrorHandler} from "../../../utils/error";
 
 const FavoriteStore = ({ favStores = [] }) => {
     return (
@@ -10,13 +10,13 @@ const FavoriteStore = ({ favStores = [] }) => {
                 <h3 className={styles.titleText}>최애 가게</h3>
             </div>
             <div className={styles.infoWrapper}>
-                <ul className={`${styles.infoList} ${styles.store}`}>
+                <ul className={styles.store}>
                     {favStores.length > 0 ? (
                         favStores.map((store) => (
                             <li key={store.storeId}>
                                 <Link to="#" className={styles.storeLink}>
                                     <div className={styles.imgBox}>
-                                        <img src={store.storeImg} onError={imgErrorHandler} alt="최애가게이미지" />
+                                        <img src={store.storeImg || DEFAULT_IMG} onError={imgErrorHandler} alt="최애가게이미지" />
                                     </div>
                                     <span>{store.storeName}</span>
                                 </Link>
