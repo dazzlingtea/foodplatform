@@ -4,7 +4,6 @@ import {useModal} from "../../pages/common/ModalProvider";
 import {createReservationFetch} from "./fetch-payment";
 import PaymentRequestModal from "../../pages/payment/PaymentRequestModal";
 import SubModalPortal from "../../pages/payment/SubModalPortal";
-import ClickPortal from "../../pages/payment/ClickPortal";
 
 const ReservationBtn = ({ tar : {remainProduct, productDetail: {storeInfo}, initialCount, cntHandler=null }}) => {
     const [isShow, setIsShow] = useState(false);

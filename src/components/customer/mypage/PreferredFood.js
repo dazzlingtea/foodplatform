@@ -1,9 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import styles from './PreferredFood.module.scss';
 import {imgErrorHandler} from "../../../utils/error";
+import {categoryImgList} from "../../../utils/img-handler";
 
-const PreferredFood = ({ preferredFoods = [] }) => {
+const foodCategory = {
+    "한식": 'korean',
+    "중식": 'chinese',
+    "일식": 'japanese',
+    "양식": 'western',
+    "디저트": 'dessert',
+    "카페": 'cafe',
+    "기타": 'etc'
+};
+
+const PreferredFood = ({preferredFoods = []}) => {
+    console.log('preferredFoods: ', preferredFoods);
     return (
         <div className={styles.preferredFoodForm}>
             <div className={styles.title}>
@@ -16,9 +28,10 @@ const PreferredFood = ({ preferredFoods = [] }) => {
                     {preferredFoods.length > 0 ? (
                         preferredFoods.map((food, index) => (
                             <li key={index}>
-                                <Link to="#" className={styles.foodLink}>
+                                <Link to={`/${foodCategory[food.preferredFood]}`} className={styles.foodLink} onClick={() => window.scrollTo(0, 0)}>
                                     <div className={styles.imgBox}>
-                                        <img src={food.foodImage} onError={imgErrorHandler} alt="선호음식이미지" className={styles.foodImage}/>
+                                        <img src={categoryImgList[food.preferredFood]} onError={imgErrorHandler}
+                                             alt="선호음식이미지" className={styles.foodImage}/>
                                     </div>
                                     <span>{food.preferredFood}</span>
                                 </Link>

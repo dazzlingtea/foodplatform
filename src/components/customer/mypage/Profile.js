@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Profile.module.scss';
-import { Link, useLocation } from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {DEFAULT_IMG, imgErrorHandler} from "../../../utils/error";
 import PreferredArea from "./PreferredArea";
 import PreferredFood from "./PreferredFood";
 import FavoriteStore from "./FavoriteStore";
+import { logoutAction } from "../../../utils/authUtil";
 
 const Profile = ({ customerMyPageDto, stats, isShow, width }) => {
     const location = useLocation();
     const [userData, setUserData] = useState({});
     const [userStats, setUserStats] = useState({});
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (isShow) document.body.style.overflow = 'hidden';
@@ -30,8 +32,15 @@ const Profile = ({ customerMyPageDto, stats, isShow, width }) => {
         }
     };
 
+    const handleLogout = async () => {
+        await logoutAction(navigate);
+        navigate('/sign-in');
+    };
+
+    const isMyPage = location.pathname === '/customer';
+
     return (
-        <div className={`${styles.profileSection} ${isShow ? styles.on : undefined}`}>
+        <div className={`${styles.profileSection} ${isShow ? styles.on : ''}`}>
             <div className={styles.profile}>
                 <a className={styles.imgBox} href="#">
                     <img src={userData.profileImage || DEFAULT_IMG} onError={imgErrorHandler} alt="Customer profile image" />
@@ -39,7 +48,15 @@ const Profile = ({ customerMyPageDto, stats, isShow, width }) => {
                 <h2>{userData.nickname}</h2>
                 <p>{userData.customerId}</p>
                 <ul className={styles.nav}>
+                    <Link
+                        to={'/customer'}
+                        className={`${styles.navItem} ${isMyPage ? styles.active : ''}`}
+                        onClick={isMyPage ? (e) => e.preventDefault() : handleReload}
+                    >
+                        마이페이지
+                    </Link>
                     <Link to={'/customer/edit'} className={styles.navItem}>개인정보수정</Link>
+                    <button className={styles.logoutButton} onClick={handleLogout}>로그아웃</button>
                 </ul>
                 <div className={styles.stats}>
                     <div id="carbon" className={styles.statsBox}>

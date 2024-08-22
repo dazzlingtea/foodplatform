@@ -197,7 +197,8 @@ const StoreMyPage = () => {
      * 스크롤 이벤트를 처리하는 함수 (무한 스크롤)
      */
     const handleWindowScroll = () => {
-        if (window.innerHeight + document.documentElement.scrollTop < document.documentElement.offsetHeight - 1) {
+        if (window.innerHeight + document.documentElement.scrollTop < document.documentElement.offsetHeight - 1) return;
+        if (hasMore && !isLoading) {
             loadMore();
         }
     };

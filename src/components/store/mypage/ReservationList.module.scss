@@ -72,7 +72,7 @@
   gap: 10px;
   border-radius: 15px;
   margin: 0 7px 10px 7px;
-  overflow: auto;
+  //overflow: auto;
 }
 
 .reservationItem {
@@ -124,7 +124,6 @@
       .imgBox {
         //width: 50px;
         height: 50px;
-        border-radius: 5px;
         overflow: hidden;
         box-shadow: white 0 0 0 2px;
         display: flex;
@@ -132,6 +131,11 @@
         align-items: center;
         position: relative;
         gap: 10px;
+
+        img {
+          border-radius: 50%;
+        }
+
 
         img {
           width: 50px;

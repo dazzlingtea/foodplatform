@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react';
 import styles from './Profile.module.scss';
-import { Link, useLocation } from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import { imgErrorHandler } from "../../../utils/error";
 import ProductCount from "./ProductCount";
 import Calendar from "./Calendar";
 import { useModal } from "../../../pages/common/ModalProvider";
+import {logoutAction} from "../../../utils/authUtil";
 
 const BASE_URL = window.location.origin;
 
 const Profile = ({ storeInfo, stats, isShow, width }) => {
     const location = useLocation();
     const { closeModal } = useModal();
+    const navigate = useNavigate();
 
     /**
      * 사이드바 표시 상태에 따라 스크롤 동작을 제어하는 useEffect 훅
@@ -32,6 +34,13 @@ const Profile = ({ storeInfo, stats, isShow, width }) => {
         }
     };
 
+    const isMyPage = location.pathname === '/store';
+
+    const handleLogout = async () => {
+        await logoutAction(navigate);
+        navigate('/sign-in');
+    };
+
     return (
         <div className={`${styles.profileSection} ${isShow ? styles.on : undefined}`}>
             <div className={styles.profile}>
@@ -41,11 +50,14 @@ const Profile = ({ storeInfo, stats, isShow, width }) => {
                 <h2>{storeInfo.storeName}</h2>
                 <p>{storeInfo.storeId}</p>
                 <ul className={styles.nav}>
-                    <Link to={'/store'} className={styles.navItem} onClick={handleReload}>마이페이지</Link>
+                    <Link to={'/store'}
+                          className={`${styles.navItem} ${isMyPage ? styles.active : ''}`}
+                          onClick={handleReload}>마이페이지</Link>
                     <Link to={'/store/edit'} className={styles.navItem}>개인정보수정</Link>
+                    <button className={styles.logoutButton} onClick={handleLogout}>로그아웃</button>
                 </ul>
                 <div className={styles.stats}>
-                    <div id="carbon" className={styles.statsBox}>
+                <div id="carbon" className={styles.statsBox}>
                         <img src="/assets/img/mypage-carbon.png" alt="leaf"/>
                         <div>{stats.coTwo}kg의 이산화탄소 배출을 줄였습니다</div>
                     </div>

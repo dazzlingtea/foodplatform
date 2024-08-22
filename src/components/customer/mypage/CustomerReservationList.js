@@ -129,8 +129,6 @@ const CustomerReservationList = ({ reservations, onUpdateReservations, isLoading
     const handleReservationClick = async (reservationId) => {
         try {
             const reservationDetail = await fetchReservationDetail(reservationId);
-            console.log(reservationDetail);
-            console.log(reservationId);
             if (reservationDetail) {
                 openModal('customerReservationDetail', {
                     reservationDetail,

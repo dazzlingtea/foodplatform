@@ -12,6 +12,15 @@ const ReservationList = ({ reservations, onUpdateReservations, isLoading, loadMo
     const listRef = useRef();
     const [filters, setFilters] = useState(initialFilters || {});
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        return `${month}월 ${day}일 ${hours}시 ${minutes}분`;
+    };
+
     // 예약 픽업 fetch 함수
     const completePickup = async (reservationId) => {
         try {
@@ -28,7 +37,7 @@ const ReservationList = ({ reservations, onUpdateReservations, isLoading, loadMo
 
             // 예약 목록을 갱신
             const updatedReservations = reservations.map(reservation =>
-                reservation.reservationId === reservationId ? { ...reservation, status: 'PICKEDUP', pickedUpAtF: new Date().toISOString() } : reservation
+                reservation.reservationId === reservationId ? { ...reservation, status: 'PICKEDUP', pickedUpAtF: formatDate(new Date()) } : reservation
             );
             onUpdateReservations(updatedReservations);
         } catch (error) {
@@ -43,7 +52,7 @@ const ReservationList = ({ reservations, onUpdateReservations, isLoading, loadMo
         try {
             openModal('storeReservationDetail', {
                 reservationInfo: reservation,
-                onPickupConfirm: () => completePickup(reservation.reservationId)  // 픽업 확인 함수 전달
+                onPickupConfirm: () => completePickup(reservation.reservationId)
             });
         } catch (error) {
             console.error('Error opening modal:', error);

@@ -61,9 +61,29 @@
         border-radius: .75rem;
         font-weight: 600;
 
+        &.active {
+          color: rgba(8, 10, 8, 1);
+          background: linear-gradient(135deg, #e0eee0, #dff3d8);
+          pointer-events: none; // 클릭 막기
+        }
+
         &:hover {
           color: rgba(8, 10, 8, 1);
           background: linear-gradient(135deg, #e0eee0, #dff3d8);
+        }
+      }
+
+      .logoutButton {
+        width: 100%;
+        color: #111;
+        padding: 10px 0;
+        display: block;
+        border-radius: .75rem;
+        font-weight: 600;
+
+        &:hover {
+          color: #fff;
+          background: rgba(178, 34, 34, 0.58);
         }
       }
     }
