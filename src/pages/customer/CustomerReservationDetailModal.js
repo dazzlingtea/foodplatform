@@ -3,6 +3,8 @@ import styles from "./CustomerReservationDetailModal.module.scss";
 import {useModal} from "../common/ModalProvider";
 import {Link, useNavigate} from "react-router-dom";
 import {DEFAULT_IMG, imgErrorHandler} from "../../utils/error";
+import ReservationBtn from "../../components/payment/ReservationBtn";
+import PaymentBtn from "../../components/payment/PaymentBtn";
 
 const CustomerReservationDetailModal = ({reservationDetail, onPickupConfirm, onCancelClick}) => {
     const {closeModal} = useModal();
@@ -118,7 +120,7 @@ const CustomerReservationDetailModal = ({reservationDetail, onPickupConfirm, onC
                     reservationDetail.paymentTime === null ?
                             <>
                                 <p className={styles.btnDes}>결제가 아직 완료되지 않았어요!<br/>아래의 결제하기 버튼을 눌러서 결제를 완료해 주세요</p>
-                                <button className={styles.paymentBtn} >결제하기</button>
+                                <PaymentBtn storeInfo={reservationDetail}/>
                             </>
                         :
                     <>

@@ -10,6 +10,14 @@ export const createReservationFetch = (storeId, cnt, paymentId) => authFetch(RES
     body: JSON.stringify({storeId, cnt, paymentId}),
 });
 
+export const patchReservationFetch = (paymentId, reservationId) => authFetch(RESERVATION_URL, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({cnt:1, paymentId, reservationId}),
+})
+
 export const updateReservationFetch = (paymentId) => authFetch(RESERVATION_URL, {
     method: 'PATCH',
     headers: {
