@@ -63,6 +63,7 @@ const ProductDetailModal = ({productDetail, onClose, setStoreListHandler}) => {
             storeId,
             remainProduct: productCnt,
             productImg,
+            productDetail
         },
     };
 

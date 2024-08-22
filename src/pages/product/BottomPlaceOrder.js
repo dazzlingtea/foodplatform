@@ -4,9 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import ReservationBtn from "../../components/payment/ReservationBtn";
 
-const BottomPlaceOrder = ({ productDetail, initialCount, handleIncrease, handleDecrease, remainProduct, closeModal }) => {
+const BottomPlaceOrder = ({ productDetail, initialCount, handleIncrease, handleDecrease, remainProduct, closeModal, cntHandler }) => {
   const storeId = productDetail.storeInfo?.storeId || '';
   const customerId = 'test@gmail.com';
+
   const isReservation = remainProduct === 1;
 
   return (
@@ -28,7 +29,7 @@ const BottomPlaceOrder = ({ productDetail, initialCount, handleIncrease, handleD
           <FontAwesomeIcon icon={faPlus} />
         </button>
       </div>
-      <ReservationBtn tar={{remainProduct, initialCount, productDetail}}/>
+      <ReservationBtn tar={{remainProduct, initialCount, productDetail, cntHandler}}/>
     </div>
   );
 };

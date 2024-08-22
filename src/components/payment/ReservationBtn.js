@@ -1,73 +1,65 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from "../../pages/product/BottomPlaceOrder.module.scss";
-import {authFetch} from "../../utils/authUtil";
 import {useModal} from "../../pages/common/ModalProvider";
-import * as PortOne from "@portone/browser-sdk/v2";
+import {createReservationFetch} from "./fetch-payment";
+import PaymentRequestModal from "../../pages/payment/PaymentRequestModal";
+import SubModalPortal from "../../pages/payment/SubModalPortal";
+import ClickPortal from "../../pages/payment/ClickPortal";
 
-const ReservationBtn = ({ tar : {remainProduct, productDetail, initialCount }}) => {
-    const { closeModal } = useModal();
-    const isReservation = remainProduct === 1;
-    const storeId = productDetail.storeInfo?.storeId || '';
+const ReservationBtn = ({ tar : {remainProduct, productDetail: {storeInfo}, initialCount, cntHandler=null }}) => {
+    const [isShow, setIsShow] = useState(false);
+    const [paymentId, setPaymentId] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const { closeModal, openModal } = useModal();
+    const isReservation = remainProduct === 0;
+    const storeId = storeInfo?.storeId || '';
+    const price = storeInfo?.price * initialCount;
+
     const handleMakeReservation = async () => {
-        if (remainProduct <= 1) {
+        if (remainProduct === 0) {
             alert('해당 상품은 품절되었습니다.');
             return;
         }
-
-        const BASE_URL = window.location.hostname;
-        const response = await PortOne.requestPayment({
-            // Store ID 설정
-            storeId: process.env.REACT_APP_PAYMENT_STORE_ID,
-            // 채널 키 설정
-            channelKey: process.env.REACT_APP_KAKAOPAY_CHANNEL_KEY,
-            paymentId: `payment-${crypto.randomUUID()}`,
-            orderName: `${productDetail.storeInfo.storeName}의 스페셜팩!`,
-            totalAmount: `${productDetail.storeInfo.price * initialCount || 3900}`,
-            currency: "CURRENCY_KRW",
-            payMethod: "EASY_PAY",
-            redirectUrl: `http://${BASE_URL}:3000/main`,
-            bypass: {
-                kakaopay: {
-                    custom_message: "지구를 지키는 'FoodieTree'입니다"
-                }
-            }
-        });
-
-        console.log(response);
-        const paymentId = response.paymentId;
-
+        setIsLoading(true);
+        setIsShow(true);
+        const tarId = `${storeInfo.productDetail.productId}-${Date.now()}`;
+        setPaymentId(tarId);
         try {
-            const response = await authFetch(`/reservation`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    storeId: storeId,
-                    cnt: `${initialCount}`,
-                    storeName: productDetail.storeInfo.storeName,
-                    paymentId
-                }),
-            });
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error(errorData);
+            const response = await createReservationFetch(storeId, initialCount, tarId);
+            const data = await response.json();
+            setIsLoading(false);
+            if (response.ok && data) {
+                cntHandler && cntHandler(storeId, initialCount);
+            } else {
+                alert("잠시 후 다시 이용해주세요.");
+                setIsShow(false);
             }
-            console.log('예약 처리 응답:', response);
-            alert('예약이 완료되었습니다!');
-            closeModal();
-        } catch (error) {
-            console.error('예약 처리 중 오류 발생:', error);
-            alert('예약 처리 중 오류가 발생했습니다!');
+        } catch (e) {
+            alert("잠시 후 다시 이용해주세요.");
+            console.error(e);
+            setIsLoading(false);
+            setIsShow(false);
         }
     };
+
+    const closeHandler = () => {
+        setIsShow(false);
+        closeModal();
+    }
     return (
-        <div
-            className={`${styles.placeOrderBtn} ${isReservation ? styles.reservation : ''}`}
-            onClick={handleMakeReservation}
-        >
-            <p>{isReservation ? 'SOLD OUT' : '구매하기'}</p>
-        </div>
+        <>
+            <div
+                className={`${styles.placeOrderBtn} ${isReservation ? styles.reservation : ''}`}
+                onClick={handleMakeReservation}
+            >
+                <p>{isReservation ? 'SOLD OUT' : '예약하기'}</p>
+            </div>
+            { isShow &&
+                <SubModalPortal onClose={closeHandler} isLoading={isLoading}>
+                    <PaymentRequestModal storeName={storeInfo.storeName} price={price} paymentId={paymentId} onClose={closeHandler}/>
+                </SubModalPortal>
+            }
+        </>
     );
 };
 

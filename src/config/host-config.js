@@ -4,6 +4,7 @@ const STORELISTS = '/storeLists';
 const EMAIL = '/email';
 const ADMIN = '/admin';
 const FAVORITESTORE = '/api/favorites';
+const RESERVATION = '/reservation';
 const ISSUE = '/issue';
 // const COMMUNITYREVIEW = '/communityReview';
 
@@ -16,6 +17,7 @@ export const STORELISTS_URL = STORELISTS;
 export const EMAIL_URL = EMAIL;
 export const ADMIN_URL = ADMIN;
 export const FAVORITESTORE_URL = FAVORITESTORE;
+export const RESERVATION_URL = RESERVATION;
 export const ISSUE_URL = ISSUE;
 
 // export const COMMUNITYREVIEW_URL = COMMUNITYREVIEW;

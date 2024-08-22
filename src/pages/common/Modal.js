@@ -1,9 +1,10 @@
-import React, {lazy, Suspense, useEffect, useState} from 'react';
+import React, {lazy, Suspense, useEffect, useRef, useState} from 'react';
 import styles from './Modal.module.scss';
 import {useModal} from "./ModalProvider";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faMinus, faTimes} from "@fortawesome/free-solid-svg-icons";
 import ReactDOM from "react-dom";
+import BottomPlaceOrder from "../product/BottomPlaceOrder";
 
 // 동적 import => 필요한 시점에만 로드 가능 (성능 개선)
 const EmailVerificationModal = lazy(() => import("./EmailVerificationModal"));
@@ -24,6 +25,7 @@ const AdminIssueReviewModal = lazy(() => import("../../components/admin/issue/Ad
 
 const Modal = () => {
     const {modalState, closeModal} = useModal();
+    const divRef = useRef(null);
     const {isOpen, type, props} = modalState;
     const [customStyle, setCustomStyle] = useState({width: '100%'});
     const [customInnerContentStyle, setCustomInnerContentStyle] = useState({}); // 추가
@@ -146,6 +148,8 @@ const Modal = () => {
             alert("채팅방에서 나가시려면 '나가기' 버튼을 눌러주세요.");
             return;
         }
+        const $subModalId = divRef.current.querySelector("#sub-modal");
+        if ($subModalId) return ;
         if (e.target === e.currentTarget) {
             closeModal();
         }
@@ -171,6 +175,7 @@ const Modal = () => {
                 </div>
                 <div className={styles.modalFooter}>
                 </div>
+                <div id="sub-modal-root" ref={divRef} />
             </div>
         </div>,
         document.getElementById('modal-root')
