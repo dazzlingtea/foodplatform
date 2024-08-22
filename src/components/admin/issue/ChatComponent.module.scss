@@ -57,6 +57,13 @@
       align-self: start;
     }
 
+    .mangerMessage{
+      width: 100%;
+      text-align: center;
+      align-self: center;
+      background-color: rgba(245, 228, 207, 0.76);
+    }
+
     .chatImage{
       max-width: 190px;
       max-height: 190px;
@@ -143,6 +150,15 @@
       display: flex;
       width: 60%;
       justify-content: space-evenly;
+  }
+
+  .loading{
+    margin-top: 60px;
+  }
+
+  .loadingGif{
+    width: 250px;
+    align-self: center;
   }
 
 
