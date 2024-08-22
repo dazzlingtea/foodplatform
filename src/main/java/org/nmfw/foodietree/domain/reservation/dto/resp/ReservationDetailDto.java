@@ -48,6 +48,8 @@ public class ReservationDetailDto {
     private String pickupStartTimeF;
     private String pickupEndTimeF;
 
+    private LocalDateTime paymentTime;
+
     public void setCategory(String category) {
         this.category = StoreCategory.fromString(category);
     }

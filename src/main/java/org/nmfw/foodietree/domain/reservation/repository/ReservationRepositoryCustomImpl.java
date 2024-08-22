@@ -14,6 +14,8 @@ import org.nmfw.foodietree.domain.reservation.dto.resp.ReservationDetailDto;
 import org.nmfw.foodietree.domain.reservation.dto.resp.ReservationFoundStoreIdDto;
 import org.nmfw.foodietree.domain.reservation.dto.resp.ReservationStatusDto;
 import org.nmfw.foodietree.domain.reservation.entity.QReservation;
+import org.nmfw.foodietree.domain.reservation.entity.Reservation;
+
 import org.nmfw.foodietree.domain.reservation.entity.QReservationSubSelect;
 import org.nmfw.foodietree.domain.store.dto.resp.StoreReservationDto;
 import org.nmfw.foodietree.domain.store.entity.QStore;
@@ -209,6 +211,7 @@ public class ReservationRepositoryCustomImpl implements ReservationRepositoryCus
                 .where(reservation.paymentId.eq(paymentId))
                 .fetch();
     }
+
 
     @Override
     public List<StoreReservationDto> findReservationsByStoreId(String storeId) {
