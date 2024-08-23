@@ -17,7 +17,7 @@ import static org.nmfw.foodietree.domain.auth.security.TokenProvider.*;
 @RequestMapping("/notification")
 @RequiredArgsConstructor
 @Slf4j
-public class NotifyController {
+public class NotificationController {
 
     private final NotificationService notificationService;
 

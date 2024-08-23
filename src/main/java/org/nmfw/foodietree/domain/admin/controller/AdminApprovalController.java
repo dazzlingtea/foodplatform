@@ -41,8 +41,15 @@ public class AdminApprovalController {
         }
         log.info("관리자 - 승인요청 : 시작일 {} / 종료일 {}", start, end );
 
-        Map<String, Object> approvalsMap = adminApprovalService.getApprovals(start, end, userInfo);
-        log.info("조회 결과: {}", approvalsMap.get("approvals").toString());
+        Map<String, Object> approvalsMap = null;
+        try {
+            approvalsMap = adminApprovalService.getApprovals(start, end, userInfo);
+            log.info("조회 결과: {}", approvalsMap.get("approvals").toString());
+        } catch (SecurityException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
 
         return ResponseEntity.ok().body(approvalsMap);
     }
@@ -56,8 +63,10 @@ public class AdminApprovalController {
     ) {
         try {
             adminApprovalService.updateApprovalsStatus(dto, userInfo);
-        } catch (Exception e) {
+        } catch (SecurityException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().body(e.getMessage());
         }
         return ResponseEntity.ok().build();
     }
