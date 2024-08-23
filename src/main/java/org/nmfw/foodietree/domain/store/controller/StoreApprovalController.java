@@ -58,9 +58,7 @@ public class StoreApprovalController {
         dto.setProductImage(productImage);
         // 상품 등록 요청 처리 (tbl_product_approval)
         try {
-            storeApprovalService.askProductApproval(
-                    dto, userInfo
-            );
+            storeApprovalService.askProductApproval(dto, userInfo);
         } catch (NoSuchElementException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {

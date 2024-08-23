@@ -225,15 +225,15 @@ public class UserService {
             Store store = storeService.getStoreById(email);
 
             // 이미지가 없을 경우 기본 이미지 사용
-            String productImage = store.getProductImg();
-            if (productImage == null || productImage.isEmpty()) {
-                productImage = defaultStoreImage;
+            String storeImage = store.getStoreImg();
+            if (storeImage == null || storeImage.isEmpty()) {
+                storeImage = defaultStoreImage;
             }
 
             return LoggedInUserInfoDto.builder()
                     .email(store.getStoreId())
                     .subName(store.getStoreName())
-                    .productImg(productImage)
+                    .storeImg(storeImage)
                     .build();
 
         } else {
