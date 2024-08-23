@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import SockJS from 'sockjs-client';
 import {Stomp} from '@stomp/stompjs';
 import styles from './ChatComponent.module.scss';
-import {ISSUE_URL} from "../../../config/host-config";
+import {ISSUE_URL, CHAT_URL} from "../../../config/host-config";
 import {useModal} from "../../../pages/common/ModalProvider";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
@@ -18,10 +18,9 @@ const ChatComponent = ({issueId, type}) => {
     const chatBoxRef = useRef(null);
     const {closeModal} = useModal();
     const [previewImages, setPreviewImages] = useState([]);
-    const BASE_URL = window.location.origin;
 
     useEffect(() => {
-        const socket = new SockJS(`${BASE_URL}/chat`);
+        const socket = new SockJS(CHAT_URL);
         const stompClient = Stomp.over(() => socket);
 
         stompClient.connect({}, (frame) => {

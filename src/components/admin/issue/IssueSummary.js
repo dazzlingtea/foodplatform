@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import styles from '../approval/ApprovalSummary.module.scss';
 const IssueSummary = ({stats}) => {
 
-    const {PENDING, SOLVED, CANCELLED} = stats;
+    const {PENDING, SOLVED, CLOSED} = stats;
 
     const navigate = useNavigate();
     const handleAdminPage = () => {
@@ -22,12 +22,12 @@ const IssueSummary = ({stats}) => {
                 <span>{SOLVED || 0}</span>
             </div>
             <div className={styles['summary-rejected']}>
-                <span>취소</span>
-                <span>{CANCELLED || 0}</span>
+                <span>닫힘</span>
+                <span>{CLOSED || 0}</span>
             </div>
             <div className={styles['summary-total']}>
                 <span>총계</span>
-                <span>{(PENDING || 0) + (SOLVED || 0) + (CANCELLED || 0)}</span>
+                <span>{(PENDING || 0) + (SOLVED || 0) + (CLOSED || 0)}</span>
             </div>
             <h2 className={styles.H2otherPage} onClick={handleAdminPage}>스토어 등록 요청</h2>
         </div>

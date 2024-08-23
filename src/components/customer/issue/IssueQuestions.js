@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleDown, faAngleUp} from "@fortawesome/free-solid-svg-icons";
 import {useModal} from "../../../pages/common/ModalProvider";
 import {getRefreshToken, getToken, getUserEmail} from "../../../utils/authUtil";
+import {ISSUE_URL} from "../../../config/host-config";
 
 const IssueQuestions = ({reservationDetail}) => {
     const [activeQuestion, setActiveQuestion] = useState(null);
@@ -12,16 +13,14 @@ const IssueQuestions = ({reservationDetail}) => {
         setActiveQuestion(activeQuestion === question ? null : question);
     };
 
-    console.log('reservationDetail:!!!!', reservationDetail);
     const handleIssueChatting = () => {
-        console.log('handleIssueChatting');
         // 이슈 테이블에 이슈 추가 post 요청
         makeIssue().then(r => {});
     }
 
     const makeIssue = async () => {
         try {
-            const res = await fetch('/issue', {
+            const res = await fetch(ISSUE_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -41,7 +40,6 @@ const IssueQuestions = ({reservationDetail}) => {
             }
 
             const issueId = await res.json();
-            console.log('issueId!!!!!!!!!!!!!!!!:', issueId)
 
             openModal('customerIssueChatting', {issueId});
         }catch (e) {
