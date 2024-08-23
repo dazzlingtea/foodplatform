@@ -16,6 +16,7 @@ import IssueSummary from "./IssueSummary";
 import {useModal} from "../../../pages/common/ModalProvider";
 import {checkAuthToken, getUserRole} from "../../../utils/authUtil";
 import {useNavigate} from "react-router-dom";
+import {ISSUE_URL} from "../../../config/host-config";
 
 const ChattingList = () => {
     const {openModal} = useModal();
@@ -40,13 +41,20 @@ const ChattingList = () => {
         },
     });
 
+    const calculateStats = (data) => {
+        const PENDING = data.filter((item) => item.status === 'PENDING').length;
+        const SOLVED = data.filter((item) => item.status === 'SOLVED').length;
+        const CLOSED = data.filter((item) => item.status === 'CANCELLED').length;
+
+        setStats({PENDING, SOLVED, CLOSED});
+    }
+
     const fetchChatList = async () => {
-        console.log('이슈 목록들 불러오기 실행 중!!');
 
         let userRole = getUserRole();
         console.log("userRole :", userRole);
 
-        const res = await fetch('/issue', {
+        const res = await fetch(ISSUE_URL, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -63,10 +71,11 @@ const ChattingList = () => {
         const DATA = await res.json();
         console.log('DATA:', DATA)
         setData(DATA);
+
+        calculateStats(DATA);
     };
 
     useEffect(() => {
-        console.log('chatting list useEffect 실행중!');
         fetchChatList();
     }, []);
 
