@@ -10,8 +10,9 @@ const REVIEW = '/review';
 const USER = '/user';
 const CHAT = '/chat';
 // const COMMUNITYREVIEW = '/communityReview';
+const NOTIFICATION = '/notification';
 
-
+export const BASE_URL = window.location.origin;
 const LOCAL_PORT = 8083; // 백엔드 로컬 서버 포트번호
 export const BACK_HOST = 'http://localhost:'+LOCAL_PORT;
 
@@ -26,4 +27,6 @@ export const ISSUE_URL = ISSUE;
 export const REVIEW_URL = REVIEW;
 export const USER_URL = USER;
 export const CHAT_URL = CHAT;
+export const NOTIFICATION_URL = BASE_URL + NOTIFICATION;
+
 // export const COMMUNITYREVIEW_URL = COMMUNITYREVIEW;

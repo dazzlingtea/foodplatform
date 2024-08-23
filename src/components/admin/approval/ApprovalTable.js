@@ -16,6 +16,7 @@ import TansTable from "./TansTable";
 import ApprovalSummary from "./ApprovalSummary";
 import {authFetch, checkAuthToken, getRefreshToken, getToken, getUserRole} from "../../../utils/authUtil";
 import {useNavigate} from "react-router-dom";
+import {ADMIN_URL} from "../../../config/host-config";
 
 const ApprovalTable = () => {
   const beginDate = '2024-07-01';
@@ -43,16 +44,14 @@ const ApprovalTable = () => {
   });
 
   const fetchApprovals = async () => {
-    console.log('fetchApprovals 실행중!')
 
     const startISO = startDate.toISOString();
     const endISO = endDate.toISOString()
 
     let userRole = getUserRole();
-    console.log("userRole :", userRole);
 
     const res = await authFetch(
-      `/admin/approve?start=${startISO}&end=${endISO}`,
+      `${ADMIN_URL}/approve?start=${startISO}&end=${endISO}`,
       {
         method: 'GET',
         headers: {
@@ -62,7 +61,7 @@ const ApprovalTable = () => {
       });
     if (!res.ok) {
       const errorMessage = await res.text();
-      console.log(errorMessage);
+      console.error(errorMessage);
       return null;
     }
     const DATA = await res.json(); // DATA 배열 approvals, 객체 stats
@@ -85,7 +84,6 @@ const ApprovalTable = () => {
 
   // 기간을 기준으로 서버에 데이터 요청 및 렌더링
   useEffect(() => {
-    console.log('approval useEffect 실행중!')
     fetchApprovals();
   }, [startDate, endDate]);
 
