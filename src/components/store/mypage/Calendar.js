@@ -257,18 +257,18 @@ const Calendar = () => {
                 <div className={styles.calendarSection}>
                     <div className={styles.calendarMonth}>
                         <div className={styles.dayDescription}>
-                            <span className={styles.todayDescription}>오늘</span>
-                            <span className={styles.holidayDescription}>가게 쉬는 날</span>
+                            <span className={styles.todayDescription}>Today</span>
+                            <span className={styles.holidayDescription}>holiday</span>
                         </div>
                         <div className={styles.monthBtnContainer}>
                             <button className={styles.calendarButton} onClick={handlePrevMonth}>
-                                이전 달
+                                ◀
                             </button>
                             <span className={styles.currentMonth}>
                                 {currentDate.toLocaleDateString('default', {year: 'numeric', month: 'long'})}
                             </span>
                             <button className={styles.calendarButton} onClick={handleNextMonth}>
-                                다음 달
+                                ▶
                             </button>
                         </div>
                     </div>

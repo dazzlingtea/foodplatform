@@ -56,10 +56,12 @@
         width: 100%;
         color: #111;
         padding: 10px 0;
+        margin: 5px 0;
         display: block;
         width: 100%;
         border-radius: .75rem;
         font-weight: 600;
+        transition: background-color 1s ease;
 
         &.active {
           color: rgba(8, 10, 8, 1);
@@ -69,22 +71,18 @@
 
         &:hover {
           color: rgba(8, 10, 8, 1);
-          background: linear-gradient(135deg, #e0eee0, #dff3d8);
+          background: #dff3d8;
+          transition: background-color 1s ease;
         }
       }
 
       .logoutButton {
         width: 100%;
-        color: #111;
+        color: #8c8c8c;
         padding: 10px 0;
         display: block;
         border-radius: .75rem;
         font-weight: 600;
-
-        &:hover {
-          color: #fff;
-          background: rgba(178, 34, 34, 0.58);
-        }
       }
     }
   }
@@ -103,14 +101,7 @@
       width: 100%;
       margin-bottom: 10px;
       text-align: center;
-      transition: transform 0.3s, box-shadow 0.3s;
       border-radius: 15px;
-
-      &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 5px 13px rgba(0, 0, 0, 0.2);
-        font-size: 19px;
-      }
 
       div {
         font-size: 16px;

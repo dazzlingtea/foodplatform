@@ -89,7 +89,7 @@ const ProductCount = () => {
                     <section id="product-count-status-with-img" className={styles.productCountStatusWithImg}>
                         <div className={styles.statusImg}>
                             <img src="/assets/img/mypage-foods.png" alt="픽업이미지" />
-                            <div id="count">{productData.todayProductCnt}개 등록되었어요</div>
+                            <div id="count">{productData.todayProductCnt}개 등록</div>
                         </div>
                         <div className={styles.statusImg}>
                             <img src="/assets/img/mypage-pickedUp.png" alt="픽업이미지" />
@@ -97,12 +97,12 @@ const ProductCount = () => {
                         </div>
                         <div className={styles.statusImg}>
                             <img src="/assets/img/mypage-omw.png" alt="픽업이미지" />
-                            <div id="today-ready-picked-up">{productData.readyToPickUpCnt}개 픽업하러 오는 중</div>
+                            <div id="today-ready-picked-up">{productData.readyToPickUpCnt}개 픽업 대기</div>
                         </div>
                         <div className={styles.statusImg}>
                             <img src="/assets/img/free-icon-in-stock.png" alt="픽업이미지" />
                             <div id="remain">
-                                {productData.remainCnt === 0 ? '남은 랜덤박스가 없어요' : `${productData.remainCnt}개 예약 기다리는 중`}
+                                {productData.remainCnt === 0 ? '품 절' : `재고 ${productData.remainCnt}개`}
                             </div>
                         </div>
                     </section>

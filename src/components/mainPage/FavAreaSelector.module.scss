@@ -1,16 +1,16 @@
 .container {
-  padding: 10px;
-  background: rgba(245, 245, 221, 0.8);
-  width: 250px;
+  padding: 10px 15px;
+  background: rgba(245, 245, 221);
+  width: 300px;
   position: absolute;
-  left: 180px;
+  left: 150px;
   top: 12px;
 }
 
 .title {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: bold;
-  color: #333;
+  color: #4a7243;
   text-align: left;
   cursor: pointer;
 }
@@ -61,8 +61,6 @@
 
 // @media (max-width: 400px) {
 //   .container {
-//     // background: rgba(253, 253, 90, 0.8);
-//     background: rgba(245, 245, 221, 0.8);
 //     width: 210px;
 //     left: 25px;
 //     top: 12px;

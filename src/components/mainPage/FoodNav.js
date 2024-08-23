@@ -9,7 +9,7 @@ import './slick-theme.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as faHeartSolid } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
-import { FAVORITESTORE_URL, STORELISTS_URL } from '../../config/host-config';
+import { FAVORITESTORE_URL, FAVCATEGORY_URL, STORELISTS_URL } from '../../config/host-config';
 import { getUserEmail, getToken, getRefreshToken } from "../../utils/authUtil";
 import { DEFAULT_IMG, imgErrorHandler } from "../../utils/error";
 import FavAreaSelector from "./FavAreaSelector";
@@ -105,7 +105,7 @@ const fetchFavoriteAndOrderStores = async (customerId, setStores) => {
 // 나에게 추천하는 가게 리스트를 가져오는 함수
 const fetchRecommendedStores = async (customerId, setRecommendedStores) => {
   try {
-    const response = await fetch(`${STORELISTS_URL}/favCategory`, {
+    const response = await fetch(`${FAVCATEGORY_URL}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -158,7 +158,7 @@ const FoodNav = ({ selectedCategory, stores }) => {
             fetchRecommendedStores(customerId, setRecommendedStores)
           ]);
         } catch (error) {
-          console.error('⚠️Error fetching data:', error);
+          // console.error('⚠️Error fetching data:', error);
         } finally {
           // 데이터가 로드된 후 최소 1.5초 동안 스켈레톤 유지
           setTimeout(() => setLoading(false), 1500);
@@ -172,9 +172,9 @@ const FoodNav = ({ selectedCategory, stores }) => {
   useEffect(() => {
 
   // store 정보
-  console.log('Stores:', stores);
+  // console.log('Stores:', stores);
   // 선택된 area 정보
-  console.log('Selected Area:', selectedArea);
+  // console.log('Selected Area:', selectedArea);
 
 
     if (stores.length > 0) {
