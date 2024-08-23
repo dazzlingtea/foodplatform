@@ -44,7 +44,7 @@ const ChattingList = () => {
     const calculateStats = (data) => {
         const PENDING = data.filter((item) => item.status === 'PENDING').length;
         const SOLVED = data.filter((item) => item.status === 'SOLVED').length;
-        const CLOSED = data.filter((item) => item.status === 'CLOSED').length;
+        const CLOSED = data.filter((item) => item.status === 'CANCELLED').length;
 
         setStats({PENDING, SOLVED, CLOSED});
     }
