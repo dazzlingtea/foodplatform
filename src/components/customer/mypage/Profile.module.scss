@@ -61,6 +61,7 @@
         width: 100%;
         border-radius: .75rem;
         font-weight: 600;
+        transition: background-color 1s ease;
 
         &.active {
           color: rgba(8, 10, 8, 1);
@@ -70,24 +71,18 @@
 
         &:hover {
           color: rgba(8, 10, 8, 1);
-          background: linear-gradient(135deg, #e0eee0, #dff3d8);
-          transition: background 0.3s ease;
+          background: #dff3d8;
+          transition: background-color 1s ease;
         }
       }
 
       .logoutButton {
         width: 100%;
-        color: #111;
+        color: #8c8c8c;
         padding: 10px 0;
         display: block;
         border-radius: .75rem;
         font-weight: 600;
-
-        &:hover {
-          color: #fff;
-          background: rgba(137, 137, 137, 0.58);
-          transition: background 0.3s ease;
-        }
       }
     }
   }

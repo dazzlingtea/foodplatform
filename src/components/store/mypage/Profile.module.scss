@@ -54,36 +54,36 @@
 
       .navItem {
         width: 100%;
+        background-color: transparent;
         color: #111;
         padding: 10px 0;
+        margin: 5px 0;
         display: block;
         border-radius: .75rem;
         font-weight: 600;
+        transition: 1s;
 
         &.active {
           color: rgba(8, 10, 8, 1);
-          background: linear-gradient(135deg, #e0eee0, #dff3d8);
+          background: #dff3d8;
           pointer-events: none; // 클릭 막기
         }
 
         &:hover {
           color: rgba(8, 10, 8, 1);
           background: linear-gradient(135deg, #e0eee0, #dff3d8);
+          transition: 1s;
+
         }
       }
 
       .logoutButton {
         width: 100%;
-        color: #111;
+        color: #8c8c8c;
         padding: 10px 0;
         display: block;
         border-radius: .75rem;
         font-weight: 600;
-
-        &:hover {
-          color: #fff;
-          background: rgba(178, 34, 34, 0.58);
-        }
       }
     }
   }

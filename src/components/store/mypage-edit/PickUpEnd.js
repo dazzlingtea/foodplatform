@@ -32,7 +32,7 @@ const PickUpEnd = ({ value }) => {
         <div className={styles["input-wrapper"]}>
             <div>
                 <div className={styles.icon}><FontAwesomeIcon icon={faClock}/></div>
-                <span>픽업 마감 시간</span>
+                <span>마감 시간</span>
             </div>
             <div>
                 <input type={"time"} ref={inputRef} defaultValue={value}/>
