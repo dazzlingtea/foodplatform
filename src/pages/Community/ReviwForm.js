@@ -3,6 +3,7 @@ import styles from './ReviewForm.module.scss';
 import Rating from '@mui/material/Rating';
 import {useParams, useNavigate} from "react-router-dom";
 import {checkAuthToken, getRefreshToken, getToken, getUserEmail} from "../../utils/authUtil";
+import {REVIEW_URL} from "../../config/host-config";
 
 // 해시태그를 백엔드에서 기대하는 Enum으로 매핑
 const hashtagMapping = {
@@ -77,9 +78,8 @@ const ReviewForm = ({ onSubmit, reservationId, storeImg }) => {
       console.error('Reservation ID is missing');
       return;
     }
-    console.log("상점정보 가져오기 !!!!!!!!!!!!!!!!!!!!");
     try {
-      const response = await fetch(`/review/storeInfo?reservationId=${rId}`, {
+      const response = await fetch(`${REVIEW_URL}/storeInfo?reservationId=${rId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -139,7 +139,6 @@ const ReviewForm = ({ onSubmit, reservationId, storeImg }) => {
       hashtags: convertedHashtags,
       storeImg: storeDetails.storeImg,
       address: storeDetails.storeAddress,
-      // paymentTime: reser
     };
 
     try {
@@ -156,7 +155,7 @@ const ReviewForm = ({ onSubmit, reservationId, storeImg }) => {
       formData.append('reviewData', JSON.stringify(reviewData));
 
       // 데이터 전송
-      const response = await fetch('/review/save', {
+      const response = await fetch(`${REVIEW_URL}/save`, {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer ' + getToken(),

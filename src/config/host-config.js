@@ -8,7 +8,12 @@ const RESERVATION = '/reservation';
 const ISSUE = '/issue';
 const CATEGORYINFO = '/categoryInfo.path';
 const FAVCATEGORY = '/storeLists/favCategory';
+const REVIEW = '/review';
+const USER = '/user';
+const CHAT = '/chat';
+const NOTIFICATION = '/notification';
 
+export const BASE_URL = window.location.origin;
 const LOCAL_PORT = 8083; // 백엔드 로컬 서버 포트번호
 export const BACK_HOST = 'http://localhost:'+LOCAL_PORT;
 
@@ -22,5 +27,7 @@ export const RESERVATION_URL = RESERVATION;
 export const ISSUE_URL = ISSUE;
 export const CATEGORYINFO_URL = CATEGORYINFO;
 export const FAVCATEGORY_URL = FAVCATEGORY;
-
-// export const COMMUNITYREVIEW_URL = COMMUNITYREVIEW;
+export const REVIEW_URL = REVIEW;
+export const USER_URL = USER;
+export const CHAT_URL = CHAT;
+export const NOTIFICATION_URL = BASE_URL + NOTIFICATION;

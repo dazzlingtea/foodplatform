@@ -6,6 +6,7 @@ import {IoNotificationsOutline} from "react-icons/io5";
 import {authFetch} from "../../utils/authUtil";
 import {useLocation, useNavigate} from "react-router-dom";
 import {GoArrowRight} from "react-icons/go";
+import {BASE_URL, NOTIFICATION_URL, REVIEW_URL} from "../../config/host-config";
 
 const Notification = ({email, role}) => {
   const [stompClient, setStompClient] = useState(null);
@@ -13,7 +14,6 @@ const Notification = ({email, role}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [hasNewMessage, setHasNewMessage] = useState(false);
   const location = useLocation(); // Use useLocation to detect route changes
-  const BASE_URL = window.location.origin;
   const navigate = useNavigate();
   const notifyRef = useRef(null);
 
@@ -26,7 +26,7 @@ const Notification = ({email, role}) => {
   }
   const fetchNotifications = async () => {
     try {
-      const res = await authFetch(`/notification`, {
+      const res = await authFetch(`${NOTIFICATION_URL}`, {
         method: 'GET',
       });
       if (!res.ok) {
@@ -110,7 +110,6 @@ const Notification = ({email, role}) => {
   // 하나의 알림 클릭 시 읽음 처리
   const notificationClickHandler = async (notification) => {
     const {id, type, targetId, read} = notification;
-    console.log('클릭한 알림의 id ', id)
     const reservationId = targetId[0];
     if(!read) {
       try {
@@ -130,14 +129,13 @@ const Notification = ({email, role}) => {
     }
     if(type.includes('REVIEW')) {
       try {
-        const res = await authFetch(`/review/check/${reservationId}`, {method: 'GET'});
+        const res = await authFetch(`${REVIEW_URL}/check/${reservationId}`, {method: 'GET'});
         if (res.ok) {
           const flag = await res.json();
-          console.log('개별 알림 flag', flag)
           flag ? navigate('/reviewCommunity') : navigate(`/reviewForm/${reservationId}`)
         }
       } catch (error) {
-        console.error('리뷰 작성 여부 확인 중 오류 발생! ', error);
+        console.error('리뷰 작성 여부 확인 중 오류 발생: ', error);
       }
     } else {
       navigate(`/${role}`);
@@ -148,15 +146,13 @@ const Notification = ({email, role}) => {
     const payload = {
       ids: notifications.filter(n=>n.read === false).map(n=>n.id)
     }
-    console.log('전체 알림 payload : ', payload)
     try {
-      const res = await authFetch('/notification/all', {
+      const res = await authFetch(`${NOTIFICATION_URL}/all`, {
         method: 'PATCH',
         body: JSON.stringify(payload),
       })
       if(res.ok) {
         const flag = await res.json();
-        console.log('모든 알림 flag', flag);
         setNotifications(prev =>
           prev.map(n =>
             payload.ids.includes(n.id) ? { ...n, read: true } : n
@@ -164,8 +160,8 @@ const Notification = ({email, role}) => {
         );
         setHasNewMessage(false);
       }
-    } catch (e) {
-      console.log('모든 알림 읽음 처리 중 오류 발생!');
+    } catch (error) {
+      console.error('모든 알림 읽음 처리 중 오류 발생: ', error);
     }
   }
 

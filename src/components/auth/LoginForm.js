@@ -4,6 +4,7 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import styles from './LoginForm.module.scss';
 import _ from "lodash";
 import {checkLoggedIn} from "../../utils/authUtil";
+import {CUSTOMER_URL, EMAIL_URL, STORE_URL} from "../../config/host-config";
 
 const LoginForm = ({ userType, onVerificationSent }) => {
     const [email, setEmail] = useState('');
@@ -31,7 +32,7 @@ const LoginForm = ({ userType, onVerificationSent }) => {
     //admin : customer 테이블에 저장되지만, role은 admin으로 저장됨
     const checkAdminDupId = async (email) => {
         try {
-            const response = await fetch(`/customer/check?email=${email}`);
+            const response = await fetch(`${CUSTOMER_URL}/check?email=${email}`);
             const result = await response.json();
             if (result) {
                 console.log(`입력하신 이메일 [ ${email} ] 은 customer 회원입니다.`);
@@ -51,7 +52,7 @@ const LoginForm = ({ userType, onVerificationSent }) => {
     //customer
     const checkCustomerDupId = async (email) => {
         try {
-            const response = await fetch(`/customer/check?email=${email}`);
+            const response = await fetch(`${CUSTOMER_URL}/check?email=${email}`);
             const result = await response.json();
             if (result) {
                 console.log(`입력하신 이메일 [ ${email} ] 은 customer 회원입니다.`);
@@ -71,7 +72,7 @@ const LoginForm = ({ userType, onVerificationSent }) => {
     //store
     const checkStoreDupId = async (email) => {
         try {
-            const response = await fetch(`/store/check?email=${email}`);
+            const response = await fetch(`${STORE_URL}/check?email=${email}`);
             const result = await response.json();
             if (result) {
                 console.log(`입력하신 이메일[ ${email} ]은 store 회원입니다... `);
@@ -105,7 +106,7 @@ const LoginForm = ({ userType, onVerificationSent }) => {
     // 인증 링크 메일 보내기 - 공용 (인증메일 보내기)
     const sendVerificationLinkForLogin = async (email) => {
         try {
-            const response = await fetch(`/email/sendVerificationLink`, {
+            const response = await fetch(`${EMAIL_URL}/sendVerificationLink`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

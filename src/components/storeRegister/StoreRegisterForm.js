@@ -1,12 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {Form, redirect, useNavigate} from 'react-router-dom';
+import React from 'react';
+import {Form, redirect} from 'react-router-dom';
 import styles from './StoreRegisterForm.module.scss'
 import SelectBox from "./SelectBox";
 import {STORE_URL} from "../../config/host-config";
 import useFormValidation from "./useFormValidation";
 import ErrorSpan from "./ErrorSpan";
-import query from "lodash";
-import {authFetch, getToken} from "../../utils/authUtil";
+import {authFetch} from "../../utils/authUtil";
 import {checkAuthToken} from "../../utils/authUtil";
 import DaumAddressBtn from "./DaumAddressBtn";
 
@@ -50,7 +49,6 @@ const initialValues = {
   const validate = (name, value) => {
     switch (name) {
       case 'bizLicenseNum':
-        console.log(value)
         return /^\d{10}$/.test(value) && checkLicense(value)
             ? null : '유효한 번호를 입력해주세요.';
       case 'bizName':
@@ -176,7 +174,6 @@ export const storeRegisterAction = async ({request}) => {
     bizPhoneNum: formData.get('bizPhoneNum'),
     bizCategory: formData.get('bizCategory'),
   }
-  console.log('store 페이로드: ', payload)
 
   const response = await authFetch(`${STORE_URL}/approval`, {
     method: 'POST',

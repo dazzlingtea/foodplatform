@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styles from "./NaverMapWithSearch.module.scss";
 import { authFetch, checkAuthToken} from "../../../utils/authUtil";
 import {useNavigate} from "react-router-dom";
+import {CUSTOMER_URL} from "../../../config/host-config";
+
 function loadScript(src) {
     return new Promise((resolve, reject) => {
         const script = document.createElement('script');
@@ -162,7 +164,7 @@ const NaverMapWithSearch = ({type, productDetail}) => {
 
     const fetchPlacesFromServer = async () => {
         try {
-            const response = await authFetch('/customer/info/area');
+            const response = await authFetch(`${CUSTOMER_URL}/info/area`);
             const fetchedPlaces = response.ok ? await response.json() : [];
 
             console.log('Fetched places:', fetchedPlaces);
@@ -371,7 +373,7 @@ const NaverMapWithSearch = ({type, productDetail}) => {
 
             // 서버에 추가 요청 보내기
             try {
-                const response = await authFetch('/customer/edit/area', {
+                const response = await authFetch(`${CUSTOMER_URL}/edit/area`, {
                     method: 'POST',
                     // headers: {
                     //     'Content-Type': 'application/json',
@@ -412,7 +414,7 @@ const NaverMapWithSearch = ({type, productDetail}) => {
             const placeToRemove = places.find(place => place.latlng && place.latlng.equals(position));
             if (placeToRemove) {
                 try {
-                    const response = await authFetch('/customer/edit/area', {
+                    const response = await authFetch(`${CUSTOMER_URL}/edit/area`, {
                         method: 'DELETE',
                         // headers: {
                         //     'Content-Type': 'application/json',
