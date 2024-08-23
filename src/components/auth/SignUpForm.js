@@ -5,6 +5,7 @@ import commonStyles from '../../common.module.scss';
 import _ from 'lodash';
 import {useLocation, useNavigate} from "react-router-dom";
 import {checkLoggedIn} from "../../utils/authUtil";
+import {EMAIL_URL} from "../../config/host-config";
 
 
 const SignUpForm = ({ userType, onVerificationSent }) => {
@@ -34,7 +35,7 @@ const SignUpForm = ({ userType, onVerificationSent }) => {
     //admin : customer 테이블에 저장되지만, role은 admin으로 저장됨
     const checkAdminDupId = async (email) => {
         try {
-            const response = await fetch(`/email/check?email=${email}`);
+            const response = await fetch(`${EMAIL_URL}/check?email=${email}`);
             const result = await response.json();
             if (!result) {
                 console.log(`입력하신 이메일 [ ${email} ] 은 admin 회원이 아닙니다.`);
@@ -55,7 +56,7 @@ const SignUpForm = ({ userType, onVerificationSent }) => {
   // 새로운 아이디 -> 중복검사 후 no -> 회원가입하기로 유도
   const checkCustomerDupId = async (email) => {
     try {
-      const response = await fetch(`/email/check?email=${email}`);
+      const response = await fetch(`/${EMAIL_URL}/check?email=${email}`);
       const result = await response.json();
       if (!result) {
         console.log(`입력하신 이메일 [ ${email} ] 은 customer 회원이 아닙니다.`);
@@ -75,7 +76,7 @@ const SignUpForm = ({ userType, onVerificationSent }) => {
 // store
 const checkStoreDupId = async (email) => {
     try {
-      const response = await fetch(`/email/check?email=${email}`);
+      const response = await fetch(`/${EMAIL_URL}/check?email=${email}`);
       const result = await response.json();
       if (!result) { //찾지 못하였으면
         console.log(`입력하신 이메일[ ${email} ]은 store 회원이 아닙니다. `);
@@ -109,7 +110,7 @@ const checkDupId = async (email) => {
 // 인증 메일 리다이렉션 주소 보내기
 const sendVerificationLinkForSignUp = async (email) => {
   try {
-      const response = await fetch(`/email/sendVerificationLink`, {
+      const response = await fetch(`/${EMAIL_URL}/sendVerificationLink`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
@@ -231,7 +232,6 @@ const handleRetrySignUp = () => {
                           id="id-get-code-btn"
                           className={(!emailValid ? styles.disable : '') || (isSending ? styles.disable : '')}
                           disabled={isExistingUser||!emailValid}
-                          // onClick={(!isExistingUser && !isSending) ? handleSignInRedirect : null}
                       >
                           {isSending ? "이메일 전송중..." : (!isExistingUser ? '회원가입 인증메일 발송' : '회원가입')}
                       </button>

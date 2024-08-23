@@ -17,8 +17,8 @@ library.add(faMagnifyingGlass);
 const Header = () => {
     const navigate = useNavigate();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [show, setShow] = useState(false); // 햄버거 버튼 상태 관리
-    const [width, setWidth] = useState(window.innerWidth);
+    // const [show, setShow] = useState(false); // 햄버거 버튼 상태 관리
+    // const [width, setWidth] = useState(window.innerWidth);
     // 위치 가져오기
     const [address, setAddress] = useState('위치를 불러오는 중...'); // 기본 주소 상태 설정
     const [modalVisible, setModalVisible] = useState(false);
@@ -33,7 +33,6 @@ const Header = () => {
 
         // 현재위치 가져오기
         const fetchLocationAndAddress = () => {
-            console.log("fetchLocationAndAddress 실행 !! ");
             getCurrentLocation()
                 .then(({ lat, lng }) => reverseGeocode(lat, lng))
                 .then(address => {

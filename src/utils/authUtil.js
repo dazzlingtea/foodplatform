@@ -1,4 +1,5 @@
 import { jwtDecode } from 'jwt-decode';
+import {EMAIL_URL} from "../config/host-config";
 
 /** 로컬스토리지에서 토큰 구하기
  * @returns {string|null}
@@ -234,7 +235,7 @@ export const verifyTokenLoader = async ({ request }) => {
     console.log('token, refreshtoken', token, refreshToken);
 
     if (token && refreshToken) {
-        const response = await fetch(`/email/verifyEmail`, {
+        const response = await fetch(`${EMAIL_URL}/verifyEmail`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

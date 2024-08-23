@@ -14,7 +14,6 @@ const LoginPage = () => {
   };
 
   const handleResendEmail = () => {
-    console.log('이메일 재전송 버튼 누름 !')
   };
 
   // 이메일 발송 후 사용자 유형 변경 방지
