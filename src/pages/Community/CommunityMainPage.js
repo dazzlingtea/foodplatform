@@ -3,9 +3,8 @@ import styles from './CommunityMainPage.module.scss';
 import {extractArea, getRefreshToken, getToken} from "../../utils/authUtil";
 import { useNavigate } from "react-router-dom";
 import useHistory from 'react-router-dom';
-
-
 import _ from 'lodash';
+import {REVIEW_URL} from "../../config/host-config";
 
 const defaultReviews = [
     {
@@ -62,7 +61,7 @@ const CommunityMainPage = ({ treesPlanted, topGroups, stores, users, reviews = [
         // 비회원도 열람가능하나, 리뷰 등록하러 가기는 로그인 하여 서비스 이용하기 버튼으로 바뀜
         const fetchReviews = async () => {
             try {
-                const response = await fetch('/review/findEnableWritingReview', {
+                const response = await fetch(`${REVIEW_URL}/findEnableWritingReview`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -108,7 +107,7 @@ const CommunityMainPage = ({ treesPlanted, topGroups, stores, users, reviews = [
 
     // 리뷰 작성 폼 버튼 클릭 핸들러
     const handleWriteReviewButtonClick = (reservationId) => {
-        navigate(`/reviewForm?r=${reservationId}`);
+        navigate(`/reviewForm/${reservationId}`);
     };
 
     let userArea = extractArea();
