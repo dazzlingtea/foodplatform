@@ -24,10 +24,12 @@ jobs:
       - name: Make directory for deliver
         run: mkdir deploy
         # 배포를 위한 디렉토리를 생성합니다.
+      - name: Write the env.properties
+        run: |         
+          echo "${{ secrets.ENV_PROPERTIES }}" > ./env.properties
 
       - name: Write the application.yml
         run: |
-          echo "${{ secrets.ENV_PROPERTIES }}" > ./env.properties
           echo "${{ secrets.APPLICATION_YML }}" > ./src/main/resources/application.yml
         # 비밀 저장소에서 가져온 application.yml 설정을 파일로 작성합니다.
 
