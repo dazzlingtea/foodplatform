@@ -120,6 +120,11 @@
     text-shadow: 3px 4px 20px rgba(0, 0, 0, 0.9);
 }
 
+#no-way-img {
+    width: 1100px;
+    height: 300px;
+}
+
 /* 모바일에서 더 작은 화면 처리 */
 @media (max-width: 600px) {
     .list-container {
