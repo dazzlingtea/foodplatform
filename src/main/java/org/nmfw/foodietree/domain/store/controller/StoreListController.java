@@ -10,6 +10,7 @@ import org.nmfw.foodietree.domain.store.entity.value.StoreCategory;
 import org.nmfw.foodietree.domain.store.service.StoreList.StoreListService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,19 +47,20 @@ public class StoreListController {
     }
 
 
-    // co2를 가장 많이 줄인 순
-    @GetMapping("/by-product-count")
-    public ResponseEntity<List<StoreListCo2Dto>> getStoresByProductCnt() {
-        List<StoreListCo2Dto> storeListCo2Dto = storeListService.getStoresByProductCnt();
-        return ResponseEntity.ok().body(storeListCo2Dto);
+    // guest 화면 가게 정보 렌더링
+    @GetMapping("/forGuests")
+    public String getStoreListsForGuests(Model model) {
+        List<StoreListCo2Dto> storesByProductCount = storeListService.getStoresByProductCnt();
+        List<StoreListByEndTimeDto> storesByEndTime = storeListService.getStoresByProductEndTime();
+        // co2를 가장 많이 줄인 순
+        model.addAttribute("storesByProductCount", storesByProductCount);
+        // 상품 시간이 현재로부터 제일 가까운 순 (마감임박)
+        model.addAttribute("storesByEndTime", storesByEndTime);
+
+        return "index"; // JSP 파일명
     }
 
-    // 상품 시간이 현재로부터 제일 가까운 순 (마감임박)
-    @GetMapping("/by-product-end-time")
-    public ResponseEntity<List<StoreListByEndTimeDto>> getStoresByProductEndTime() {
-        List<StoreListByEndTimeDto> storeListDto = storeListService.getStoresByProductEndTime();
-        return ResponseEntity.ok().body(storeListDto);
-    }
+
 
     // 지역별 Store 조회 요청!
     @GetMapping("/address")
