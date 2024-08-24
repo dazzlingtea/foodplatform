@@ -6,10 +6,11 @@ const ADMIN = '/admin';
 const FAVORITESTORE = '/api/favorites';
 const RESERVATION = '/reservation';
 const ISSUE = '/issue';
+const CATEGORYINFO = '/categoryInfo.path';
+const FAVCATEGORY = '/storeLists/favCategory';
 const REVIEW = '/review';
 const USER = '/user';
 const CHAT = '/chat';
-// const COMMUNITYREVIEW = '/communityReview';
 const NOTIFICATION = '/notification';
 
 export const BASE_URL = window.location.origin;
@@ -28,5 +29,5 @@ export const REVIEW_URL = BACK_HOST+REVIEW;
 export const USER_URL = BACK_HOST+USER;
 export const CHAT_URL = BACK_HOST+CHAT;
 export const NOTIFICATION_URL = BACK_HOST+NOTIFICATION;
-
-// export const COMMUNITYREVIEW_URL = COMMUNITYREVIEW;
+export const CATEGORYINFO_URL = BACK_HOST+CATEGORYINFO;
+export const FAVCATEGORY_URL = BACK_HOST+FAVCATEGORY;

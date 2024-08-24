@@ -35,7 +35,7 @@ const ProductCount = ({value}) => {
             <div className={styles["input-wrapper"]}>
                 <div>
                     <div className={styles.icon}><FontAwesomeIcon icon={faUser}/></div>
-                    <span>기본 수량 값</span>
+                    <span>기본 수량</span>
                 </div>
                 <div>
                     <input type={"number"} min={1} ref={inputRef} defaultValue={value}/>

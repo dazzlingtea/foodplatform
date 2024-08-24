@@ -34,7 +34,7 @@ const PickUpStart = ({value}) => {
             <div className={styles["input-wrapper"]}>
                 <div>
                     <div className={styles.icon}><FontAwesomeIcon icon={faClock}/></div>
-                    <span>픽업 시작 시간</span>
+                    <span>오픈 시간</span>
                 </div>
                 <div>
                     <input type={"time"} ref={inputRef} defaultValue={value}/>

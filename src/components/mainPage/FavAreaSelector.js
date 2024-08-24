@@ -15,7 +15,7 @@ const FavAreaSelector = ({ onAreaSelect }) => {
     // 세션 스토리지 저장
     const storedArea = sessionStorage.getItem('selectedArea');
     if (storedArea) {
-      console.log('Loaded from sessionStorage:', storedArea);
+      // console.log('Loaded from sessionStorage:', storedArea);
       setSelectedArea(storedArea);
     }
   }, []);
@@ -26,7 +26,7 @@ const FavAreaSelector = ({ onAreaSelect }) => {
         const id = await getUserEmail();
         setCustomerId(id);
       } catch (error) {
-        console.error('Error fetching customer ID:', error);
+        // console.error('Error fetching customer ID:', error);
       }
     };
 
@@ -57,12 +57,12 @@ const FavAreaSelector = ({ onAreaSelect }) => {
         const storedArea = sessionStorage.getItem('selectedArea');
         if (storedArea) {
           setSelectedArea(storedArea);
-          console.log('Default area from sessionStorage:', storedArea);
+          // console.log('Default area from sessionStorage:', storedArea);
         } else if (data.length > 0) {
           const defaultArea = data[0].preferredArea;
           setSelectedArea(defaultArea);
           sessionStorage.setItem('selectedArea', defaultArea);
-          console.log('Default area saved to sessionStorage:', defaultArea);
+          // console.log('Default area saved to sessionStorage:', defaultArea);
         }
 
       } catch (error) {
@@ -78,7 +78,7 @@ const FavAreaSelector = ({ onAreaSelect }) => {
       onAreaSelect(selectedArea);
       // 선택된 세션스토리지 업데이트
       sessionStorage.setItem('selectedArea', selectedArea);
-      console.log('Selected area saved to sessionStorage:', selectedArea);
+      // console.log('Selected area saved to sessionStorage:', selectedArea);
     }
   }, [selectedArea, onAreaSelect]);
 
@@ -96,7 +96,7 @@ const FavAreaSelector = ({ onAreaSelect }) => {
   return (
     <div className={styles.container}>
       <h2 className={styles.title} onClick={handleToggle}>
-        <FontAwesomeIcon icon={faLocationDot} /> {selectedAreaDetails ? selectedAreaDetails.preferredArea : '현재 등록된 주소'} {isExpanded ? '▲' : '▼'}
+        <FontAwesomeIcon icon={faLocationDot} /> {selectedAreaDetails ? selectedAreaDetails.preferredArea : ' 현재 등록된 주소 '} {isExpanded ? ' ▴ ' : ' ▾ '}
       </h2>
       <ul className={`${styles.areaList} ${isExpanded ? styles.expanded : ''}`}>
         {areas.map((area) => (
