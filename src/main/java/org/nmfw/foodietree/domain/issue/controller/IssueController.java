@@ -4,13 +4,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.nmfw.foodietree.domain.customer.entity.value.IssueCategory;
 import org.nmfw.foodietree.domain.issue.dto.res.IssueDto;
-import org.nmfw.foodietree.domain.issue.dto.res.IssueWithPhotoDto;
 import org.nmfw.foodietree.domain.issue.entity.Issue;
 import org.nmfw.foodietree.domain.issue.entity.IssuePhoto;
 import org.nmfw.foodietree.domain.issue.repository.IssuePhotoRepository;
 import org.nmfw.foodietree.domain.issue.repository.IssueRepository;
 import org.nmfw.foodietree.domain.issue.service.IssueService;
-import org.nmfw.foodietree.domain.product.Util.FileUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +34,8 @@ public class IssueController {
 
     @Value("${file.upload.root-path}")
     private String rootPath;
+
+    private final org.nmfw.foodietree.domain.product.Util.fileUtil fileUtil;
 
 
     @GetMapping
@@ -134,16 +134,19 @@ public class IssueController {
     @PostMapping("/uploadPhoto")
     public ResponseEntity<?> updateIssuePhoto(@RequestParam("files") List<MultipartFile> files, @RequestParam Long issueId) {
         List<String> fileUrls = new ArrayList<>();
-
+        log.info("files : {}", files);
         // 파일을 서버에 저장하고 URL을 모은다.
         for (MultipartFile file : files) {
             try {
-                String fileUrl = FileUtil.uploadFile(rootPath, file);
+                String fileUrl = fileUtil.uploadFile(rootPath, file);
                 fileUrls.add(fileUrl);
             } catch (Exception e) {
+                log.error("파일 업로드 실패: {}", file.getOriginalFilename());
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("파일 업로드 실패: " + file.getOriginalFilename());
             }
         }
+
+        log.info("fileUrls!!!! : {}", fileUrls);
 
         // 모든 파일 URL을 DB에 저장한다.
         try {

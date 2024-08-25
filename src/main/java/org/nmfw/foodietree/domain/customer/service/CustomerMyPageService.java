@@ -14,7 +14,7 @@ import org.nmfw.foodietree.domain.customer.repository.CustomerMyPageRepository;
 import org.nmfw.foodietree.domain.customer.repository.FavAreaRepository;
 import org.nmfw.foodietree.domain.customer.repository.FavFoodRepository;
 import org.nmfw.foodietree.domain.customer.repository.FavStoreRepository;
-import org.nmfw.foodietree.domain.product.Util.FileUtil;
+import org.nmfw.foodietree.domain.product.Util.fileUtil;
 import org.nmfw.foodietree.domain.reservation.dto.resp.ReservationDetailDto;
 import org.nmfw.foodietree.domain.reservation.mapper.ReservationMapper;
 import org.nmfw.foodietree.domain.reservation.service.ReservationService;
@@ -51,6 +51,8 @@ public class CustomerMyPageService {
     private final CustomerEditRepository customerEditRepository;
     private final FavFoodRepository favFoodRepository;
 	private final FavStoreRepository favStoreRepository;
+
+    private final fileUtil fileUtil;
 
     @Value("${env.upload.path}")
     private String uploadDir;
@@ -232,7 +234,7 @@ public class CustomerMyPageService {
                 if (!dir.exists()) {
                     dir.mkdirs();
                 }
-                String imagePath = FileUtil.uploadFile(uploadDir, customerImg);
+                String imagePath = fileUtil.uploadFile(uploadDir, customerImg);
                 UpdateDto dto = UpdateDto.builder()
                         .type("profile_image")
                         .value(imagePath)

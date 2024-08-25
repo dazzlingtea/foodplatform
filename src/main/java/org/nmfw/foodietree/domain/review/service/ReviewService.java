@@ -3,20 +3,16 @@ package org.nmfw.foodietree.domain.review.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.nmfw.foodietree.domain.auth.security.TokenProvider.TokenUserInfo;
-import org.nmfw.foodietree.domain.customer.dto.resp.UpdateDto;
-import org.nmfw.foodietree.domain.customer.repository.CustomerRepository;
-import org.nmfw.foodietree.domain.product.Util.FileUtil;
+import org.nmfw.foodietree.domain.product.Util.fileUtil;
 import org.nmfw.foodietree.domain.product.entity.Product;
 import org.nmfw.foodietree.domain.product.repository.ProductRepository;
 import org.nmfw.foodietree.domain.reservation.dto.resp.ReservationDetailDto;
 
 import org.nmfw.foodietree.domain.reservation.entity.Reservation;
 import org.nmfw.foodietree.domain.reservation.repository.ReservationRepository;
-import org.nmfw.foodietree.domain.reservation.service.ReservationService;
 
 import org.nmfw.foodietree.domain.review.dto.res.MyReviewDto;
 import org.nmfw.foodietree.domain.review.dto.res.ReviewDetailDto;
-import org.nmfw.foodietree.domain.review.dto.res.MyReviewDto;
 
 import org.nmfw.foodietree.domain.review.dto.res.ReviewSaveDto;
 import org.nmfw.foodietree.domain.review.entity.Hashtag;
@@ -25,16 +21,14 @@ import org.nmfw.foodietree.domain.review.entity.ReviewHashtag;
 import org.nmfw.foodietree.domain.review.repository.ReviewHashtagRepository;
 import org.nmfw.foodietree.domain.review.repository.ReviewRepository;
 
-import org.nmfw.foodietree.domain.store.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -49,6 +43,8 @@ public class ReviewService {
     private final ReservationRepository reservationRepository;
     private final ProductRepository productRepository;
 
+    private final fileUtil fileUtil;
+
 
     // 이미지 저장 경로
     @Value("${env.upload.path}")
@@ -58,8 +54,8 @@ public class ReviewService {
         return reviewRepository.existByReservationId(reservationId);
     }
 
-    public String uploadReviewImage(MultipartFile reviewImg) {
-        return FileUtil.uploadFile(uploadDir, reviewImg);
+    public String uploadReviewImage(MultipartFile reviewImg) throws IOException {
+        return fileUtil.uploadFile(uploadDir, reviewImg);
     }
 
 
