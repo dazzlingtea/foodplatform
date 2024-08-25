@@ -28,6 +28,7 @@ const SignUpPage = () => {
         sessionStorage.removeItem('refreshToken');
         setUserType('store');  // userType을 store로 설정
       }
+      setUserType('store');  // userType을 store로 설정
 
       // 로그인 체크
       checkLoggedIn(navigate, location.pathname);
