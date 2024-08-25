@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import ModalProvider from "../pages/common/ModalProvider";
 import Header from "./Header";
 import Footer from "./Footer";
+// import MobileMenuBar from './MobileMenuBar';
 
 const RootLayout = () => {
     const location = useLocation();
