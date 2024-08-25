@@ -64,114 +64,93 @@
 /* Container for the section */
 .info-for-store .container {
     display: flex;
-    justify-content: space-between;
     align-items: flex-start;
+    padding: 70px;
+    margin: 200px;
+    width: 1200px;
+    border-bottom: solid 0.5px #06654E;
+    border-top: solid 0.5px #06654E;
+}
+
+/* Left side for the image and text */
+
+.info-for-store .left {
+    display: flex;
+    align-items: center; /* 수평 중앙 정렬 */
+    justify-content: center; /* 수직 중앙 정렬 */
+    flex: 1;
     padding: 20px;
 }
 
-/* Left side for the text */
-.info-for-store .left {
-    flex: 1;
-    margin-right: 20px;
+.info-for-store .left .signup-image {
+    margin-bottom: 20px;
+    width: 500px;
+}
+
+.info-for-store .signup-image img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
 }
 
 .info-for-store .left .wrapper {
-    position: relative;
-    top: 300px;
+    max-width: 500px;
 }
 
 .info-for-store .left .wrapper h1 {
-    font-size: 40px;
+    font-size: 28px;
     color: #06654E;
-    position: relative;
     font-weight: 700;
-    left: -100px;
+    margin-bottom: 10px;
 }
 
 .info-for-store .left .wrapper h2 {
-    font-size: 40px;
+    font-size: 24px;
     color: #06654E;
-    position: relative;
     font-weight: 700;
-    bottom: -20px;
+    margin-bottom: 20px;
 }
 
 .info-for-store .left .wrapper p {
-    font-size: 30px;
-    font-weight: lighter;
+    font-size: 18px;
     color: #06654E;
-    position: relative;
-    top: 100px;
+    line-height: 1.6;
+    margin-bottom: 10px;
 }
 
-.info-for-store .left .wrapper >  p:nth-child(3) {
-    position: relative;
-    top: 100px;
-    left: 100px;
-}
-
-.info-for-store .left .wrapper >  p:nth-child(4) {
-    position: relative;
-    top: 130px;
-    left: 50px;
-}
-
-.info-for-store .left .wrapper >  p:nth-child(5) {
-    position: relative;
-    top: 160px;
-    left: 150px;
-}
-
-.info-for-store .left .wrapper >  p:nth-child(6) {
-    position: relative;
-    left: 170px;
-    top: 190px;
-}
-
-
-    /* Image styling */
-.info-for-store .signup-image {
-    flex-shrink: 0;
-}
-
-#signup-image {
-    width: 700px;
-    height: 600px;
-    object-fit: cover;
-    margin-bottom: 200px;
-    margin-top: 100px;
-    position: relative;
-    right: -600px;
-}
-
+/* Right side for the button */
 .info-for-store .right {
     display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
-    flex-direction: column;
+    flex-direction: column; /* 버튼을 세로로 정렬 */
+    justify-content: flex-start; /* 상단 정렬 */
+    align-items: center;
+    padding-left: 20px;
 }
 
 .info-for-store .store-signup {
-    padding: 14px;
-    font-size: 40px;
+    padding: 10px 20px;
+    font-size: 24px;
     cursor: pointer;
     transition: 0.3s ease-in-out;
-    position: relative;
-    bottom: -800px;
-    left: -450px;
-}
-.info-for-store .store-signup span {
+    background-color: transparent;
     color: #043f2e;
+    border: none;
+    border-radius: 0;
+    margin-top: 20px;
+    display: flex;
+    margin-left: -390px;
 }
 
-.store-signup:hover {
-    transform: translate(-10%, -10%);
-    border-bottom: 1px solid #06654e;
+.info-for-store .store-signup:hover {
+    color: #06654E; /* 호버 시 글자 색상 변경 */
+    transform: translateY(-5px); /* 호버 시 약간 떠오르는 느낌 */
+    border-bottom: 2px solid #06654E; /* 호버 시 하단 라인 색상 변경 */
 }
 
-.info-for-store .left h2, .info-for-store .left p {
-    color: var(--green5-color);
-}
+
+
+
 
 /* 나뭇잎 애니메이션 */
 @keyframes leaf-fall {
