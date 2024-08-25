@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.nmfw.foodietree.domain.auth.security.TokenProvider.TokenUserInfo;
-import org.nmfw.foodietree.domain.product.Util.FileUtil;
 import org.nmfw.foodietree.domain.review.dto.res.ReviewDetailDto;
 
 import org.nmfw.foodietree.domain.review.dto.res.MyReviewDto;
@@ -21,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
@@ -59,7 +57,7 @@ public class ReviewController {
     @PostMapping("/save")
     public ResponseEntity<?> saveReview( @RequestParam("reviewImg") MultipartFile reviewImg,
                                          @RequestParam("reviewData") String reviewData,
-                                         @AuthenticationPrincipal TokenUserInfo tokenUserInfo) {
+                                         @AuthenticationPrincipal TokenUserInfo tokenUserInfo) throws IOException {
         // JSON 문자열을 DTO로 변환
         ObjectMapper objectMapper = new ObjectMapper();
         ReviewSaveDto reviewSaveDto;
