@@ -19,6 +19,10 @@ button {
   max-width: 1920px; /* 최대 너비를 1920px로 제한 */
   margin: 0 auto; /* 중앙 정렬 */
   background-color: #F5F5DD;
+  position: fixed; /* 헤더를 고정 */
+  top: 0; /* 상단에 고정 */
+  left: 0; /* 왼쪽에 고정 */
+  z-index: 1000; /* 다른 요소 위에 표시 */
 }
 
 /* 로고 버튼 */
@@ -67,13 +71,19 @@ button {
 }
 
 
+.selectedAreaSection {
+  margin-left: auto;  /* Push it to the right */
+  margin-right: 20px; /* Adjust as needed */
+  position: relative;
+}
+
 /* 검색창 스타일 */
 .searchStoreSection {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 300px;
+  max-width: 400px;
   // background-color: rgba(6, 101, 78, 0.3);
   background-color: #afcba7;
   border-radius: 50px;
@@ -164,4 +174,9 @@ button {
   .reviewMainIcon, .locationPinIcon, .areaName, .dot {
     display: none;
   }
+
+  .logoBtn {
+    display: none;
+  }
+
 }

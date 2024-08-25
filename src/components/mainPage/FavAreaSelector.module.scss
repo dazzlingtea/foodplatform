@@ -2,9 +2,10 @@
   padding: 10px 15px;
   background: rgba(245, 245, 221);
   width: 300px;
-  position: absolute;
-  left: 150px;
+  position: fixed;  
   top: 12px;
+  left: 150px;
+  z-index: 1000; 
 }
 
 .title {
@@ -26,7 +27,7 @@
 }
 
 .areaList.expanded {
-  max-height: 500px; /* 충분히 큰 값으로 설정 */
+  max-height: 500px;
   opacity: 1;
 }
 
@@ -61,8 +62,8 @@
 
 // @media (max-width: 400px) {
 //   .container {
-//     width: 210px;
-//     left: 25px;
-//     top: 12px;
+//     width: 230px;
+//     left: 45px;
+//     top: 11px;
 //   }
 // }
