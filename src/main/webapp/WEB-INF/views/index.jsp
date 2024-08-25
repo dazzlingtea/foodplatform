@@ -23,6 +23,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       rel="stylesheet"
     />
 
+<%--      구글폰트 3 --%>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+
 <%--     system font--%>
     <style>
       :root {
@@ -69,25 +74,29 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   <section class="info-for-store">
       <div class="container">
           <div class="left">
+              <div class="signup-image">
+                  <img src="${pageContext.request.contextPath}/assets/img/icon/greenicecream.png" alt="store-signup-images">
+              </div>
               <div class="wrapper">
-                  <h1><span class="explanation">FOODIE TREE 에</span> 입점 시 얻을 수 있는 </h1>
+                  <h1><span class="explanation">FOODIE TREE 에</span> 입점 시 얻을 수 있는</h1>
                   <h2>특별한 경험에는 무엇이 있을까요?</h2>
                   <p>우리 가게에서 판매하고 버려지는</p>
                   <p>음식물을 최소화하여 환경을 보호하고</p>
-                  <p>지역사회에 우리 가게에 대해 </p>
-                  <p>이미지를 심어줄 수 있어요!</p>
+                  <p>지역사회에 우리 가게에 대해</p>
+                  <p>긍정적인 이미지를 심어줄 수 있어요!</p>
+
+                  <div class="right">
+                      <div class="store-signup">
+                          <span>입점 신청</span>
+                      </div>
+                  </div>
               </div>
-              <div class="signup-image">
-                  <img src="${pageContext.request.contextPath}/assets/img/main-quote/signupImage.jpg" alt="Sign Up Image" id="signup-image">
-              </div>
+
           </div>
-          <div class="right">
-              <div class="store-signup">
-               <span>입점신청</span>
-              </div>
-          </div>
+
       </div>
   </section>
+
 
   <!-- 공통 푸터 -->
   <footer>
@@ -97,23 +106,24 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   <script>
       const $storeSignup = document.querySelector(".store-signup");
       $storeSignup.addEventListener("click", () => {
-          location.href = "http://localhost:3000/sign-up";
+          // 지정된 URL로 리다이렉트
+          window.location.href = "http://localhost:3000/sign-up?r=guest";
       });
 
-      document.addEventListener('click', function(event) {
-          const emojis = ['🍃', '🌿', '🍀', '🍂', '🌱'];
+  document.addEventListener('click', function(event) {
+  const emojis = ['🍃', '🌿', '🍀', '🍂', '🌱'];
 
-          for (let i = 0; i < 10; i++) {
-              const leaf = document.createElement('div');
-              leaf.classList.add('leaf');
-              leaf.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+  for (let i = 0; i < 10; i++) {
+  const leaf = document.createElement('div');
+  leaf.classList.add('leaf');
+  leaf.textContent = emojis[Math.floor(Math.random() * emojis.length)];
 
-              // Calculate a random position offset around the click point
-              const offsetX = (Math.random() - 0.5) * 100;
-              const offsetY = (Math.random() - 0.5) * 100;
+  // Calculate a random position offset around the click point
+  const offsetX = (Math.random() - 0.5) * 100;
+  const offsetY = (Math.random() - 0.5) * 100;
 
-              // Adjust the position to account for scrolling
-              const xPosition = event.clientX + offsetX + window.scrollX;
+  // Adjust the position to account for scrolling
+  const xPosition = event.clientX + offsetX + window.scrollX;
               const yPosition = event.clientY + offsetY + window.scrollY;
 
               leaf.style.position = 'absolute';

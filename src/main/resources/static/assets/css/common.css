@@ -21,11 +21,11 @@ html {
 body {
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     padding: 0;
-    width: 100%;  /* 화면 너비에 맞추기 */
-    max-width: 1920px;  /* 최대 너비 1920px로 제한 */
-    margin: 0 auto;  /* 중앙 정렬 */
-    background-color: #F5F5DD; /* 예시 배경색 */
-    overflow-x: hidden; /* 가로 스크롤 제거 */
+    width: 100%;
+    max-width: 1920px;
+    margin: 60px auto 0; /* 상단 마진 추가, 하단 마진은 0으로 설정 */
+    background-color: #F5F5DD;
+    overflow-x: hidden;
 }
 
 section {

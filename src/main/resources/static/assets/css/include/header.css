@@ -17,6 +17,11 @@ button {
     height: 60px;
     background-color: #F5F5DD;
     flex-wrap: wrap; /* 반응형 정렬을 위해 추가 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* 다른 요소들 위에 보이도록 설정 */
 }
 
 /* 햄버거 버튼 */

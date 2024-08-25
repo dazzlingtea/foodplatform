@@ -10,11 +10,12 @@
 
 
 <!-- 디버깅: 현재 값 출력하기 -->
-<div>
-    <h3>Debug Information</h3>
-    <p>Stores by Product Count: ${storesByProductCount}</p>
-    <p>Stores by End Time: ${storesByEndTime}</p>
-</div>
+<%--<div>--%>
+<%--    <h3>Debug Information</h3>--%>
+<%--    <p>Stores by Product Count: ${storesByProductCount}</p>--%>
+<%--    <p>Stores by End Time: ${storesByEndTime}</p>--%>
+<%--</div>--%>
+
 
 <!-- 데이터 렌더링: CO2를 가장 많이 줄인 가게 -->
 <div id="co2-saver-list">
@@ -27,7 +28,6 @@
                     <img src="${pageContext.request.contextPath}${store.storeImg}" alt="${store.storeName}" onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/assets/img/defaultImage.jpg';">
                     <p class="storeName">${store.storeName}</p>
                     <span class="storeCo2">🪴${store.coTwo}</span>
-                    <span class="reputation">✰ 4.5</span>
                     <span class="store-area">(${store.address})</span>
                         ${store.productCnt == 0 ? '<div class="overlay">SOLD OUT</div>' : ''}
                 </div>

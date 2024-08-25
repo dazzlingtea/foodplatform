@@ -20,10 +20,6 @@
 </head>
 <body>
 <header class="header">
-    <!-- 햄버거 버튼 -->
-    <div class="sidebar-btn">
-        <i class="fa-solid fa-bars"></i>
-    </div>
 
     <!-- 로고 -->
     <a href="/" class="logoBtn">
@@ -31,15 +27,15 @@
     </a>
 
     <!-- 현재 위치 -->
-    <div class="location-pin-icon">
-        <img src="${pageContext.request.contextPath}/assets/img/icon/location-pin.png" alt="Location Pin Icon">
-    </div>
-    <div class="area-name">${address}</div>
-    <div class="dot">・</div>
-    <div class="selected-area-category">Now</div>
-    <div class="selected-area-category-btn">
-        <img src="${pageContext.request.contextPath}/assets/img/icon/greenwhiteBtn.png" alt="selected Area Category Btn">
-    </div>
+<%--    <div class="location-pin-icon">--%>
+<%--        <img src="${pageContext.request.contextPath}/assets/img/icon/location-pin.png" alt="Location Pin Icon">--%>
+<%--    </div>--%>
+<%--    <div class="area-name">${address}</div>--%>
+<%--    <div class="dot">・</div>--%>
+<%--    <div class="selected-area-category">Now</div>--%>
+<%--    <div class="selected-area-category-btn">--%>
+<%--&lt;%&ndash;        <img src="${pageContext.request.contextPath}/assets/img/icon/greenwhiteBtn.png" alt="selected Area Category Btn">&ndash;%&gt;--%>
+<%--    </div>--%>
 
     <!-- 검색창 -->
     <form class="search-store-section" onsubmit="handleSearch(event)">
@@ -53,6 +49,7 @@
         // 엔터 키를 눌렀을 때 검색 실행
         function handleEnter(event) {
             if (event.key === 'Enter') {
+                event.preventDefault(); // 기본 동작 방지
                 redirectToSearch();
             }
         }
@@ -65,12 +62,18 @@
 
         // 검색어를 쿼리 파라미터로 전달하여 검색 페이지로 이동
         function redirectToSearch() {
-            const query = document.querySelector('.search-store-section input').value;
-            if (query) {
-                const encodedQuery = encodeURIComponent(query);
-                location.href = `http://localhost:3000/search?q=${encodedQuery}`;
+            const input = document.querySelector('.search-store-section input');
+            if (input) {
+                const query = input.value.trim(); // 입력값 읽어오기 및 공백 제거
+                if (query) {
+                    const encodedQuery = encodeURIComponent(query);
+                    console.log(`Redirecting to: http://localhost:3000/search?q=\${encodedQuery}`); // 디버깅용 로그
+                    location.href = `http://localhost:3000/search?q=\${encodedQuery}`;
+                } else {
+                    alert("검색어를 입력해주세요.");
+                }
             } else {
-                alert("검색어를 입력해주세요.");
+                console.error("Input element not found.");
             }
         }
     </script>

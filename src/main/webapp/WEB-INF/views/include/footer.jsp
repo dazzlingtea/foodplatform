@@ -16,7 +16,7 @@
 <footer class="footer">
   <!-- 이미지 슬라이더 -->
   <div class="pictureDiv">
-    <img id="footerImage" src="/assets/footer-img/food1.jpg" alt="Footer Image" class="footerImage">
+    <img id="footerImage" src="/assets/img/footer-img/nature1.jpg" alt="Footer Image" class="footerImage">
   </div>
 
   <!-- 이메일 및 복사 성공 메시지 -->
@@ -46,39 +46,39 @@
 
 <script>
   // 이미지 슬라이더 및 이메일 복사 기능
-  const images = [
-    '/assets/img/footer-img/food1.jpg',
-    '/assets/img/footer-img/food2.jpg',
-    '/assets/img/footer-img/food3.jpg',
-    '/assets/img/footer-img/imagination1.jpg',
-    '/assets/img/footer-img/imagination2.jpg',
-    '/assets/img/footer-img/nature1.jpg',
-    '/assets/img/footer-img/nature2.jpg'
-  ];
-  let currentImageIndex = 0;
-  const footerImage = document.getElementById('footerImage');
-  const copySuccess = document.getElementById('copySuccess');
+  // const images = [
+  //   '/assets/img/footer-img/food1.jpg',
+  //   '/assets/img/footer-img/food2.jpg',
+  //   '/assets/img/footer-img/food3.jpg',
+  //   '/assets/img/footer-img/imagination1.jpg',
+  //   '/assets/img/footer-img/imagination2.jpg',
+  //   '/assets/img/footer-img/nature1.jpg',
+  //   '/assets/img/footer-img/nature2.jpg'
+  // ];
+  // let currentImageIndex = 0;
+  // const footerImage = document.getElementById('footerImage');
+  //
+  // function changeImage() {
+  //   currentImageIndex = (currentImageIndex + 1) % images.length;
+  //   footerImage.src = images[currentImageIndex];
+  //   footerImage.classList.add('fadeOut');
+  //   setTimeout(() => {
+  //     footerImage.classList.remove('fadeOut');
+  //     footerImage.classList.add('fadeIn');
+  //   }, 1000);
+  // }
+  //
+  // setInterval(changeImage, 4000);
 
-  function changeImage() {
-    currentImageIndex = (currentImageIndex + 1) % images.length;
-    footerImage.src = images[currentImageIndex];
-    footerImage.classList.add('fadeOut');
-    setTimeout(() => {
-      footerImage.classList.remove('fadeOut');
-      footerImage.classList.add('fadeIn');
-    }, 1000);
-  }
-
-  setInterval(changeImage, 4000);
-
-  function handleEmailClick() {
-    navigator.clipboard.writeText("foodie.treee@gmail.com")
-            .then(() => {
-              copySuccess.style.display = 'inline';
-              setTimeout(() => copySuccess.style.display = 'none', 2000);
-            })
-            .catch(err => console.error('Failed to copy text: ', err));
-  }
+  // const copySuccess = document.getElementById('copySuccess');
+  // function handleEmailClick() {
+  //   navigator.clipboard.writeText("foodie.treee@gmail.com")
+  //           .then(() => {
+  //             copySuccess.style.display = 'inline';
+  //             setTimeout(() => copySuccess.style.display = 'none', 2000);
+  //           })
+  //           .catch(err => console.error('Failed to copy text: ', err));
+  // }
 </script>
 </body>
 </html>
