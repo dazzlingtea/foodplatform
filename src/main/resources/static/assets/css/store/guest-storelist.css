@@ -127,7 +127,7 @@
     height: 300px;
 }
 
-@media (max-width: 400px) and (max-height: 844px) {
+@media (max-width: 400px) {
 
 
     .list-container {
@@ -152,6 +152,7 @@
         width: 400px;
         flex-shrink: 0; /* 이미지 크기가 줄어들지 않도록 설정 */
     }
+
 
     .list-container::-webkit-scrollbar {
         display: none; /* 스크롤바 숨기기 */
@@ -259,11 +260,20 @@
         font-size: 12px;
     }
 
-    .list-container .productCnt {
+    .co2-saver-section .store-area {
         position: relative;
-        top: -170px;
-        left: -25px;
-        /* font-size: 20px; */
+        /* left: -68px; */
+        top: -24px;
+        font-size: 12px;
+    }
+
+
+
+        .list-container .productCnt {
+            position: relative;
+            top: -170px;
+            left: -25px;
+            /* font-size: 20px; */
         right: 30px;
         color: #ffe7b9;
         font-weight: 800;
