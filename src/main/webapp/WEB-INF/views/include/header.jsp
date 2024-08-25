@@ -42,12 +42,39 @@
     </div>
 
     <!-- 검색창 -->
-    <form class="search-store-section">
-        <button type="button" class="magnify-click-btn">
+    <form class="search-store-section" onsubmit="handleSearch(event)">
+        <button type="button" class="magnify-click-btn" onclick="redirectToSearch()">
             <i class="fa-solid fa-magnifying-glass magnify-icon"></i>
         </button>
-        <input type="text" placeholder="여기에 음식점 혹은 위치를 검색해보세요.">
+        <input type="text" placeholder="여기에 음식점 혹은 위치를 검색해보세요." onkeyup="handleEnter(event)">
     </form>
+
+    <script>
+        // 엔터 키를 눌렀을 때 검색 실행
+        function handleEnter(event) {
+            if (event.key === 'Enter') {
+                redirectToSearch();
+            }
+        }
+
+        // 폼이 제출될 때 기본 동작을 막고 검색 수행
+        function handleSearch(event) {
+            event.preventDefault();  // 폼의 기본 제출 동작 막기
+            redirectToSearch();
+        }
+
+        // 검색어를 쿼리 파라미터로 전달하여 검색 페이지로 이동
+        function redirectToSearch() {
+            const query = document.querySelector('.search-store-section input').value;
+            if (query) {
+                const encodedQuery = encodeURIComponent(query);
+                location.href = `http://localhost:3000/search?q=${encodedQuery}`;
+            } else {
+                alert("검색어를 입력해주세요.");
+            }
+        }
+    </script>
+
 
     <!-- 리뷰 게시판 버튼 -->
     <button class="review-main-btn" onclick="location.href='http://localhost:3000/reviewMain'">

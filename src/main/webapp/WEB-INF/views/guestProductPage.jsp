@@ -2,11 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<%--<%--%>
-<%--    java.util.logging.Logger logger = java.util.logging.Logger.getLogger("MyLogger");--%>
-<%--    logger.info("Stores by Product Count: " + request.getAttribute("storesByProductCount"));--%>
-<%--    logger.info("Stores by End Time: " + request.getAttribute("storesByEndTime"));--%>
-<%--%>--%>
+<%
+    java.util.logging.Logger logger = java.util.logging.Logger.getLogger("MyLogger");
+    logger.info("Stores by Product Count: " + request.getAttribute("storesByProductCount"));
+    logger.info("Stores by End Time: " + request.getAttribute("storesByEndTime"));
+%>
 
 
 <!-- 디버깅: 현재 값 출력하기 -->
@@ -24,7 +24,7 @@
         <div class="list-container co2-saver-section">
             <c:forEach var="store" items="${storesByProductCount}">
                 <div class="storeItem ${store.productCnt == 0 ? 'low-stock' : ''}">
-                    <img src="${store.storeImg != null && !store.storeImg.startsWith('http') ? pageContext.request.contextPath + store.storeImg : store.storeImg}" alt="${store.storeName}" onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/assets/img/defaultImage.jpg';">
+                    <img src="${pageContext.request.contextPath}${store.storeImg}" alt="${store.storeName}" onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/assets/img/defaultImage.jpg';">
                     <p class="storeName">${store.storeName}</p>
                     <span class="storeCo2">🪴${store.coTwo}</span>
                     <span class="reputation">✰ 4.5</span>
@@ -53,12 +53,11 @@
                 <div class="list-container end-time-soon-section">
                     <c:forEach var="store" items="${storesByEndTime}">
                         <div class="storeItem ${store.productCnt == 0 ? 'low-stock' : ''}">
-                            <img src="${store.storeImg != null && !store.storeImg.startsWith('http') ? pageContext.request.contextPath + store.storeImg : store.storeImg}" alt="${store.storeName}" onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/assets/img/defaultImage.jpg';">
+                            <img src="${pageContext.request.contextPath}${store.storeImg}" alt="${store.storeName}" onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/assets/img/defaultImage.jpg';">
                             <p class="storeName">${store.storeName}</p>
                             <span class="storePrice">${store.price}원</span>
                             <span class="productCnt">${store.productCnt}개 남았어요!</span>
                             <span class="remainingTime">${store.remainingTime} 남았어요!</span>
-                            <span class="reputation">✰ 4.5</span>
                             <span class="store-area">(${store.address})</span>
                                 ${store.productCnt == 0 ? '<div class="overlay">SOLD OUT</div>' : ''}
                         </div>
