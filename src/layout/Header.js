@@ -10,6 +10,7 @@ import MyInfo from "../components/header/MyInfo";
 import {getCurrentLocation, initializeNaverMapsForHeader, reverseGeocode} from "../utils/locationUtil";
 import SidebarModal from "../components/header/SidebarModal";
 import SearchInput from "../components/search/SearchInput";
+import FavAreaSelector from "../components/mainPage/FavAreaSelector"
 
 // 아이콘을 라이브러리에 추가
 library.add(faMagnifyingGlass);
@@ -65,6 +66,12 @@ const Header = () => {
         setModalVisible(prev => !prev);
     };
 
+    const handleAreaSelect = (selectedArea) => {
+        console.log('Selected Area:', selectedArea);
+        // 이곳에 추가적인 로직을 구현할 수 있습니다
+    };
+
+
     const handleClick = () => {
         navigate('/reviewMain');
     }
@@ -80,11 +87,15 @@ const Header = () => {
             <div className={styles.logoBtn} onClick={clickHandler}></div>
 
             {/* 현재 위치 */}
-            <div className={styles.locationPinIcon}></div>
+            {/* <div className={styles.locationPinIcon}></div>
             <div className={styles.areaName}>{userArea}</div>
             <div className={styles.dot}>・</div>
             <div className={styles.selectedAreaCategory}>Now</div>
-            <div className={styles.selectedAreaCategoryBtn}></div>
+            <div className={styles.selectedAreaCategoryBtn}></div> */}
+
+            <div className={styles.selectedAreaSection}>
+                <FavAreaSelector onAreaSelect={handleAreaSelect} />
+            </div>
 
             {/* 상점 검색 칸 */}
             {/*로그인을 하지 않아도 검색칸은 보이되, 로그인이 필요한 서비스 안내하기*/}
@@ -116,9 +127,8 @@ const Header = () => {
             </div>
             {/* 모달 */}
             {modalVisible && <SidebarModal onClose={toggleModal} />}
-</header>
+        </header>
     );
 }
 
 export default Header;
-

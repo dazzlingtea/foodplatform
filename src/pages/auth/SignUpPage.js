@@ -1,11 +1,42 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import SignUpForm from '../../components/auth/SignUpForm';
 import styles from './SignUpPage.module.scss';
-import { Link } from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
+import {checkLoggedIn} from "../../utils/authUtil";
 
 const SignUpPage = () => {
   const [userType, setUserType] = useState('customer'); // 기본 상태값 customer
   const [verificationSent, setVerificationSent] = useState(false);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // URL의 쿼리 파라미터를 통해 역할을 처리
+    const params = new URLSearchParams(location.search);
+    const role = params.get('r');
+
+    if (role === 'guest') {
+      // 토큰 존재 여부 확인
+      const token = localStorage.getItem('token');
+      const refreshToken = localStorage.getItem('refreshToken');
+
+      if (token && refreshToken) {
+        // 토큰이 존재할 경우
+        alert("입점신청 시 로그아웃 후 신청이 진행됩니다.");
+        localStorage.removeItem('token');
+        sessionStorage.removeItem('refreshToken');
+        setUserType('store');  // userType을 store로 설정
+      }
+
+      // 로그인 체크
+      checkLoggedIn(navigate, location.pathname);
+    } else {
+      // role이 'guest'가 아닐 경우 그냥 로그인 체크
+      checkLoggedIn(navigate, location.pathname);
+    }
+  }, [navigate, location.pathname]);
+
 
   // user type 상태관리
   const handleUserTypeChange = (type) => {

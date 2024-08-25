@@ -35,7 +35,7 @@ const MainPage = () => {
   }, [navigate]);
 
   return (
-    <div className="main-page" style={{ backgroundColor: '#fff', minHeight: '100vh' }}>
+    <div className="main-page" style={{ backgroundColor: '#fff', minHeight: '100vh', marginTop: '60px' }}>
       <CategoryBtn categories={categories} onCategoryClick={handleCategoryClick} />
       <FoodNav selectedCategory={selectedCategory} stores={stores} />
     </div>
