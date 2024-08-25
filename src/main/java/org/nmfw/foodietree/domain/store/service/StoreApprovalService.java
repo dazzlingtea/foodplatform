@@ -2,7 +2,7 @@ package org.nmfw.foodietree.domain.store.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.nmfw.foodietree.domain.notification.service.NotificationService;
-import org.nmfw.foodietree.domain.product.Util.fileUtil;
+import org.nmfw.foodietree.domain.product.Util.FileUtil;
 import org.nmfw.foodietree.domain.store.dto.request.ProductApprovalReqDto;
 import org.nmfw.foodietree.domain.store.dto.request.StoreApprovalReqDto;
 import org.nmfw.foodietree.domain.store.dto.resp.ApprovalInfoDto;
@@ -31,7 +31,7 @@ import static org.nmfw.foodietree.domain.auth.security.TokenProvider.*;
 @Slf4j
 public class StoreApprovalService {
 
-    private final fileUtil fileUtil;
+    private final FileUtil fileUtil;
 
     private final NotificationService notificationService;
     @Value("${file.upload.root-path}")
@@ -41,9 +41,10 @@ public class StoreApprovalService {
     private final LicenseService licenseService;
     private final TaskScheduler approvalTaskScheduler;
 
-    public StoreApprovalService(org.nmfw.foodietree.domain.product.Util.fileUtil fileUtil, @Qualifier("approvalTaskScheduler") TaskScheduler approvalTaskScheduler,
-                                StoreApprovalRepository storeApprovalRepository,
-                                LicenseService licenseService, NotificationService notificationService) {
+    public StoreApprovalService(FileUtil fileUtil,
+                            @Qualifier("approvalTaskScheduler") TaskScheduler approvalTaskScheduler,
+                            StoreApprovalRepository storeApprovalRepository,
+                            LicenseService licenseService, NotificationService notificationService) {
         this.fileUtil = fileUtil;
         this.approvalTaskScheduler = approvalTaskScheduler;
         this.storeApprovalRepository = storeApprovalRepository;

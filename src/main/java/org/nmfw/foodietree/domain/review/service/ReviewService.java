@@ -3,7 +3,7 @@ package org.nmfw.foodietree.domain.review.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.nmfw.foodietree.domain.auth.security.TokenProvider.TokenUserInfo;
-import org.nmfw.foodietree.domain.product.Util.fileUtil;
+import org.nmfw.foodietree.domain.product.Util.FileUtil;
 import org.nmfw.foodietree.domain.product.entity.Product;
 import org.nmfw.foodietree.domain.product.repository.ProductRepository;
 import org.nmfw.foodietree.domain.reservation.dto.resp.ReservationDetailDto;
@@ -43,7 +43,7 @@ public class ReviewService {
     private final ReservationRepository reservationRepository;
     private final ProductRepository productRepository;
 
-    private final fileUtil fileUtil;
+    private final FileUtil fileUtil;
 
 
     // 이미지 저장 경로

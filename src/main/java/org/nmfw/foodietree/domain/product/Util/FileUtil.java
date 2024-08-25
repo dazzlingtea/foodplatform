@@ -14,7 +14,7 @@ import java.util.UUID;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class fileUtil {
+public class FileUtil {
 
     private final AwsS3Service s3Service;
 

@@ -14,7 +14,7 @@ import org.nmfw.foodietree.domain.customer.repository.CustomerMyPageRepository;
 import org.nmfw.foodietree.domain.customer.repository.FavAreaRepository;
 import org.nmfw.foodietree.domain.customer.repository.FavFoodRepository;
 import org.nmfw.foodietree.domain.customer.repository.FavStoreRepository;
-import org.nmfw.foodietree.domain.product.Util.fileUtil;
+import org.nmfw.foodietree.domain.product.Util.FileUtil;
 import org.nmfw.foodietree.domain.reservation.dto.resp.ReservationDetailDto;
 import org.nmfw.foodietree.domain.reservation.mapper.ReservationMapper;
 import org.nmfw.foodietree.domain.reservation.service.ReservationService;
@@ -52,7 +52,7 @@ public class CustomerMyPageService {
     private final FavFoodRepository favFoodRepository;
 	private final FavStoreRepository favStoreRepository;
 
-    private final fileUtil fileUtil;
+    private final FileUtil fileUtil;
 
     @Value("${env.upload.path}")
     private String uploadDir;

@@ -41,6 +41,6 @@ out/
 
 ## foodieTree project
 .idea/
-env.properties
+src/main/resources/env.properties
 .DS_Store
 application-*.yml

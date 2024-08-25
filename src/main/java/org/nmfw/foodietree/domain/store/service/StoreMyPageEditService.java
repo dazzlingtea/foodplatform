@@ -4,7 +4,7 @@ import java.io.File;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.nmfw.foodietree.domain.customer.dto.resp.UpdateDto;
-import org.nmfw.foodietree.domain.product.Util.fileUtil;
+import org.nmfw.foodietree.domain.product.Util.FileUtil;
 import org.nmfw.foodietree.domain.store.entity.Store;
 import org.nmfw.foodietree.domain.store.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +21,7 @@ public class StoreMyPageEditService {
 	@Value("${env.upload.path}")
 	private String uploadDir;
 	private final StoreRepository storeRepository;
-	private final fileUtil fileUtil;
+	private final FileUtil fileUtil;
 
 	public boolean updateProfileInfo(String storeId, UpdateDto dto) {
 		String type = dto.getType();

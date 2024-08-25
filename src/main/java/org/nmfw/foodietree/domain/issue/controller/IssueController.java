@@ -9,6 +9,7 @@ import org.nmfw.foodietree.domain.issue.entity.IssuePhoto;
 import org.nmfw.foodietree.domain.issue.repository.IssuePhotoRepository;
 import org.nmfw.foodietree.domain.issue.repository.IssueRepository;
 import org.nmfw.foodietree.domain.issue.service.IssueService;
+import org.nmfw.foodietree.domain.product.Util.FileUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +36,7 @@ public class IssueController {
     @Value("${file.upload.root-path}")
     private String rootPath;
 
-    private final org.nmfw.foodietree.domain.product.Util.fileUtil fileUtil;
+    private final FileUtil fileUtil;
 
 
     @GetMapping

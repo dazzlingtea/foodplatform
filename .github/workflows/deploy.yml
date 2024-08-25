@@ -26,7 +26,7 @@ jobs:
         # 배포를 위한 디렉토리를 생성합니다.
       - name: Write the env.properties
         run: |         
-          echo "${{ secrets.ENV_PROPERTIES }}" > ./env.properties
+          echo "${{ secrets.ENV_PROPERTIES }}" > ./src/main/resources/env.properties
 
       - name: Write the application.yml
         run: |
