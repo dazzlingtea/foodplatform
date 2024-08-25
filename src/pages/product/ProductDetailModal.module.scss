@@ -4,7 +4,7 @@
 
   .infoBox {
     line-height: 3;
-    width: 57%;
+    width: 51%;
     height: fit-content;
 
     .storeInfo {
@@ -32,6 +32,7 @@
       }
 
       .fromWhere {
+        font-weight: 700;
         position: absolute;
         display: flex;
         flex-direction: column;
@@ -66,13 +67,14 @@
         align-items: baseline;
 
         .mapImg {
-          height: 144px;
+          height: 185px;
           width: 100%;
           position: relative;
           margin-bottom: 4px;
           background-color: #2e2e2f;
         }
         .storeAddress{
+          margin-top: 5px;
           width: 100%;
           display: flex;
           justify-content: space-between;
@@ -144,18 +146,32 @@
       .saving {
         display: flex;
         align-items: center;
-
+        padding-left: 10px;
+        margin-bottom: 7px;
       }
 
       .reservationBtn {
         display: flex;
         justify-content: space-between;
-        border-radius: 24px;
-        background-color: rgba(87, 173, 88, 0.98);
+        border-radius: 15px;
+        background-color: rgba(89, 152, 90, 0.8);
+
         box-shadow: transparent 0px 0px 0px 1px inset;
         color: #fff;
         font-weight: 700;
-        padding: 0 15px;
+        padding: 6px 15px;
+      }
+      .reservationBtn:hover {
+        background-color: rgba(87, 173, 88, 0.98);
+
+      }
+
+      .reservationBtnSoldout{
+        border-radius: 15px;
+        background-color: #d3d3d3;
+        color: #000;
+        box-shadow: transparent 0px 0px 0px 1px inset;
+        font-weight: 700;
       }
     }
 
@@ -163,6 +179,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding-left: 10px;
+      width: 347px;
     }
 
     .promoCode {
@@ -171,6 +189,7 @@
     }
 
     .billSection {
+      padding: 0 9px;
 
       .originPrice {
         display: flex;
@@ -187,7 +206,7 @@
       .totalBill {
         display: flex;
         justify-content: space-between;
-        font-weight: 500;
+        font-weight: 600;
       }
     }
   }

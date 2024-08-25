@@ -26,7 +26,6 @@ const ProductDetail = ({productDetail}) => (<div className={styles.productDetail
             <p>{productDetail.storeInfo.price}</p>
             {/* <p>{productDetail.storeInfo.remainProduct}</p> 확인용*/}
         </div>
-        <div className={styles.sectionLine}></div>
         <div className={styles.productDes}>
             {/* <p>상품 설명</p>
             <p className={styles.productTextDesc}>{productDetail.storeInfo.desc}</p> */}

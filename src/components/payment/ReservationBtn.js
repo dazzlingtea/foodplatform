@@ -52,7 +52,7 @@ const ReservationBtn = ({ tar : {remainProduct, productDetail: {storeInfo}, init
                 className={`${styles.placeOrderBtn} ${isReservation ? styles.reservation : ''}`}
                 onClick={handleMakeReservation}
             >
-                <p>{isReservation ? 'SOLD OUT' : '예약하기'}</p>
+                <p>{isReservation ? 'SOLD OUT' : '구매하기'}</p>
             </div>
             { isShow &&
                 <SubModalPortal onClose={closeHandler} isLoading={isLoading}>

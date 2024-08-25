@@ -2,8 +2,9 @@ import React from 'react';
 import styles from './ProductDetailModal.module.scss';
 import { faMinus, faPlus, faShoppingCart, faStar, faTag } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ReservationBtn from "../../components/payment/ReservationBtn";
 
-const PaymentBox = ({ makeReservation, productDetail, initialCount, handleIncrease, handleDecrease }) => {
+const PaymentBox = ({ makeReservation, productDetail, initialCount, handleIncrease, handleDecrease, remainProduct, closeModal, cntHandler  }) => {
     const howMuchSaved = Math.floor(((productDetail.storeInfo.price / 0.3) - productDetail.storeInfo.price) * initialCount);
     const totalPrice = productDetail.storeInfo.price * initialCount;
     const originalPrice = Math.floor(productDetail.storeInfo.price / 0.3) * initialCount;
@@ -15,7 +16,7 @@ const PaymentBox = ({ makeReservation, productDetail, initialCount, handleIncrea
     return (
         <section className={styles.paymentBox}>
             <div>
-                <p className={styles.amountDesText}>구매하고자 하는 스페셜 팩의 수량을 알려주세요</p>
+                <p className={styles.amountDesText}>구매할 스페셜 팩의 수량을 입력해주세요</p>
                 <div className={styles.productAmtAdjustBtn}>
                     <button className={styles.adjustBtn} onClick={handleDecrease} disabled={initialCount <= 1}>
                         <FontAwesomeIcon icon={faMinus} />
@@ -32,9 +33,12 @@ const PaymentBox = ({ makeReservation, productDetail, initialCount, handleIncrea
                     <FontAwesomeIcon icon={faStar} />
                     {howMuchSaved}원을 아끼고 있어요!
                 </p>
-                <div className={styles.reservationBtn} onClick={handleMakeReservation}>
-                    <p>Place Order</p>
-                    <p>{totalPrice}원</p>
+                <div className={remainProduct===0? styles.reservationBtnSoldout : styles.reservationBtn} onClick={handleMakeReservation}>
+                    <ReservationBtn tar={{remainProduct, initialCount, productDetail, cntHandler}}/>
+                    {/*<p>Place Order</p>*/}
+                    {
+                        remainProduct === 0 ? '': <p>{totalPrice}원</p>
+                    }
                 </div>
             </div>
             <div className={styles.orderSum}>
@@ -44,11 +48,11 @@ const PaymentBox = ({ makeReservation, productDetail, initialCount, handleIncrea
                 </p>
                 <p>{initialCount} 개</p>
             </div>
-            <div className={styles.sectionLine}></div>
-            <div className={styles.promoCode}>
-                <FontAwesomeIcon icon={faTag} />
-                <p className={styles.promoText}>Promo codes, rewards & gift Cards</p>
-            </div>
+            {/*<div className={styles.sectionLine}></div>*/}
+            {/*<div className={styles.promoCode}>*/}
+            {/*    <FontAwesomeIcon icon={faTag} />*/}
+            {/*    <p className={styles.promoText}>Promo codes, rewards & gift Cards</p>*/}
+            {/*</div>*/}
             <div className={styles.sectionLine}></div>
             <div className={styles.billSection}>
                 <div className={styles.originPrice}>
@@ -56,7 +60,7 @@ const PaymentBox = ({ makeReservation, productDetail, initialCount, handleIncrea
                     <p>{originalPrice}원</p>
                 </div>
                 <div className={styles.discount}>
-                    <p>얼만큼 할인 되었는지</p>
+                    <p>할인된 금액</p>
                     <p>{howMuchSaved}원</p>
                 </div>
                 <div className={styles.sectionLine}></div>

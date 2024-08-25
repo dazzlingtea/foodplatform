@@ -37,7 +37,7 @@ const Modal = () => {
                 if (window.innerWidth <= 400) {
                     setCustomStyle({width: '100%'});
                 } else {
-                    setCustomStyle({width: '80%', height: '80%', margin: '140px auto'});
+                    setCustomStyle({width: '60%', height: '70%', margin: '163px auto'});
                 }
             } else if (type === 'favAreaEdit') {
                 if (window.innerWidth <= 400) {

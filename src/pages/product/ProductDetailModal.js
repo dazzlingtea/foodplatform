@@ -9,7 +9,7 @@ import BottomPlaceOrder from './BottomPlaceOrder';
 const ProductDetailModal = ({productDetail, onClose, setStoreListHandler}) => {
     const {closeModal} = useModal();
 
-    const [initialCount, setInitialCount] = useState(1);
+    const [initialCount, setInitialCount] = useState(productDetail.productCnt);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 400);
 
     useEffect(() => {
@@ -72,16 +72,18 @@ const ProductDetailModal = ({productDetail, onClose, setStoreListHandler}) => {
             <section className={styles.infoBox}>
                 <StoreInfo productDetail={productInfo}/>
                 <ProductDetail productDetail={productInfo}/>
-                <BottomPlaceOrder
-                    makeReservation={makeReservation}
-                    productDetail={productInfo}
-                    initialCount={initialCount}
-                    handleIncrease={handleIncrease}
-                    handleDecrease={handleDecrease}
-                    remainProduct={productCnt}
-                    closeModal={closeModal}
-                    cntHandler={setStoreListHandler}
-                />
+                {isMobile && (
+                    <BottomPlaceOrder
+                        makeReservation={makeReservation}
+                        productDetail={productInfo}
+                        initialCount={initialCount}
+                        handleIncrease={handleIncrease}
+                        handleDecrease={handleDecrease}
+                        remainProduct={productCnt}
+                        closeModal={closeModal}
+                        cntHandler={setStoreListHandler}
+                    />
+                )}
             </section>
             {!isMobile && (
                 <PaymentBox
@@ -90,6 +92,9 @@ const ProductDetailModal = ({productDetail, onClose, setStoreListHandler}) => {
                     initialCount={initialCount}
                     handleIncrease={handleIncrease}
                     handleDecrease={handleDecrease}
+                    remainProduct={productCnt}
+                    closeModal={closeModal}
+                    cntHandler={setStoreListHandler}
                 />
             )}
         </section>

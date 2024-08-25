@@ -6,7 +6,6 @@ import ReservationBtn from "../../components/payment/ReservationBtn";
 
 const BottomPlaceOrder = ({ productDetail, initialCount, handleIncrease, handleDecrease, remainProduct, closeModal, cntHandler }) => {
   const storeId = productDetail.storeInfo?.storeId || '';
-  const customerId = 'test@gmail.com';
 
   const isReservation = remainProduct === 1;
 
