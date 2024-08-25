@@ -97,11 +97,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   <script>
       const $storeSignup = document.querySelector(".store-signup");
       $storeSignup.addEventListener("click", () => {
-          // 알림을 띄운 후 확인 버튼 클릭 시 동작
-          if (confirm("입점신청은 로그아웃 후 진행됩니다. 확인을 누르시면 로그아웃됩니다.")) {
-              // 지정된 URL로 리다이렉트
-              window.location.href = "http://localhost:3000/sign-up?r=guest";
-          }
+          // 지정된 URL로 리다이렉트
+          window.location.href = "http://localhost:3000/sign-up?r=guest";
       });
 
   document.addEventListener('click', function(event) {
