@@ -5,10 +5,23 @@ const BASE_URL = window.location.origin;
 const centerFlex = {style: {justifyContent: 'center', paddingLeft: '0'}};
 export const IssueColumns = (openModal) => [
     {
+        accessorKey: 'issueId',
+        header: '이슈 ID',
+        cell: (props) => <p>{props.getValue()}</p>,
+        size: 80,
+        meta: {
+            cellProps: centerFlex,
+        },
+        filterFn: (row, columnId, filterValue) => {
+            const cellValue = row.getValue(columnId).toString();
+            return cellValue.includes(filterValue);
+        },
+    },
+    {
         accessorKey: 'customerId',
         header: '고객 ID',
         cell: (props) => <p>{props.getValue()}</p>,
-        size: 120,
+        size: 150,
         meta: {
             cellProps: centerFlex,
         },

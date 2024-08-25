@@ -15,6 +15,8 @@ import { useModal } from "../../../pages/common/ModalProvider";
 import { checkAuthToken, getUserRole } from "../../../utils/authUtil";
 import { useNavigate } from "react-router-dom";
 import { ISSUE_URL } from "../../../config/host-config";
+import FiltersInTable from "../approval/FiltersInTable";
+import FiltersInTableIssue from "./FiltersInTableIssue";
 
 const ChattingList = () => {
     const { openModal } = useModal();
@@ -108,6 +110,7 @@ const ChattingList = () => {
     return (
         <div className={styles.chatListContainer}>
             <IssueSummary stats={stats} />
+            <FiltersInTableIssue columnFilters={columnFilters} setColumnFilters={setColumnFilters}/>
             <TansTable table={table} />
             <TansPagination style={styles.tansPageContainer} table={table} />
         </div>
