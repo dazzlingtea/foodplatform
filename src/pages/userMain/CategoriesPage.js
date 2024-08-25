@@ -64,13 +64,14 @@ const CategoriesPage = () => {
   return (
     <>
       {/* 카테고리 분류(헤더) */}
+
+      {/* 카테고리 버튼 */}
+      <CategoryBtn categories={categories} onCategoryClick={() => {}} />
+
       <div className={styles.header}>
         <h1>{category.name}</h1>
         <img src={category.image || DEFAULT_IMG} alt={category.name} onError={imgErrorHandler}/>
       </div>
-
-      {/* 카테고리 버튼 */}
-      <CategoryBtn categories={categories} onCategoryClick={() => {}} />
 
       {/* 내가 찜한 가게 */}
       <BestStoreList stores={stores} />
