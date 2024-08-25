@@ -168,11 +168,12 @@ const ChatComponent = ({issueId, type}) => {
         }
 
         const formData = new FormData();
+        console.log('Selected files:', selectedFiles);
         for (const file of selectedFiles) {
             formData.append('files', file);
         }
         formData.append('issueId', issueId);
-
+        console.log('Form data:', formData);
         try {
             const response = await fetch(ISSUE_URL + '/uploadPhoto', {
                 method: 'POST',
@@ -184,10 +185,10 @@ const ChatComponent = ({issueId, type}) => {
             }
 
             const fileUrls = await response.json();
-            const base64Images = await Promise.all(fileUrls.map(fetchBase64Image));
-            for (const base64Image of base64Images) {
+            console.log('File URLs:', fileUrls);
+            for (const url of fileUrls) {
                 sendMessage({
-                    content: base64Image,
+                    content: url, // 파일 URL을 메시지로 전송
                     sender: type
                 });
             }
@@ -199,8 +200,9 @@ const ChatComponent = ({issueId, type}) => {
         }
     };
 
+
     const saveChatToDatabase = async (done) => {
-        const textMessages = messages.filter(msg => !msg.content.startsWith('data:image/'))
+        const textMessages = messages.filter(msg => !msg.content.startsWith('https://s3.ap-northeast-2.amazonaws.com/foodietree.shop'))
             .map(msg => `${msg.sender === 'customer' ? 'Customer' : 'Admin'}: ${msg.content}`).join('\n');
 
         try {
@@ -333,7 +335,7 @@ const ChatComponent = ({issueId, type}) => {
                             msg.sender === type ? styles.myMessage : styles.otherMessage
                         } ${msg.sender === 'manger' && styles.mangerMessage}`}
                     >
-                        {msg.content.startsWith('data:image/') ? (
+                        {msg.content.startsWith('http') ? ( // URL로 시작하는 경우 이미지로 표시
                             <img src={msg.content} alt="Uploaded" className={styles.chatImage}/>
                         ) : (
                             msg.content
