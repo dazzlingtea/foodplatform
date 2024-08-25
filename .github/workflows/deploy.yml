@@ -30,16 +30,15 @@ jobs:
 
       - name: Write the application.yml
         run: |
-          printf "%s" "${{ secrets.APPLICATION_YML }}" > ./src/main/resources/application.yml
-        #  echo "${{ secrets.APPLICATION_YML }}" > ./src/main/resources/application.yml
+          echo "${{ secrets.APPLICATION_YML }}" > ./src/main/resources/application.yml
         # 비밀 저장소에서 가져온 application.yml 설정을 파일로 작성합니다.
 
       ## Docker 이미지를 빌드하고 Docker Hub에 푸시합니다.
       - name: web springboot docker build and push
         run: |
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
-          docker build --no-cache -t soongu/event-api:latest .
-          docker push soongu/event-api:latest
+          docker build --no-cache -t dazzlingtea/foodietree_be:latest .
+          docker push dazzlingtea/foodietree_be:latest
           # Docker Hub에 로그인 후, 최신 태그를 사용하여 이미지를 빌드하고 푸시합니다.
           # '--no-cache' 옵션은 캐시를 사용하지 않고 이미지를 빌드합니다.
 
