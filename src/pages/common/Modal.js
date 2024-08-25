@@ -56,7 +56,7 @@ const Modal = () => {
                 if (window.innerWidth <= 400) {
                     setCustomStyle({bottom: '0px', left: '0px', height: '70%'});
                 } else {
-                    setCustomStyle({bottom: '172px', left: '391px', height: '70%', width: '700px'});
+                    setCustomStyle({bottom: '125px', left: '471px', height: '70%', width: '700px'});
                 }
                 setCustomInnerContentStyle({height: '764px', marginBottom: '50px'})
 
