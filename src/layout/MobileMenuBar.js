@@ -16,13 +16,13 @@ const MobileMenuBar = () => {
                 <FaClipboardList size={24} />
                 <span>주문내역</span>
             </div>
-            <div className={styles.menuItem} onClick={() => navigate('/customer')}>
-                <FaUserCircle size={24} />
-                <span>마이페이지</span>
-            </div>
             <div className={styles.menuItem} onClick={() => navigate('/reviewCommunity')}>
                 <FaComments size={24} />
                 <span>커뮤니티</span>
+            </div>
+            <div className={styles.menuItem} onClick={() => navigate('/customer/edit')}>
+                <FaUserCircle size={24} />
+                <span>마이페이지</span>
             </div>
         </div>
     );

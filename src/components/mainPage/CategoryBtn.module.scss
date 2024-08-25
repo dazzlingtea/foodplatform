@@ -14,6 +14,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+  margin-top: 60px;
   margin-bottom: 20px;
   flex-wrap: wrap;
 }
@@ -93,7 +94,7 @@
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s ease;
-    box-shadow: 0 4px 8px rgba(167, 167, 167, 0.2);
+    box-shadow: 0 2px 9px rgba(167, 167, 167, 0.5);
   }
 
   .searchStoreSection input {
