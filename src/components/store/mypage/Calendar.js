@@ -128,7 +128,6 @@ const Calendar = () => {
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
-        console.log(`formatted date : ${year}-${month}-${day}`);
         return `${year}-${month}-${day}`;
     };
 
@@ -139,7 +138,6 @@ const Calendar = () => {
      * @returns {Promise<boolean>} 성공 여부 (true 또는 false)
      */
     const handleSetHoliday = async (date) => {
-        console.log('휴무지정 서버로 보내는 날짜:', date);
         try {
             const response = await authFetch(`${BASE_URL}/store/calendar/setHoliday`, {
                 method: 'POST',
@@ -167,7 +165,6 @@ const Calendar = () => {
      * @returns {Promise<boolean>} 성공 여부 (true 또는 false)
      */
     const handleUndoHoliday = async (date) => {
-        console.log('휴무취소 서버로 보내는 날짜:', date); // 서버로 전송되는 날짜를 출력합니다.
         try {
             const response = await authFetch(`${BASE_URL}/store/calendar/undoHoliday`, {
                 method: 'DELETE',
@@ -224,7 +221,6 @@ const Calendar = () => {
                 throw new Error('Failed to fetch picked up products count');
             }
             calendarDetailDto = await response.json();
-            console.log(calendarDetailDto);
         } catch (error) {
             console.error('Error fetching picked up products count:', error);
             calendarDetailDto = {};

@@ -15,7 +15,6 @@ const FavStoreBtn = ({ favorites, setFavorites, storeId }) => {
         });
         const data = await response.json();
         if (response.ok) {
-            console.log(data);
         } else {
             console.error(data);
         }

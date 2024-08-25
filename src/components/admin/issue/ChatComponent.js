@@ -24,12 +24,10 @@ const ChatComponent = ({issueId, type}) => {
         const stompClient = Stomp.over(() => socket);
 
         stompClient.connect({}, (frame) => {
-            console.log('Connected:', frame);
             setConnected(true);
 
             stompClient.subscribe(`/topic/messages/${issueId}`, (message) => {
                 const parsedMessage = JSON.parse(message.body);
-                console.log('Received message:', parsedMessage);
                 if (parsedMessage.sender === 'admin') {
                     setAdminStarted(true);
                 }
@@ -39,7 +37,6 @@ const ChatComponent = ({issueId, type}) => {
         }, (error) => {
             alert('채팅 서버에 연결할 수 없습니다. 잠시 후 다시 시도해주세요.');
             quitIssueHandler();
-            console.error('Connection error:', error);
             setConnected(false);
         });
 

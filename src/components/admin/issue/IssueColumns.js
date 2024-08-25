@@ -65,7 +65,6 @@ export const IssueColumns = (openModal) => [
             const handleMoveToChat = () => {
                 const issueId = props.row.original.issueId; // Replace with the correct identifier for your issue
                 openModal('adminIssueChatting', {issueId});
-                console.log('Move to Chat Room', issueId);
             };
 
             const handleIssueReview = async () => {
@@ -87,10 +86,8 @@ export const IssueColumns = (openModal) => [
                     }
 
                     const issueDetail = await res.json();
-                    console.log('Issue Data:', issueDetail);
 
                     const reservationId = issueDetail.reservationId;
-                    console.log('Reservation ID:', reservationId);
                     try{
                         const response = await fetch(`${BASE_URL}/reservation/${reservationId}/modal/detail`);
 
@@ -111,7 +108,6 @@ export const IssueColumns = (openModal) => [
                             }
 
                             const issuePhotos = await resp.json();
-                            console.log("issuePhotosss "+JSON.stringify(issuePhotos));
 
                             openModal('adminIssueReview', {issueId, issueDetail, reservationDetail, issuePhotos});
 
@@ -135,7 +131,6 @@ export const IssueColumns = (openModal) => [
                 }
 
 
-                console.log('Move to Issue Review', issueId);
             }
 
             return (

@@ -12,7 +12,6 @@ const ReservationBtn = ({ storeInfo }) => {
     const { closeModal, openModal } = useModal();
     const storeId = storeInfo?.storeId || '';
     const price = storeInfo?.price;
-    console.log(storeInfo);
     const handleMakeReservation = async () => {
         setIsLoading(true);
         const tarId = `${storeInfo.productId}-${Date.now()}`;

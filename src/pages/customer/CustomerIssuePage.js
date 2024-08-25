@@ -11,8 +11,6 @@ const CustomerIssuePage = () => {
     const reservationDetail = location.state?.reservationDetail;
     const issueId = location.state?.issueId;
 
-    console.log('Received Reservation Detail:', reservationDetail);
-    console.log('Received Issue Id:', issueId);
 
     useEffect(() => {
         const handleResize = () => {

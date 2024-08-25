@@ -23,7 +23,6 @@ const SideBar = ({isShow}) => {
             });
             const data = await res.json();
             if (res.ok) {
-                console.log(data);
                 setStats(data);
             } else {
                 alert("잠시 후 다시 이용해주세요");

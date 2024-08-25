@@ -30,7 +30,6 @@ const FavArea = ({ favList, set }) => {
         });
         if (res.ok) {
             alert("삭제되었습니다");
-            console.log('Delete successful');
             set(prev => prev.filter((item) => item !== value));
         } else {
             const errorText = await res.text();
