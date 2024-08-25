@@ -15,17 +15,13 @@ const SignUpForm = ({ userType, onVerificationSent }) => {
   const [isExistingUser, setIsExistingUser] = useState(false);
   const [isSending, setIsSending] = useState(false);
 
+
     /**
      * auth util
      * 토큰 유무에 따른 로그인 페이지 리다이렉션 메서드
      */
 
-    const navigate = useNavigate();
-    const location = useLocation();
 
-    useEffect(() => {
-        checkLoggedIn(navigate, location.pathname);
-    }, [navigate, location.pathname]);
 
   const checkEmailInput = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
