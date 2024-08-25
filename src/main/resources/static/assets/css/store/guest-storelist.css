@@ -105,8 +105,8 @@
 }
 .end-time-soon-section .store-area {
     position: relative;
-    left: -550px;
-    top: -15px;
+    left: -500px;
+    top: -22px;
     font-size: 18px;
 }
 
@@ -118,6 +118,11 @@
     font-weight: 900;
     font-size: 40px;
     text-shadow: 3px 4px 20px rgba(0, 0, 0, 0.9);
+}
+
+#no-way-img {
+    width: 1100px;
+    height: 300px;
 }
 
 /* 모바일에서 더 작은 화면 처리 */

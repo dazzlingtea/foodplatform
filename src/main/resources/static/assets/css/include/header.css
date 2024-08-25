@@ -88,8 +88,8 @@ button {
     background: none;
     border: none;
     margin-left: 10px;
+    outline: none; /* 포커스 시 보더 제거 */
 }
-
 .magnify-click-btn {
     height: 40px;
     width: 40px;
