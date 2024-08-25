@@ -50,7 +50,52 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   <!-- 공통헤더 -->
   <%@ include file="include/header.jsp" %>
 
+
+
   <section class="hero">
+
+      <!-- 검색창 -->
+      <form class="sub-search-store-section" onsubmit="handleSearch(event)">
+          <button type="button" class="magnify-click-btn" onclick="redirectToSearch()">
+              <i class="fa-solid fa-magnifying-glass magnify-icon"></i>
+          </button>
+          <input type="text" placeholder="여기에 음식점 혹은 위치를 검색해보세요." onkeyup="handleEnter(event)">
+      </form>
+
+      <script>
+          // 엔터 키를 눌렀을 때 검색 실행
+          function handleEnter(event) {
+              if (event.key === 'Enter') {
+                  event.preventDefault(); // 기본 동작 방지
+                  redirectToSearch();
+              }
+          }
+
+          // 폼이 제출될 때 기본 동작을 막고 검색 수행
+          function handleSearch(event) {
+              event.preventDefault();  // 폼의 기본 제출 동작 막기
+              redirectToSearch();
+          }
+
+          // 검색어를 쿼리 파라미터로 전달하여 검색 페이지로 이동
+          function redirectToSearch() {
+              const input = document.querySelector('.sub-search-store-section input');
+              if (input) {
+                  const query = input.value.trim(); // 입력값 읽어오기 및 공백 제거
+                  if (query) {
+                      const encodedQuery = encodeURIComponent(query);
+                      console.log(`Redirecting to: http://localhost:3000/search?q=\${encodedQuery}`); // 디버깅용 로그
+                      location.href = `http://localhost:3000/search?q=\${encodedQuery}`;
+                  } else {
+                      alert("검색어를 입력해주세요.");
+                  }
+              } else {
+                  console.error("Input element not found.");
+              }
+          }
+      </script>
+
+
       <div class="main-box">
 <%--              로고--%>
               <div class="main-logo">
