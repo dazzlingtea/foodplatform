@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -52,6 +53,20 @@ public class CommonController {
     public String getStoreListsForGuests(Model model) {
         List<StoreListCo2Dto> storesByProductCount = storeListService.getStoresByProductCnt();
         List<StoreListByEndTimeDto> storesByEndTime = storeListService.getStoresByProductEndTime();
+
+        List<String> imageUrls = Arrays.asList(
+                "/assets/img/footer-img/food1.jpg",
+                "/assets/img/footer-img/food2.jpg",
+                "/assets/img/footer-img/food3.jpg",
+                "/assets/img/footer-img/imagination1.jpg",
+                "/assets/img/footer-img/imagination2.jpg",
+                "/assets/img/footer-img/nature1.jpg",
+                "/assets/img/footer-img/nature2.jpg"
+        );
+
+        model.addAttribute("imageUrls", imageUrls.toArray(new String[0]));
+        log.info("상품 이미지 로그  : {}", imageUrls);
+
         // co2를 가장 많이 줄인 순
         model.addAttribute("storesByProductCount", storesByProductCount);
         log.info("상품을 가장 많이 판 순 : {}", storesByProductCount);
