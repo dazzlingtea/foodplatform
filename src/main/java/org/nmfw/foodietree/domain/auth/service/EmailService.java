@@ -80,8 +80,9 @@ public class EmailService {
             emailRepository.saveEmailVerification(dto);
         } else updateEmailVerification(dto);
 
+        String ec2URL = "http://3.38.5.29:3000";
         // 이메일에 포함될 링크 생성
-        String verificationLink = "http://localhost:3000/verifyEmail?token=" + token + "&refreshToken=" + refreshToken;
+        String verificationLink = ec2URL+"/verifyEmail?token=" + token + "&refreshToken=" + refreshToken;
 
 
         log.info("인증링크 {} :", verificationLink);
