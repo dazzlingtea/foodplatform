@@ -103,7 +103,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
               window.location.href = "http://localhost:3000/sign-up?r=guest";
           }
       });
-  </script>
 
   document.addEventListener('click', function(event) {
   const emojis = ['🍃', '🌿', '🍀', '🍂', '🌱'];

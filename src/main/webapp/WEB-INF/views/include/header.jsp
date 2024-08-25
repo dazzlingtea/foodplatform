@@ -50,6 +50,7 @@
         // 엔터 키를 눌렀을 때 검색 실행
         function handleEnter(event) {
             if (event.key === 'Enter') {
+                event.preventDefault(); // 기본 동작 방지
                 redirectToSearch();
             }
         }
@@ -62,12 +63,18 @@
 
         // 검색어를 쿼리 파라미터로 전달하여 검색 페이지로 이동
         function redirectToSearch() {
-            const query = document.querySelector('.search-store-section input').value;
-            if (query) {
-                const encodedQuery = encodeURIComponent(query);
-                location.href = `http://localhost:3000/search?q=${encodedQuery}`;
+            const input = document.querySelector('.search-store-section input');
+            if (input) {
+                const query = input.value.trim(); // 입력값 읽어오기 및 공백 제거
+                if (query) {
+                    const encodedQuery = encodeURIComponent(query);
+                    console.log(`Redirecting to: http://localhost:3000/search?q=\${encodedQuery}`); // 디버깅용 로그
+                    location.href = `http://localhost:3000/search?q=\${encodedQuery}`;
+                } else {
+                    alert("검색어를 입력해주세요.");
+                }
             } else {
-                alert("검색어를 입력해주세요.");
+                console.error("Input element not found.");
             }
         }
     </script>
