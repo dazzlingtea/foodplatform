@@ -47,21 +47,6 @@ public class StoreListController {
     }
 
 
-    // guest 화면 가게 정보 렌더링
-    @GetMapping("/forGuests")
-    public String getStoreListsForGuests(Model model) {
-        List<StoreListCo2Dto> storesByProductCount = storeListService.getStoresByProductCnt();
-        List<StoreListByEndTimeDto> storesByEndTime = storeListService.getStoresByProductEndTime();
-        // co2를 가장 많이 줄인 순
-        model.addAttribute("storesByProductCount", storesByProductCount);
-        // 상품 시간이 현재로부터 제일 가까운 순 (마감임박)
-        model.addAttribute("storesByEndTime", storesByEndTime);
-
-        return "index"; // JSP 파일명
-    }
-
-
-
     // 지역별 Store 조회 요청!
     @GetMapping("/address")
     public ResponseEntity<List<StoreListDto>> getStoresByAddress(@RequestParam("address") String address) {
