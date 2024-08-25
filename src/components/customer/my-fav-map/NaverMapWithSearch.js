@@ -4,7 +4,7 @@ import { authFetch, checkAuthToken} from "../../../utils/authUtil";
 import {useNavigate} from "react-router-dom";
 import {CUSTOMER_URL} from "../../../config/host-config";
 
-function loadScript(src) {
+function loadScript(src) { 
     return new Promise((resolve, reject) => {
         const script = document.createElement('script');
         script.src = src;

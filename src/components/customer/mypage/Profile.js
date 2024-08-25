@@ -64,7 +64,7 @@ const Profile = ({ customerMyPageDto, stats, isShow, width }) => {
                         <div>{userStats.coTwo}kg의 이산화탄소 배출을 줄였습니다</div>
                     </div>
                     <div id="community" className={styles.statsBox}>
-                        <img src="/assets/img/mypage-pigbank.png" alt="community" />
+                        <img src="/assets/img/mypage-pigbank" alt="community" />
                         <div>지금까지 {userStats.money}원을 아꼈어요</div>
                     </div>
                 </div>

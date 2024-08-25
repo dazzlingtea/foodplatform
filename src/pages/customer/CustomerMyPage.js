@@ -9,6 +9,7 @@ import SideBarBtn from "../../components/store/mypage-edit/SideBarBtn";
 
 import {authFetch, checkAuthToken} from "../../utils/authUtil";
 import {useNavigate} from "react-router-dom";
+import MobileMenuBar from '../../layout/MobileMenuBar';
 
 const BASE_URL = window.location.origin;
 
@@ -244,10 +245,12 @@ const CustomerMyPage = () => {
                                 <PreferredArea preferredAreas={customerData.preferredArea} />
                                 <PreferredFood preferredFoods={customerData.preferredFood} />
                                 <FavoriteStore favStores={customerData.favStore} />
+                                
                             </>
                         )}
                     </div>
                 </div>
+                {width <= 400 && <MobileMenuBar />}
             </div>
         </>
     );
