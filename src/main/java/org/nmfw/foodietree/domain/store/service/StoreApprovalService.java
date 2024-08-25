@@ -2,7 +2,7 @@ package org.nmfw.foodietree.domain.store.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.nmfw.foodietree.domain.notification.service.NotificationService;
-import org.nmfw.foodietree.domain.product.Util.FileUtil;
+import org.nmfw.foodietree.domain.product.Util.fileUtil;
 import org.nmfw.foodietree.domain.store.dto.request.ProductApprovalReqDto;
 import org.nmfw.foodietree.domain.store.dto.request.StoreApprovalReqDto;
 import org.nmfw.foodietree.domain.store.dto.resp.ApprovalInfoDto;
@@ -18,6 +18,7 @@ import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,8 @@ import static org.nmfw.foodietree.domain.auth.security.TokenProvider.*;
 @Slf4j
 public class StoreApprovalService {
 
+    private final fileUtil fileUtil;
+
     private final NotificationService notificationService;
     @Value("${file.upload.root-path}")
     private String rootPath;
@@ -38,9 +41,10 @@ public class StoreApprovalService {
     private final LicenseService licenseService;
     private final TaskScheduler approvalTaskScheduler;
 
-    public StoreApprovalService(@Qualifier("approvalTaskScheduler") TaskScheduler approvalTaskScheduler,
+    public StoreApprovalService(org.nmfw.foodietree.domain.product.Util.fileUtil fileUtil, @Qualifier("approvalTaskScheduler") TaskScheduler approvalTaskScheduler,
                                 StoreApprovalRepository storeApprovalRepository,
                                 LicenseService licenseService, NotificationService notificationService) {
+        this.fileUtil = fileUtil;
         this.approvalTaskScheduler = approvalTaskScheduler;
         this.storeApprovalRepository = storeApprovalRepository;
         this.licenseService = licenseService;
@@ -88,7 +92,7 @@ public class StoreApprovalService {
     public void askProductApproval(
         ProductApprovalReqDto dto
         , TokenUserInfo userInfo
-    ) {
+    ) throws IOException {
         checkStoreAccount(userInfo);
         String storeId = userInfo.getUsername();
 
@@ -96,7 +100,7 @@ public class StoreApprovalService {
         MultipartFile file = dto.getProductImage();
         String productImage = null;
         if (file != null && !file.isEmpty()) {
-            productImage = FileUtil.uploadFile(rootPath, file);
+            productImage = fileUtil.uploadFile(rootPath, file);
         }
 
         // StoreApproval 상품 디테일 업데이트
