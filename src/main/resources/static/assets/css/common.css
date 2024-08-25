@@ -78,26 +78,26 @@ footer {
     box-sizing: border-box;
 }
 
-@media (max-width: 768px) {
-    body {
-        font-size: 14px;
-    }
-    .footer {
-        padding: 10px;
-    }
+
+/* 화면 최대 너비 390px에서의 스타일 조정 */
+@media (max-width: 390px) {
     .footer .emailTitle {
-        font-size: 18px;
-        bottom: 200px;
+        font-size: 14px; /* 제목 폰트 크기 조정 */
+        margin-bottom: 8px; /* 여백 조정 */
     }
+
     .footer .email {
-        font-size: 16px;
-        left: 20px;
+        font-size: 12px; /* 이메일 폰트 크기 조정 */
+        margin-bottom: 8px; /* 여백 조정 */
     }
+
     .footer .copyRight {
-        font-size: 18px;
-        bottom: -20px;
+        font-size: 12px; /* 저작권 폰트 크기 조정 */
+        margin-bottom: 8px; /* 여백 조정 */
     }
+
     .footer .footerLinks a {
-        font-size: 20px;
+        font-size: 12px; /* 링크 폰트 크기 조정 */
+        margin-bottom: 4px; /* 여백 조정 */
     }
 }
