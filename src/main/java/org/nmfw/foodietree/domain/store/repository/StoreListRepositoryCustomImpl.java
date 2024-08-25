@@ -171,7 +171,7 @@ public class StoreListRepositoryCustomImpl implements StoreListRepositoryCustom 
                             .storeId(s.getStoreId())
                             .storeName(s.getStoreName())
                             .category(String.valueOf(s.getCategory().getFoodType()))
-                            .address(s.getAddress())
+                            .address(getDistrictOrSubdistrict(s.getAddress()))
                             .price(s.getPrice())
                             .storeImg(s.getStoreImg())
                             .productCnt(productCount) // 해당 storeId의 유효한 상품 수
@@ -248,7 +248,7 @@ public class StoreListRepositoryCustomImpl implements StoreListRepositoryCustom 
                             .storeId(s.getStoreId())
                             .storeName(s.getStoreName())
                             .category(String.valueOf(s.getCategory().getFoodType()))
-                            .address(s.getAddress())
+                            .address(getDistrictOrSubdistrict(s.getAddress()))
                             .price(s.getPrice())
                             .storeImg(s.getStoreImg())
                             .productCnt((int) productCount) // 상품 개수를 설정합니다.
@@ -287,5 +287,18 @@ public class StoreListRepositoryCustomImpl implements StoreListRepositoryCustom 
             return Duration.ZERO;
         }
         return Duration.between(now, endTime);
+    }
+
+    /**
+     * 주소에서 '동'까지만 추출하는 메서드
+     */
+    private String getDistrictOrSubdistrict(String address) {
+        if (address.contains("동")) {
+            return address.split("동")[0] + "동";
+        } else if (address.contains("구")) {
+            return address.split("구")[0] + "구";
+        } else {
+            return address; // 기본적으로 원본 주소 반환
+        }
     }
 }

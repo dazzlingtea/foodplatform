@@ -39,7 +39,7 @@
     margin-right: 50px;
     margin-bottom: 20px;
     height: 300px;
-    width: 450px;
+    width: 400px;
 }
 
 .list-container .category {
@@ -48,7 +48,7 @@
 
 .list-container .remainingTime {
     position: relative;
-    font-size: 40px;
+    font-size: 30px;
     top: -120px;
     left: -190px;
     color: white;
@@ -66,7 +66,7 @@
 .list-container .storePrice {
     position: relative;
     top: -50px;
-    left: 350px;
+    left: 300px;
     font-size: 20px;
     margin-left: 20px;
     border-bottom: 1px solid;
@@ -75,10 +75,12 @@
 
 .list-container .productCnt {
     position: relative;
-    top: -50px;
-    left: 160px;
+    top: -20px;
+    left: 180px;
     font-size: 20px;
 }
+
+
 
 .co2-saver-section .reputation {
     font-size: 24px;
@@ -91,7 +93,7 @@
 
 .co2-saver-section .store-area {
     position: relative;
-    left: -620px;
+    left: -70px;
     top: -15px;
     font-size: 18px;
 }
@@ -105,18 +107,18 @@
 }
 .end-time-soon-section .store-area {
     position: relative;
-    left: -500px;
-    top: -22px;
+    top: -35px;
     font-size: 18px;
+    right: -20px;
 }
 
 #co2-saver-list .list-container .storeCo2 {
     position: relative;
-    top: -340px;
-    right: -260px;
-    color: white;
+    top: -50px;
+    right: -300px;
+    color: seagreen;
     font-weight: 900;
-    font-size: 40px;
+    font-size: 30px;
     text-shadow: 3px 4px 20px rgba(0, 0, 0, 0.9);
 }
 
