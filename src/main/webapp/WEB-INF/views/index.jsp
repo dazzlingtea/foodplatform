@@ -97,23 +97,28 @@ uri="http://java.sun.com/jsp/jstl/core" %>
   <script>
       const $storeSignup = document.querySelector(".store-signup");
       $storeSignup.addEventListener("click", () => {
-          location.href = "http://localhost:3000/sign-up";
+          // 알림을 띄운 후 확인 버튼 클릭 시 동작
+          if (confirm("입점신청은 로그아웃 후 진행됩니다. 확인을 누르시면 로그아웃됩니다.")) {
+              // 지정된 URL로 리다이렉트
+              window.location.href = "http://localhost:3000/sign-up?r=guest";
+          }
       });
+  </script>
 
-      document.addEventListener('click', function(event) {
-          const emojis = ['🍃', '🌿', '🍀', '🍂', '🌱'];
+  document.addEventListener('click', function(event) {
+  const emojis = ['🍃', '🌿', '🍀', '🍂', '🌱'];
 
-          for (let i = 0; i < 10; i++) {
-              const leaf = document.createElement('div');
-              leaf.classList.add('leaf');
-              leaf.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+  for (let i = 0; i < 10; i++) {
+  const leaf = document.createElement('div');
+  leaf.classList.add('leaf');
+  leaf.textContent = emojis[Math.floor(Math.random() * emojis.length)];
 
-              // Calculate a random position offset around the click point
-              const offsetX = (Math.random() - 0.5) * 100;
-              const offsetY = (Math.random() - 0.5) * 100;
+  // Calculate a random position offset around the click point
+  const offsetX = (Math.random() - 0.5) * 100;
+  const offsetY = (Math.random() - 0.5) * 100;
 
-              // Adjust the position to account for scrolling
-              const xPosition = event.clientX + offsetX + window.scrollX;
+  // Adjust the position to account for scrolling
+  const xPosition = event.clientX + offsetX + window.scrollX;
               const yPosition = event.clientY + offsetY + window.scrollY;
 
               leaf.style.position = 'absolute';

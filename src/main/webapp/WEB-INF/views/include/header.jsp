@@ -21,9 +21,6 @@
 <body>
 <header class="header">
     <!-- 햄버거 버튼 -->
-    <div class="sidebar-btn">
-        <i class="fa-solid fa-bars"></i>
-    </div>
 
     <!-- 로고 -->
     <a href="/" class="logoBtn">
@@ -38,7 +35,7 @@
     <div class="dot">・</div>
     <div class="selected-area-category">Now</div>
     <div class="selected-area-category-btn">
-        <img src="${pageContext.request.contextPath}/assets/img/icon/greenwhiteBtn.png" alt="selected Area Category Btn">
+<%--        <img src="${pageContext.request.contextPath}/assets/img/icon/greenwhiteBtn.png" alt="selected Area Category Btn">--%>
     </div>
 
     <!-- 검색창 -->
