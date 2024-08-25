@@ -109,7 +109,7 @@
     font-size: 24px;
     color: #06654E;
     font-weight: 700;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 
 .info-for-store .left .wrapper p {
@@ -139,7 +139,7 @@
     border-radius: 0;
     margin-top: 20px;
     display: flex;
-    margin-left: -390px;
+    margin-left: -370px;
 }
 
 .info-for-store .store-signup:hover {

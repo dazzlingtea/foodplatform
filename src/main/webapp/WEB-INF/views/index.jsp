@@ -23,6 +23,11 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       rel="stylesheet"
     />
 
+<%--      구글폰트 3 --%>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+
 <%--     system font--%>
     <style>
       :root {
