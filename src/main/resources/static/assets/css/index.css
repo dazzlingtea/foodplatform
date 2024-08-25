@@ -27,6 +27,10 @@
     animation: fadeIn 1s forwards; /* 애니메이션 추가 */
 }
 
+.sub-search-store-section {
+    display: none;
+}
+
 /* 애니메이션 정의 */
 @keyframes fadeIn {
     from {
@@ -176,6 +180,45 @@
     will-change: transform, opacity; /* Optimize animations */
 }
 
+/* 기본 상태에서는 검색창을 숨깁니다. */
+.sub-search {
+    display: none;
+}
+
+/* 화면 최대 너비 390px에서 검색창을 보이도록 설정 */
+@media (max-width: 400px) {
+    /* 검색창 스타일 */
+    .sub-search-store-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 390px;
+        background-color: rgba(6, 101, 78, 0.3);
+        border-radius: 50px;
+        height: 40px;
+        transition: background-color 0.3s ease;
+        margin-top: -30px;
+        margin-bottom: 30px;
+    }
+
+    .sub-search-store-section input {
+        width: 100%;
+        border-radius: 5px;
+        background: none;
+        border: none;
+        margin-left: 10px;
+        outline: none; /* 포커스 시 보더 제거 */
+    }
+    .magnify-click-btn {
+        height: 40px;
+        width: 40px;
+        cursor: pointer;
+        color: #06654E;
+        margin-left: 5px;
+    }
+
+}
+
 
 /* 모바일 화면(400px) 용 반응형 디자인 */
 @media (max-width: 400px) {
@@ -195,8 +238,12 @@
     .save-quote img,
     .savor-quote img {
         height: auto;
-        width: 100%;
+        width: 90%;
         margin-top: 5px;
+    }
+
+    .main-logo img {
+        width: 200px;
     }
 
     .info-for-store .container {
@@ -247,123 +294,65 @@
     }
 }
 
-/* 모바일 화면 (최대 600px) */
-@media (max-width: 600px) {
-    .list-container {
-        width: 100%; /* 컨테이너 폭을 100%로 설정 */
-        height: auto; /* 높이 자동 조정 */
-        overflow-x: auto; /* 수평 스크롤 허용 */
-        padding: 5px; /* 패딩 조정 */
-        scroll-behavior: smooth;
-        margin-top: 10px;
-    }
-
-    #co2-title-img,
-    #end-title-img {
-        height: 80px; /* 이미지 크기 조정 */
-        margin-top: 20px; /* 상단 여백 조정 */
-        margin-left: 0; /* 왼쪽 여백 조정 */
-    }
-
-    .guest-store-list-section .sub-title {
-        font-size: 20px; /* 제목 크기 조정 */
-    }
-
-    #co2-saver-list .list-container img,
-    #end-soon-list .list-container img {
-        height: 200px; /* 이미지 높이 조정 */
-        width: 100%; /* 이미지 너비 100%로 설정 */
-        margin-right: 0; /* 오른쪽 여백 조정 */
-        margin-bottom: 10px; /* 아래 여백 조정 */
-    }
-
-    .list-container .storeName,
-    .list-container .storePrice,
-    .list-container .productCnt {
-        font-size: 16px; /* 폰트 크기 조정 */
-    }
-
-    .list-container .remainingTime {
-        font-size: 24px; /* 폰트 크기 조정 */
-        top: -80px; /* 위치 조정 */
-        left: -100px; /* 위치 조정 */
-    }
-
-    .co2-saver-section .reputation,
-    .co2-saver-section .store-area,
-    .end-time-soon-section .reputation,
-    .end-time-soon-section .store-area {
-        font-size: 18px; /* 폰트 크기 조정 */
-        position: static; /* 상대 위치 제거 */
-    }
-
-    #co2-saver-list .list-container .storeCo2 {
-        font-size: 30px; /* 폰트 크기 조정 */
-        top: -200px; /* 위치 조정 */
-        right: -150px; /* 위치 조정 */
-    }
-
-    #no-way-img {
-        width: 100%; /* 이미지 너비 100%로 설정 */
-        height: auto; /* 높이 자동 조정 */
-    }
-}
-
-/* 큰 화면 (최대 1200px) */
-@media (max-width: 1200px) {
-    .list-container {
+/* 390px 이하의 화면에서 적용되는 CSS */
+@media (max-width: 390px) {
+    /* 컨테이너를 수직 레이아웃으로 변경 */
+    .info-for-store .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        margin: 20px 0;
         width: 100%;
-        height: auto;
-        padding: 15px;
-        scroll-behavior: smooth;
+        border: none;
     }
 
-    #co2-title-img,
-    #end-title-img {
-        height: 90px;
+    /* 이미지가 화면 상단에 나오도록 조정 */
+    .info-for-store .signup-image {
+        width: 100%;
+        max-width: 300px;
+        margin-bottom: 20px; /* 이미지 아래에 여백 추가 */
+    }
+
+    .info-for-store .left {
+        display: contents;
+    }
+
+    /* 텍스트 부분 중앙 정렬 */
+    .info-for-store .left .wrapper {
+        text-align: center;
+        max-width: 100%;
+        margin-bottom: 20px; /* 글귀 아래에 여백 추가 */
+    }
+
+    .info-for-store .left .wrapper h1 {
+        font-size: 20px;
+    }
+
+    .info-for-store .left .wrapper h2 {
+        font-size: 18px;
+        margin-bottom: 15px; /* 하단 여백을 적절하게 추가 */
+    }
+
+    .info-for-store .left .wrapper p {
+        font-size: 16px;
+        line-height: 1.4;
+        margin-bottom: 10px; /* 문단 간 여백을 적절하게 추가 */
+    }
+
+    /* 버튼을 가장 아래에 배치하고 중앙 정렬 */
+    .info-for-store .store-signup {
+        font-size: 18px;
+        padding: 10px 20px;
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
         margin-top: 20px;
-    }
-
-    .guest-store-list-section .sub-title {
-        font-size: 26px;
-    }
-
-    #co2-saver-list .list-container img,
-    #end-soon-list .list-container img {
-        height: 280px;
-        width: 100%;
-        margin-right: 30px;
-        margin-bottom: 20px;
-    }
-
-    .list-container .storeName,
-    .list-container .storePrice,
-    .list-container .productCnt {
-        font-size: 22px;
-    }
-
-    .list-container .remainingTime {
-        font-size: 35px;
-        top: -110px;
-        left: -160px;
-    }
-
-    .co2-saver-section .reputation,
-    .co2-saver-section .store-area,
-    .end-time-soon-section .reputation,
-    .end-time-soon-section .store-area {
-        font-size: 22px;
-        position: static;
-    }
-
-    #co2-saver-list .list-container .storeCo2 {
-        font-size: 38px;
-        top: -300px;
-        right: -230px;
-    }
-
-    #no-way-img {
-        width: 100%;
-        height: auto;
+        display: contents;
+        font-weight: 800;
+        border-radius: 30px; /* 보더 레디어스 추가 */
+        background-color: transparent; /* 버튼 배경색 제거 */
+        border: 1px solid #06654E; /* 버튼에 테두리 추가 */
+        color: #06654E; /* 글자색 설정 */
     }
 }

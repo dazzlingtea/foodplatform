@@ -127,9 +127,173 @@
     height: 300px;
 }
 
-/* 모바일에서 더 작은 화면 처리 */
-@media (max-width: 600px) {
+@media (max-width: 400px) {
+
+
     .list-container {
-        min-width: 150px;
+        display: flex;
+        flex-direction: row;
+        /* width: 100%; */
+        height: auto;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding: 10px;
+        margin-top: 20px;
+        scroll-behavior: smooth;
+        /* margin-left: 100px; */
+        width: 390px;
+    }
+
+    .list-container img {
+        border-radius: 30px;
+        margin-right: 10px;
+        margin-bottom: 20px;
+        height: 300px;
+        width: 400px;
+        flex-shrink: 0; /* 이미지 크기가 줄어들지 않도록 설정 */
+    }
+
+
+    .list-container::-webkit-scrollbar {
+        display: none; /* 스크롤바 숨기기 */
+    }
+
+    .storeItem {
+        width: 160px;
+    }
+
+    .list-container .storeName {
+        margin-top: -10px;
+    }
+
+    .end-time-soon-section .store-area {
+        margin-left: -70px;
+    }
+
+    .guest-store-list-section .sub-title {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    /*.end-time-soon-section .store-area,*/
+    /*.list-container .storeName,*/
+    /*.list-container .remainingTime,*/
+    /*.list-container .storePrice,*/
+    /*.list-container .productCnt,*/
+    /*.co2-saver-section .reputation,*/
+    /*.co2-saver-section .store-area,*/
+    /*.end-time-soon-section .reputation {*/
+    /*    position: static;*/
+    /*    font-size: 16px;*/
+    /*    text-align: center;*/
+    /*    margin: 5px 0;*/
+    /*}*/
+
+    #no-way-img {
+        width: 100%;
+        height: auto;
+    }
+
+    /*#co2-saver-list .list-container img,#end-soon-list .list-container img {*/
+    /*    height: 100px; !* 이미지 크기 줄이기 *!*/
+    /*    width: 150px;*/
+    /*    margin-right: 10px;*/
+    /*}*/
+
+#co2-title-img {
+    height: 40px;
+    margin-top: 20px;
+    margin-left: 0;
+}
+
+    #end-title-img {
+        height: 40px;
+        margin-top: 20px;
+        margin-left: 15px;
+    }
+
+#co2-saver-list .list-container img,
+#end-soon-list .list-container img {
+    border-radius: 20px;
+    height: 150px;
+    width: 150px;
+}
+
+    .guest-store-list-section .sub-title {
+        font-size: 20px; /* 텍스트 크기 조정 */
+        margin-left: 60px;
+        display: none;
+    }
+
+    .list-container .remainingTime,
+    .list-container .storeName,
+    .list-container .storePrice,
+    .list-container .productCnt,
+    .co2-saver-section .reputation,
+    .end-time-soon-section .reputation,
+    .end-time-soon-section .store-area {
+        font-size: 16px; /* 텍스트 크기 줄이기 */
+    }
+
+    #co2-saver-list .list-container .storeCo2 {
+        position: relative;
+        top: -80px;
+        right: -55px;
+        color: #e0e4e9;
+        font-weight: 900;
+        font-size: 30px;
+        text-shadow: 3px 4px 20px rgba(0, 0, 0, 0.9);
+    }
+
+    .list-container .remainingTime {
+        position: relative;
+        top: -69px;
+        left: -160px;
+        color: white;
+        font-weight: 900;
+        text-shadow: 3px 4px 20px rgb(40 68 35);
+    }
+
+    .end-time-soon-section .store-area {
+        margin-left: -300px;
+        top: -10px;
+        font-size: 12px;
+    }
+
+    .co2-saver-section .store-area {
+        position: relative;
+        /* left: -68px; */
+        top: -24px;
+        font-size: 12px;
+    }
+
+
+
+        .list-container .productCnt {
+            position: relative;
+            top: -170px;
+            left: -25px;
+            /* font-size: 20px; */
+        right: 30px;
+        color: #ffe7b9;
+        font-weight: 800;
+        text-shadow: 0px 0px 5px black;
+    }
+
+    .list-container .storePrice {
+        position: relative;
+        top: 7px;
+        left: 7px;
+        font-size: 16px;
+        margin-left: 20px;
+        border-bottom: 1px solid;
+        font-weight: 700;
+        }
+
+
+
+    #no-way-img {
+        width: 100%;
+        height: auto;
     }
 }
