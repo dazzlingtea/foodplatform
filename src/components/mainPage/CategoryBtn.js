@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './CategoryBtn.module.scss';
 import { DEFAULT_IMG, imgErrorHandler } from '../../utils/error';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import SearchInput from '../search/SearchInput'; 
 
 import kFood from "../../assets/images/userMain/kFood.png";
 import cFood from "../../assets/images/userMain/cFood.png";
@@ -10,6 +13,7 @@ import jFood from "../../assets/images/userMain/jFood.png";
 import dessert from "../../assets/images/userMain/dessert.png";
 import cafe from "../../assets/images/userMain/cafe.png";
 import salad from "../../assets/images/userMain/salad.png";
+import { getToken } from '../../utils/authUtil';
 
 // 카테고리 정보 객체
 const categoriesInfo = {
@@ -24,6 +28,8 @@ const categoriesInfo = {
 
 const CategoryBtn = ({ categories }) => {
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredCategories, setFilteredCategories] = useState(categories);
 
   const handleCategoryClick = (category) => {
     const categoryInfo = categoriesInfo[category];
@@ -32,10 +38,30 @@ const CategoryBtn = ({ categories }) => {
     }
   };
 
+  const handleSearchChange = (event) => {
+    const value = event.target.value;
+    setSearchTerm(value);
+
+    const filtered = categories.filter(category => 
+      category.toLowerCase().includes(value.toLowerCase())
+    );
+    setFilteredCategories(filtered);
+  };
+
   return (
     <div className={styles.nav}>
+      {/* 검색창 추가 */}
+      {getToken() && (
+        <div className={styles.searchStoreSection}>
+          <button className={styles.magnifyClickBtn}>
+            <FontAwesomeIcon icon={faMagnifyingGlass} className={styles.magnifyIcon} />
+          </button>
+          <SearchInput value={searchTerm} onChange={handleSearchChange} />
+        </div>
+      )}
+
       <div className={styles["food-nav"]}>
-        {categories.map((category) => {
+        {filteredCategories.map((category) => {
           const categoryInfo = categoriesInfo[category];
           if (!categoryInfo) return null; 
           return (

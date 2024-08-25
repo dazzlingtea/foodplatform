@@ -71,9 +71,8 @@
 
         &:hover {
           color: rgba(8, 10, 8, 1);
-          background: linear-gradient(135deg, #e0eee0, #dff3d8);
-          transition: 1s;
-
+          background: #dff3d8;
+          transition: background-color 0.3s ease;
         }
       }
 

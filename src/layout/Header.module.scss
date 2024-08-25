@@ -13,12 +13,15 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  //padding: 0 30px;
   height: 60px;
   width: 100%; /* 너비를 100%로 설정 */
   max-width: 1920px; /* 최대 너비를 1920px로 제한 */
   margin: 0 auto; /* 중앙 정렬 */
   background-color: #F5F5DD;
+  position: fixed; /* 헤더를 고정 */
+  top: 0; /* 상단에 고정 */
+  left: 0; /* 왼쪽에 고정 */
+  z-index: 1000; /* 다른 요소 위에 표시 */
 }
 
 /* 로고 버튼 */
@@ -66,6 +69,12 @@ button {
   margin-top: 5px;
 }
 
+/* 선택된 지역을 오른쪽으로 밀어주고, 모바일에서 왼쪽으로 붙이기 */
+.selectedAreaSection {
+  margin-left: auto;  /* 기본적으로 오른쪽으로 밀기 */
+  margin-right: 20px; /* 오른쪽 여백 조정 */
+  position: relative;
+}
 
 /* 검색창 스타일 */
 .searchStoreSection {
@@ -73,14 +82,13 @@ button {
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: 300px;
-  // background-color: rgba(6, 101, 78, 0.3);
+  max-width: 400px;
   background-color: #afcba7;
   border-radius: 50px;
   height: 40px;
   margin: 0 auto;
   position: relative;
-  transition: background-color 0.3s ease; // 검색창 누르면 바뀌는 효과
+  transition: background-color 0.3s ease; /* 검색창 누르면 바뀌는 효과 */
   margin-left: 200px;
 
   input {
@@ -112,7 +120,7 @@ button {
   }
 }
 
-//리뷰 페이지 이동
+/* 리뷰 페이지 이동 */
 .reviewMainIcon {
   background-image: url("../assets/icon/board.png");
   height: 40px;
@@ -155,13 +163,25 @@ button {
   margin-left: 10px;
 }
 
+/* 모바일 버전 (최대 너비 400px) */
 @media(max-width: 400px) {
+  
   .searchStoreSection {
-    margin: 0 10px;
-
+    display: none; /* 검색창 숨기기 */
   }
 
   .reviewMainIcon, .locationPinIcon, .areaName, .dot {
-    display: none;
+    display: none; /* 아이콘 및 텍스트 숨기기 */
   }
+
+  .logoBtn {
+    display: none; /* 로고 숨기기 */
+  }
+
+  // .selectedAreaSection {
+  //   margin-left: 0; /* 모바일에서는 왼쪽에 붙이기 */
+  //   margin-right: 0; /* 오른쪽 여백 제거 */
+  // }
+
+  
 }

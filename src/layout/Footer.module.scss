@@ -107,7 +107,6 @@
   font-optical-sizing: auto;
   font-weight: 1000;
   font-style: normal;
-
   position: absolute;
   bottom: 30px;
   left: 50%;
@@ -119,4 +118,42 @@
   margin-bottom: -80px;
   letter-spacing: 15px;
   text-align: center;
+}
+
+@media (max-width: 400px) {
+  .footer {
+    display: none;  /* 모바일 화면이 400px 이하일 때 footer를 숨김 */
+  }
+
+  .mobileMenuBar {
+    display: flex; /* 메뉴바를 보이도록 설정 */
+    justify-content: space-around;
+    align-items: center;
+    position: fixed; /* 화면에 고정 */
+    bottom: 0; /* 화면 하단에 위치 */
+    left: 0;
+    width: 100%; /* 너비를 100%로 설정 */
+    height: 60px; /* 높이 설정 */
+    background-color: #06654E; /* 배경색 설정 */
+    z-index: 1000; /* 다른 요소들보다 위에 표시 */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.15); /* 그림자 추가로 메뉴바가 떠 있는 효과 */
+  }
+
+  .menuItem {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+    cursor: pointer;
+
+    &:hover {
+      color: #FFD700; /* 메뉴 아이템에 마우스를 올렸을 때 색상 변경 */
+    }
+
+    svg {
+      margin-bottom: 5px;  /* 아이콘과 텍스트 사이의 간격 */
+    }
+  }
+
 }

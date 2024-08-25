@@ -6,7 +6,7 @@ const SearchInput = () => {
     const navigate = useNavigate();
     const inputRef = useRef(null);
     const [word, setWord] = useSearchParams();
-    const [placeholder, setPlaceholder] = useState("여기에 음식점 혹은 위치를 검색해보세요.");
+    const [placeholder, setPlaceholder] = useState("이곳에 음식점 혹은 위치를 검색해보세요!");
 
     useEffect(() => {
         inputRef.current.value = word && word.get("q");
@@ -15,7 +15,7 @@ const SearchInput = () => {
             if (window.innerWidth < 400) {
                 setPlaceholder("검색");
             } else {
-                setPlaceholder("여기에 음식점 혹은 위치를 검색해보세요.");
+                setPlaceholder("이곳에 음식점 혹은 위치를 검색해보세요.");
             }
         };
 
