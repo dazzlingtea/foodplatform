@@ -63,6 +63,10 @@ jobs:
             echo "Remove Existing Docker image..."
             docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/foodietree_be:latest || true
             # 이전에 다운로드된 도커 이미지를 삭제합니다.
+            
+            docker system prune -af
+            # -a: 모든 dangling 이미지와 컨테이너를 포함하여 더 많은 리소스를 정리합니다.
+            # -f: 사용자 확인 없이 강제로 실행합니다.
 
             echo "Pulling Docker image..."
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/foodietree_be:latest
