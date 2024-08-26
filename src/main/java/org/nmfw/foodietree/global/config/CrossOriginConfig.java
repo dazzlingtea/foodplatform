@@ -14,6 +14,7 @@ public class CrossOriginConfig implements WebMvcConfigurer {
             "http://localhost:3002",
             "http://localhost:3003",
 	    "http://3.38.5.29:3000",
+            "https://foodietree.shop",
     };
 
     @Override
