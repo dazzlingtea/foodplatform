@@ -169,3 +169,78 @@ button {
     padding: 20px;
     z-index: 1000;
 }
+
+/* 화면 최대 너비 390px에서의 스타일 조정 */
+@media (max-width: 390px) {
+    /* 헤더 스타일 */
+    .header {
+        padding: 0 10px; /* 헤더의 패딩 조정 */
+        height: 50px; /* 헤더 높이 조정 */
+        width: 390px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000; /* 다른 요소들 위에 보이도록 설정 */
+    }
+
+    .sidebar-btn {
+        height: 50px; /* 햄버거 버튼 높이 조정 */
+        width: 50px;  /* 햄버거 버튼 너비 조정 */
+    }
+
+    .logoBtn img {
+        height: 40px;  /* 로고 크기 조정 */
+        width: 40px;   /* 로고 크기 조정 */
+    }
+
+    .location-pin-icon img {
+        height: 20px; /* 현재 위치 아이콘 크기 조정 */
+        width: 20px;  /* 현재 위치 아이콘 크기 조정 */
+    }
+
+    .search-store-section {
+        /*max-width: 50%; !* 검색창 너비를 100%로 조정 *!*/
+        /*height: 35px; !* 검색창 높이 조정 *!*/
+        /*border-radius: 30px; !* 모서리 둥글게 조정 *!*/
+        display: none;
+    }
+
+    .search-store-section input {
+        height: 35px; /* 입력 필드 높이 조정 */
+    }
+
+    .magnify-click-btn {
+        height: 35px; /* 돋보기 버튼 크기 조정 */
+        width: 35px;  /* 돋보기 버튼 크기 조정 */
+    }
+
+    .review-main-btn img {
+        width: 25px; /* 리뷰 버튼 이미지 크기 조정 */
+        height: 25px; /* 리뷰 버튼 이미지 크기 조정 */
+        margin-left: 200px;
+    }
+
+    .review-main-btn img:hover {
+        width: 30px; /* 호버 시 리뷰 버튼 이미지 크기 조정 */
+        height: 30px; /* 호버 시 리뷰 버튼 이미지 크기 조정 */
+    }
+
+    .login-btn-section {
+        flex-direction: column; /* 로그인 및 회원가입 버튼을 세로로 나열 */
+        gap: 5px; /* 버튼 간의 간격 조정 */
+    }
+
+    .sign-in-btn, .sign-up-btn {
+        font-size: 14px; /* 로그인 및 회원가입 버튼 폰트 크기 조정 */
+    }
+
+    .main-page-btn {
+        font-size: 16px; /* 메인 페이지 버튼 폰트 크기 조정 */
+    }
+
+    .dot {
+        margin-top: 3px; /* 점의 상단 여백 조정 */
+        margin-left: 5px; /* 점의 좌측 여백 조정 */
+    }
+
+}

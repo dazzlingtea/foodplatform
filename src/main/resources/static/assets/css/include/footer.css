@@ -126,3 +126,9 @@
     margin-bottom: -80px;
     letter-spacing: 16px;
 }
+
+@media (max-width: 400px) {
+    .footer {
+        display: none;
+    }
+}
