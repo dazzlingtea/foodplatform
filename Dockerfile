@@ -14,8 +14,6 @@ RUN ./gradlew clean build
 RUN cp build/libs/FoodieTree-0.0.1-SNAPSHOT.jar app.jar
 #
 ## 설정 파일 복사
-#COPY src/main/resources/env.properties /app/env.properties
-#COPY src/main/resources/application.yml /app/application.yml
 
 # 애플리케이션 실행 명령
 CMD ["java", "-jar", "app.jar"]
