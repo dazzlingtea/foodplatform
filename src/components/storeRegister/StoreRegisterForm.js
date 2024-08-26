@@ -6,7 +6,6 @@ import {STORE_URL} from "../../config/host-config";
 import useFormValidation from "./useFormValidation";
 import ErrorSpan from "./ErrorSpan";
 import {authFetch} from "../../utils/authUtil";
-import {checkAuthToken} from "../../utils/authUtil";
 import DaumAddressBtn from "./DaumAddressBtn";
 
 // select option 배열
@@ -167,10 +166,11 @@ export default StoreRegisterForm;
 export const storeRegisterAction = async ({request}) => {
 
   const formData = await request.formData();
+  const address = `${formData.get('bizAddress').replace('서울시', '서울특별시')} ${formData.get('detailedAddress')}`
   const payload = {
     bizLicenseNum: formData.get('bizLicenseNum'),
     bizName: formData.get('bizName'),
-    bizAddress: `${formData.get('bizAddress')} ${formData.get('detailedAddress')}`,
+    bizAddress: address,
     bizPhoneNum: formData.get('bizPhoneNum'),
     bizCategory: formData.get('bizCategory'),
   }
