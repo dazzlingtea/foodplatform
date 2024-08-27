@@ -43,7 +43,7 @@ header {
 
       h2 {
         font-weight: 500;
-        margin-bottom: 50px;
+        margin-bottom: 40px;
       }
 
       input {
@@ -55,7 +55,7 @@ header {
         padding: 0 10px;
         border: 1px solid var(--green1-color);
         border-radius: 10px;
-        background-color: var(--white-color);
+        background-color: var(--green1-color);
       }
 
       .wrapper {
@@ -69,11 +69,11 @@ header {
         display: block;
         margin: 0 auto;
         width: 220px;
-        height: 50px;
-        background-color: var(--header-font-color);
+        height: 33px;
+        background-color: #578057;
         color: var(--white-color);
         border: none;
-        border-radius: 10px;
+        border-radius: 30px;
         cursor: pointer;
 
         &.disable {

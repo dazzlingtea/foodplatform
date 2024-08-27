@@ -229,7 +229,7 @@ const handleRetrySignUp = () => {
                           className={(!emailValid ? styles.disable : '') || (isSending ? styles.disable : '')}
                           disabled={isExistingUser||!emailValid}
                       >
-                          {isSending ? "이메일 전송중..." : (!isExistingUser ? '회원가입 인증메일 발송' : '회원가입')}
+                          {isSending ? "이메일 전송중..." : (!isExistingUser ? '인증메일 발송' : '회원가입')}
                       </button>
                   </div>
               )}
