@@ -9,7 +9,7 @@ import SideBarBtn from "../../components/store/mypage-edit/SideBarBtn";
 import {authFetch} from "../../utils/authUtil";
 import {useNavigate} from "react-router-dom";
 import {checkAuthToken} from "../../utils/authUtil";
-import {BACK_HOST, STORE_URL} from "../../config/host-config";
+import {STORE_URL} from "../../config/host-config";
 
 const BASE_URL = window.location.origin;
 
@@ -41,7 +41,7 @@ const StoreMyPage = () => {
      */
     const fetchStoreInfo = async () => {
         try {
-            const response = await authFetch(`${BACK_HOST}/store/info`);
+            const response = await authFetch(`${BASE_URL}/store/info`);
             if (!response.ok) {
                 throw new Error('Failed to fetch store info');
             }
@@ -57,7 +57,7 @@ const StoreMyPage = () => {
      */
     const fetchStats = async () => {
         try {
-            const response = await authFetch(`${BACK_HOST}/store/stats`);
+            const response = await authFetch(`${BASE_URL}/store/stats`);
             if (!response.ok) {
                 throw new Error('Failed to fetch stats');
             }

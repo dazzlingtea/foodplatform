@@ -89,7 +89,7 @@ export const IssueColumns = (openModal) => [
 
                     const reservationId = issueDetail.reservationId;
                     try{
-                        const response = await fetch(`${BACK_HOST}/reservation/${reservationId}/modal/detail`);
+                        const response = await fetch(`${BASE_URL}/reservation/${reservationId}/modal/detail`);
 
                         if (!res.ok) {
                             const errorMessage = await response.text();

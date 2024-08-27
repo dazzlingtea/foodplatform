@@ -61,7 +61,7 @@ const CustomerReservationList = ({ reservations, onUpdateReservations, isLoading
     // 예약 상세내역을 가져오는 함수
     const fetchReservationDetail = async (reservationId) => {
         try {
-            const res = await fetch(`${BACK_HOST}/reservation/${reservationId}/modal/detail`);
+            const res = await fetch(`${BASE_URL}/reservation/${reservationId}/modal/detail`);
             if (res.ok) {
                 const data = await res.json();
                 return data;

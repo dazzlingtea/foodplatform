@@ -49,7 +49,7 @@ const Notification = ({email, role}) => {
   // 웹소켓 연결 및 구독
   useEffect(() => {
     const connectWebSocket = () => {
-      const socket = new SockJS(`${BACK_HOST}/noti`);
+      const socket = new SockJS(`${BASE_URL}/noti`);
       const client = Stomp.over(socket);
 
       client.connect({}, () => {
