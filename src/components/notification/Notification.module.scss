@@ -68,6 +68,7 @@
     top: -28px;
     right: 7px;
     animation: blink-effect 1s step-end 3;
+    z-index: 10;
   }
 }
 @keyframes blink-effect {
