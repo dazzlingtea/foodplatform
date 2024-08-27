@@ -6,6 +6,7 @@ import {IoNotificationsOutline} from "react-icons/io5";
 import {authFetch} from "../../utils/authUtil";
 import {useLocation, useNavigate} from "react-router-dom";
 import {GoArrowRight} from "react-icons/go";
+
 import {API_BASE_URL, NOTIFICATION_URL, REVIEW_URL} from "../../config/host-config";
 
 const Notification = ({email, role}) => {

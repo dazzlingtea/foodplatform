@@ -10,6 +10,7 @@ import SideBarBtn from "../../components/store/mypage-edit/SideBarBtn";
 import {authFetch, checkAuthToken} from "../../utils/authUtil";
 import {useNavigate} from "react-router-dom";
 import MobileMenuBar from '../../layout/MobileMenuBar';
+import {BACK_HOST} from "../../config/host-config";
 
 const BASE_URL = window.location.origin;
 

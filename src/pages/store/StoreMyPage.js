@@ -9,6 +9,7 @@ import SideBarBtn from "../../components/store/mypage-edit/SideBarBtn";
 import {authFetch} from "../../utils/authUtil";
 import {useNavigate} from "react-router-dom";
 import {checkAuthToken} from "../../utils/authUtil";
+import {STORE_URL} from "../../config/host-config";
 
 const BASE_URL = window.location.origin;
 
@@ -72,7 +73,7 @@ const StoreMyPage = () => {
      */
     const fetchReservations = async () => {
         try {
-            const response = await authFetch(`${BASE_URL}/store/reservations`);
+            const response = await authFetch(`${STORE_URL}/reservations`);
             if (!response.ok) {
                 throw new Error('Failed to fetch reservations');
             }

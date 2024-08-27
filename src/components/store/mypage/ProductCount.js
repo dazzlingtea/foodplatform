@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './ProductCount.module.scss';
 import { useModal } from "../../../pages/common/ModalProvider"
 import {authFetch} from "../../../utils/authUtil";
+import {STORE_URL} from "../../../config/host-config";
 
 const BASE_URL = window.location.origin;
 
@@ -19,7 +20,7 @@ const ProductCount = () => {
      */
     const fetchProductCount = async () => {
         try {
-            const response = await authFetch(`${BASE_URL}/store/getProductCount`);
+            const response = await authFetch(`${STORE_URL}/getProductCount`);
             if (!response.ok) {
                 throw new Error('Failed to fetch product count');
             }
@@ -49,7 +50,7 @@ const ProductCount = () => {
      */
     const handleAddProductAmount = async (amount) => {
         try {
-            const response = await authFetch(`${BASE_URL}/store/updateProductCnt`, {
+            const response = await authFetch(`${STORE_URL}/updateProductCnt`, {
                 method: 'POST',
                 body: JSON.stringify({ newCount: amount })
             });
