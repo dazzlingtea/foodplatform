@@ -53,8 +53,10 @@
   .sub-login {
     padding: 5px 0;
     display: block;
-    width: 70px;
+    // width: 70px;
     margin: 0px auto -30px;
+    position: relative;
+    top: 30px;
 
     &:hover {
       transform: translateY(-3px);

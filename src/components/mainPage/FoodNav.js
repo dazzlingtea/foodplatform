@@ -170,19 +170,23 @@ const FoodNav = ({ selectedCategory, stores }) => {
   }, [customerId]);
 
   useEffect(() => {
-
-  // store 정보
-  // console.log('Stores:', stores);
-  // 선택된 area 정보
-  // console.log('Selected Area:', selectedArea);
-
-
     if (stores.length > 0) {
-      // 모든 가게 리스트에서 랜덤으로 10개 선택
-      const randomStores = getRandomStores(stores, 10);
+      // 모든 가게 리스트에서 랜덤으로 10개 선택 (지역 필터링 전)
+      let applicableStores = stores;
+  
+      // 선택된 지역에 맞게 추천 가게 필터링
+      if (selectedArea) {
+        applicableStores = stores.filter(store => {
+          const address = store.address || '';
+          return address.includes(selectedArea);
+        });
+      }
+  
+      // 필터링된 가게들 중에서 랜덤으로 10개 선택
+      const randomStores = getRandomStores(applicableStores, 10);
       setRandomRecommendedStores(randomStores);
     }
-  }, [stores]);
+  }, [stores, selectedArea]);
 
   useEffect(() => {
     if (selectedArea !== null) {

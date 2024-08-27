@@ -43,14 +43,14 @@ const LoginPage = () => {
                       >
                           Store
                       </button>
-                      <button
+                      {/* <button
                           className={`${styles['user-type-button-admin']} ${styles['user-type-button']} ${
                               userType === 'admin' ? styles.active : ''
                           }`}
                           onClick={() => handleUserTypeChange('admin')}
                       >
                           Admin
-                      </button>
+                      </button> */}
                   </div>
               )}
                 <LoginForm
@@ -64,6 +64,16 @@ const LoginPage = () => {
               <Link className={styles['sub-sign-up']} to="/sign-up">
                 sign up 🌱
                 </Link>
+                
+                <div
+              className={`${styles['user-type-button-admin']} ${styles['user-type-button']} ${styles.admin} ${
+                userType === 'admin' ? styles.active : ''
+              }`}
+              onClick={() => handleUserTypeChange('admin')}
+            >
+              Admin
+            </div>
+
               </div>
             </div>
           </div>
