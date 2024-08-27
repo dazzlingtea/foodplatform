@@ -34,7 +34,8 @@
           transition: background-color 0.3s ease;
 
           &.active {
-            background-color: #fff;
+            background: #e9f0bf;
+            border-radius: 10px 10px 0 0;
             color: #043f2e;
             font-weight: 900;
 
@@ -42,6 +43,7 @@
 
           &:hover {
             background-color: #ddd;
+            border-radius: 10px 10px 0 0;
           }
         }
       }
@@ -58,7 +60,7 @@
       transform: translateY(-3px);
       transition: transform 0.3s ease;
       font-weight: 700;
-      background-color: #fceccd;
+      background-color: #f1f5db;
       border-radius: 20px;
       width: 90px;
       box-shadow: inset 0 0.03em 0 0 #f4f4f4, 0 0.03em 0 0 #efefef,

@@ -118,7 +118,7 @@ const LoginForm = ({ userType, onVerificationSent }) => {
                 }),
             });
             if (response.ok) {
-                console.log('이메일이 성공적으로 전달되었습니다.');
+                console.log('이메일이 성공적으로 전송되었습니다.');
                 return true;
             } else {
                 console.error('Failed to send verification link');
@@ -200,11 +200,11 @@ const LoginForm = ({ userType, onVerificationSent }) => {
                             </div>
                         ) : (
                             <div className={styles['id-wrapper']}>
-                                <h2 >{userType} 로그인을 위한 <br/>이메일을 입력해주세요!
+                                <h2 >{userType} 로그인 페이지 입니다 <br/>이메일을 입력해주세요!
                                     {isExistingUser ? (
                                         <>
                                             <br /><br />
-                                            환영해요 {email} 님 !
+                                            환영합니다! {email} 님 !
                                         </>
                                     ) : email.trim() === '' ? (
                                         <>
