@@ -50,7 +50,8 @@ public class ReviewController {
     /**
      * 리뷰 저장
      *
-     * @param reviewSaveDto
+     * @param reviewImg
+     * @param reviewData
      * @param tokenUserInfo
      * @return 리뷰아이디가 이미있는경우, 없는경우
      */
