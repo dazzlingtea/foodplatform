@@ -1,6 +1,6 @@
 import React from "react";
-import {BACK_HOST} from "../../../config/host-config";
 import defaultImage from "../../../assets/approval-img/default_image.png"
+import styles from './ApprovalColumns.module.scss';
 
 const centerFlex = {style: {justifyContent: 'center', paddingLeft: '0'}}
 
@@ -92,7 +92,7 @@ export const ApprovalColumns =
       accessorKey: 'address',
       header: '주소',
       size: 230,
-      cell: (props) => <p>{props.getValue()}</p>,
+      cell: (props) => <p className={styles.addressColumn}>{props.getValue()}</p>,
     },
     {
       accessorKey: 'productCnt',
@@ -116,13 +116,26 @@ export const ApprovalColumns =
       accessorKey: 'proImage',
       header: '상품 사진',
       size: 80,
-      cell: ({getValue}) =>
-        <img src={getValue() ? `${getValue()}` : defaultImage}
-             alt={'상품사진'}
-             onClick={() => {
-               window.open(`${BACK_HOST}${getValue()}`, "Popup", "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=800, height=600, top=30")
-             }}>
-        </img>,
+      cell: ({getValue}) => {
+
+        const value = getValue();
+
+        return (
+          <img
+            src={value ? value : defaultImage}
+            alt="상품사진"
+            onClick={() => {
+              if (value) {
+                window.open(
+                  value,
+                  "Popup",
+                  "toolbar=no, location=no, statusbar=no, menubar=no, scrollbars=1, resizable=0, width=800, height=600, top=30"
+                );
+              }
+            }}
+          />
+        );
+      },
       meta: {
         cellProps: centerFlex,
       },

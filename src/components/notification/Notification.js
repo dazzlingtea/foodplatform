@@ -35,7 +35,7 @@ const Notification = ({email, role}) => {
       }
       const data = await res.json();
       setNotifications(data);
-      if(data.some(d => d.read == null)) {
+      if(data.some(d => d.read === false || d.read == null)) {
         setHasNewMessage(true);
       }
     } catch (error) {
@@ -45,7 +45,8 @@ const Notification = ({email, role}) => {
   // REST API로 알림 목록 fetch (링크 이동 시 리렌더링)
   useEffect(() => {
     fetchNotifications();
-  }, [location.pathname]);
+  }, []);
+  // }, [location.pathname]);
 
   // 웹소켓 연결 및 구독
   useEffect(() => {
