@@ -82,14 +82,14 @@ const SignUpPage = () => {
                   >
                     Store
                   </button>
-                  <button
+                  {/* <button
                       className={`${styles['user-type-button']} ${
                           userType === 'admin' ? styles.active : ''
                       }`}
                       onClick={() => handleUserTypeChange('admin')}
                   >
                     Admin
-                  </button>
+                  </button> */}
                 </div>
             )}
             <SignUpForm

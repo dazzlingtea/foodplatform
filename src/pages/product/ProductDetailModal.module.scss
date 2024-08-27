@@ -18,17 +18,17 @@
       height: 144px;
 
       .productImg {
-        width: 70%;
+        width: 50%;
         height: 100%;
-        border-radius: 8px;
-        object-fit: contain; // 사진 깨지는데 어떻게 보일 지 정해야함
+        padding: 3px;
+        object-fit: cover; 
       }
 
       .storeImg {
-        width: 30%;
+        width: 50%;
         height: 100%;
-        border-radius: 8px;
-        object-fit: contain; // 사진 깨지는데 어떻게 보일 지 정해야함
+        object-fit: cover;
+        padding: 3px 3px 3px 0;
       }
 
       .fromWhere {
@@ -39,6 +39,7 @@
         justify-content: space-between;
         right: 13px;
         bottom: -10px;
+        display: none;
       }
     }
 
