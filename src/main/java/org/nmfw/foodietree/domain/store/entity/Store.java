@@ -41,8 +41,7 @@ public class Store {
     private StoreCategory category; // 업종 카테고리
 
     @Enumerated(EnumType.STRING)
-    @Builder.Default
-    private ApproveStatus approve = ApproveStatus.PENDING; // 승인여부
+    private ApproveStatus approve; // 승인여부
 
     @Column(name = "address")
     private String address; // 가게 주소

@@ -130,7 +130,9 @@ public class StoreApprovalService {
         if (pendingApprovals.isEmpty()) {
             return; // 대기 중인 요청이 없으면 종료
         }
+        List<StoreApproval> notYetList = storeApprovalRepository.findApprovalsByLicenseVerification();
         List<StoreApproval> approvalsToProcess = new ArrayList<>(pendingApprovals);
+        approvalsToProcess.addAll(notYetList);
         pendingApprovals.clear(); // 리스트 초기화
         // 검증 로직 처리
         verifyLicenses(approvalsToProcess);
