@@ -61,7 +61,7 @@ public class AwsS3Service {
 
     // 필요에 따라 파일 다운로드 및 기타 기능도 이 클래스에 구현할 수 있습니다.
 
-    public String uploadToS3Bucket(byte[] uploadfile, String fileName) {
+    public String uploadToS3Bucket(byte[] uploadfile, String fileName, String contentType) {
         // 현재 날짜를 기반으로 폴더 생성
         String datePath = LocalDate.now().toString().replace("-", "/");
         String fullPath = datePath + "/" + fileName;
@@ -71,6 +71,8 @@ public class AwsS3Service {
             PutObjectRequest request = PutObjectRequest.builder()
                     .bucket(bucketName)
                     .key(fullPath)
+                    .contentType(contentType) // MIME 타입 설정
+                    .contentDisposition("inline")  // 브라우저에서 직접 보기 설정
                     .build();
 
             s3.putObject(request, RequestBody.fromBytes(uploadfile));

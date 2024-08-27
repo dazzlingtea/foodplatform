@@ -21,8 +21,9 @@ public class FileUtil {
     public String uploadFile(String root, MultipartFile file) throws IOException {
         // 원본파일명을 중복이 없는 랜덤 파일명으로 변경
         String newFileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+        String contentType = file.getContentType();
 
-        String url = s3Service.uploadToS3Bucket(file.getBytes(), newFileName);
+        String url = s3Service.uploadToS3Bucket(file.getBytes(), newFileName, contentType);
 
         return url;
     }
