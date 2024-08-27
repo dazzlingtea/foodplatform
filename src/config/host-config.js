@@ -13,8 +13,8 @@ const USER = '/user';
 const CHAT = '/chat';
 const NOTIFICATION = '/notification';
 
-const EC2_PUBLIC_IP = "http://3.38.5.29/:";
-const FOODIETREE_SHOP_URL = "http://foodietree.shop/"; // 배포환경
+const EC2_PUBLIC_IP = "http://3.38.5.29:";
+const FOODIETREE_SHOP_URL = "http://foodietree.shop"; // 배포환경
 
 export const BASE_URL = window.location.origin;
 const LOCAL_PORT = 8083; // 백엔드 로컬 서버 포트번호
