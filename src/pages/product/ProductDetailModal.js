@@ -9,7 +9,7 @@ import BottomPlaceOrder from './BottomPlaceOrder';
 const ProductDetailModal = ({productDetail, onClose, setStoreListHandler}) => {
     const {closeModal} = useModal();
 
-    const [initialCount, setInitialCount] = useState(productDetail.productCnt);
+    const [initialCount, setInitialCount] = useState(productDetail.productCnt===0? 0 : 1);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 400);
 
     useEffect(() => {
