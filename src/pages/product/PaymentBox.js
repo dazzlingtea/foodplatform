@@ -33,9 +33,8 @@ const PaymentBox = ({ makeReservation, productDetail, initialCount, handleIncrea
                     <FontAwesomeIcon icon={faStar} />
                     {howMuchSaved}원을 아끼고 있어요!
                 </p>
-                <div className={remainProduct===0? styles.reservationBtnSoldout : styles.reservationBtn} onClick={handleMakeReservation}>
-                    <ReservationBtn tar={{remainProduct, initialCount, productDetail, cntHandler}}/>
-                    {/*<p>Place Order</p>*/}
+                <div className={remainProduct===0? styles.reservationBtnSoldout : styles.reservationBtn} >
+                    <ReservationBtn style={{width: '225px', textAlign: 'justify'}} tar={{remainProduct, initialCount, productDetail}}/>
                     {
                         remainProduct === 0 ? '': <p>{totalPrice}원</p>
                     }
