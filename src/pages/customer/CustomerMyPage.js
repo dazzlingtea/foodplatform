@@ -10,6 +10,7 @@ import SideBarBtn from "../../components/store/mypage-edit/SideBarBtn";
 import {authFetch, checkAuthToken} from "../../utils/authUtil";
 import {useNavigate} from "react-router-dom";
 import MobileMenuBar from '../../layout/MobileMenuBar';
+import {BACK_HOST} from "../../config/host-config";
 
 const BASE_URL = window.location.origin;
 
@@ -70,7 +71,7 @@ const CustomerMyPage = () => {
 
     const fetchCustomerData = async (token, refreshToken, customerId) => {
         try {
-            const response = await fetch(`${BASE_URL}/customer/info?customerId=${customerId}`, {
+            const response = await fetch(`${BACK_HOST}/customer/info?customerId=${customerId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -90,7 +91,7 @@ const CustomerMyPage = () => {
 
     const fetchReservations = async (token, refreshToken) => {
         try {
-            const response = await authFetch(`${BASE_URL}/reservation/list`, {
+            const response = await authFetch(`${BACK_HOST}/reservation/list`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -114,7 +115,7 @@ const CustomerMyPage = () => {
 
     const fetchStats = async (token, refreshToken, customerId) => {
         try {
-            const response = await authFetch(`${BASE_URL}/customer/stats?customerId=${customerId}`, {
+            const response = await authFetch(`${BACK_HOST}/customer/stats?customerId=${customerId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

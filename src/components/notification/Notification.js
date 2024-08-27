@@ -6,7 +6,7 @@ import {IoNotificationsOutline} from "react-icons/io5";
 import {authFetch} from "../../utils/authUtil";
 import {useLocation, useNavigate} from "react-router-dom";
 import {GoArrowRight} from "react-icons/go";
-import {BASE_URL, NOTIFICATION_URL, REVIEW_URL} from "../../config/host-config";
+import {BACK_HOST, BASE_URL, NOTIFICATION_URL, REVIEW_URL} from "../../config/host-config";
 
 const Notification = ({email, role}) => {
   const [stompClient, setStompClient] = useState(null);
@@ -49,7 +49,7 @@ const Notification = ({email, role}) => {
   // 웹소켓 연결 및 구독
   useEffect(() => {
     const connectWebSocket = () => {
-      const socket = new SockJS(`${BASE_URL}/noti`);
+      const socket = new SockJS(`${BACK_HOST}/noti`);
       const client = Stomp.over(socket);
 
       client.connect({}, () => {
