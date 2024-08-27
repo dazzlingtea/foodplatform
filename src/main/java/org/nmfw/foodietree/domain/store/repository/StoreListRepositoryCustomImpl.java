@@ -24,6 +24,7 @@ import org.nmfw.foodietree.domain.store.dto.resp.StoreListCo2Dto;
 import org.nmfw.foodietree.domain.store.dto.resp.StoreListDto;
 import org.nmfw.foodietree.domain.store.entity.QStore;
 import org.nmfw.foodietree.domain.store.entity.Store;
+import org.nmfw.foodietree.domain.store.entity.value.ApproveStatus;
 import org.nmfw.foodietree.domain.store.entity.value.StoreCategory;
 import org.nmfw.foodietree.global.utils.QueryDslUtils;
 import org.springframework.stereotype.Repository;
@@ -96,6 +97,7 @@ public class StoreListRepositoryCustomImpl implements StoreListRepositoryCustom 
         return jpaQueryFactory
                 .select(store, cnt)
                 .from(store)
+                .where(store.approve.eq(ApproveStatus.APPROVED))
                 .leftJoin(product).on(s.storeId.eq(p.storeId))
                 .leftJoin(reservationSubSelect).on(p.productId.eq(r.productId))
                 .groupBy(s.storeId)
@@ -111,6 +113,7 @@ public class StoreListRepositoryCustomImpl implements StoreListRepositoryCustom 
         // Fetch all stores
         List<Store> stores = jpaQueryFactory
                 .selectFrom(store)
+                .where(store.approve.eq(ApproveStatus.APPROVED))
                 .fetch();
 
         List<StoreListDto> storeListDtos = stores.stream()
@@ -269,7 +272,8 @@ public class StoreListRepositoryCustomImpl implements StoreListRepositoryCustom 
     public List<StoreListDto> findCategoryByFood(List<StoreCategory> preferredFood) {
         return jpaQueryFactory
                 .selectFrom(store)
-                .where(store.category.in(preferredFood))
+                .where(store.approve.eq(ApproveStatus.APPROVED)
+                        .and(store.category.in(preferredFood)))
                 .fetch()
                 .stream()
                 .map(StoreListDto::fromEntity)

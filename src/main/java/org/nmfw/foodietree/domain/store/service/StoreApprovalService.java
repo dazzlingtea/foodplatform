@@ -16,8 +16,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityManager;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ import java.util.concurrent.ScheduledFuture;
 import static org.nmfw.foodietree.domain.auth.security.TokenProvider.*;
 
 @Service
+@Transactional
 @Slf4j
 public class StoreApprovalService {
 
@@ -40,16 +43,19 @@ public class StoreApprovalService {
     private final StoreApprovalRepository storeApprovalRepository;
     private final LicenseService licenseService;
     private final TaskScheduler approvalTaskScheduler;
+    private final EntityManager em;
 
     public StoreApprovalService(FileUtil fileUtil,
                             @Qualifier("approvalTaskScheduler") TaskScheduler approvalTaskScheduler,
                             StoreApprovalRepository storeApprovalRepository,
-                            LicenseService licenseService, NotificationService notificationService) {
+                            LicenseService licenseService, NotificationService notificationService,
+                            EntityManager em ) {
         this.fileUtil = fileUtil;
         this.approvalTaskScheduler = approvalTaskScheduler;
         this.storeApprovalRepository = storeApprovalRepository;
         this.licenseService = licenseService;
         this.notificationService = notificationService;
+        this.em = em;
     }
 
     private final List<StoreApproval> pendingApprovals = new CopyOnWriteArrayList<>();
@@ -112,6 +118,7 @@ public class StoreApprovalService {
 
         // repository 저장
         StoreApproval saved = storeApprovalRepository.save(entity);
+        em.flush(); // 영속성 컨텍스트 동기화
         log.info("saved StoreApproval - productDetail: {}", saved);
     }
     /**
@@ -161,7 +168,7 @@ public class StoreApprovalService {
         }
     }
     /**
-     * 주어진 storeId에 대해 현재의 승인 상태 조회
+     * 주어진 storeId에 대해 현재 승인 상태 조회
      *
      * @param userInfo 토큰
      * @return 현재 승인 상태를 나타내는 문자열 ("STEP_ONE", "STEP_TWO", "PENDING_APPROVAL", "ALREADY_APPROVED")
@@ -183,7 +190,7 @@ public class StoreApprovalService {
         return "STEP_ONE";
     }
     /**
-     * ApprovalInfoDto의 상태를 평가하여 승인 상태를 반환
+     * ApprovalInfoDto 상태를 평가하여 승인 상태를 반환
      *
      * @param dto 승인 요청 정보 DTO
      * @return DTO의 상태에 기반한 승인 상태 문자열 ("STEP_ONE", "STEP_TWO", "PENDING_APPROVAL", "ALREADY_APPROVED")
