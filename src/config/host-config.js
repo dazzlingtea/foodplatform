@@ -16,11 +16,11 @@ const NOTIFICATION = '/notification';
 const EC2_PUBLIC_IP = "http://3.38.5.29:";
 const FOODIETREE_SHOP_URL = "http://foodietree.shop"; // 배포환경
 
-export const BASE_URL = window.location.origin;
+// 꼭 병합하기 전에 꼭 꼭 원래코드로 돌려놓기!!! //window.location.origin;
+export const BASE_URL = "http://localhost:8083";
+
 const LOCAL_PORT = 8083; // 백엔드 로컬 서버 포트번호
 export const BACK_HOST = FOODIETREE_SHOP_URL;
-
-export const LOCAL_HOST = "http://localhost:8083";
 
 const clientHostName = window.location.hostname;
 
