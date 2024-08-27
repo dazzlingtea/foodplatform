@@ -63,12 +63,13 @@ const RegisterStep = () => {
   const renderStep = () => {
     switch (currentStep) {
       case 0:
-        alert('이미 승인받으셨습니다.')
+        alert('이미 승인 받으셨습니다.')
         navigate('/store');
         break;
       case 1:
         return <StoreRegister />;
       case 2:
+        navigate('/store/approval/p');
         return <ProductRegister onSetStep={onSetStep}/>;
       case 3:
         return <WaitingApproval/>;

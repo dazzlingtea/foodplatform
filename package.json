@@ -70,5 +70,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://foodietree.shop"
+  "proxy": "http://localhost:8083"
 }

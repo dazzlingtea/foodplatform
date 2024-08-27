@@ -102,12 +102,13 @@ const FavAreaSelector = ({ onAreaSelect }) => {
 
   useEffect(() => {
     if (selectedArea !== null) {
-      onAreaSelect(selectedArea);
+      // onAreaSelect(selectedArea);
       // 선택된 세션스토리지 업데이트
       sessionStorage.setItem('selectedArea', selectedArea);
       // console.log('Selected area saved to sessionStorage:', selectedArea);
     }
-  }, [selectedArea, onAreaSelect]);
+  }, [selectedArea]);
+  // }, [selectedArea, onAreaSelect]);
 
   const handleToggle = () => {
     setIsExpanded(prev => !prev);
