@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Form, redirect, useNavigate} from "react-router-dom";
+import React from 'react';
+import {Form} from "react-router-dom";
 import UploadInput from "./UploadInput";
 import formStyle from './StoreRegisterForm.module.scss';
 import PriceRadioBox from "./PriceRadioBox";
@@ -40,7 +40,6 @@ const ProductRegisterForm = ({onSetStep}) => {
 
   const { values, errors, isFormValid, changeHandler, setValues }
       = useFormValidation(initialValues, validate);
-  const navigate = useNavigate();
 
   // 업로드된 파일 props drilling
   const onAdd = (file) => {
@@ -90,9 +89,6 @@ const ProductRegisterForm = ({onSetStep}) => {
         console.log(e)
     }
   }
-
-  useEffect(() => {
-  }, [values]);
 
   return (
 
