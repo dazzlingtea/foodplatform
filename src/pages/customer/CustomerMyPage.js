@@ -10,8 +10,10 @@ import SideBarBtn from "../../components/store/mypage-edit/SideBarBtn";
 import {authFetch, checkAuthToken} from "../../utils/authUtil";
 import {useNavigate} from "react-router-dom";
 import MobileMenuBar from '../../layout/MobileMenuBar';
+import {BACK_HOST, BASE_URL} from "../../config/host-config";
 
-const BASE_URL = window.location.origin;
+// const BASE_URL = window.location.origin;
+
 
 const CustomerMyPage = () => {
     const [width, setWidth] = useState(window.innerWidth);

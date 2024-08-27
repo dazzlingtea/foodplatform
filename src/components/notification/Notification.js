@@ -6,7 +6,8 @@ import {IoNotificationsOutline} from "react-icons/io5";
 import {authFetch} from "../../utils/authUtil";
 import {useLocation, useNavigate} from "react-router-dom";
 import {GoArrowRight} from "react-icons/go";
-import {BASE_URL, NOTIFICATION_URL, REVIEW_URL} from "../../config/host-config";
+
+import {API_BASE_URL, NOTIFICATION_URL, REVIEW_URL} from "../../config/host-config";
 
 const Notification = ({email, role}) => {
   const [stompClient, setStompClient] = useState(null);
@@ -49,7 +50,7 @@ const Notification = ({email, role}) => {
   // 웹소켓 연결 및 구독
   useEffect(() => {
     const connectWebSocket = () => {
-      const socket = new SockJS(`${BASE_URL}/noti`);
+      const socket = new SockJS(`${API_BASE_URL}/noti`);
       const client = Stomp.over(socket);
 
       client.connect({}, () => {
@@ -113,7 +114,7 @@ const Notification = ({email, role}) => {
     const reservationId = targetId[0];
     if(!read) {
       try {
-        const res = await authFetch(`/notification/${id}/read`, {
+        const res = await authFetch(`${NOTIFICATION_URL}/${id}/read`, {
           method: 'PATCH',
         });
         if (res.ok) {
@@ -152,7 +153,6 @@ const Notification = ({email, role}) => {
         body: JSON.stringify(payload),
       })
       if(res.ok) {
-        const flag = await res.json();
         setNotifications(prev =>
           prev.map(n =>
             payload.ids.includes(n.id) ? { ...n, read: true } : n

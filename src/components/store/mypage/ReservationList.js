@@ -4,8 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faCircleCheck, faSpinner, faSliders } from "@fortawesome/free-solid-svg-icons";
 import { useModal } from "../../../pages/common/ModalProvider";
 import {imgErrorHandler} from "../../../utils/error";
+import {BACK_HOST, BASE_URL, RESERVATION_URL} from "../../../config/host-config";
 
-const BASE_URL = window.location.origin;
+// const BASE_URL = window.location.origin;
 
 const ReservationList = ({ reservations, onUpdateReservations, isLoading, loadMore, hasMore, width, initialFilters, onApplyFilters }) => {
     const { openModal } = useModal();

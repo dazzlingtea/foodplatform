@@ -9,8 +9,9 @@ import SideBarBtn from "../../components/store/mypage-edit/SideBarBtn";
 import {authFetch} from "../../utils/authUtil";
 import {useNavigate} from "react-router-dom";
 import {checkAuthToken} from "../../utils/authUtil";
+import {BASE_URL, STORE_URL} from "../../config/host-config";
 
-const BASE_URL = window.location.origin;
+// const BASE_URL = window.location.origin;
 
 const StoreMyPage = () => {
     const { openModal } = useModal();

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import styles from './Calendar.module.scss';
 import { useModal } from "../../../pages/common/ModalProvider";
 import {authFetch} from "../../../utils/authUtil";
+import {BACK_HOST, BASE_URL, STORE_URL} from "../../../config/host-config";
 
-const BASE_URL = window.location.origin;
+// const BASE_URL = window.location.origin;
 
 const Calendar = () => {
     const [currentDate, setCurrentDate] = useState(new Date());

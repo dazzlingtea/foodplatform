@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styles from './CommunityPage.module.scss';
 import Review from '../.././components/communityReivew/Review'
+import {BASE_URL} from "../../config/host-config";
 
-const REVIEWS_API_URL = '/review/all';
-const STORE_INFO_API_URL = '/review/storeInfo';
+//다시 돌려놓기~
+// const REVIEWS_API_URL = '/review/all';
+// const STORE_INFO_API_URL = '/review/storeInfo';
 
 const CommunityPage = () => {
   const [reviews, setReviews] = useState([]);
@@ -14,7 +16,7 @@ const CommunityPage = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch(REVIEWS_API_URL);
+        const response = await fetch(`${BASE_URL}/review/all`);
         const reviewsData = await response.json();
 
         if (Array.isArray(reviewsData)) {
@@ -25,7 +27,7 @@ const CommunityPage = () => {
 
           // reservationId를 기반으로 가게 정보 요청
           const storeInfoPromises = reservationIds.map(async (id) => {
-            const storeResponse = await fetch(`${STORE_INFO_API_URL}?reservationId=${id}`);
+            const storeResponse = await fetch(`${BASE_URL}/review/all?reservationId=${id}`);
             const storeData = await storeResponse.json();
             return { id, storeData };
           });

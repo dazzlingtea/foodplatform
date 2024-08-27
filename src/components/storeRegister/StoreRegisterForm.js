@@ -166,10 +166,9 @@ export default StoreRegisterForm;
 export const storeRegisterAction = async ({request}) => {
 
   const formData = await request.formData();
-  console.log('주소검색 선택값: ', formData.get('bizAddress'));
-  console.log('주소검색 특별시 변환', formData.get('bizAddress').replace('서울', '서울특별시'))
+  const originalAddress = formData.get('bizAddress');
+  const address = `${originalAddress.replace('서울', '서울특별시')} ${formData.get('detailedAddress')}`;
 
-  const address = `${formData.get('bizAddress').replace('서울', '서울특별시')} ${formData.get('detailedAddress')}`
   const payload = {
     bizLicenseNum: formData.get('bizLicenseNum'),
     bizName: formData.get('bizName'),

@@ -1,6 +1,6 @@
 import React from "react";
-import {ISSUE_URL} from "../../../config/host-config";
-const BASE_URL = window.location.origin;
+import {BACK_HOST, ISSUE_URL} from "../../../config/host-config";
+// const BASE_URL = window.location.origin;
 
 const centerFlex = {style: {justifyContent: 'center', paddingLeft: '0'}};
 export const IssueColumns = (openModal) => [

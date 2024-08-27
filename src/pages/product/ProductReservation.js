@@ -1,6 +1,7 @@
 import {authFetch} from "../../utils/authUtil";
+import {BACK_HOST, BASE_URL, RESERVATION_URL} from "../../config/host-config";
 
-const BASE_URL = window.location.origin;
+// const BASE_URL = window.location.origin;
 
 export const createReservation = async (customerId, storeId, cnt) => {
     try {

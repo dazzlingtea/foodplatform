@@ -5,7 +5,7 @@ import styles from "./MyInfo.module.scss";
 import { useNavigate } from "react-router-dom";
 import {getRefreshToken, getSubName, getToken, getUserRole} from "../../utils/authUtil";
 import Notification from "../notification/Notification";
-import {USER_URL} from "../../config/host-config";
+import {BACK_HOST, BASE_URL, LOCAL_HOST, USER_URL} from "../../config/host-config";
 
 // 내 정보 들어가기
 const MyInfo = () => {
@@ -42,6 +42,7 @@ const MyInfo = () => {
                     }
 
                     setUserInfo(data);
+                    console.log("헤더에 저장된 유저 정보 : ", userInfo);
                 } else {
                     console.error("Failed to fetch user info");
                 }
@@ -72,7 +73,7 @@ const MyInfo = () => {
                         {/* Store 아이콘과 프로필 이미지 */}
                         <Notification email={userInfo.email} role={getUserRole()} />
                         <img
-                            src={userInfo.productImg}
+                            src={userInfo.storeImg}
                             alt="Store Profile"
                             className={styles.profileImage}
                             onClick={() => handleIconClick("/store")}
@@ -83,7 +84,7 @@ const MyInfo = () => {
                         {/* Customer 아이콘과 프로필 이미지 */}
                         <Notification email={userInfo.email} role={getUserRole()} />
                         <img
-                            src={userInfo.profileImage}
+                            src={`${BASE_URL}` + userInfo.profileImage}
                             alt="Customer Profile"
                             className={styles.profileImage}
                             onClick={() => handleIconClick("/customer")}
@@ -94,7 +95,7 @@ const MyInfo = () => {
                         {/* Admin 아이콘과 프로필 이미지 */}
                         <Notification email={userInfo.email} role={getUserRole()} />
                         <img
-                            src={userInfo.profileImage}
+                            src={`${BASE_URL}` + userInfo.profileImage}
                             alt="Customer Profile"
                             className={styles.profileImage}
                             onClick={() => handleIconClick("/admin")}
