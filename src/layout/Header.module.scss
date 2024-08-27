@@ -15,7 +15,6 @@ button {
   align-items: center;
   height: 60px;
   width: 100%; /* 너비를 100%로 설정 */
-  max-width: 1920px; /* 최대 너비를 1920px로 제한 */
   margin: 0 auto; /* 중앙 정렬 */
   background-color: #F5F5DD;
   position: fixed; /* 헤더를 고정 */
@@ -122,19 +121,31 @@ button {
 
 /* 리뷰 페이지 이동 */
 .reviewMainIcon {
-  background-image: url("../assets/icon/board.png");
-  height: 40px;
-  width: 40px;
+  //background-image: url("../assets/icon/board.png");
+  //height: 40px;
+  width: 60px;
   background-size: contain;
   background-repeat: no-repeat;
   margin-left: 20px;
   cursor: pointer;
+  transition: 0.3s ease-in-out;
+  .comm {
+    display: none;
+  }
+
+  &:hover {
+    //.comm {
+    //  display: flex;
+    //}
+    transform: translate(-10%, -10%);
+  }
 }
 
 /* 로그인 및 회원가입 버튼 */
 .loginBtnSection {
   display: flex;
   gap: 10px; /* 버튼 간격 */
+  padding-right: 20px;
 }
 
 .signInBtn, .signUpBtn {
@@ -165,7 +176,7 @@ button {
 
 /* 모바일 버전 (최대 너비 400px) */
 @media(max-width: 400px) {
-  
+
   .searchStoreSection {
     display: none; /* 검색창 숨기기 */
   }
@@ -183,5 +194,5 @@ button {
   //   margin-right: 0; /* 오른쪽 여백 제거 */
   // }
 
-  
+
 }

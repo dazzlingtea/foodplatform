@@ -11,6 +11,7 @@ import {getCurrentLocation, initializeNaverMapsForHeader, reverseGeocode} from "
 import SidebarModal from "../components/header/SidebarModal";
 import SearchInput from "../components/search/SearchInput";
 import FavAreaSelector from "../components/mainPage/FavAreaSelector"
+import {FaComments} from "react-icons/fa";
 
 // 아이콘을 라이브러리에 추가
 library.add(faMagnifyingGlass);
@@ -73,12 +74,12 @@ const Header = () => {
 
 
     const handleClick = () => {
-        navigate('/reviewMain');
+        navigate('/reviewCommunity');
     }
 
     let userArea = extractArea();
     const clickHandler = () => {
-      navigate('/main');
+        navigate('/main');
     }
 
     return (
@@ -94,7 +95,7 @@ const Header = () => {
             <div className={styles.selectedAreaCategoryBtn}></div> */}
 
             <div className={styles.selectedAreaSection}>
-                <FavAreaSelector onAreaSelect={handleAreaSelect} />
+                <FavAreaSelector onAreaSelect={handleAreaSelect}/>
             </div>
 
             {/* 상점 검색 칸 */}
@@ -110,7 +111,11 @@ const Header = () => {
             }
 
             {/*리뷰 커뮤니티 메인*/}
-            <div className={styles.reviewMainIcon} onClick={handleClick}></div>
+            <div className={styles.reviewMainIcon} onClick={handleClick}>
+                <FaComments size={24}/>
+                <div className={styles.comm}>커뮤니티</div>
+            </div>
+
 
 
             {/* 로그인 및 회원가입 버튼 */}
@@ -126,7 +131,7 @@ const Header = () => {
                 )}
             </div>
             {/* 모달 */}
-            {modalVisible && <SidebarModal onClose={toggleModal} />}
+            {modalVisible && <SidebarModal onClose={toggleModal}/>}
         </header>
     );
 }
