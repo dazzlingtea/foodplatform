@@ -189,13 +189,19 @@ const FoodNav = ({ selectedCategory, stores }) => {
   }, [stores, selectedArea]);
 
   useEffect(() => {
-    if (selectedArea !== null) {
+    const selected = sessionStorage.getItem("selectedArea");
+
+    console.log("내가 지금 선택한 가게, 위치기반 필터링 !!! ", selected);
+
+    if (selected !== null) {
       // 선택된 지역에 맞는 모든 가게 필터링
 
       const newFilteredStores = stores.filter(store => {
         const address = store.address || '';
-        return address.includes(selectedArea);
+        return address.includes(selected);
       });
+
+      console.log("위치기반 필터링 된 가게 리스트 !!!", newFilteredStores);
 
       setFilteredStores(newFilteredStores);
     }
