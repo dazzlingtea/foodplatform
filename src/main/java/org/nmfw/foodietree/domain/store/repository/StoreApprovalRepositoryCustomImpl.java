@@ -70,7 +70,8 @@ public class StoreApprovalRepositoryCustomImpl implements StoreApprovalRepositor
         return factory
             .selectFrom(storeApproval)
             .where(storeApproval.licenseVerification.eq(ApproveStatus.PENDING)
-                .and(storeApproval.createdAt.after(yesterday)))
+//                .and(storeApproval.createdAt.after(yesterday))
+            )
             .limit(100)
             .fetch();
     }
