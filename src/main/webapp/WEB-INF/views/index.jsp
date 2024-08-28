@@ -84,8 +84,8 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   const query = input.value.trim(); // 입력값 읽어오기 및 공백 제거
                   if (query) {
                       const encodedQuery = encodeURIComponent(query);
-                      console.log(`Redirecting to: http://localhost:3000/search?q=\${encodedQuery}`); // 디버깅용 로그
-                      location.href = `http://localhost:3000/search?q=\${encodedQuery}`;
+                      console.log(`Redirecting to: https://foodietreee.shop/search?q=\${encodedQuery}`); // 디버깅용 로그
+                      location.href = `https://foodietreee.shop/search?q=\${encodedQuery}`;
                   } else {
                       alert("검색어를 입력해주세요.");
                   }
@@ -152,7 +152,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       const $storeSignup = document.querySelector(".store-signup");
       $storeSignup.addEventListener("click", () => {
           // 지정된 URL로 리다이렉트
-          window.location.href = "http://localhost:3000/sign-up?r=guest";
+          window.location.href = "https://foodietreee.shop/sign-up?r=guest";
       });
 
   document.addEventListener('click', function(event) {

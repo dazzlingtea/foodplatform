@@ -67,8 +67,8 @@
                 const query = input.value.trim(); // 입력값 읽어오기 및 공백 제거
                 if (query) {
                     const encodedQuery = encodeURIComponent(query);
-                    console.log(`Redirecting to: http://localhost:3000/search?q=\${encodedQuery}`); // 디버깅용 로그
-                    location.href = `http://localhost:3000/search?q=\${encodedQuery}`;
+                    console.log(`Redirecting to: https://foodietreee.shop/search?q=\${encodedQuery}`); // 디버깅용 로그
+                    location.href = `https://foodietreee.shop/search?q=\${encodedQuery}`;
                 } else {
                     alert("검색어를 입력해주세요.");
                 }
@@ -80,14 +80,14 @@
 
 
     <!-- 리뷰 게시판 버튼 -->
-    <button class="review-main-btn" onclick="location.href='http://localhost:3000/reviewMain'">
+    <button class="review-main-btn" onclick="location.href='https://foodietreee.shop/reviewMain'">
         <img src="${pageContext.request.contextPath}/assets/img/icon/board.png" alt="Review Board Btn">
     </button>
 
     <!-- 로그인 및 회원가입 버튼 -->
     <div class="login-btn-section">
 <%--        <c:if test="${login == null}">--%>
-            <button class="main-page-btn" onclick="location.href='http://localhost:3000/main'">주문하러가기</button>
+            <button class="main-page-btn" onclick="location.href='https://foodietreee.shop/main'">주문하러가기</button>
 <%--            <div class="dot">・</div>--%>
 <%--            <button class="sign-up-btn" onclick="location.href='http://localhost:3000/sign-up'">Sign up</button>--%>
 <%--        </c:if>--%>
