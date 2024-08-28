@@ -99,8 +99,8 @@ const StoreRegisterForm = () => {
         value={values.bizName}
         onChange={changeHandler}
         type="text"
-        maxLength={30}
-        placeholder="상호명을 입력하세요."
+        maxLength={15}
+        placeholder="15글자 이하로 상호명을 입력하세요."
         required
       />
       <label htmlFor='bizAddress'>주소

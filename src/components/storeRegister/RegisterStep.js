@@ -69,7 +69,6 @@ const RegisterStep = () => {
       case 1:
         return <StoreRegister />;
       case 2:
-        navigate('/store/approval/p');
         return <ProductRegister onSetStep={onSetStep}/>;
       case 3:
         return <WaitingApproval/>;
