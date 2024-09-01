@@ -15,7 +15,8 @@ const MyInfo = () => {
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                const response = await fetch(`${USER_URL}/info`, {
+                // const response = await fetch(`${USER_URL}/info`, {
+                    const response = await fetch(`${BASE_URL}/user/info`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ` + getToken(),
@@ -73,7 +74,7 @@ const MyInfo = () => {
                         {/* Store 아이콘과 프로필 이미지 */}
                         <Notification email={userInfo.email} role={getUserRole()} />
                         <img
-                            src={userInfo.storeImg}
+                            src={`${BASE_URL}` + userInfo.storeImg}
                             alt="Store Profile"
                             className={styles.profileImage}
                             onClick={() => handleIconClick("/store")}
