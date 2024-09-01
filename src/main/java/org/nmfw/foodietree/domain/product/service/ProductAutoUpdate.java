@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Component
@@ -35,12 +36,13 @@ public class ProductAutoUpdate {
             if (isHoliday) {
                 continue;
             }
-            LocalDateTime pickupDateTime = today.atTime(store.getClosedAt());
+            LocalTime pickupDateTime = LocalTime.from(today.atTime(store.getClosedAt()));
             int count = store.getProductCnt();
             for (int i = 0; i < count; i++) {
                 productRepository.save(Product.builder()
                                 .storeId(store.getStoreId())
-                                .pickupTime(pickupDateTime)
+                                .pickupEndTime(pickupDateTime) //픽업 끝나는 시간 추가
+                                .pickupStartTime(LocalTime.now()) // 픽업 시작하는 시간 추가
                                 .productUploadDate(LocalDateTime.now())
                         .build());
             }

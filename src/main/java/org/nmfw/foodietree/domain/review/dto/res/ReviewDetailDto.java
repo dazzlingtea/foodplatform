@@ -3,6 +3,7 @@ package org.nmfw.foodietree.domain.review.dto.res;
 import lombok.*;
 import org.nmfw.foodietree.domain.review.entity.Hashtag;
 
+import java.awt.*;
 import java.util.List;
 
 @Getter
@@ -20,6 +21,7 @@ public class ReviewDetailDto {
     private String reviewImg; // 상품 구매 사진
     private String reviewContent; // 리뷰 내용
     private List<Hashtag> hashtags; // 최소 해시태그 3개 선택 이상
+    private String profileImg; // 작성한 사람의 프로필 이미지
 
     private String storeId;
     private String storeName;
@@ -27,29 +29,16 @@ public class ReviewDetailDto {
 
 
 
-    public ReviewDetailDto(long reservationId, String customerId, String storeImg, int reviewScore, String reviewImg, String reviewContent, String storeId, String storeName, String address) {
+    public ReviewDetailDto(long reservationId, String customerId, String storeImg, int reviewScore, String reviewImg, String reviewContent, String storeId, String storeName, String address, String profileImg) {
         this.reservationId = reservationId;
         this.customerId = customerId;
         this.storeImg = storeImg;
         this.reviewScore = reviewScore;
         this.reviewImg = reviewImg;
         this.reviewContent = reviewContent;
-        this.hashtags = hashtags;
         this.storeId = storeId;
         this.storeName = storeName;
         this.address = address;
+        this.profileImg = profileImg;
     }
-//    public ReviewDetailDto(Long reservationId, String customerId, String storeImg,
-//                           int reviewScore, String reviewImg, String reviewContent,
-//                           Long storeId, String storeName, String address) {
-//        this.reservationId = reservationId;
-//        this.customerId = customerId;
-//        this.storeImg = storeImg;
-//        this.reviewScore = reviewScore;
-//        this.reviewImg = reviewImg;
-//        this.reviewContent = reviewContent;
-//        this.storeId = storeId;
-//        this.storeName = storeName;
-//        this.address = address;
-//    }
 }

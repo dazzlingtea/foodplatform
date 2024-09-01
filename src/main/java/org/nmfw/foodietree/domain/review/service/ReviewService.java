@@ -3,6 +3,8 @@ package org.nmfw.foodietree.domain.review.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.nmfw.foodietree.domain.auth.security.TokenProvider.TokenUserInfo;
+import org.nmfw.foodietree.domain.customer.entity.Customer;
+import org.nmfw.foodietree.domain.customer.repository.CustomerRepository;
 import org.nmfw.foodietree.domain.product.Util.FileUtil;
 import org.nmfw.foodietree.domain.product.entity.Product;
 import org.nmfw.foodietree.domain.product.repository.ProductRepository;
@@ -42,6 +44,7 @@ public class ReviewService {
     private final ReviewHashtagRepository reviewHashtagRepository;
     private final ReservationRepository reservationRepository;
     private final ProductRepository productRepository;
+    private final CustomerRepository customerRepository;
 
     private final FileUtil fileUtil;
 
@@ -74,6 +77,7 @@ public class ReviewService {
         // Review 객체 생성
         Review review = Review.builder()
                 .reservationId(reservation.getReservationId())
+                .product(product)
                 .customerId(customerId)
                 .storeId(reservationByReservationId.getStoreId()) //storeId
                 .storeName(reservationByReservationId.getStoreName())
@@ -147,7 +151,6 @@ public class ReviewService {
     }
 
     public List<ReviewDetailDto> getAllReviews() {
-//        List<Review> reviews = reviewRepository.findAll();
         // DB에서 모든 리뷰를 내림차순으로 가져오기
         List<Review> reviews = reviewRepository.findAll(Sort.by(Sort.Order.desc("reviewId")));
 
@@ -158,9 +161,20 @@ public class ReviewService {
     }
 
     public ReviewDetailDto convertToDto(Review review) {
+
+        // 해시태그 가져오기
         List<Hashtag> hashtags = review.getHashtags().stream()
                 .map(ReviewHashtag::getHashtag) // ReviewHashtag에서 Hashtag 추출
                 .collect(Collectors.toList()); // List<Hashtag>로 변환
+
+        // 사용자의 아이디로 사용자 정보 가져오기
+        Optional<Customer> customer = customerRepository.findByCustomerId(review.getCustomerId());
+
+        String defaultCustomerImage = "/assets/img/defaultImage.jpg"; // 기본 고객 프로필 이미지 경로
+
+        // Customer 엔티티에서 프로필 이미지 가져오기
+        String profileImg = customer.isPresent() && customer.get().getProfileImage() != null ? customer.get().getProfileImage() : defaultCustomerImage;
+
         return ReviewDetailDto.builder()
                 .reservationId(review.getReservationId() != null ? review.getReservationId() : null)
                 .customerId(review.getCustomerId())
@@ -172,6 +186,7 @@ public class ReviewService {
                 .storeName(review.getStoreName())
                 .storeImg(review.getStoreImg())
                 .address(review.getAddress())
+                .profileImg(profileImg)
                 .hashtags(hashtags)
                 .build();
     }
