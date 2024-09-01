@@ -74,6 +74,7 @@ public class ReviewService {
         // Review 객체 생성
         Review review = Review.builder()
                 .reservationId(reservation.getReservationId())
+                .product(product)
                 .customerId(customerId)
                 .storeId(reservationByReservationId.getStoreId()) //storeId
                 .storeName(reservationByReservationId.getStoreName())

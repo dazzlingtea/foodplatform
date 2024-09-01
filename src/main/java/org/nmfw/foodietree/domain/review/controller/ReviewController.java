@@ -28,9 +28,6 @@ import java.util.Map;
 public class ReviewController {
     private final ReviewService reviewService;
 
-    @Value("${env.upload.path}")
-    private String uploadDir;
-
     /**
      * 리뷰가 이미 작성되었는지 확인
      *
@@ -92,9 +89,9 @@ public class ReviewController {
                 log.warn("Error: {}", errorMessage);
                 return ResponseEntity.badRequest().body(errorMessage);
             }
-            // 별점은 1점 이상인지 확인
+            // 별점은 1점 이상인지, null은 아닌지 확인
             Integer reviewScore = reviewSaveDto.getReviewScore();
-            if (reviewScore < 1) {
+            if (reviewScore == null || reviewScore < 1) {
                 String errorMessage = "별점은 최소 1점 이상 이어야 합니다.";
                 log.warn("Error: {}", errorMessage);
                 return ResponseEntity.badRequest().body(errorMessage);
