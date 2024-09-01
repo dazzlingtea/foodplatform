@@ -5,7 +5,7 @@ import styles from "./MyInfo.module.scss";
 import { useNavigate } from "react-router-dom";
 import {getRefreshToken, getSubName, getToken, getUserRole} from "../../utils/authUtil";
 import Notification from "../notification/Notification";
-import {BACK_HOST, BASE_URL, LOCAL_HOST, USER_URL} from "../../config/host-config";
+import {BACK_HOST, BASE_URL, API_BASE_URL, USER_URL} from "../../config/host-config";
 
 // 내 정보 들어가기
 const MyInfo = () => {
@@ -74,7 +74,7 @@ const MyInfo = () => {
                         {/* Store 아이콘과 프로필 이미지 */}
                         <Notification email={userInfo.email} role={getUserRole()} />
                         <img
-                            src={`${BASE_URL}` + userInfo.storeImg}
+                            src={`${API_BASE_URL}` + userInfo.storeImg}
                             alt="Store Profile"
                             className={styles.profileImage}
                             onClick={() => handleIconClick("/store")}
@@ -85,7 +85,7 @@ const MyInfo = () => {
                         {/* Customer 아이콘과 프로필 이미지 */}
                         <Notification email={userInfo.email} role={getUserRole()} />
                         <img
-                            src={`${BASE_URL}` + userInfo.profileImage}
+                            src={`${API_BASE_URL}` + userInfo.profileImage}
                             alt="Customer Profile"
                             className={styles.profileImage}
                             onClick={() => handleIconClick("/customer")}
@@ -96,7 +96,7 @@ const MyInfo = () => {
                         {/* Admin 아이콘과 프로필 이미지 */}
                         <Notification email={userInfo.email} role={getUserRole()} />
                         <img
-                            src={`${BASE_URL}` + userInfo.profileImage}
+                            src={`${API_BASE_URL}` + userInfo.profileImage}
                             alt="Customer Profile"
                             className={styles.profileImage}
                             onClick={() => handleIconClick("/admin")}

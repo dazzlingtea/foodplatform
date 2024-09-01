@@ -14,7 +14,7 @@ const CHAT = '/chat';
 const NOTIFICATION = '/notification';
 
 const EC2_PUBLIC_IP = "http://3.38.5.29:";
-const FOODIETREE_SHOP_URL = "http://foodietree.shop"; // 배포환경
+const FOODIETREE_SHOP_URL = "https://foodietreee.shop"; // 배포환경
 
 // 꼭 병합하기 전에 꼭 꼭 원래코드로 돌려놓기!!! //window.location.origin;
 export const BASE_URL = "http://localhost:8083";
