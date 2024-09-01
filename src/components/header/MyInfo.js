@@ -15,8 +15,8 @@ const MyInfo = () => {
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                // const response = await fetch(`${USER_URL}/info`, {
-                    const response = await fetch(`${BASE_URL}/user/info`, {
+                const response = await fetch(`${USER_URL}/info`, {
+                //     const response = await fetch(`${BASE_URL}/user/info`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ` + getToken(),

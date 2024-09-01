@@ -155,8 +155,8 @@ const ReviewForm = ({ onSubmit, reservationId, storeImg }) => {
       formData.append('reviewData', JSON.stringify(reviewData));
 
       // 데이터 전송
-      // const response = await fetch(`${REVIEW_URL}/save`, {
-        const response = await fetch(`${BASE_URL}/review/save`, {
+      const response = await fetch(`${REVIEW_URL}/save`, {
+      //   const response = await fetch(`${BASE_URL}/review/save`, {
         method: 'POST',
         headers: {
           'Authorization': 'Bearer ' + getToken(),
