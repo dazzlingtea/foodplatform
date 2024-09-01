@@ -21,6 +21,8 @@ const CommunityPage = () => {
 
         if (Array.isArray(reviewsData)) {
           setReviews(reviewsData);
+
+          console.log("fetch 받은 리뷰 데이터 JSON : ",reviewsData);
           
           // 모든 리뷰의 reservationId를 추출
           const reservationIds = reviewsData.map(review => review.reservationId);
@@ -69,7 +71,7 @@ const CommunityPage = () => {
         return (
           <Review
             key={review.reservationId}
-            profilePic={review.profilePic}
+            profilePic={`${BASE_URL}` + review.profileImg }
             name={name}
             reviewImage={review.reviewImg}
             reviewText={review.reviewContent}
