@@ -2,6 +2,7 @@
   "name": "foodietree_FE",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://Maybaba.github.io/foodietree_FE",
   "dependencies": {
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
@@ -69,5 +70,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
   }
 }
