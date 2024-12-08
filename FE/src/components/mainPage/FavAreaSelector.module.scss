@@ -1,0 +1,69 @@
+.container {
+  padding: 10px 15px;
+  background: rgba(245, 245, 221, 1);
+  width: 300px;
+  position: fixed;  
+  top: 12px;
+  left: 150px;
+  z-index: 1000; 
+}
+
+.title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #4a7243;
+  text-align: left;
+  cursor: pointer;
+}
+
+.areaList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.areaList.expanded {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.areaItem {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #d0cbcb;
+  cursor: pointer;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background-color: #f1f1f1;
+  }
+}
+
+.areaName {
+  font-size: 16px;
+  font-weight: normal;
+  color: #343434;
+  margin-right: 5px;
+}
+
+.areaAlias {
+  font-size: 10px;
+  font-weight: bold;
+  color: rgb(68, 132, 68);
+}
+
+@media (max-width: 400px) {
+  .container {
+    width: 230px;
+    left: 10px;
+    top: 11px;
+  }
+}

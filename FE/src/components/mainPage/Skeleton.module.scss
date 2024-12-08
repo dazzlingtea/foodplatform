@@ -1,0 +1,99 @@
+.wrap {
+    margin: 0 auto;
+    position: relative;
+    inline-size: 70%;
+    padding-bottom: 10px;
+    
+    &.init {
+      margin-top: 72px;
+    }
+  }
+  
+  .list {
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    max-width: 100%;
+    gap: 20px;
+  }
+  
+  .skeleton {
+    flex-basis: calc(25% - 20px);
+    display: flex;
+    flex-direction: column;
+    height: 250px;
+    border-radius: 10px;
+    position: relative;
+    animation: pulse 1.5s infinite ease-in-out;
+    margin-bottom: 20px;
+  
+    .imageSkeleton {
+      width: 100%;
+      height: 180px;
+      background-color: #ccc;
+      border-radius: 10px;
+      animation: pulse 1.5s infinite ease-in-out; // 애니메이션 추가
+    }
+  
+    .contentSkeleton {
+      padding: 0 10px;
+      height: 70px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+  
+      .titleSkeleton {
+        width: 70%;
+        animation: pulse 1.5s infinite ease-in-out; // 애니메이션 추가
+      }
+  
+      div {
+        display: flex;
+        justify-content: space-between;
+  
+        .dateSkeleton {
+          width: 40%;
+          height: 15px;
+          animation: pulse 1.5s infinite ease-in-out; // 애니메이션 추가
+        }
+  
+        .countSkeleton {
+          width: 20%;
+          height: 15px;
+          animation: pulse 1.5s infinite ease-in-out; // 애니메이션 추가
+        }
+      }
+    }
+  }
+  
+  .titleSkeleton,
+  .dateSkeleton,
+  .countSkeleton {
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+  
+  @media (max-width: 400px) {
+    .wrap {
+      margin: 0 20px;
+      width: 90%;
+    }
+    
+    .skeleton {
+      flex-basis: 100%;
+    }
+  }
+  

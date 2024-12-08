@@ -1,0 +1,114 @@
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+li {
+  margin: 5px 0;
+  opacity: .9;
+}
+
+.container {
+  margin: 10px auto;
+  width: 100px;
+  border: 1px solid white;
+  position: relative;
+  height: 100px;
+}
+
+.profile {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+  padding: 0 17px;
+  background-color: #fff;
+  box-sizing: border-box;
+  h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+}
+
+.nav {
+  margin-top: 40px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 21px;
+  text-align: center;
+  width: 100%;
+  margin-right: 10px;
+}
+
+.nav-link {
+  width: 100%;
+  padding-top: .6rem;
+  padding-bottom: .6rem;
+  border-radius: .75rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  @media (hover:hover) and (pointer: fine) {
+    &:hover {
+      background-color: rgb(224, 238, 224);
+    }
+  }
+}
+
+.stats {
+  font-size: 18px;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  flex-direction: column;
+
+  div.stat-box {
+    padding: 20px;
+    width: 100%;
+    margin-bottom: 10px;
+    text-align: center;
+    border-radius: 15px;
+    margin-top: 20px;
+
+    @media (hover:hover) and (pointer: fine) {
+      &:hover {
+        // transform: translateY(-5px);
+        // box-shadow: 0 5px 13px rgba(0, 0, 0, 0.2);
+        font-size: 19px;
+      }
+    }
+    div {
+      padding: 20px;
+      width: 100%;
+      margin-bottom: 10px;
+      text-align: center;
+      border-radius: 15px;
+      margin-top: 20px;
+      font-size: 16px;
+      background: linear-gradient(135deg, #fdfcfc, #f1f8ee);
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .profile {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 10;
+    left:-100%;
+    transition: .40s ease-in-out 0s;
+    overflow-y: auto;
+    &.on {
+      left: 0;
+    }
+  }
+  .stats {
+    margin-bottom: 90px;
+  }
+}

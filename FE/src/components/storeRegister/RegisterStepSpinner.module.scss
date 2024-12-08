@@ -1,0 +1,21 @@
+.spinnerBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 700px;
+  margin: 0 auto;
+
+  span {
+    font-size: 20px;
+    font-weight: 500;
+    color: #2d2d2f;
+  }
+}
+.spinner {
+  margin: 0 auto 50px;
+}
+@media (max-width: 400px) {
+
+}

@@ -1,0 +1,81 @@
+.reservation-list {
+  .reservation-item {
+    &.canceled,
+    .CANCELED {
+      border: solid 2px #E68a8c;
+      border-radius: 15px;
+    }
+
+    &.reserved,
+    .RESERVED {
+      border: solid 2px #89b449;
+      border-radius: 15px;
+    }
+
+    &.pickedup,
+    .PICKEDUP {
+      border: solid 2px #407f3e;
+      border-radius: 15px;
+    }
+
+    &.noshow,
+    .NOSHOW {
+      border: solid 2px gray;
+      border-radius: 15px;
+    }
+  }
+}
+
+#reservation-modal {
+  #modal-store-reservation-details {
+    .reservation-detail-item {
+      padding: 30px;
+      text-align: center;
+      font-size: 20px;
+      line-height: 2;
+
+      img {
+        padding: 20px;
+      }
+
+      .caution {
+        color: #f16d6d;
+        font-weight: 700;
+        font-size: 22px;
+      }
+
+      .pickup-nickname {
+        margin: 30px;
+
+        span {
+          font-family: 'Jua', 'NIXGONM-Vb', 'sans-serif';
+          font-size: 25px;
+        }
+      }
+    }
+  }
+
+  #reservation-detail-item {
+    #modal-detail {
+      padding: 30px;
+      text-align: center;
+      font-size: 20px;
+      line-height: 2;
+    }
+  }
+}
+
+#store-calendar-modal {
+  #modal-schedule-details {
+    text-align: center;
+    line-height: 2;
+    font-size: 20px;
+    padding-top: 60px;
+    padding-bottom: 25px;
+
+    .today-date {
+      font-family: 'Jua', 'NIXGONM-Vb', 'sans-serif';
+      font-size: 24px;
+    }
+  }
+}

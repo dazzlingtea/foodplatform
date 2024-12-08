@@ -1,0 +1,44 @@
+.myPageArea {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  color: #111;
+  margin-top: 60px;
+
+  .container {
+    width: 80%;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    margin: 20px auto;
+    display: flex;
+  }
+
+  .content {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 1920px){
+
+}
+
+@media (max-width: 400px) {
+  .myPageArea {
+
+    .container {
+      width: 100%;
+      border: none;
+      margin: 0 auto;
+
+      .content {
+        width: 100%;
+      }
+    }
+  }
+}

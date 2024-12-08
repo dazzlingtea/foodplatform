@@ -1,0 +1,17 @@
+$font-pretendard: "Pretendard Variable", Pretendard, sans-serif;
+$table-width: 1580px;
+
+.tableSection{
+  margin: 94px auto 50px;;
+  width: $table-width;
+  min-height: 650px;
+  padding: 20px 10px;
+  border-radius: 20px;
+  font-family: $font-pretendard;
+  background: #FFFFFF;
+
+  .chatListContainer{
+    display: flex;
+    justify-content: space-between;
+  }
+}

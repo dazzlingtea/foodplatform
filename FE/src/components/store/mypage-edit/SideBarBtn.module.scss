@@ -1,0 +1,74 @@
+.checkbox {
+  display: none;
+}
+
+.toggle {
+  position: relative;
+  width: 30px;
+  cursor: pointer;
+  margin: auto;
+  display: block;
+  height: calc(4px * 3 + 11px * 2);
+}
+
+:root {
+  --bar-hegiht : 3px;
+}
+
+.bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: var(--bar-hegiht);
+  border-radius: calc(var(--bar-hegiht) / 2);
+  background: #06654E;
+  color: inherit;
+  opacity: 1;
+  transition: none 0.35s cubic-bezier(.5,-0.35,.35,1.5) 0s;
+}
+
+/***** Tornado Animation *****/
+
+.bar--top {
+  bottom: calc(50% + 9px + var(--bar-hegiht)/ 2);
+  transition-property: bottom,transform;
+  transition-delay: calc(0s + 0.35s) * .6;
+}
+
+.bar--middle {
+  top: calc(50% - var(--bar-hegiht)/ 2);
+  transition-property: opacity,transform;
+  transition-delay: calc(0s + 0.35s * .3);
+}
+
+.bar--bottom {
+  top: calc(50% + 9px + var(--bar-hegiht)/ 2);
+  transition-property: top,transform;
+  transition-delay: 0s;
+}
+
+.checkbox:checked + .toggle .bar--top {
+  transform: rotate(-135deg);
+  transition-delay: 0s;
+  bottom: calc(50% - 4px/ 2);
+}
+
+.checkbox:checked + .toggle .bar--middle {
+  opacity: 0;
+  transform: rotate(-135deg);
+  transition-delay: calc(0s + 0.35s * .3);
+}
+
+.checkbox:checked + .toggle .bar--bottom {
+  top: calc(50% - 4px/ 2);
+  transform: rotate(-225deg);
+  transition-delay: calc(0s + 0.35s * .6);
+}
+
+.sidebarBtn {
+  position: absolute;
+  top: 13px; // header size에 맞게 수정
+  left: 30px;
+  background: none;
+  border: none;
+}

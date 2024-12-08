@@ -1,0 +1,76 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: "Pretendard Variable", Pretendard, sans-serif;
+  /*font-family: Inter, Avenir, Helvetica, Arial, sans-serif;*/
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  --color-gray-100: #f4f3ff;
+  --color-gray-200: #dddddf;
+  --color-gray-300: #cccfcf;
+  --color-gray-400: #aaafaf;
+  --color-gray-500: #8a878f;
+  --color-gray-600: #65636f;
+  --color-gray-700: #4b4a4f;
+  --color-gray-800: #31302f;
+  --color-gray-900: #1f1d1f;
+
+  --color-primary-100: #fcf3e1;
+  --color-primary-200: #fceccd;
+  --color-primary-300: #fae1af;
+  --color-primary-400: #fbd997;
+  --color-primary-500: #ffd37c;
+  --color-primary-600: #f9c762;
+  --color-primary-700: #fbc14d;
+  --color-primary-800: #fab833;
+  --color-primary-900: #f6ad1b;
+
+  --color-main-100: #DEF9C4;
+  --color-main-200: #9CDBA6;
+  --color-main-300: #50B498;
+  --color-main-400: #468585;
+  --color-main-500: #0D6E74;
+}
+
+body {
+  margin: 0;
+  background: white;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  margin: 2rem auto;
+  text-align: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto; /* 중앙 정렬 */
+}
+
+footer {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto; /* 중앙 정렬 */
+}
+button {
+  font-family: "Pretendard Variable", Pretendard, sans-serif;
+}
+input {
+
+}

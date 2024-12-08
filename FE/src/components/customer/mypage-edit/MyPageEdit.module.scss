@@ -1,0 +1,16 @@
+.container {
+  width: 80%;
+  margin: 20px auto 0;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  display: flex;
+  background: white;
+}
+
+@media (max-width: 400px) {
+  .container {
+    width: 100%;
+    border: none;
+    margin-top: 0;
+  }
+}

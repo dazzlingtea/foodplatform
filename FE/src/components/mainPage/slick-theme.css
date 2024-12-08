@@ -1,0 +1,29 @@
+
+.slick-prev:before,
+.slick-next:before {
+  color: rgb(68, 132, 68) !important;
+  font-size: 30px;
+  position: relative;
+  top: -20px;
+  left: -5px;
+}
+
+@media (max-width: 400px) {
+
+    .slick-next:before, .slick-prev:before{
+        font-size: 20px;
+    }
+    .slick-prev{
+        top:2px;
+        left: 300px;
+    }
+    .slick-next{
+        top:2px;
+        right: 0px;
+    }
+}
+
+
+.slick-list{
+    padding: 0 0 !important;
+}

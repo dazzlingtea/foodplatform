@@ -1,0 +1,89 @@
+.bottomPlaceOrder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 10%;
+
+  .productAmtAdjustBtn {
+    display: flex;
+    justify-content: space-evenly;
+    width: 25%;
+
+    .adjustBtn {
+      border-radius: 35px;
+      border: none;
+      width: 40px;
+      height: 40px;
+      margin: auto 0;
+    }
+
+    .initialCnt {
+      font-size: 25px;
+      font-weight: 700;
+    }
+  }
+
+  .placeOrderBtn {
+    border: 1px solid rgb(231, 231, 231);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 8px 0px;
+    background-color: rgba(87, 173, 88, 0.98);
+    box-shadow: transparent 0px 0px 0px 1px inset;
+    color: #fff;
+    font-weight: 700;
+    font-size: 28px;
+    height: 100%;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    &.reservation {
+      background-color: #d3d3d3;
+      color: #000;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+
+  .bottomPlaceOrder {
+    //outline: 2px solid blue;
+    position: fixed;
+    bottom: 17px;
+    display: flex;
+    justify-content: space-between;
+    width: 84%;
+    left: 21px;
+    background: white;
+    padding: 4px 0;
+
+    .productAmtAdjustBtn {
+      width: 35%;
+
+      .adjustBtn {
+        width: 35px;
+        height: 35px;
+      }
+
+      .initialCnt {
+        font-size: 22px;
+      }
+    }
+
+    .placeOrderBtn {
+      width: 65%;
+      font-size: 22px;
+      padding: 11px;
+
+      &.reservation {
+        background-color: #d3d3d3;
+        color: #000;
+      }
+    }
+  }
+
+
+}

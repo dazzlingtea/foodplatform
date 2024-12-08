@@ -1,0 +1,41 @@
+
+// MyInfo.module.scss
+
+.myInfo {
+  color: #0d0d0d;
+  position: relative;
+  margin-left: 60px;
+}
+
+.myInfoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.myIconContainer {
+  margin-left: auto; /* 오른쪽 끝으로 이동 */
+  display: flex;
+  align-items: center;
+}
+
+.profileImage {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+  cursor: pointer;
+  border: 3px #5c915c solid;
+}
+
+.admin {
+  position: absolute;
+  top: 55px;
+  font-size: 12px;
+}
+
+@media (max-width: 400px) {
+  .profileImage {
+    display: none;
+  }
+}

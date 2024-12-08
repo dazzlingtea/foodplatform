@@ -1,0 +1,54 @@
+
+.productAddItem {
+  line-height: 2;
+
+  .warning {
+    color: red;
+  }
+
+  .button {
+    /* 원하는 버튼 스타일 설정 */
+  }
+
+  .img {
+    /* 이미지 스타일 설정 */
+  }
+
+  .productAmtAdjustBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .adjustBtn {
+      margin: 30px 24px;
+      padding: 8px;
+      border-radius: 11px;
+      border: none;
+    }
+
+    .initialCnt {
+      font-size: 23px;
+      font-weight: 700;
+    }
+  }
+
+  .confirmBtn {
+    border: none;
+    color: #fff;
+    font-weight: 700;
+    margin-top: 28px;
+    border-radius: 11px;
+    font-size: 18px;
+    padding: 11px 36px;
+    background: linear-gradient(to bottom, rgba(246, 160, 129, 0.73), rgba(243, 101, 33, 0.73));
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    &:hover,
+    &:focus {
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+      background: linear-gradient(to bottom, #9cb688, #6b9a61);
+      transition: 0.5s;
+    }
+  }
+}

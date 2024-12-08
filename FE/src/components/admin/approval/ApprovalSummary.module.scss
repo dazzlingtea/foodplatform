@@ -1,0 +1,67 @@
+
+.summary-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  //justify-content: space-around;
+  //box-shadow: 1px 2px 8px 5px rgba(100,100,100,0.1);
+  //width: 1580px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  min-height: 50px;
+  margin: 5px auto 20px;
+  //gap: 30px;
+
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-right: 50px;
+  }
+  .summary-total, .summary-pending, .summary-approved, .summary-rejected {
+    display: flex;
+    flex-direction: row;
+    align-content: end;
+    //border-left: 1px solid #e5e5e8;
+    padding: 5px 40px 5px 5px;
+
+    span {
+      padding-left: 5px;
+      vertical-align: bottom;
+
+      &:first-child {
+        font-size: 16px;
+        font-weight: 400;
+        color: #5f5f62;
+        line-height: 24px;
+      }
+      &:last-child {
+        font-size: 20px;
+        font-weight: 700;
+        //color: #468585;
+        color: #50B498;
+        line-height: 24px;
+      }
+    }
+  }
+
+  //.summary-pending {
+  //  span:last-child {
+  //    color: #353535;
+  //  }
+  //}
+  //.summary-approved {
+  //  span:last-child {
+  //    color: #1ad46a;
+  //  }
+  //}
+  //.summary-rejected {
+  //  span:last-child {
+  //    color: #ff5b5b;
+  //  }
+  //}
+  .H2otherPage{
+    font-weight: 500;
+    color: #807f83;
+    cursor: pointer;
+  }
+
+}

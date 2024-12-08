@@ -1,0 +1,240 @@
+.container {
+  background-color: #f5f5f5;
+}
+
+/* High Section Styles */
+.highSection {
+  text-align: center;
+  margin-bottom: 40px;
+  height: 300px;
+  background-color: #F0FFE1;
+}
+
+.highSection h1,
+.highSection h2,
+.highSection strong {
+  color: #383838;
+}
+
+.highSection h1 {
+  font-size: 40px;
+  font-weight: 500;
+  position: relative;
+  top: 80px;
+  right: 440px;
+}
+
+.highSection h2 {
+  font-size: 40px;
+  font-weight: 500;
+  position: relative;
+  top: 30px;
+  right: 180px;
+}
+
+.highSection strong {
+  font-size: 52px;
+  font-weight: 900;
+  position: relative;
+  top: 70px;
+  right: 430px;
+}
+
+.highSection .highlights {
+  background-color: #AFD485;
+  position: relative;
+  width: 260px;
+  height: 30px;
+  left: 400px;
+  top: 110px;
+}
+
+/* Tree Planting Section Styles */
+.treePlanting {
+  width: 900px;
+  max-width: 1200px;
+  height: 600px;
+  padding: 20px;
+  margin: 30px auto;
+  box-sizing: border-box;
+}
+
+.treePlanting h2 {
+  font-size: 30px;
+  font-weight: 600;
+  margin: 50px 0 20px;
+  text-align: left;
+}
+
+.seoulMap {
+  position: relative;
+  bottom: 20px;
+  width: 500px;
+  height: 500px;
+  background-image: url("../../assets/commutiny-img/seoulmap.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.treeInfo {
+  display: flex;
+  justify-content: center;
+  width: 300px;
+  position: relative;
+  bottom: 400px;
+  left: 480px;
+}
+
+.treeStats {
+  display: flex;
+  flex-direction: column;
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.statNumber {
+  font-size: 50px;
+  color: #4caf50;
+  margin-right: 5px;
+}
+
+.statLabel {
+  font-size: 30px;
+  color: #666;
+}
+
+/* Latest Reviews Section Styles */
+.latestReviews {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 900px;
+  margin: 30px auto;
+}
+
+.latestReviews h3 {
+  font-size: 30px;
+  font-weight: 600;
+  margin: 50px 0 20px;
+  text-align: left;
+}
+
+.reviewGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  max-width: 900px;
+  width: 100%;
+  justify-items: center;
+}
+
+.reviewItem {
+  background-color: #e0e0e0;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  height: 250px;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.reviewItem:nth-child(odd) {
+  align-items: flex-end;
+}
+
+.reviewItem:nth-child(even) {
+  align-items: flex-start;
+}
+
+.viewMoreButton {
+  font-size: 18px;
+  font-weight: 500;
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #50B498;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 900px;
+}
+
+/* Write Review Section Styles */
+.writeReview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 900px;
+  margin: 30px auto;
+}
+
+.writeReview h4 {
+  font-size: 30px;
+  font-weight: 600;
+  margin: 50px 0 20px;
+  text-align: left;
+}
+
+.pendingReviewsList {
+  width: 100%;
+  max-height: 600px;
+  overflow: scroll;
+  margin-bottom: 60px;
+}
+
+.pendingReviewItem {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.pendingReviewItem img {
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.pendingReviewDetails {
+  flex: 1;
+  margin-left: 20px;
+}
+
+.pendingReviewDetails h4 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.pendingReviewDetails p {
+  font-size:16px;
+  margin-bottom: 10px;
+}
+
+.writeReviewButton {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 20px;
+  background-color: #50B498;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}

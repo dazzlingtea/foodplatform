@@ -1,0 +1,71 @@
+.cancelDetailInfo {
+  padding: 0 60px;
+
+  .withoutFee {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .withFee {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+
+    p {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+
+      .cancelFee{
+        font-weight: 700;
+        font-size: 20px;
+      }
+    }
+
+    .feeRule {
+      font-size: 15px;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 0;
+    }
+
+
+  }
+
+  .cancelConfirmBtn {
+    padding: 0 20px;
+    height: 25px;
+    margin-top: 15px;
+    margin-bottom: 18px;
+    border: none;
+    border-radius: 13px;
+    color: rgba(13, 13, 13, 0.8);
+  }
+
+  .feeRule {
+    font-size: 13px;
+    color: rgba(13, 13, 13, 0.73);
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .cancelDetailInfo {
+    padding: 0;
+
+    .withoutFee {
+
+    }
+
+    .withFee {
+
+
+      p {
+
+      }
+    }
+  }
+}
