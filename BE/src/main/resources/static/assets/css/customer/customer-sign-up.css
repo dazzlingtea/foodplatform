@@ -1,0 +1,204 @@
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.none {
+    display: none;
+}
+
+header .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.margarine-regular {
+    font-family: "Margarine", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    padding-right: 30px; 
+}
+
+header .logo-img {
+    width: 70px;
+    height: 70px;
+}
+header .logo-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+section.input-area {
+    padding: 50px 0;
+    text-align: center;
+}
+
+section.input-area .container {
+    width: 270px;
+}
+
+section.input-area .container h2 {
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+section.input-area .container input {
+    display: block;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 15px;
+    padding: 0 10px;
+    border: 1px solid var(--green1-color);
+    border-radius: 10px;
+    background-color: var(--white-color);
+}
+
+section.input-area .container .wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+section.input-area button {
+    display: block;
+    margin: 0 auto;
+    width: 270px;
+    height: 50px;
+    background-color: var(--header-font-color);
+    color: var(--white-color);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+section.input-area button.disable {
+    cursor: not-allowed;
+    background-color: gray;
+}
+
+section.input-area .container button#prev-btn {
+    margin-right: 10px;
+}
+
+
+section.input-area .id-verify-wrapper {
+    margin-top: 20px;
+}
+
+section.input-area .id-verify-wrapper h2 {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+section.input-area .id-verify-wrapper h3 {
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+#countdown {
+    margin-bottom: 10px;
+}
+
+
+/* -------------------------------선호하는 음식 선택 --------------------------------------*/
+
+section.input-area .container .food-wrapper {
+    position: relative;
+}
+
+section.input-area .container .food-wrapper .foods {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 1000px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+}
+
+section.input-area .container .food-wrapper .foods .food-item {
+    width: 200px;
+    height: 170px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 15px;
+    padding: 10px;
+}
+
+section.input-area .container .food-wrapper .foods .food-item.checked {
+    border: 4px solid var(--green3-color);
+}
+
+section.input-area .container .food-wrapper .foods input {
+    display: none;
+}
+
+section.input-area .container .food-wrapper .foods label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+section.input-area .container .food-wrapper .foods label span {
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+section.input-area .container .food-wrapper .foods label img {
+    width: 100%;
+    height: 80%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+section.input-area .container .food-wrapper .skip-or-next-wrapper {
+    /* foods 와 거리 벌리기 */
+    margin-top: 500px;
+}
+
+section.input-area .container .food-wrapper .skip-or-next-wrapper button {
+    margin-bottom: 10px;
+}
+
+
+/* -------------------------------선호하는 지역 선택 --------------------------------------*/
+
+section.input-area .location-wrapper {
+    width: 800px;
+    margin: 0 auto;
+}
+
+section.input-area .location-wrapper .locations {
+    display: flex;
+    justify-content: center;
+}
+
+section.input-area .location-wrapper .locations #map {
+    margin-top: 20px;
+    width: 100%;
+    height: 400px;
+}
+
+section.input-area .location-wrapper .skip-or-next-wrapper {
+    margin-top: 20px;
+}
+
+section.input-area .location-wrapper .skip-or-next-wrapper button {
+    margin-bottom: 10px;
+}
+
+footer {
+    background-color: var(--white-color);
+    color: var(--footer-font-color);
+    text-align: center;
+    padding: 20px 0;
+}

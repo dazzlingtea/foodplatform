@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.nmfw.foodietree.domain.product.mapper.ProductMainPageMapper">
+
+    <!-- 모든 제품 정보 조회 -->
+    <select id="findAll" resultType="org.nmfw.foodietree.domain.product.dto.response.ProductDto">
+        SELECT
+        s.store_name,
+        s.price,
+        s.store_img,
+        p.pickup_time
+        FROM
+        tbl_product p
+        JOIN
+        tbl_store s
+        ON
+        p.store_id = s.store_id
+        GROUP BY s.store_id
+    </select>
+
+    <!-- 선호 음식 카테고리별 제품 조회 -->
+    <select id="findCategoryByFood" resultType="org.nmfw.foodietree.domain.product.dto.response.ProductDto">
+        SELECT
+        s.store_id,
+        s.store_name,
+        s.price,
+        s.store_img,
+        s.category,
+        p.product_id,
+        p.pickup_time
+        FROM
+        tbl_product p
+        JOIN
+        tbl_store s
+        ON
+        p.store_id = s.store_id
+        WHERE
+        s.category IN
+        <foreach collection="preferredFood" item="arr" open="(" close=")" separator=",">
+            #{arr.preferredFood}
+        </foreach>
+        GROUP BY
+        s.store_name;
+    </select>
+
+    <!-- 선호 지역별 제품 조회 -->
+    <select id="findCategoryByArea" resultType="org.nmfw.foodietree.domain.product.dto.response.ProductDto">
+        SELECT
+        p.product_id, -- 상품 ID
+        p.store_id, -- 가게 ID
+        p.pickup_time, -- 픽업 시간
+        p.product_upload_date, -- 상품 업로드 날짜
+        s.store_img, -- 가게 이미지
+        s.store_name, -- 가게 이름
+        s.category, -- 카테고리
+        s.price, -- 가격
+        s.address -- 주소
+        FROM
+        tbl_product p
+        JOIN
+        tbl_store s
+        ON
+        p.store_id = s.store_id
+        WHERE
+        SUBSTRING_INDEX(s.address, ' ', 2) IN (
+        SELECT
+        SUBSTRING_INDEX(f.preferred_area, ' ', 2)
+        FROM
+        tbl_fav_area f
+        WHERE
+        f.customer_id = #{customerId}
+        )
+        GROUP BY
+        s.store_name;
+    </select>
+
+    <!-- 선호 가게별 제품 조회 (LIKE) -->
+    <select id="findCategoryByLike" resultType="org.nmfw.foodietree.domain.product.dto.response.ProductDto">
+        SELECT
+        p.product_id,
+        p.product_upload_date,
+        s.store_id,
+        s.store_name,
+        s.price,
+        s.address,
+        s.store_img,
+        s.category,
+        p.pickup_time
+        FROM
+        tbl_product p
+        JOIN
+        tbl_store s
+        ON
+        p.store_id = s.store_id
+        WHERE
+        s.store_id IN (
+        SELECT
+        fs.store_id
+        FROM
+        tbl_fav_store fs
+        WHERE
+        fs.customer_id = #{customerId}
+        )
+        GROUP BY
+        s.store_name;
+
+    </select>
+
+    <select id="findById" parameterType="string" resultType="org.nmfw.foodietree.domain.product.dto.response.ProductDto">
+        SELECT
+        p.product_id,
+        p.store_id,
+        p.product_upload_date,
+        s.store_img,
+        s.store_name,
+        s.category,
+        s.address,
+        s.price,
+
+        p.pro_image,
+        p.pickup_time
+        FROM
+        tbl_product p
+        JOIN
+        tbl_store s ON p.store_id = s.store_id
+        WHERE
+        p.product_id = #{productId}
+    </select>
+
+</mapper>

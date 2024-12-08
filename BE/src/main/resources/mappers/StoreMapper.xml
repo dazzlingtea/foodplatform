@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.nmfw.foodietree.domain.store.mapper.StoreMapper">
+
+  <update id="signUpUpdateStore">
+    UPDATE tbl_Store
+    SET refresh_token_expire_date = #{refreshTokenExpireDate}
+    WHERE store_id = #{storeId}
+  </update>
+
+  <insert id="signUpSaveStore">
+    INSERT INTO tbl_Store
+    (store_id, refresh_token_expire_date, user_type)
+    VALUES (#{storeId},#{refreshTokenExpireDate}, #{userType})
+  </insert>
+
+  <insert id="save">
+    INSERT INTO tbl_store
+      (store_id, password, category, address, approve, warning_count, price, business_number)
+    VALUES (#{storeId}, #{password}, #{category}, #{address}, #{approve}, #{warningCount}, #{price}, #{businessNumber})
+  </insert>
+
+  <select id="findOne" resultType="store">
+    SELECT *
+    FROM tbl_store
+    WHERE store_id = #{storeId}
+  </select>
+
+  <insert id="storeSave">
+    INSERT INTO tbl_store
+      (store_id, password)
+    VALUES (#{storeId}, #{password})
+  </insert>
+
+  <update id="updateAutoLogin">
+    UPDATE tbl_store
+    SET session_id = #{sessionId}, limit_time = #{limitTime}
+    WHERE store_id = #{id}
+  </update>
+</mapper>

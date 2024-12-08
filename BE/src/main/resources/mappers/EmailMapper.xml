@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.nmfw.foodietree.domain.auth.mapper.EmailMapper">
+
+<!--    usertype에 따라서 email 칼럼의 expiredate 업데이트-->
+    <update id="update">
+        UPDATE tbl_verification_code
+        SET expiry_date = #{expiryDate},
+        email_verified = #{emailVerified}
+        WHERE email = #{email}
+    </update>
+
+    <insert id="save">
+        INSERT INTO
+        tbl_verification_code
+        (
+        email,
+        code,
+        expiry_date,
+        email_verified,
+        user_type
+        )
+        VALUES
+        (
+        #{email},
+        NULL,
+        #{expiryDate},
+        #{emailVerified},
+        #{userType}
+        )
+    </insert>
+
+    <select id="findByEmail" resultType="int">
+        SELECT COUNT(*)
+        FROM tbl_verification_code
+        WHERE email = #{email}
+    </select>
+
+    <select id="findOneByEmail" resultType="EmailCodeDto">
+        SELECT
+        email,
+        code,
+        expiry_date,
+        user_type
+        FROM
+        tbl_verification_code
+        WHERE
+        email = #{email}
+    </select>
+
+
+
+
+
+    <insert id="saveStore">
+        INSERT INTO
+            tbl_verification_code
+                (
+                    store_id,
+                    code,
+                    expiry_date
+                )
+        VALUES
+                (
+                    #{storeId},
+                    #{code},
+                    #{expiryDate}
+                )
+    </insert>
+</mapper>
